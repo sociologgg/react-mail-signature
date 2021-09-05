@@ -6,7 +6,8 @@ module.exports = {
     theme: {
       extend: {
         height : {
-          base : "600px"
+          base : "600px",
+          '100%':'100%'
         },
         width:{
           '475px':'475px',
@@ -24,7 +25,9 @@ module.exports = {
         },
         textColor:
         {
-          'label':'#50565F'
+          'label':'#50565F',
+
+          'login-red':'#E74825',
         },
         borderColor:
         {
