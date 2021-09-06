@@ -1,48 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 import leftbottomimg from "../images/leftbottomimg.png";
 import januslogo from "../images/januslogo.png";
 import combination from "../images/combination.png";
 import arrow from "../images/arrow.png";
-
+import Login from "../layouts/Login";
+import SignUp from "./SignUp";
 const Dashboard = () => {
+  const [page, setpage] = useState(1);
+
+  function pageManager() {
+    if (page == 1)
+      return (
+        <Login
+          setPage={() => {
+            setpage(2);
+          }}
+        />
+      );
+    else
+      return (
+        <SignUp
+          setPage={() => {
+            setpage(1);
+          }}
+        />
+      );
+  }
+  function pageTextManger() {
+    if (page == 1)
+      return (
+        <p class="text-2xl mt-4 font-bold font-inter text-login-red">Login</p>
+      );
+    else
+      return (
+        <p class="text-2xl mt-4 font-bold font-inter text-login-red">SignUp</p>
+      );
+  }
   return (
-    <div class="h-screen w-screen  flex z-10 relative justify-center px-10">
-      <div class="w-screen">
-        <div class=" flex mt-18   shadow-2xl bg-red-300 rounded-3xl ">
-          <div class="w-1/2 bg-mail-gray flex-col lg:p-20 p-16 flex justify-center items-center rounded-l-3xl ">
+    <div class="h-screen w-screen py-10 flex z-10 relative justify-center px-10">
+      <div class="w-screen h-100%">
+        <div class=" flex  h-100%  shadow-2xl  rounded-3xl overflow-hidden ">
+          <div class="w-1/2 h-100% bg-mail-gray flex-col lg:p-20 p-16 flex lg:justify-start md:justify-start justify-center  items-center rounded-l-3xl ">
             <p class="font-poppins text-2xl tracking-wider">
               Siteye girin, tasarımınızı özelleştirin ve mail imzanızı
               oluşturun!
             </p>
-            <img src={leftbottomimg} class="w-350px mt-32" />
+            <img src={leftbottomimg} class="lg:w-475px md:w-300px mt-32 w-0 " />
           </div>
           <div class=" w-1/2  bg-white  flex-col flex p-16   items-center rounded-r-3xl">
             <div class=" flex justify-center items-center  mt-2 flex flex-row rounded-r-3xl">
-              <p class="font-inter  text-lg"> created by </p>
+              <p class="font-inter  lg:text-lg md:text-md"> created by </p>
               <img src={combination} class="h-20" />
             </div>
-            <div class="flex  flex-col justify-start items-start mt-20">
-              <p class="text-label font-semibold font-poppins text-sm">
-                Username or Email
-              </p>
-              <input
-                placeholder="Enter your username or email"
-                type="e-mail"
-                class=" pl-2 lg:w-300px mt-4 h-10 border-2 border-input rounded outline-none focus:border-login-red "
-              />
-              <p class="text-label font-semibold font-poppins text-sm mt-4">
-                Password
-              </p>
-              <input
-                placeholder="Enter your password"
-                type="password"
-                class="focus:border-2  pl-2 lg:w-300px mt-4 h-10 border-2 border-input outline-none focus:border-login-red rounded"
-              />
-              <button class="bg-login-red hover:bg-login-red-hover w-100% h-10 rounded font-poppins text-white mt-10 flex items-center justify-center">
-                <p class="font-semibold ">Login</p>
-                <img src={arrow} class="w-4 ml-2" />
-              </button>
-            </div>
+            {pageTextManger()}
+            {pageManager()}
           </div>
         </div>
       </div>
