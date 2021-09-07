@@ -3,7 +3,10 @@ import januslogo from "../images/januslogo.png"
 import combination from "../images/combination.png"
 import arrow from '../images/arrow.png'
 
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 function SignUp({setPage}) {
+    const auth = getAuth();
+
     return (
          
         <div class="flex  flex-col justify-start items-start mt-16">
@@ -24,7 +27,24 @@ function SignUp({setPage}) {
        
         type="password" class="focus:border-2  pl-2 lg:w-300px mt-4 h-10 border-2 border-input outline-none focus:border-login-red rounded"/>
         
-        <button class="bg-login-red hover:bg-login-red-hover w-100% h-10 rounded font-poppins text-white mt-10 flex items-center justify-center">
+        <button 
+        onClick={()=>{
+            console.log('hello');
+            createUserWithEmailAndPassword(auth, 'yigitmemceroktay@gmail.com','12312312123123')
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    console.log(user);
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorMessage);
+  });
+
+
+        }}
+        class="bg-login-red hover:bg-login-red-hover w-100% h-10 rounded font-poppins text-white mt-10 flex items-center justify-center">
             <p class="font-semibold ">SignUp</p>
             <img src={arrow} class="w-4 ml-2"/>
         </button>
