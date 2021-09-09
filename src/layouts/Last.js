@@ -3,12 +3,12 @@ import { Redirect, Route } from "react-router";
 import Dashboard from './Dashboard';
 import HomePage from '../pages/HomePage';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-
+import Card from '../pages/Card';
 
 function Last() {
     
     let isLoggedIn = false;
-    return (
+  /*  return (
         <div>
         <Route
           exact
@@ -22,6 +22,11 @@ function Last() {
           component={Dashboard}
         ></Route>
         {isLoggedIn ? <Redirect to={"/profile"}/>: <Redirect to={"/auth"}/>}
+      </div>
+    )*/
+    return(
+      <div>
+        <Card/>
       </div>
     )
 }

@@ -14,7 +14,7 @@ function Login({ setPage }) {
 async   function   handleLogin() {
    
   
-  let a = await firebaseService.login(email, password)
+    let a = await firebaseService.login(email, password)
    if(await a)
    {
       history.push('/profile');
