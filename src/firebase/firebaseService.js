@@ -31,14 +31,13 @@ class firebaseService {
 
         localStorage.setItem("user", JSON.stringify(user));
         console.log(user);
-        return true;
+        return user;
         // ...
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
-        return false;
       });
   }
   async logout() {

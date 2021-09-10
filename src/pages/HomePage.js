@@ -1,5 +1,5 @@
 import React from "react";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import compec from "../images/compec.png";
 import compecLock from "../images/compec-lock.png";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -7,31 +7,65 @@ import { Carousel } from "react-responsive-carousel";
 import arrow from "../images/arrow.png";
 import ImageUploading from "react-images-uploading";
 import template1 from "../images/template1.png";
-import { collection, addDoc, getFirestore } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getFirestore,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 import { useDispatch } from "react-redux";
-import { useEffect,useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import { useState } from "react";
 
 const db = getFirestore();
-console.log(db);
 
 function HomePage() {
+  const [user, setUser] = useState({ email: "" });
+  const links = [];
+  const [urls, setUrls] = useState([]);
 
-
-  useEffect(() => {
+  useEffect(async () => {
     const auth = getAuth();
-    const user = window.localStorage.getItem("user");
-    setUser(user);
-    console.log(user);
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uid = user.uid;
+
+        // ...
+      } else {
+        // User is signed out
+        // ...
+      }
+    });
+    const stUser = JSON.parse(localStorage.getItem("user"));
+    console.log(stUser.uid);
+
+    const querySnapshot = await getDocs(collection(db, "links"));
+    console.log("hello");
+
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      if (stUser.uid == doc.data().uid) {
+        console.log(doc.id);
+        links.push(doc.id);
+      }
+    });
+    setUrls(links);
+    console.log(urls);
   }, []);
-  const [link,setLink] = useState('');
-  const [user, setUser] = useState({});
+
+  const [link, setLink] = useState("");
+
   const dispatch = useDispatch();
   const linkRef = useRef(null);
   const onChange = (value) => {
     setValue(value);
-    console.log(value);
   };
   const [value, setValue] = useState(0);
   const [index, setIndex] = useState(0);
@@ -47,7 +81,7 @@ function HomePage() {
   }
 
   const onImageChange = (imageList, addUpdateIndex) => {
-    console.log(imageList, addUpdateIndex);
+    // console.log(imageList, addUpdateIndex);
     setImages(imageList);
   };
 
@@ -173,8 +207,9 @@ function HomePage() {
                   companyName: companyName,
                   webSite: webSite,
                   images: imageUrls,
+                  uid: user.uid,
                 });
-                console.log("Document written by Id : ", docRef.id);
+                //console.log("Document written by Id : ", docRef.id);
                 setLink(docRef.id);
               }}
               class="w-1/2 ml-5 bg-login-red hover:bg-login-red-hover lg:w-300px h-10 rounded font-poppins text-white mt-10 flex items-center justify-center"
@@ -194,8 +229,19 @@ function HomePage() {
             <p class="font-poppins text-2xl tracking-wider text-janus-dark-blue">
               Hoşgeldiniz
             </p>
-            <p class="mt-5  font-poppins text-4xl tracking-wider "> </p>
-            <a  target="_blank" href={`${link}`} ref={linkRef}>{link}</a>
+            <p class="mt-5  font-poppins text-4xl tracking-wider ">
+              {user.email}{" "}
+            </p>
+            <a target="_blank" href={`${link}`} ref={linkRef}>
+              {link}
+            </a>
+
+            <p> Linkler</p>
+            <p>{urls[0]} </p>
+            <p>{urls[1]} </p>
+            {urls.map((url) => {
+              // console.log(url);
+            })}
             <button
               onClick={handleLogout}
               class="w-1/2 ml-5 bg-login-red hover:bg-login-red-hover lg:w-300px h-10 rounded font-poppins text-white mt-10 flex items-center justify-center"
