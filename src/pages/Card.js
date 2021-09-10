@@ -2,13 +2,13 @@ import React from 'react'
 import left from '../images/left.png'
 import letter from '../images/letter.png'
 import phone from '../images/phone.png'
-import linkedin from '../images/linkedin.png'
+import linkedinImg from '../images/linkedin.png'
 import right from '../images/right.png'
 import world from '../images/world.png'
 import imageToBase64 from 'image-to-base64/browser';
 
 import {useEffect, useState, useRef} from 'react'
-function Card() {
+function Card({imageUrlLeft, imageUrlRight}) {
   const canvasRef = useRef(null);
   const tableRef = useRef(null);
   const imageRef = useRef(null);
@@ -21,7 +21,13 @@ function Card() {
 
   const children = [];  
  
- 
+
+  const [name,setName] = useState('Lorem ipsum');
+  const [title,setTitle] = useState("dolor sit amet");
+  const [number,setNumber] = useState('consectetur');
+  const [email,setEmail] = useState('adipiscingelit@gmail.com');
+  const [linkedin,setLinkedIn] = useState("https://tr.linkedin.com/");
+  const [web,setWeb] = useState('https://www.google.com');
   //Mail Imzasinin Icini Dolduran Fonksiyon
 function createCard(name, title, linkedinSite, website, tel, mail){
 
@@ -72,12 +78,13 @@ function createCard(name, title, linkedinSite, website, tel, mail){
       const webImage2 = document.createElement("IMG");
       webImage2.src = world;
       ctx.drawImage(webImage2,0,0);
-      webImageRef.current.src = canvas.toDataURL() 
+      webImageRef.current.src = canvas.toDataURL();
+      console.log(name); 
 };
 }
 
 //FONKSIYONU CALISTIR
-createCard("Yiğit Memceroktay", "Software Developer","https://tr.linkedin.com/","https://github.com/","05533715300","yigitmemcer@gmail.com");
+createCard(name, title,linkedin,web,number,email);
 
 const [first,setFirst] = useState(true);
 const [second,setSecond] = useState(true);
@@ -88,19 +95,22 @@ const [second,setSecond] = useState(true);
         <table cellPadding="0" cellspacing="0" class="w-760px">
           <tbody>
             <tr>
-              <td  class="w-215px">
+              <td  class="w-215px pr-10">
                 <a>
                 <img
                   ref={imageRef}
-                  src={left}
+                  src={imageUrlLeft}
                   id="compecleft"
                   onLoad={()=>{
+                    /*
                     if(first){
                     const canvas = document.createElement("CANVAS");
-                    const img = document.getElementById('compecleft');
+                    const img = imageRef.current;
                     const ctx = canvas.getContext('2d');
                     canvas.style.padding = 0;
-                    
+                    console.log('img width');
+
+
                     canvas.width = 215
                     canvas.height = 300;
                   
@@ -108,8 +118,10 @@ const [second,setSecond] = useState(true);
                     ctx.drawImage(img, 1, 1);
                    // console.log(canvas.toDataURL()); 
                     img.src = canvas.toDataURL();
+                    img.width = 215;
+                    img.height =300;
                     setFirst(false);  
-                  }
+                  }*/
                   }}
                 />
                 </a>
@@ -164,7 +176,7 @@ const [second,setSecond] = useState(true);
                                 <a ref={linkedinRef} id="linkedinLink">
                                   <img
                                     
-                                    src={linkedin}
+                                    src={linkedinImg}
                                     id="linkedinImage"
                                   />
                                 </a>
@@ -188,27 +200,10 @@ const [second,setSecond] = useState(true);
               </td>
               <td class="w-145px" >
                 <img
-                  src={right}
+                  src={imageUrlRight}
                   alt="Compec_Signature_Right"
                   id="compec-right"
-                  onLoad={()=>{
-                    if(second){
-                    const canvas = document.createElement("CANVAS");
-                    const ctx = canvas.getContext('2d');
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    const img1 =  document.getElementById("compec-right");
-              
-                    canvas.style.padding = 0;
-                    canvas.width = 144;
-                    canvas.height = 300;
-                    ctx.drawImage(img1, 0, 0);
-                   
-                    img1.src = canvas.toDataURL();
-                     setSecond(false);
-                    }
-
-
-                  }}
+                  
                 />
               </td>
             </tr>
@@ -219,17 +214,57 @@ const [second,setSecond] = useState(true);
        
       </div>
       <div>
-      <button class="bg-red-500 p-10" onClick={()=>{
+        <div className="inline-block ">
+          <div className="flex grow-1 mt-3  justify-between items-center">
+        <p className="mt-5  text-xl font-semibold font-Roboto">Name</p>
+        
+        <input
+        onChange={(e)=>{setName(e.target.value)}}
+        className="ml-10 border-2 rounded-md border-blue-400 focus:border-blue-500 px-5 focus:outline-none h-8 mt-5"/>
+        </div>
+        <div className="flex grow-1 mt-3 justify-between items-center">
+        <p className="mt-5 text-xl font-semibold font-Roboto">Title</p>
+        
+        <input
+         onChange={(e)=>{setTitle(e.target.value)}}
+        className="ml-10 border-2 rounded-md border-blue-400 focus:border-blue-500  px-5 focus:outline-none h-8 mt-5"/>
+        </div>
+        <div className="flex grow-1 mt-3  justify-between items-center">
+        <p className="mt-5  text-xl font-semibold font-Roboto">Phone Number</p>
+        
+        <input
+           onChange={(e)=>{setNumber(e.target.value)}}
+        className="ml-10 border-2 rounded-md border-blue-400 focus:border-blue-500 px-5 focus:outline-none h-8 mt-5"/>
+        </div>
+        <div className="flex grow-1  mt-3 justify-between items-center">
+        <p className="mt-5  text-xl font-semibold font-Roboto">Mail</p>
+        
+        <input
+           onChange={(e)=>{setEmail(e.target.value)}}
+        className="ml-10 border-2 rounded-md border-blue-400 focus:border-blue-500 focus:outline-none h-8 mt-5 px-5"/>
+        </div>
+                  
+        <div
+         className="flex grow-1 mt-3  justify-between items-center">
+        <p className="mt-5  text-xl font-semibold font-Roboto">linkedin</p>
+        
+        <input
+           onChange={(e)=>{setLinkedIn(e.target.value)}}
+        className="ml-10 border-2 rounded-md border-blue-400 focus:border-blue-500 focus:outline-none h-8 mt-5 px-5"/>
+        </div>
+
+       
+        </div>
+      <div className="mt-10">
+      <button class="bg-janus-blue p-5 px-10 rounded-xl text-white text-xl font-bold " onClick={()=>{
         
         setNumChildren(1);
         }}
-        
-        >CLICK</button>
+        >Generate</button>
+    </div>
+ 
  </div>
- <p>
-   Giris Sayfasini Gormek icin Last.js deki comment icindeki kodu comment disina al
-
- </p>
+        
  </div>
 
     )

@@ -18,12 +18,11 @@ function Login({ setPage }) {
 
     dispatch({ type: "USER_LOGIN_REQUESTED", payload: { email, password } });
 
-    /* let a = await firebaseService.login(email, password)
+     let a = await firebaseService.login(email, password)
    if(await a)
    {
       history.push('/profile');
-   } */
-  }
+   }   }
   return (
     <div class="flex  flex-col justify-start items-start mt-16">
       <p class="text-label font-semibold font-poppins text-sm">

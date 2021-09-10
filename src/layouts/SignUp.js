@@ -12,11 +12,12 @@ import {
   useRouteMatch,
 } from "react-router-dom";
 function SignUp({ setPage }) {
+  let history = useHistory();
   function handleRegister() {
-    firebaseService.register("alimornek1458@gmail.com", "123123");
+    firebaseService.register("alimornek1458@gmail.com", "123123")
   }
 
-  let history = useHistory();
+ 
 
   return (
     <div class="flex  flex-col justify-start items-start mt-16">

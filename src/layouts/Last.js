@@ -15,25 +15,34 @@ const dataArr = [];
 
 function Last() {
   const [url, setUrls] = useState([]);
+  const [images, setImages]  = useState([{}]);
   useEffect(async () => {
     const querySnapshot = await getDocs(collection(db, "links"));
     querySnapshot.forEach((doc) => {
-      // console.log(`${doc.id} => ${doc.data()}`);
-      // console.log(doc.data());
-      arr.push(doc.id);
-      dataArr.push(doc.data());
-      console.log(dataArr);
+     
+      console.log(doc.id);
+
+   
+      dataArr.push(doc.data().images);
+      arr.push({id: doc.id, images:doc.data().images});
+      
+      
+  
     });
     setUrls(arr);
-
-    console.log(arr);
+    setImages(dataArr);
+   
   }, []);
 
-  function handleRoute() {
-    for (const i in arr) {
-      console.log(arr[i]);
-      return <Route exact path={"/" + arr[i]} component={Card}></Route>;
-    }
+  function handleRoute(images) {
+   /* for (const i in arr) {
+    
+      return <Route exact path={"/" + arr[i]} render={(props)=>{return <Card {...props}  imageUrlLeft={images[i].url1} imageUrlRight={images[i].url2}/>}}></Route>;
+    }*/
+   return  arr.map((item,index)=>{
+  
+    return <Route exact path={"/" + arr[index].id} render={(props)=>{return <Card {...props}  imageUrlLeft={arr[index].images.url1} imageUrlRight={arr[index].images.url2}/>}}></Route>;
+    })
   }
 
   const isLoggedIn = useSelector((state) => state.auth);
@@ -41,16 +50,16 @@ function Last() {
   return (
     <div>
       <Route exact path="/">
-        {isLoggedIn.isLoggedIn ? <Redirect to="/profile" /> : <Dashboard />}{" "}
+        <Redirect to="/auth"/>
       </Route>
       <Route strict path="/auth" component={Dashboard}>
-        {isLoggedIn.isLoggedIn ? <Redirect to="/profile" /> : <Dashboard />}
+      
       </Route>
       <Route exact path="/profile" component={HomePage}>
-        {isLoggedIn.isLoggedIn ? <HomePage /> : <Redirect to="auth" />}
+        
       </Route>
 
-      {handleRoute()}
+      {handleRoute(images)}
     </div>
   );
   return (

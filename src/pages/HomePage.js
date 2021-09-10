@@ -9,7 +9,7 @@ import ImageUploading from "react-images-uploading";
 import template1 from "../images/template1.png";
 import { collection, addDoc, getFirestore } from "firebase/firestore";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect,useRef } from "react";
 
 import { useState } from "react";
 
@@ -17,14 +17,18 @@ const db = getFirestore();
 console.log(db);
 
 function HomePage() {
+
+
   useEffect(() => {
     const auth = getAuth();
     const user = window.localStorage.getItem("user");
     setUser(user);
     console.log(user);
   }, []);
+  const [link,setLink] = useState('');
   const [user, setUser] = useState({});
   const dispatch = useDispatch();
+  const linkRef = useRef(null);
   const onChange = (value) => {
     setValue(value);
     console.log(value);
@@ -171,6 +175,7 @@ function HomePage() {
                   images: imageUrls,
                 });
                 console.log("Document written by Id : ", docRef.id);
+                setLink(docRef.id);
               }}
               class="w-1/2 ml-5 bg-login-red hover:bg-login-red-hover lg:w-300px h-10 rounded font-poppins text-white mt-10 flex items-center justify-center"
             >
@@ -190,6 +195,7 @@ function HomePage() {
               Hoşgeldiniz
             </p>
             <p class="mt-5  font-poppins text-4xl tracking-wider "> </p>
+            <a  target="_blank" href={`${link}`} ref={linkRef}>{link}</a>
             <button
               onClick={handleLogout}
               class="w-1/2 ml-5 bg-login-red hover:bg-login-red-hover lg:w-300px h-10 rounded font-poppins text-white mt-10 flex items-center justify-center"
