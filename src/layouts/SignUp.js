@@ -3,13 +3,20 @@ import januslogo from "../images/januslogo.png";
 import combination from "../images/combination.png";
 import arrow from "../images/arrow.png";
 import firebaseService from "../firebase/firebaseService";
-import { Router, Route,useHistory,Redirect, Switch,  useRouteMatch} from "react-router-dom";
+import {
+  Router,
+  Route,
+  useHistory,
+  Redirect,
+  Switch,
+  useRouteMatch,
+} from "react-router-dom";
 function SignUp({ setPage }) {
   function handleRegister() {
     firebaseService.register("alimornek1458@gmail.com", "123123");
   }
 
-let history = useHistory();
+  let history = useHistory();
 
   return (
     <div class="flex  flex-col justify-start items-start mt-16">
@@ -44,10 +51,11 @@ let history = useHistory();
       </button>
       <div class="flex justify-between items-between w-100% pt-10">
         <a>Already Have An Account ?</a>
-        <button onClick={()=>{
-            history.push('/auth/signin')
-
-        }}>
+        <button
+          onClick={() => {
+            history.push("/auth/signin");
+          }}
+        >
           <a class="text-login-red underline">SignIn</a>
         </button>
       </div>
