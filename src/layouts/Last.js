@@ -47,19 +47,32 @@ function Last() {
 
   const isLoggedIn = useSelector((state) => state.auth);
   console.log(isLoggedIn.isLoggedIn);
+  function first()
+  {
+    if(!isLoggedIn.isLoggedIn)
+      return   <Redirect to="/auth"/>
+   
+   
+  }
+  function second()
+  {
+    if(isLoggedIn.isLoggedIn)
+      return   <Redirect to="/profile"/>
+  }
   return (
     <div>
       <Route exact path="/">
-        <Redirect to="/auth"/>
+      <Redirect to="/auth"/>
       </Route>
-      <Route strict path="/auth" component={Dashboard}>
-      
+      {handleRoute(images)}
+      <Route path="/auth" component={Dashboard}>
+      {second()}
       </Route>
-      <Route exact path="/profile" component={HomePage}>
-        
+      <Route  path="/profile" component={HomePage}>
+      {first()}
       </Route>
 
-      {handleRoute(images)}
+  
     </div>
   );
   return (
