@@ -1,4 +1,5 @@
 import React from "react";
+import { getAuth } from "firebase/auth";
 import compec from "../images/compec.png";
 import compecLock from "../images/compec-lock.png";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -6,10 +7,24 @@ import { Carousel } from "react-responsive-carousel";
 import arrow from "../images/arrow.png";
 import ImageUploading from "react-images-uploading";
 import template1 from "../images/template1.png";
+import { collection, addDoc, getFirestore } from "firebase/firestore";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 import { useState } from "react";
 
+const db = getFirestore();
+console.log(db);
+
 function HomePage() {
+  useEffect(() => {
+    const auth = getAuth();
+    const user = window.localStorage.getItem("user");
+    setUser(user);
+    console.log(user);
+  }, []);
+  const [user, setUser] = useState({});
+  const dispatch = useDispatch();
   const onChange = (value) => {
     setValue(value);
     console.log(value);
@@ -19,7 +34,13 @@ function HomePage() {
   const [companyName, setCompanyName] = useState("");
   const [webSite, setWebSite] = useState("");
   const [images, setImages] = useState([]);
+  // const imageUrls = { url1: images[0].data_url, url2: images[1].data_url };
   const maxNumber = 2;
+
+  async function handleLogout(e) {
+    e.preventDefault();
+    await dispatch({ type: "USER_LOGOUT_REQUESTED" });
+  }
 
   const onImageChange = (imageList, addUpdateIndex) => {
     console.log(imageList, addUpdateIndex);
@@ -138,7 +159,21 @@ function HomePage() {
               {" "}
               Geri
             </button>
-            <button class="w-1/2 ml-5 bg-login-red hover:bg-login-red-hover lg:w-300px h-10 rounded font-poppins text-white mt-10 flex items-center justify-center">
+            <button
+              onClick={async () => {
+                const imageUrls = {
+                  url1: images[0].data_url,
+                  url2: images[1].data_url,
+                };
+                const docRef = await addDoc(collection(db, "links"), {
+                  companyName: companyName,
+                  webSite: webSite,
+                  images: imageUrls,
+                });
+                console.log("Document written by Id : ", docRef.id);
+              }}
+              class="w-1/2 ml-5 bg-login-red hover:bg-login-red-hover lg:w-300px h-10 rounded font-poppins text-white mt-10 flex items-center justify-center"
+            >
               Mail imzası generatoru oluştur!
             </button>
           </div>
@@ -154,10 +189,13 @@ function HomePage() {
             <p class="font-poppins text-2xl tracking-wider text-janus-dark-blue">
               Hoşgeldiniz
             </p>
-            <p class="mt-5  font-poppins text-4xl tracking-wider ">
-              {" "}
-              compec@compec.org{" "}
-            </p>
+            <p class="mt-5  font-poppins text-4xl tracking-wider "> </p>
+            <button
+              onClick={handleLogout}
+              class="w-1/2 ml-5 bg-login-red hover:bg-login-red-hover lg:w-300px h-10 rounded font-poppins text-white mt-10 flex items-center justify-center"
+            >
+              Çıkış yap
+            </button>
           </div>
           <div class=" w-1/2  bg-janus-blue  flex-col flex p-16   items-center rounded-r-3xl">
             <Carousel onChange={onChange}>
