@@ -68,10 +68,10 @@ function Last() {
   return (
     <div>
       <Route exact path="/">
-      {second()}
+      <Redirect to="/auth"/>
       </Route>
       {handleRoute(images)}
-      <Route strict path="/auth" component={Dashboard}>
+      <Route  path="/auth" component={Dashboard}>
         {second()}
       </Route>
       <Route  exact path="/profile" component={HomePage}>
