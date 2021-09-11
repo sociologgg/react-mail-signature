@@ -1,5 +1,6 @@
 import React from "react";
 import { Redirect, Route } from "react-router";
+import {} from '../firebase/firebase'
 import Dashboard from "./Dashboard";
 import HomePage from "../pages/HomePage";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -17,10 +18,10 @@ function Last() {
   const [url, setUrls] = useState([]);
   const [images, setImages] = useState([{}]);
   useEffect(async () => {
-    const querySnapshot = await getDocs(collection(db, "links"));
-    querySnapshot.forEach((doc) => {
-      //console.log(doc.id);
-
+    const querySnapshot = await getDocs(await collection(db, "links"));
+   querySnapshot.forEach( (doc) => {
+    
+     
       dataArr.push(doc.data().images);
       arr.push({
         id: doc.id,
@@ -28,15 +29,12 @@ function Last() {
         webSite: doc.data().webSite,
       });
     });
-    setUrls(arr);
-    setImages(dataArr);
+   setUrls(arr);
+   setImages(dataArr);
   }, []);
 
   function handleRoute(images) {
-    /* for (const i in arr) {
-    
-      return <Route exact path={"/" + arr[i]} render={(props)=>{return <Card {...props}  imageUrlLeft={images[i].url1} imageUrlRight={images[i].url2}/>}}></Route>;
-    }*/
+  
     return arr.map((item, index) => {
       return (
         <Route
@@ -58,23 +56,25 @@ function Last() {
   }
 
   const isLoggedIn = useSelector((state) => state.auth);
-  console.log(isLoggedIn.isLoggedIn);
+
   function first() {
+   
     if (!isLoggedIn.isLoggedIn) return <Redirect to="/auth" />;
   }
   function second() {
+    
     if (isLoggedIn.isLoggedIn) return <Redirect to="/profile" />;
   }
   return (
     <div>
       <Route exact path="/">
-        <Redirect to="/auth" />
+      {second()}
       </Route>
       {handleRoute(images)}
-      <Route path="/auth" component={Dashboard}>
+      <Route strict path="/auth" component={Dashboard}>
         {second()}
       </Route>
-      <Route  strict path="/profile" component={HomePage}>
+      <Route  exact path="/profile" component={HomePage}>
         {first()}
       </Route>
     </div>

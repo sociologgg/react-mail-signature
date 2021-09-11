@@ -23,11 +23,11 @@ import { useRouteMatch } from "react-router";
 import { useState } from "react";
 
 function HomePage() {
+  const db = getFirestore();
   const [user, setUser] = useState({ email: "" });
   const links = [];
-  const [urls, setUrls] = useState([]);
+  const [urls, setUrls] = useState();
   const currentLocation = useLocation();
-  const db = getFirestore();
   useEffect(() => {
     (async () => {
       const auth = getAuth();
@@ -35,8 +35,6 @@ function HomePage() {
         if (user) {
           setUser(user);
 
-          // User is signed in, see docs for a list of available properties
-          // https://firebase.google.com/docs/reference/js/firebase.User
           const uid = user.uid;
 
           // ...
@@ -46,21 +44,21 @@ function HomePage() {
         }
       });
 
-      const stUser = JSON.parse(localStorage.getItem("user"));
-      //console.log(stUser);
+      const stUser = await JSON.parse(localStorage.getItem("user"));
 
-      try {
-        const querySnapshot = await getDocs(collection(db, "links"));
-        await querySnapshot.forEach((doc) => {
-          if (stUser.uid == doc.data().uid) {
-            links.push(doc.id);
-          }
+      const querySnapshot = getDocs(await collection(db, "links"))
+        .then(async (querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            if (stUser.uid == doc.data().uid) {
+              links.push(doc.id);
+            }
+          });
+
+          setUrls(links);
+        })
+        .catch((e) => {
+          console.log(e);
         });
-      } catch (e) {
-        console.log(e);
-      }
-
-      await setUrls(links);
     })();
   }, []);
 
@@ -90,33 +88,35 @@ function HomePage() {
   };
 
   function getLinks(urls) {
-    return urls.map((i, index) => {
-      return (
-        <div className="flex  py-3 justify-between items-center">
-          <p class="inline text-xl font-bold text-center font-poppins">
-            {index + 1} -
-          </p>
-          <div className="flex pl-2">
-            <a href={i}>
-              <button className="ml-4 rounded-xl text-white font-bold p-4 bg-dark-blue text-center inline flex items-center  font-poppins ">
-                Siteye Git
+    if (urls != undefined) {
+      return urls.map((i, index) => {
+        return (
+          <div className="flex  py-3 justify-between items-center">
+            <p class="inline text-xl font-bold text-center font-poppins">
+              {index + 1} -
+            </p>
+            <div className="flex pl-2">
+              <a href={i}>
+                <button className="ml-4 rounded-xl text-white font-bold p-4 bg-dark-blue text-center inline flex items-center  font-poppins ">
+                  Siteye Git
+                </button>
+              </a>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(
+                    window.location.href.replace("/profile", "/") + i
+                  );
+                  window.alert("Link Kopyalandı");
+                }}
+                className="ml-4 rounded-xl text-white font-bold p-4 text-center inline flex items-center  font-poppins bg-dark-blue "
+              >
+                Linki Kopyala
               </button>
-            </a>
-            <button
-              onClick={() => {
-                navigator.clipboard.writeText(
-                  window.location.href.replace("/profile", "/") + i
-                );
-                window.alert("Link Kopyalandı");
-              }}
-              className="ml-4 rounded-xl text-white font-bold p-4 text-center inline flex items-center  font-poppins bg-dark-blue "
-            >
-              Linki Kopyala
-            </button>
+            </div>
           </div>
-        </div>
-      );
-    });
+        );
+      });
+    }
   }
 
   function pageManager() {
