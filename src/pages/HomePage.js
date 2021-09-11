@@ -7,6 +7,7 @@ import { Carousel } from "react-responsive-carousel";
 import arrow from "../images/arrow.png";
 import ImageUploading from "react-images-uploading";
 import template1 from "../images/template1.png";
+import { useLocation } from "react-router";
 import {
   collection,
   addDoc,
@@ -17,17 +18,19 @@ import {
 } from "firebase/firestore";
 import { useDispatch } from "react-redux";
 import { useEffect, useRef } from "react";
-
+import { useRouteMatch } from "react-router";
 import { useState } from "react";
 
 const db = getFirestore();
 
 function HomePage() {
+ 
   const [user, setUser] = useState({ email: "" });
   const links = [];
   const [urls, setUrls] = useState([]);
-
+  const currentLocation = useLocation();
   useEffect(async () => {
+  
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -42,22 +45,25 @@ function HomePage() {
         // User is signed out
         // ...
       }
-    });
+    })
+   
     const stUser = JSON.parse(localStorage.getItem("user"));
-    console.log(stUser.uid);
+ 
 
     const querySnapshot = await getDocs(collection(db, "links"));
-    console.log("hello");
+    
 
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
+    await querySnapshot.forEach((doc) => {
+     
+   
       if (stUser.uid == doc.data().uid) {
-        console.log(doc.id);
+        
         links.push(doc.id);
       }
     });
-    setUrls(links);
-    console.log(urls);
+ 
+    await setUrls(links);
+ 
   }, []);
 
   const [link, setLink] = useState("");
@@ -84,6 +90,25 @@ function HomePage() {
     // console.log(imageList, addUpdateIndex);
     setImages(imageList);
   };
+
+  function getLinks(urls)
+  {
+  return  urls.map((i,index)=>
+    {
+   
+      return( <div className="flex jusify-center p-3 items-center "><p class="inline text-xl font-bold">{index+1}-</p>
+         <a href={i}><button className="ml-4 rounded-xl text-white font-bold p-5 h-5 bg-blue-800 text-center inline flex items-center ">Siteye Git</button></a> 
+         <button
+         onClick={() => {
+          
+          navigator.clipboard.writeText(window.location.href.replace("/profile","/")+i);
+          window.alert('Link Kopyalandı');
+        }}
+          
+        className="ml-4 rounded-xl text-white font-bold p-5 h-5 bg-blue-800 text-center inline flex items-center ">Linki Kopyala</button>
+         </div>);
+    })  
+  }
 
   function pageManager() {
     if (index == 0)
@@ -190,7 +215,6 @@ function HomePage() {
             <button
               onClick={() => {
                 setIndex(0);
-                console.log(index);
               }}
               class="w-1/2 bg-login-red hover:bg-login-red-hover lg:w-300px h-10 rounded font-poppins text-white mt-10 flex items-center justify-center"
             >
@@ -209,9 +233,13 @@ function HomePage() {
                   images: imageUrls,
                   uid: user.uid,
                 });
-                //console.log("Document written by Id : ", docRef.id);
-                setLink(docRef.id);
-              }}
+               
+                
+                setUrls([...urls,docRef.id]);
+            }
+              
+            }
+
               class="w-1/2 ml-5 bg-login-red hover:bg-login-red-hover lg:w-300px h-10 rounded font-poppins text-white mt-10 flex items-center justify-center"
             >
               Mail imzası generatoru oluştur!
@@ -224,8 +252,8 @@ function HomePage() {
   return (
     <div class="h-screen w-screen py-10 flex z-10 relative justify-center px-10">
       <div class="w-screen h-100%">
-        <div class=" flex  h-100%  shadow-2xl  rounded-3xl overflow-hidden ">
-          <div class="w-1/2 h-100% bg-mail-gray flex-col lg:p-20 p-16 flex lg:justify-start md:justify-start justify-center  items-center rounded-l-3xl ">
+        <div class=" flex  h-100%  shadow-2xl  rounded-3xl ">
+          <div class="w-1/2 h-100% bg-mail-gray flex-col  overflow-scroll lg:p-20 p-16 flex lg:justify-start md:justify-start justify-center  items-center rounded-l-3xl ">
             <p class="font-poppins text-2xl tracking-wider text-janus-dark-blue">
               Hoşgeldiniz
             </p>
@@ -236,15 +264,13 @@ function HomePage() {
               {link}
             </a>
 
-            <p> Linkler</p>
-            <p>{urls[0]} </p>
-            <p>{urls[1]} </p>
-            {urls.map((url) => {
-              // console.log(url);
-            })}
+            <p className="text-3xl font-bold font-Roboto mt-10"> Linkleriniz</p>
+            <div class="flex flex-col items-start pt-4">
+          {getLinks(urls)}
+            </div>
             <button
               onClick={handleLogout}
-              class="w-1/2 ml-5 bg-login-red hover:bg-login-red-hover lg:w-300px h-10 rounded font-poppins text-white mt-10 flex items-center justify-center"
+              class="w-1/2 ml-5 bg-login-red hover:bg-login-red-hover lg:w-300px p-4 rounded font-poppins text-white mt-10 flex items-center justify-center"
             >
               Çıkış yap
             </button>

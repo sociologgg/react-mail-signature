@@ -7,7 +7,7 @@ import right from "../images/right.png";
 import world from "../images/world.png";
 import imageToBase64 from "image-to-base64/browser";
 
-import { useEffect, useState, useRef } from "react";
+import {useCallback, useEffect, useState, useRef } from "react";
 function Card({ imageUrlLeft, imageUrlRight, webSite }) {
   const canvasRef = useRef(null);
   const tableRef = useRef(null);
@@ -79,8 +79,21 @@ function Card({ imageUrlLeft, imageUrlRight, webSite }) {
       ctx.drawImage(webImage2, 0, 0);
       webImageRef.current.src = canvas.toDataURL();
       console.log(name);
+
+
+   
+   
     }
   }
+  const imageRightRef = useCallback((catImageNode) => {
+    /*  const canvas = document.createElement('CANVAS');
+      canvas.width= catImageNode.width;
+      canvas.height = catImageNode.height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(catImageNode, 0, 0);
+      catImageNode.src = canvas.toDataURL();
+*/
+  }, []);
 
   //FONKSIYONU CALISTIR
   createCard(name, title, linkedin, web, number, email);
@@ -100,8 +113,9 @@ function Card({ imageUrlLeft, imageUrlRight, webSite }) {
               <td class="w-215px pr-10">
                 <a>
                   <img
-                    ref={imageRef}
-                    src={imageUrlLeft}
+                class="max-width-100% max-height-100%"
+                  ref={imageRightRef}  
+                  src={imageUrlLeft}
                     id="compecleft"
                     onLoad={() => {
                       /*
@@ -191,8 +205,12 @@ function Card({ imageUrlLeft, imageUrlRight, webSite }) {
               <td class="w-145px">
                 <img
                   src={imageUrlRight}
+                  class="max-width-100% max-height-100%"
                   alt="Compec_Signature_Right"
                   id="compec-right"
+                  onLoad = {()=>{
+                   
+                  }}
                 />
               </td>
             </tr>

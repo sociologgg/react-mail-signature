@@ -74,7 +74,7 @@ function Last() {
       <Route path="/auth" component={Dashboard}>
         {second()}
       </Route>
-      <Route path="/profile" component={HomePage}>
+      <Route  strict path="/profile" component={HomePage}>
         {first()}
       </Route>
     </div>
