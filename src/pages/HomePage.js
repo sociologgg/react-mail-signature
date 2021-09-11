@@ -27,17 +27,16 @@ function HomePage() {
  
   const [user, setUser] = useState({ email: "" });
   const links = [];
-  const [urls, setUrls] = useState([]);
+  const [urls, setUrls] = useState();
   const currentLocation = useLocation();
-  useEffect(async () => {
+  useEffect(()=>{(async () => {
   
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
 
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
+      
         const uid = user.uid;
 
         // ...
@@ -45,25 +44,29 @@ function HomePage() {
         // User is signed out
         // ...
       }
-    })
+    });
    
-    const stUser = JSON.parse(localStorage.getItem("user"));
+    const stUser = await JSON.parse(localStorage.getItem("user"));
  
 
-    const querySnapshot = await getDocs(collection(db, "links"));
-    
-
-    await querySnapshot.forEach((doc) => {
+    const querySnapshot =  getDocs(await collection(db, "links")).then(async (querySnapshot)=>{
+     
+      querySnapshot.forEach((doc) => {
      
    
-      if (stUser.uid == doc.data().uid) {
-        
-        links.push(doc.id);
-      }
-    });
- 
-    await setUrls(links);
- 
+        if (stUser.uid == doc.data().uid) {
+          
+          links.push(doc.id);
+        }
+      });
+   
+    setUrls(links);
+
+    }).catch((e)=>{console.log(e)});
+   
+
+
+  })()
   }, []);
 
   const [link, setLink] = useState("");
@@ -93,6 +96,7 @@ function HomePage() {
 
   function getLinks(urls)
   {
+    if(urls !=undefined){
   return  urls.map((i,index)=>
     {
    
@@ -111,7 +115,7 @@ function HomePage() {
            </div>
          );
  
-    })  
+    })  }
   }
 
   function pageManager() {
