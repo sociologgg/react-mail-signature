@@ -1,5 +1,6 @@
 import React from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {} from "../firebase/firebase";
 import compec from "../images/compec.png";
 import compecLock from "../images/compec-lock.png";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -21,49 +22,46 @@ import { useEffect, useRef } from "react";
 import { useRouteMatch } from "react-router";
 import { useState } from "react";
 
-const db = getFirestore();
-
 function HomePage() {
- 
   const [user, setUser] = useState({ email: "" });
   const links = [];
   const [urls, setUrls] = useState([]);
   const currentLocation = useLocation();
-  useEffect(async () => {
-  
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
+  const db = getFirestore();
+  useEffect(() => {
+    (async () => {
+      const auth = getAuth();
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setUser(user);
 
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        const uid = user.uid;
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/firebase.User
+          const uid = user.uid;
 
-        // ...
-      } else {
-        // User is signed out
-        // ...
+          // ...
+        } else {
+          // User is signed out
+          // ...
+        }
+      });
+
+      const stUser = JSON.parse(localStorage.getItem("user"));
+      //console.log(stUser);
+
+      try {
+        const querySnapshot = await getDocs(collection(db, "links"));
+        await querySnapshot.forEach((doc) => {
+          if (stUser.uid == doc.data().uid) {
+            links.push(doc.id);
+          }
+        });
+      } catch (e) {
+        console.log(e);
       }
-    })
-   
-    const stUser = JSON.parse(localStorage.getItem("user"));
- 
 
-    const querySnapshot = await getDocs(collection(db, "links"));
-    
-
-    await querySnapshot.forEach((doc) => {
-     
-   
-      if (stUser.uid == doc.data().uid) {
-        
-        links.push(doc.id);
-      }
-    });
- 
-    await setUrls(links);
- 
+      await setUrls(links);
+    })();
   }, []);
 
   const [link, setLink] = useState("");
@@ -91,27 +89,34 @@ function HomePage() {
     setImages(imageList);
   };
 
-  function getLinks(urls)
-  {
-  return  urls.map((i,index)=>
-    {
-   
-      return( <div className="flex  py-3 justify-between items-center"><p class="inline text-xl font-bold text-center font-poppins">{index+1} -</p>
-        <div className="flex pl-2">
-         <a  href={i}><button className="ml-4 rounded-xl text-white font-bold p-4 bg-dark-blue text-center inline flex items-center  font-poppins ">Siteye Git</button></a> 
-         <button
-         onClick={() => {
-          
-          navigator.clipboard.writeText(window.location.href.replace("/profile","/")+i);
-          window.alert('Link Kopyalandı');
-        }}
-          
-        className="ml-4 rounded-xl text-white font-bold p-4 text-center inline flex items-center  font-poppins bg-dark-blue ">Linki Kopyala</button>
-         </div>
-           </div>
-         );
- 
-    })  
+  function getLinks(urls) {
+    return urls.map((i, index) => {
+      return (
+        <div className="flex  py-3 justify-between items-center">
+          <p class="inline text-xl font-bold text-center font-poppins">
+            {index + 1} -
+          </p>
+          <div className="flex pl-2">
+            <a href={i}>
+              <button className="ml-4 rounded-xl text-white font-bold p-4 bg-dark-blue text-center inline flex items-center  font-poppins ">
+                Siteye Git
+              </button>
+            </a>
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(
+                  window.location.href.replace("/profile", "/") + i
+                );
+                window.alert("Link Kopyalandı");
+              }}
+              className="ml-4 rounded-xl text-white font-bold p-4 text-center inline flex items-center  font-poppins bg-dark-blue "
+            >
+              Linki Kopyala
+            </button>
+          </div>
+        </div>
+      );
+    });
   }
 
   function pageManager() {
@@ -140,10 +145,11 @@ function HomePage() {
             }}
           />
           <button
+            disabled={value != 0}
             onClick={() => {
               setIndex(1);
             }}
-            class="bg-login-red hover:bg-login-red-hover lg:w-300px h-10 rounded font-poppins text-white mt-10 flex items-center justify-center"
+            class="disabled:opacity-50 bg-login-red hover:bg-login-red-hover lg:w-300px h-10 rounded font-poppins text-white mt-10 flex items-center justify-center"
           >
             <p class="font-semibold ">Devam</p>
             <img src={arrow} class="w-4 ml-2" />
@@ -237,13 +243,9 @@ function HomePage() {
                   images: imageUrls,
                   uid: user.uid,
                 });
-               
-                
-                setUrls([...urls,docRef.id]);
-            }
-              
-            }
 
+                setUrls([...urls, docRef.id]);
+              }}
               class="w-1/2 ml-5 bg-login-red hover:bg-login-red-hover lg:w-300px h-10 rounded font-poppins text-white mt-10 flex items-center justify-center"
             >
               Mail imzası generatoru oluştur!
@@ -269,9 +271,7 @@ function HomePage() {
             </a>
 
             <p className="text-3xl font-bold font-Roboto mt-10"> Linkleriniz</p>
-            <div class="flex flex-col items-stretch pt-4">
-          {getLinks(urls)}
-            </div>
+            <div class="flex flex-col items-stretch pt-4">{getLinks(urls)}</div>
             <button
               onClick={handleLogout}
               class="w-1/2 ml-5 bg-login-red hover:bg-login-red-hover lg:w-300px p-4 rounded font-poppins text-white mt-10 flex items-center justify-center"

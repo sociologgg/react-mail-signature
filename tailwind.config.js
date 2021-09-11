@@ -7,25 +7,25 @@ module.exports = {
     extend: {
       height: {
         base: "600px",
-        '32px':'32px',
-        '72px':'72px',
-        '150px':'150px',
-        '300px':'300px',
+        "32px": "32px",
+        "72px": "72px",
+        "150px": "150px",
+        "300px": "300px",
         "100%": "100%",
-        '34px':'34px'
+        "34px": "34px",
       },
       width: {
-        "40px":'40px',
-        '145px':'145px',
+        "40px": "40px",
+        "145px": "145px",
         "475px": "475px",
         "300px": "300px",
-        'w31px':'w31px',
+        w31px: "w31px",
         "100%": "100%",
-        '200px':'200px',
-        '215px':'215px',
+        "200px": "200px",
+        "215px": "215px",
         "350px": "350px",
-        '400px':'400px',
-        '760px':'760px'
+        "400px": "400px",
+        "760px": "760px",
       },
       margin: {
         18: "4.5rem",
@@ -35,24 +35,24 @@ module.exports = {
         "login-red": "#E74825",
         "login-red-hover": "#CD3716",
         "janus-blue": "#3CABDB",
-        'dark-blue':'#8833FF',
-        'hover-dark-blue ':'#720EFF'
+        "dark-blue": "#8833FF",
+        "hover-dark-blue ": "#720EFF",
       },
       maxWidth: {
-        '1/4': '25%',
-        '1/2': '50%',
-        '3/4': '75%',
-        '100%':'100%'
+        "1/4": "25%",
+        "1/2": "50%",
+        "3/4": "75%",
+        "100%": "100%",
       },
       maxHeight: {
-        '1/4': '25%',
-        '1/2': '50%',
-        '3/4': '75%',
-        '100%':'100%'
+        "1/4": "25%",
+        "1/2": "50%",
+        "3/4": "75%",
+        "100%": "100%",
       },
       textColor: {
         label: "#50565F",
-        'dark-blue':'#6EA4BF',
+        "dark-blue": "#6EA4BF",
         "login-red": "#E74825",
         "janus-dark-blue": "#167FFC",
       },
@@ -67,7 +67,9 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      opacity: ["disabled"],
+    },
   },
   plugins: [],
 };
