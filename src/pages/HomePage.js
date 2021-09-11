@@ -96,8 +96,9 @@ function HomePage() {
   return  urls.map((i,index)=>
     {
    
-      return( <div className="flex jusify-center p-3 items-center "><p class="inline text-xl font-bold">{index+1}-</p>
-         <a href={i}><button className="ml-4 rounded-xl text-white font-bold p-5 h-5 bg-blue-800 text-center inline flex items-center ">Siteye Git</button></a> 
+      return( <div className="flex  py-3 justify-between items-center"><p class="inline text-xl font-bold text-center font-poppins">{index+1} -</p>
+        <div className="flex pl-2">
+         <a  href={i}><button className="ml-4 rounded-xl text-white font-bold p-4 bg-dark-blue text-center inline flex items-center  font-poppins ">Siteye Git</button></a> 
          <button
          onClick={() => {
           
@@ -105,8 +106,11 @@ function HomePage() {
           window.alert('Link Kopyalandı');
         }}
           
-        className="ml-4 rounded-xl text-white font-bold p-5 h-5 bg-blue-800 text-center inline flex items-center ">Linki Kopyala</button>
-         </div>);
+        className="ml-4 rounded-xl text-white font-bold p-4 text-center inline flex items-center  font-poppins bg-dark-blue ">Linki Kopyala</button>
+         </div>
+           </div>
+         );
+ 
     })  
   }
 
@@ -265,7 +269,7 @@ function HomePage() {
             </a>
 
             <p className="text-3xl font-bold font-Roboto mt-10"> Linkleriniz</p>
-            <div class="flex flex-col items-start pt-4">
+            <div class="flex flex-col items-stretch pt-4">
           {getLinks(urls)}
             </div>
             <button

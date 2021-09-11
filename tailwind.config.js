@@ -19,6 +19,7 @@ module.exports = {
         '145px':'145px',
         "475px": "475px",
         "300px": "300px",
+        'w31px':'w31px',
         "100%": "100%",
         '200px':'200px',
         '215px':'215px',
@@ -34,6 +35,8 @@ module.exports = {
         "login-red": "#E74825",
         "login-red-hover": "#CD3716",
         "janus-blue": "#3CABDB",
+        'dark-blue':'#8833FF',
+        'hover-dark-blue ':'#720EFF'
       },
       maxWidth: {
         '1/4': '25%',
@@ -49,7 +52,7 @@ module.exports = {
       },
       textColor: {
         label: "#50565F",
-
+        'dark-blue':'#6EA4BF',
         "login-red": "#E74825",
         "janus-dark-blue": "#167FFC",
       },
