@@ -7,7 +7,7 @@ import right from "../images/right.png";
 import world from "../images/world.png";
 import imageToBase64 from "image-to-base64/browser";
 
-import {useCallback, useEffect, useState, useRef } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 function Card({ imageUrlLeft, imageUrlRight, webSite }) {
   const canvasRef = useRef(null);
   const tableRef = useRef(null);
@@ -45,7 +45,7 @@ function Card({ imageUrlLeft, imageUrlRight, webSite }) {
       ctx.font = "500 16px Roboto";
       ctx.fillStyle = "#1F5890";
 
-      ctx.fillText("05533715300", 6, 22);
+      ctx.fillText(tel, 6, 22);
 
       children.push(<ChildComponent source={canvas.toDataURL()} />);
 
@@ -79,10 +79,6 @@ function Card({ imageUrlLeft, imageUrlRight, webSite }) {
       ctx.drawImage(webImage2, 0, 0);
       webImageRef.current.src = canvas.toDataURL();
       console.log(name);
-
-
-   
-   
     }
   }
   const imageRightRef = useCallback((catImageNode) => {
@@ -113,9 +109,9 @@ function Card({ imageUrlLeft, imageUrlRight, webSite }) {
               <td class="w-215px pr-10">
                 <a>
                   <img
-                class="max-width-100% max-height-100%"
-                  ref={imageRightRef}  
-                  src={imageUrlLeft}
+                    class="max-width-100% max-height-100%"
+                    ref={imageRightRef}
+                    src={imageUrlLeft}
                     id="compecleft"
                     onLoad={() => {
                       /*
@@ -208,9 +204,7 @@ function Card({ imageUrlLeft, imageUrlRight, webSite }) {
                   class="max-width-100% max-height-100%"
                   alt="Compec_Signature_Right"
                   id="compec-right"
-                  onLoad = {()=>{
-                   
-                  }}
+                  onLoad={() => {}}
                 />
               </td>
             </tr>
