@@ -8,6 +8,7 @@ import world from "../images/world.png";
 import imageToBase64 from "image-to-base64/browser";
 
 import {useCallback, useEffect, useState, useRef } from "react";
+var minify = require('html-minifier').minify;
 function Card({ imageUrlLeft, imageUrlRight, webSite }) {
   const canvasRef = useRef(null);
   const tableRef = useRef(null);
@@ -117,28 +118,8 @@ function Card({ imageUrlLeft, imageUrlRight, webSite }) {
                   ref={imageRightRef}  
                   src={imageUrlLeft}
                     id="compecleft"
-                    onLoad={() => {
-                      /*
-                    if(first){
-                    const canvas = document.createElement("CANVAS");
-                    const img = imageRef.current;
-                    const ctx = canvas.getContext('2d');
-                    canvas.style.padding = 0;
-                    console.log('img width');
-
-
-                    canvas.width = 215
-                    canvas.height = 300;
-                  
                    
-                    ctx.drawImage(img, 1, 1);
-                   // console.log(canvas.toDataURL()); 
-                    img.src = canvas.toDataURL();
-                    img.width = 215;
-                    img.height =300;
-                    setFirst(false);  
-                  }*/
-                    }}
+                  
                   />
                 </a>
               </td>
@@ -208,9 +189,7 @@ function Card({ imageUrlLeft, imageUrlRight, webSite }) {
                   class="max-width-100% max-height-100%"
                   alt="Compec_Signature_Right"
                   id="compec-right"
-                  onLoad = {()=>{
-                   
-                  }}
+                
                 />
               </td>
             </tr>
