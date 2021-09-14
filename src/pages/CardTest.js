@@ -7,9 +7,81 @@ import right from "../images/right.png";
 import world from "../images/world.png";
 import imageToBase64 from "image-to-base64/browser";
 
-import {useCallback, useEffect, useState, useRef } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+function CardTest({ imageUrlLeft, imageUrlRight, webSite }) {
 
-function Card({ imageUrlLeft, imageUrlRight, webSite }) {
+  const storage = getStorage();
+  const references =[];
+ const letterReference = ref(storage, 'alim/letter.png');
+const linkedinReference = ref(storage, 'alim/linkedin.png');
+const phoneReference = ref(storage, 'alim/phone.png');
+const worldReference = ref(storage, 'alim/world.png');
+  references.push(letterReference);
+  references.push(linkedinReference);
+  references.push(phoneReference);
+  references.push(worldReference);
+  async function someFunction() {
+    
+   for(const i in references)
+    {
+    await  getDownloadURL(references[i])
+    .then((url) => {
+      // `url` is the download URL for 'images/stars.jpg'
+  
+      // This can be downloaded directly:
+      const xhr = new XMLHttpRequest();
+      xhr.responseType = 'blob';
+      xhr.onload = (event) => {
+        const blob = xhr.response;
+      };
+      xhr.open('GET', url);
+      xhr.send();
+      if(i == 0){
+      console.log('one worked');
+      const img = document.getElementById('letterImage');
+      img.setAttribute('src', url);
+      
+      }
+      else if(i==1)
+      {
+        const img1 = document.getElementById('linkedinImage');
+        img1.setAttribute('src', url);
+       
+      }
+      else if (i == 2)
+        {
+          const img2 = document.getElementById('phoneImage');
+        img2.setAttribute('src', url);
+       
+        }
+        else if( i==3)
+        {
+          const img3 = document.getElementById('worldImage');
+          img3.setAttribute('src', url);
+        
+        }
+     
+      console.log(url);
+
+    })
+    .catch((error) => {
+      // Handle any errors
+    });
+  
+    }
+}
+  useEffect(async() => {
+   
+    someFunction();
+
+  
+   
+ }, [])
+  
+
+
+  
   const canvasRef = useRef(null);
   const tableRef = useRef(null);
   const imageRef = useRef(null);
@@ -91,27 +163,6 @@ function Card({ imageUrlLeft, imageUrlRight, webSite }) {
       catImageNode.src = canvas.toDataURL();
 */
   }, []);
-  function copyToClipboard(html) {
-    var container = document.createElement("div");
-    container.innerHTML = html;
-    container.style.position = "fixed";
-    container.style.pointerEvents = "none";
-    container.style.opacity = 0;
-    document.body.appendChild(container);
-    window.getSelection().removeAllRanges();
-    var range = document.createRange();
-    range.selectNode(container);
-    window.getSelection().addRange(range);
-    document.execCommand("copy");
-    document.body.removeChild(container);
-    //alert("Copied");
-  }
-
-  function copy()
-  {
-    const mailimza = document.getElementById("mailimza");
-    copyToClipboard(mailimza.innerHTML);
-  }
 
   //FONKSIYONU CALISTIR
   createCard(name, title, linkedin, web, number, email);
@@ -120,6 +171,7 @@ function Card({ imageUrlLeft, imageUrlRight, webSite }) {
   const [second, setSecond] = useState(true);
   return (
     <div>
+      <p>Test </p>
       <div
         class="row mt-5 border p-4 inline-block"
         ref={tableRef}
@@ -132,10 +184,9 @@ function Card({ imageUrlLeft, imageUrlRight, webSite }) {
                 <a>
                   <img
                     class="max-width-100% max-height-100%"
-                    ref={imageRightRef}
+                   
                     src={imageUrlLeft}
                     id="compecleft"
-                   
                   
                   />
                 </a>
@@ -204,7 +255,6 @@ function Card({ imageUrlLeft, imageUrlRight, webSite }) {
                 <img
                   src={imageUrlRight}
                   class="max-width-100% max-height-100%"
-                  alt="Compec_Signature_Right"
                   id="compec-right"
                 
                 />
@@ -278,16 +328,10 @@ function Card({ imageUrlLeft, imageUrlRight, webSite }) {
           >
             Generate
           </button>
-          <button
-            class="bg-janus-blue p-5 px-10 rounded-xl text-white text-xl font-bold "
-            onClick={copy}
-          >
-            Generate
-          </button>
         </div>
       </div>
     </div>
   );
 }
 
-export default Card;
+export default CardTest;
