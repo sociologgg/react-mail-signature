@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect, Route } from "react-router";
-import {} from '../firebase/firebase'
+import {} from "../firebase/firebase";
 import Dashboard from "./Dashboard";
 import HomePage from "../pages/HomePage";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -9,6 +9,8 @@ import { useEffect } from "react";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import CardTest from "../pages/CardTest";
+import HomePageTest from "../pages/HomePageTest";
 
 const db = getFirestore();
 const arr = [];
@@ -19,9 +21,7 @@ function Last() {
   const [images, setImages] = useState([{}]);
   useEffect(async () => {
     const querySnapshot = await getDocs(await collection(db, "links"));
-   querySnapshot.forEach( (doc) => {
-    
-     
+    querySnapshot.forEach((doc) => {
       dataArr.push(doc.data().images);
       arr.push({
         id: doc.id,
@@ -29,12 +29,11 @@ function Last() {
         webSite: doc.data().webSite,
       });
     });
-   setUrls(arr);
-   setImages(dataArr);
+    setUrls(arr);
+    setImages(dataArr);
   }, []);
 
   function handleRoute(images) {
-  
     return arr.map((item, index) => {
       return (
         <Route
@@ -42,10 +41,10 @@ function Last() {
           path={"/" + arr[index].id}
           render={(props) => {
             return (
-              <Card
+              <CardTest
                 {...props}
-                imageUrlLeft={arr[index].images.url1}
-                imageUrlRight={arr[index].images.url2}
+                imageUrlLeft={arr[index].images[0]}
+                imageUrlRight={arr[index].images[1]}
                 webSite={arr[index].webSite}
               />
             );
@@ -58,23 +57,21 @@ function Last() {
   const isLoggedIn = useSelector((state) => state.auth);
 
   function first() {
-   
     if (!isLoggedIn.isLoggedIn) return <Redirect to="/auth" />;
   }
   function second() {
-    
     if (isLoggedIn.isLoggedIn) return <Redirect to="/profile" />;
   }
   return (
     <div>
       <Route exact path="/">
-      <Redirect to="/auth"/>
+        <Redirect to="/auth" />
       </Route>
       {handleRoute(images)}
-      <Route  path="/auth" component={Dashboard}>
+      <Route path="/auth" component={Dashboard}>
         {second()}
       </Route>
-      <Route  exact path="/profile" component={HomePage}>
+      <Route exact path="/profile" component={HomePageTest}>
         {first()}
       </Route>
     </div>
