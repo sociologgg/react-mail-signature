@@ -3,8 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";  
 import {Link} from 'react-router-dom'
 function SignIn() {
-    const [name, setName] = useState("");
-    const [surname, setSurname] = useState("");
+ 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordShown, setPasswordShown] = useState(false);
@@ -36,7 +35,7 @@ function SignIn() {
           <input
             type={passwordShown ? "text" : "password"}
             class="  outline-none w-100% border-input focus:border-janus-focus-blue font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3  mt-3"
-            placeholder="Şifre (en az 6 karakter)"
+            placeholder="Şifre"
           />
         </div>
   
