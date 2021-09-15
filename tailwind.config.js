@@ -55,10 +55,16 @@ module.exports = {
       textColor: {
         label: "#50565F",
         "dark-blue": "#6EA4BF",
+        "error-red": "#D63835",
         "login-red": "#E74825",
         "janus-dark-blue": "#167FFC",
         "input-gray": "#545454",
+        "rstpsw-gray": "#979797",
       },
+      padding: {
+        100: "32.5rem",
+      },
+
       boxShadow: {
         input: "1px 1px 5px rgba(0, 49, 108, 0.15)",
       },
@@ -66,6 +72,7 @@ module.exports = {
         input: "#D3D7DF",
         "login-red": "#ED9319",
         "janus-focus-blue": "#167FFC",
+        "line-gray": "#7B7B7B",
       },
       borderWidth: {
         0.5: "0.5px",
