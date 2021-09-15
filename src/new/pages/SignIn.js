@@ -49,7 +49,7 @@ function SignIn() {
       
         <div class="mt-4 flex flex-row px-4">
           <p class="text-base text-input-gray font-roboto">Kayıtlı Değil misin?</p>
-          <Link to="/SignUp" class="ml-1 text-base text-janus-purple font-roboto">Giriş Yap</Link>
+          <Link to="/SignUp" class="ml-1 text-base text-janus-purple font-roboto">Kaydol</Link>
         </div>
       </div>
       
