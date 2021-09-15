@@ -19,7 +19,7 @@ function SignIn() {
         <div class=" flex flex-col  w-236px ">
         <p class="text-4xl text-janus-dark-blue font-bold font-roboto">Giriş Yap </p>
      
-        <div className="lg:pt-40px">
+        <div className="pt-40px">
           <input
             type="text"
             class="  outline-none  w-100% border-input focus:border-janus-focus-blue font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3  mt-3"
@@ -39,9 +39,9 @@ function SignIn() {
           />
         </div>
   
-        <button class="mt-8px text-base text-janus-dark-blue text-right font-roboto">
+        <Link to="PassRes" class="mt-8px text-base text-janus-dark-blue text-right font-roboto">
           Şifreni mi unuttun?
-        </button>
+        </Link>
 
         <button class="h-10 rounded-lg bg-janus-site-blue  mt-32px text-base text-white font-roboto">
         Kaydol
@@ -49,7 +49,7 @@ function SignIn() {
       
         <div class="mt-4 flex flex-row px-4">
           <p class="text-base text-input-gray font-roboto">Kayıtlı Değil misin?</p>
-          <Link to="/SignUp" class="ml-1 text-base text-janus-purple font-roboto">Kaydol</Link>
+          <Link to="/SignUp" class="ml-1 text-base text-janus-purple font-roboto">Giriş Yap</Link>
         </div>
       </div>
       
