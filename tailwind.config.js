@@ -31,6 +31,7 @@ module.exports = {
         18: "4.5rem",
       },
       backgroundColor: {
+        "janus-site-blue": "#167FFC",
         "mail-gray": "#E5E5E5",
         "login-red": "#E74825",
         "login-red-hover": "#CD3716",
@@ -50,20 +51,32 @@ module.exports = {
         "3/4": "75%",
         "100%": "100%",
       },
+
       textColor: {
         label: "#50565F",
         "dark-blue": "#6EA4BF",
         "login-red": "#E74825",
         "janus-dark-blue": "#167FFC",
+        "input-gray": "#545454",
+      },
+      boxShadow: {
+        input: "1px 1px 5px rgba(0, 49, 108, 0.15)",
       },
       borderColor: {
         input: "#D3D7DF",
         "login-red": "#ED9319",
+        "janus-focus-blue": "#167FFC",
+      },
+      borderWidth: {
+        0.5: "0.5px",
       },
     },
+
     fontFamily: {
       poppins: ["Poppins"],
       inter: ["Inter"],
+      sacramento: ["Sacramento"],
+      roboto: ["Roboto"],
     },
   },
   variants: {
