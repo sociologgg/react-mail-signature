@@ -41,6 +41,7 @@ module.exports = {
       },
       backgroundColor: {
         "janus-site-blue": "#167FFC",
+        "janus-site-bluef": "#1061c4",
         "mail-gray": "#E5E5E5",
         "login-red": "#E74825",
         "login-red-hover": "#CD3716",
@@ -71,7 +72,10 @@ module.exports = {
         'janus-purple':'#6C489E',
         "rstpsw-gray": "#979797",
       },
-   
+      fontSize:
+      {
+        ...forLoop()
+      },
 
       boxShadow: {
         input: "1px 1px 5px rgba(0, 49, 108, 0.15)",
@@ -81,6 +85,7 @@ module.exports = {
         "login-red": "#ED9319",
         "janus-focus-blue": "#167FFC",
         "line-gray": "#7B7B7B",
+        'error-red':'#D63835'
       },
       borderWidth: {
         0.5: "0.5px",

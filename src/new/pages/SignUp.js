@@ -26,7 +26,6 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [passwordShown, setPasswordShown] = useState(false);
   const [emailError, setEmailError] = useState("");
-  const [sameEmailError, setSameEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
   const togglePasswordVisiblity = () => {
@@ -37,7 +36,8 @@ function SignUp() {
     const auth = getAuth();
     if (password.length < 6) {
       setPasswordError("Şifre en az 6 karakter olmalıdır!!");
-    } else {
+    } 
+    else {
       setPasswordError("");
       return createUserWithEmailAndPassword(auth, email, password)
         .then(async (userCredential) => {
@@ -66,11 +66,11 @@ function SignUp() {
   }
 
   function passwordLengthCheck() {
-    return <p class="text-sm text-error-red">{passwordError}</p>;
+    return <p class="text-sm text-error-red mt-2px">{passwordError}</p>;
   }
 
   function emailCheck() {
-    return <p class="text-sm text-error-red">{emailError}</p>;
+    return <p class="text-sm text-error-red mt-2px">{emailError}</p>;
   }
 
   const eye = <FontAwesomeIcon icon={faEye} />;
@@ -85,7 +85,7 @@ function SignUp() {
             setName(e.target.value);
           }}
           type="text"
-          class="  outline-none w-100% border-input focus:border-janus-focus-blue font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3  mt-7"
+          class={`outline-none w-100% border-input focus:border-janus-focus-blue font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 mt-7`}
           placeholder="İsim"
         />
       </div>
@@ -105,14 +105,14 @@ function SignUp() {
             setEmail(e.target.value);
           }}
           type="text"
-          class="  outline-none  w-100% border-input focus:border-janus-focus-blue font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3  mt-3"
+          class={`outline-none  w-100% ${emailError=="" ? `border-input, focus:border-janus-focus-blue`:'border-error-red focus:border-error-red'} font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3  mt-3`}
           placeholder="E-posta"
         />
         {emailCheck()}
       </div>
       <div class="relative">
         <i class="fas fa-eye-slash "></i>
-        <i onClick={togglePasswordVisiblity} class=" ml-44  mt-5 absolute right-2">
+        <i color="gray" onClick={togglePasswordVisiblity} class=" ml-44  mt-5 absolute right-4">
           {passwordShown ? eye : eyeSlash}
         </i>
 
@@ -121,7 +121,7 @@ function SignUp() {
             setPassword(e.target.value);
           }}
           type={passwordShown ? "text" : "password"}
-          class="  outline-none  w-100% border-input focus:border-janus-focus-blue font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3  mt-3"
+          class={`outline-none  w-100% ${passwordError=="" ? `border-input, focus:border-janus-focus-blue`:'border-error-red focus:border-error-red'} font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3  mt-3`}
           placeholder="Şifre (en az 6 karakter)"
         />
         {passwordLengthCheck()}
@@ -129,7 +129,7 @@ function SignUp() {
 
       <button
         onClick={handleRegister}
-        class="h-10 rounded-lg bg-janus-site-blue  mt-7 text-base text-white font-roboto"
+        class="h-10 rounded-lg bg-janus-site-blue hover:bg-janus-site-bluef  mt-7 text-base text-white font-roboto"
       >
         Kaydol
       </button>
