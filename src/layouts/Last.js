@@ -35,6 +35,7 @@ function Last() {
 
   function handleRoute(images) {
     return arr.map((item, index) => {
+   
       return (
         <Route
           exact

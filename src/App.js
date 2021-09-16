@@ -5,11 +5,19 @@ import HomePage from "./pages/HomePage";
 import Last from "./layouts/Last";
 import Test from "./pages/Test";
 import CardTest from "./pages/CardTest";
-import ForgotPassword from "./new/pages/ForgotPassword";
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 function App() {
   return (
     <div className="App">
-      <ForgotPassword />
+      <Router>
+        <Switch>
+          <Route path="/about"></Route>
+          <Route path="/users"></Route>
+          <Route path="/">
+            <Dashboard />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }

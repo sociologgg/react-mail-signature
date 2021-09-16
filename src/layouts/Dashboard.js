@@ -53,7 +53,7 @@ const Dashboard = () => {
               <p class="font-inter  lg:text-lg md:text-md"> created by </p>
               <img src={combination} class="h-20" />
             </div>
-            {pageTextManger()}
+          
             
             
             <Route   path={`${path}/signin`} >

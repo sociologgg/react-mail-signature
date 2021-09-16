@@ -7,7 +7,8 @@ import right from "../images/right.png";
 import world from "../images/world.png";
 import imageToBase64 from "image-to-base64/browser";
 
-import { useCallback, useEffect, useState, useRef } from "react";
+import {useCallback, useEffect, useState, useRef } from "react";
+
 function Card({ imageUrlLeft, imageUrlRight, webSite }) {
   const canvasRef = useRef(null);
   const tableRef = useRef(null);
@@ -90,6 +91,27 @@ function Card({ imageUrlLeft, imageUrlRight, webSite }) {
       catImageNode.src = canvas.toDataURL();
 */
   }, []);
+  function copyToClipboard(html) {
+    var container = document.createElement("div");
+    container.innerHTML = html;
+    container.style.position = "fixed";
+    container.style.pointerEvents = "none";
+    container.style.opacity = 0;
+    document.body.appendChild(container);
+    window.getSelection().removeAllRanges();
+    var range = document.createRange();
+    range.selectNode(container);
+    window.getSelection().addRange(range);
+    document.execCommand("copy");
+    document.body.removeChild(container);
+    //alert("Copied");
+  }
+
+  function copy()
+  {
+    const mailimza = document.getElementById("mailimza");
+    copyToClipboard(mailimza.innerHTML);
+  }
 
   //FONKSIYONU CALISTIR
   createCard(name, title, linkedin, web, number, email);
@@ -113,28 +135,8 @@ function Card({ imageUrlLeft, imageUrlRight, webSite }) {
                     ref={imageRightRef}
                     src={imageUrlLeft}
                     id="compecleft"
-                    onLoad={() => {
-                      /*
-                    if(first){
-                    const canvas = document.createElement("CANVAS");
-                    const img = imageRef.current;
-                    const ctx = canvas.getContext('2d');
-                    canvas.style.padding = 0;
-                    console.log('img width');
-
-
-                    canvas.width = 215
-                    canvas.height = 300;
-                  
                    
-                    ctx.drawImage(img, 1, 1);
-                   // console.log(canvas.toDataURL()); 
-                    img.src = canvas.toDataURL();
-                    img.width = 215;
-                    img.height =300;
-                    setFirst(false);  
-                  }*/
-                    }}
+                  
                   />
                 </a>
               </td>
@@ -204,7 +206,7 @@ function Card({ imageUrlLeft, imageUrlRight, webSite }) {
                   class="max-width-100% max-height-100%"
                   alt="Compec_Signature_Right"
                   id="compec-right"
-                  onLoad={() => {}}
+                
                 />
               </td>
             </tr>
@@ -273,6 +275,12 @@ function Card({ imageUrlLeft, imageUrlRight, webSite }) {
             onClick={() => {
               setNumChildren(1);
             }}
+          >
+            Generate
+          </button>
+          <button
+            class="bg-janus-blue p-5 px-10 rounded-xl text-white text-xl font-bold "
+            onClick={copy}
           >
             Generate
           </button>

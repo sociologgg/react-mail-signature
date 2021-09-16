@@ -8,7 +8,80 @@ import world from "../images/world.png";
 import imageToBase64 from "image-to-base64/browser";
 
 import { useCallback, useEffect, useState, useRef } from "react";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 function CardTest({ imageUrlLeft, imageUrlRight, webSite }) {
+
+  const storage = getStorage();
+  const references =[];
+ const letterReference = ref(storage, 'alim/letter.png');
+const linkedinReference = ref(storage, 'alim/linkedin.png');
+const phoneReference = ref(storage, 'alim/phone.png');
+const worldReference = ref(storage, 'alim/world.png');
+  references.push(letterReference);
+  references.push(linkedinReference);
+  references.push(phoneReference);
+  references.push(worldReference);
+  async function someFunction() {
+    
+   for(const i in references)
+    {
+    await  getDownloadURL(references[i])
+    .then((url) => {
+      // `url` is the download URL for 'images/stars.jpg'
+  
+      // This can be downloaded directly:
+      const xhr = new XMLHttpRequest();
+      xhr.responseType = 'blob';
+      xhr.onload = (event) => {
+        const blob = xhr.response;
+      };
+      xhr.open('GET', url);
+      xhr.send();
+      if(i == 0){
+      console.log('one worked');
+      const img = document.getElementById('letterImage');
+      img.setAttribute('src', url);
+      
+      }
+      else if(i==1)
+      {
+        const img1 = document.getElementById('linkedinImage');
+        img1.setAttribute('src', url);
+       
+      }
+      else if (i == 2)
+        {
+          const img2 = document.getElementById('phoneImage');
+        img2.setAttribute('src', url);
+       
+        }
+        else if( i==3)
+        {
+          const img3 = document.getElementById('worldImage');
+          img3.setAttribute('src', url);
+        
+        }
+     
+      console.log(url);
+
+    })
+    .catch((error) => {
+      // Handle any errors
+    });
+  
+    }
+}
+  useEffect(async() => {
+   
+    someFunction();
+
+  
+   
+ }, [])
+  
+
+
+  
   const canvasRef = useRef(null);
   const tableRef = useRef(null);
   const imageRef = useRef(null);
@@ -111,31 +184,10 @@ function CardTest({ imageUrlLeft, imageUrlRight, webSite }) {
                 <a>
                   <img
                     class="max-width-100% max-height-100%"
-                    ref={imageRightRef}
+                   
                     src={imageUrlLeft}
                     id="compecleft"
-                    onLoad={() => {
-                      /*
-                    if(first){
-                    const canvas = document.createElement("CANVAS");
-                    const img = imageRef.current;
-                    const ctx = canvas.getContext('2d');
-                    canvas.style.padding = 0;
-                    console.log('img width');
-
-
-                    canvas.width = 215
-                    canvas.height = 300;
                   
-                   
-                    ctx.drawImage(img, 1, 1);
-                   // console.log(canvas.toDataURL()); 
-                    img.src = canvas.toDataURL();
-                    img.width = 215;
-                    img.height =300;
-                    setFirst(false);  
-                  }*/
-                    }}
                   />
                 </a>
               </td>
@@ -204,7 +256,7 @@ function CardTest({ imageUrlLeft, imageUrlRight, webSite }) {
                   src={imageUrlRight}
                   class="max-width-100% max-height-100%"
                   id="compec-right"
-                  onLoad={() => {}}
+                
                 />
               </td>
             </tr>

@@ -30,11 +30,12 @@ import { useState } from "react";
 
 function HomePageTest() {
   const storage = getStorage();
-  const file = [];
+
 
   const db = getFirestore();
   const [user, setUser] = useState({ email: "" });
   const links = [];
+  const file = [];
   const [urls, setUrls] = useState();
   const currentLocation = useLocation();
   const fbLinks = [];
@@ -87,7 +88,7 @@ function HomePageTest() {
 
   // const imageUrls = { url1: images[0].data_url, url2: images[1].data_url };
   const maxNumber = 2;
-
+  const order = [];
   async function handleLogout(e) {
     e.preventDefault();
     await dispatch({ type: "USER_LOGOUT_REQUESTED" });
@@ -168,15 +169,15 @@ function HomePageTest() {
           <input
             type="file"
             onChange={(e) => {
-              file.push(e.target.files[0]);
-              console.log(file);
+              file.push(e.target.files[0])
+           
             }}
           />
           <input
             type="file"
             onChange={(e) => {
               file.push(e.target.files[0]);
-              console.log(file);
+              
             }}
           />
           <button
@@ -184,16 +185,23 @@ function HomePageTest() {
               const metadata = {
                 contentType: "image/jpeg",
               };
+              
+  
+
               for (const i in file) {
-                const storageRef = ref(storage, "alim/" + file[i].name);
+                let r = (Math.random() + 1).toString(36).substring(2);
+                let name;
+                name = r + file[i].name;
+               
+                const storageRef = ref(storage, "alim/" + name);
                 const uploadTask = uploadBytesResumable(
                   storageRef,
                   file[i],
                   metadata
                 );
-                uploadTask.on(
+                await uploadTask.on(
                   "state_changed",
-                  (snapshot) => {
+                 (snapshot) => {
                     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                     const progress =
                       (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -225,10 +233,12 @@ function HomePageTest() {
                         break;
                     }
                   },
-                  () => {
+                 async () => {
                     // Upload completed successfully, now we can get the download URL
-                    getDownloadURL(uploadTask.snapshot.ref).then(
+                   await  getDownloadURL(uploadTask.snapshot.ref).then(
                       async (downloadURL) => {
+                        order.push(i);
+                        console.log(i);
                         console.log("File available at", downloadURL);
                         fbLinks.push(downloadURL);
                         console.log(fbLinks);
@@ -258,11 +268,14 @@ function HomePageTest() {
             </button>
             <button
               onClick={async () => {
+                let arr = [];
+                arr.push(fbLinks[order[0]]);
+                arr.push(fbLinks[order[1]]);
                 const docRef = await addDoc(collection(db, "links"), {
                   companyName: companyName,
                   webSite: webSite,
                   uid: user.uid,
-                  images: fbLinks,
+                  images:arr
                 });
               }}
               class="w-1/2 ml-5 bg-login-red hover:bg-login-red-hover lg:w-300px h-10 rounded font-poppins text-white mt-10 flex items-center justify-center"

@@ -1,4 +1,11 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
+function forLoop() {
+  var obj = {};
+  for (let i = 0; i <= 500; i += 2) {
+    if (i % 2 == 0) obj[`${i}px`] = `${i}px`;
+  }
+  return obj;
+}
 
 module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
@@ -7,28 +14,24 @@ module.exports = {
     extend: {
       height: {
         base: "600px",
-        "32px": "32px",
-        "72px": "72px",
-        "150px": "150px",
-        "300px": "300px",
+        ...forLoop(),
         "100%": "100%",
-        "34px": "34px",
       },
       width: {
-        "40px": "40px",
-        "145px": "145px",
-        "475px": "475px",
-        "300px": "300px",
+        ...forLoop(),
         w31px: "w31px",
         "100%": "100%",
-        "200px": "200px",
+
         "215px": "215px",
-        "350px": "350px",
-        "400px": "400px",
+
         "760px": "760px",
       },
       margin: {
         18: "4.5rem",
+        ...forLoop(),
+      },
+      padding: {
+        ...forLoop(),
       },
       backgroundColor: {
         "janus-site-blue": "#167FFC",
@@ -60,6 +63,7 @@ module.exports = {
         "janus-dark-blue": "#167FFC",
         "input-gray": "#545454",
         "rstpsw-gray": "#979797",
+        "janus-purple": "#6C489E",
       },
       padding: {
         100: "32.5rem",
