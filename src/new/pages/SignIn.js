@@ -19,6 +19,8 @@ function SignIn() {
         const user = userCredential.user;
         console.log(user);
         setLoading(false);
+        setEmailError("");
+        setPasswordError("");
       })
       .catch(async (error) => {
         const errorCode = error.code;
@@ -28,7 +30,7 @@ function SignIn() {
           if(errorCode =='auth/wrong-password')
             {
             //  console.log("qwlkenlqwewq");
-              setPasswordError("Şifrenizi Yanlış Girdiniz"+ "Lütfen Tekrar Deneyiniz.");
+              setPasswordError("Şifrenizi Yanlış Girdiniz. "+ "Lütfen Tekrar Deneyiniz.");
               setEmailError("");
               
             }
@@ -54,8 +56,8 @@ function SignIn() {
       setPasswordShown(passwordShown ? false : true);
     };
   
-    const eye = <FontAwesomeIcon icon={faEye} />;
-    const eyeSlash = <FontAwesomeIcon icon={faEyeSlash} />;
+    const eye = <FontAwesomeIcon className="opacity-40" icon={faEye} />;
+    const eyeSlash = <FontAwesomeIcon className="opacity-40" icon={faEyeSlash} />;
   
     function incorrectPassError() {
       return <p class="text-16px text-error-red mt-20px text-center">{passwordError}</p>;

@@ -73,8 +73,8 @@ function SignUp() {
     return <p class="text-sm text-error-red mt-2px">{emailError}</p>;
   }
 
-  const eye = <FontAwesomeIcon icon={faEye} />;
-  const eyeSlash = <FontAwesomeIcon icon={faEyeSlash} />;
+  const eye = <FontAwesomeIcon className="opacity-40"  icon={faEye} />;
+  const eyeSlash = <FontAwesomeIcon className="opacity-40"  icon={faEyeSlash} />;
 
   return (
     <div class=" flex w-236px flex-col">
