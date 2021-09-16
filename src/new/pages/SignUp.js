@@ -36,8 +36,7 @@ function SignUp() {
     const auth = getAuth();
     if (password.length < 6) {
       setPasswordError("Şifre en az 6 karakter olmalıdır!!");
-    } 
-    else {
+    } else {
       setPasswordError("");
       return createUserWithEmailAndPassword(auth, email, password)
         .then(async (userCredential) => {
@@ -105,14 +104,22 @@ function SignUp() {
             setEmail(e.target.value);
           }}
           type="text"
-          class={`outline-none  w-100% ${emailError=="" ? `border-input, focus:border-janus-focus-blue`:'border-error-red focus:border-error-red'} font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3  mt-3`}
+          class={`outline-none  w-100% ${
+            emailError == ""
+              ? `border-input, focus:border-janus-focus-blue`
+              : "border-error-red focus:border-error-red"
+          } font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3  mt-3`}
           placeholder="E-posta"
         />
         {emailCheck()}
       </div>
       <div class="relative">
         <i class="fas fa-eye-slash "></i>
-        <i color="gray" onClick={togglePasswordVisiblity} class=" ml-44  mt-5 absolute right-4">
+        <i
+          color="gray"
+          onClick={togglePasswordVisiblity}
+          class=" ml-44  mt-5 absolute right-4"
+        >
           {passwordShown ? eye : eyeSlash}
         </i>
 
@@ -121,7 +128,11 @@ function SignUp() {
             setPassword(e.target.value);
           }}
           type={passwordShown ? "text" : "password"}
-          class={`outline-none  w-100% ${passwordError=="" ? `border-input, focus:border-janus-focus-blue`:'border-error-red focus:border-error-red'} font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3  mt-3`}
+          class={`outline-none  w-100% ${
+            passwordError == ""
+              ? `border-input, focus:border-janus-focus-blue`
+              : "border-error-red focus:border-error-red"
+          } font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3  mt-3`}
           placeholder="Şifre (en az 6 karakter)"
         />
         {passwordLengthCheck()}
@@ -135,7 +146,12 @@ function SignUp() {
       </button>
       <div class="mt-4 flex flex-row px-4 ">
         <p class="text-base text-input-gray font-roboto">Zaten üye misin?</p>
-        <Link to="/SignIn" class="ml-1 text-base text-janus-dark-blue font-roboto">Giriş yap</Link>
+        <Link
+          to="/SignIn"
+          class="ml-1 text-base text-janus-dark-blue font-roboto"
+        >
+          Giriş yap
+        </Link>
       </div>
     </div>
   );

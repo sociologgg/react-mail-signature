@@ -1,13 +1,10 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
-function forLoop()
-{
+function forLoop() {
   var obj = {};
-    for(let i =0; i<=500; i+=2)
-    {
-      if(i%2==0)
-        obj[`${i}px`] = `${i}px`
-    }
-    return obj;
+  for (let i = 0; i <= 500; i += 2) {
+    if (i % 2 == 0) obj[`${i}px`] = `${i}px`;
+  }
+  return obj;
 }
 
 module.exports = {
@@ -19,29 +16,27 @@ module.exports = {
         base: "600px",
         ...forLoop(),
         "100%": "100%",
-        
       },
       width: {
         ...forLoop(),
-      
+        w31px: "w31px",
+
         "100%": "100%",
-       
+
         "215px": "215px",
-       
-        
+
         "760px": "760px",
       },
       margin: {
         18: "4.5rem",
-        ...forLoop()
+        ...forLoop(),
       },
-      padding:
-      {   100: "32.5rem",
-        ...forLoop()
-      },
+
+      padding: { 100: "32.5rem", ...forLoop() },
       backgroundColor: {
         "janus-site-blue": "#167FFC",
         "janus-site-bluef": "#1061c4",
+        success: "#36A54926",
         "mail-gray": "#E5E5E5",
         "login-red": "#E74825",
         "login-red-hover": "#CD3716",
@@ -69,12 +64,12 @@ module.exports = {
         "login-red": "#E74825",
         "janus-dark-blue": "#167FFC",
         "input-gray": "#545454",
-        'janus-purple':'#6C489E',
         "rstpsw-gray": "#979797",
+        "janus-purple": "#6C489E",
+        "line-gray": "#7B7B7B",
       },
-      fontSize:
-      {
-        ...forLoop()
+      fontSize: {
+        ...forLoop(),
       },
 
       boxShadow: {
@@ -85,7 +80,7 @@ module.exports = {
         "login-red": "#ED9319",
         "janus-focus-blue": "#167FFC",
         "line-gray": "#7B7B7B",
-        'error-red':'#D63835'
+        "error-red": "#D63835",
       },
       borderWidth: {
         0.5: "0.5px",
