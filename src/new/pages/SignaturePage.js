@@ -31,7 +31,11 @@ import hubspotg from '../../images/big/hubspot.png'
 import outlookg from '../../images/big/outlook.png'
 import appleg from '../../images/big/apple.png'
 import yahoog from '../../images/big/yahoo.png'
-
+import {SignDetails_hubspot} from '../components/SignDetails'
+import {SignDetails_gmail} from '../components/SignDetails'
+import {SignDetails_outlook} from '../components/SignDetails'
+import {SignDetails_yahoo} from '../components/SignDetails'
+import {SignDetails_apple} from '../components/SignDetails'
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -50,6 +54,7 @@ const links ={
 };
 
 
+
 function SignaturePage() {
 
   const [linkList, setLinkList] = useState([]);
@@ -59,6 +64,22 @@ function SignaturePage() {
   const [web, setWeb] = useState("www.usejanus.com");
   const [mail, setMail] = useState("lorem@ipsum.com");
   const [mailIndex, setMailIndex] = useState(1);
+
+  function descrpManager()
+  {
+    if(mailIndex == 1)
+    return <SignDetails_hubspot/>
+    else if(mailIndex ==2)
+    return <SignDetails_gmail/>
+    else if(mailIndex ==3)
+    return <SignDetails_outlook/>
+    else if(mailIndex ==4)
+    return <SignDetails_yahoo/>
+    else if(mailIndex ==5)
+    return <SignDetails_apple/>
+  }
+
+
     return (
         <div class="h-screen w-screen pt-10 pb-20 flex z-10 relative justify-center px-64 bg-janus-site-blue">
         
@@ -420,9 +441,9 @@ function SignaturePage() {
                <button   onClick={()=>{setMailIndex(5)}} className={` focus:outline-none mx-4px ${mailIndex==5 ?`opacity-100` :`opacity-50`}`}> <img className="w-80px" src={mailIndex ==5 ? appleg: apple}/> </button>
                
                 </div>
-              
+             
               </div>
-
+                    {descrpManager()}
 
           </div>
           </Scrollbars>

@@ -46,6 +46,10 @@ module.exports = {
         "janus-blue": "#3CABDB",
         "dark-blue": "#8833FF",
         "hover-dark-blue ": "#720EFF",
+        'hubspot':'#FF7A59',
+        'gmail':'#36A549',
+        'yahoo':'#6C489E',
+        'apple':'#979797'
       },
       maxWidth: {
         "1/4": "25%",
@@ -71,7 +75,11 @@ module.exports = {
         "janus-purple": "#6C489E",
         "line-gray": "#7B7B7B",
         'mail-gray':'#656565',
-        'light-blue':'#3CADBD'
+        'light-blue':'#3CADBD',
+        'hubspot':'#FF7A59',
+        'gmail':'#36A549',
+        'yahoo':'#6C489E',
+        'apple':'#979797'
         
       },
       fontSize: {
@@ -97,6 +105,7 @@ module.exports = {
         "janus-focus-blue": "#167FFC",
         "line-gray": "#7B7B7B",
         "error-red": "#D63835",
+        
         "janus-purple": "#6C489E",
       },
       borderWidth: {
