@@ -84,7 +84,7 @@ function SignUp() {
             setName(e.target.value);
           }}
           type="text"
-          class={`outline-none w-100% border-input focus:border-janus-focus-blue font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 mt-7`}
+          class={`outline-none w-100% border-input focus:border-janus-focus-blue  font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 mt-7`}
           placeholder="İsim"
         />
       </div>

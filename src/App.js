@@ -7,10 +7,11 @@ import Test from "./pages/Test";
 import CardTest from "./pages/CardTest";
 import ForgotPassword from "./new/pages/ForgotPassword";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import SignaturePage from "./new/pages/SignaturePage";
 function App() {
   return (
     <div className="App">
-      <HomePage />
+      <SignaturePage />
       {/*<Router>
         <Switch>
           <Route path="/about"></Route>
