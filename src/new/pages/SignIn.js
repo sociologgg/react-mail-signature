@@ -14,7 +14,9 @@ function SignIn() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-      
+
+        localStorage.setItem("user", JSON.stringify(user));
+
         setLoading(false);
         setEmailError("");
         setPasswordError("");
@@ -150,7 +152,10 @@ function SignIn() {
         <p class="text-base text-input-gray font-roboto">
           Kayıtlı Değil misin?
         </p>
-        <Link to="/auth/SignUp" class="ml-1 text-base text-janus-purple font-roboto">
+        <Link
+          to="/auth/SignUp"
+          class="ml-1 text-base text-janus-purple font-roboto"
+        >
           Kaydol
         </Link>
       </div>

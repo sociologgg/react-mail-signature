@@ -1,4 +1,4 @@
-import React, { Component, useState, useRef } from "react";
+import React, { Component, useState, useRef, useEffect } from "react";
 import "@material-tailwind/react/tailwind.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Dropdown from "@material-tailwind/react/Dropdown";
@@ -14,7 +14,29 @@ import sirklogo from "../../images/sirklogo.png";
 import orangelock from "../../images/orangelock.png";
 import { Carousel } from "react-responsive-carousel";
 import PopUp from "../components/PopUp";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import {
+  collection,
+  addDoc,
+  getFirestore,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 function HomePage() {
+  const storage = getStorage();
+
+  const db = getFirestore();
+
+  const [sirketAdi, setSirketAdi] = useState();
+  const [sirketTuru, setSirketTuru] = useState();
+  const [webUrl, setWebUrl] = useState();
+  const [user, setUser] = useState({ email: "" });
   const [value, setValue] = useState(0);
   const [page, setPage] = useState(0);
   const [sektor, setSektor] = useState([]);
@@ -22,15 +44,80 @@ function HomePage() {
   const [fileError, setFileError] = useState(false);
   const [fileSuccess, setFileSuccess] = useState(false);
   const [popUpValue, setPopUpValue] = useState(0);
-
   const file = [];
 
-  function handleFileUpload(e) {
+  useEffect(async () => {
+    const stUser = await JSON.parse(localStorage.getItem("user"));
+    setUser(stUser);
+  }, []);
+
+  async function getFirebaseUrl(file) {
+    const metadata = {
+      contentType: "image/jpeg",
+    };
+    let r = (Math.random() + 1).toString(36).substring(2);
+    let name;
+    name = r + file.name;
+
+    const storageRef = ref(storage, "alim/" + name);
+    const uploadTask = uploadBytesResumable(storageRef, file, metadata);
+    await uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is " + progress + "% done");
+        switch (snapshot.state) {
+          case "paused":
+            console.log("Upload is paused");
+            break;
+          case "running":
+            console.log("Upload is running");
+            break;
+        }
+      },
+      (error) => {
+        // A full list of error codes is available at
+        // https://firebase.google.com/docs/storage/web/handle-errors
+        switch (error.code) {
+          case "storage/unauthorized":
+            // User doesn't have permission to access the object
+            break;
+          case "storage/canceled":
+            // User canceled the upload
+            break;
+
+          // ...
+
+          case "storage/unknown":
+            // Unknown error occurred, inspect error.serverResponse
+            break;
+        }
+      },
+      async () => {
+        // Upload completed successfully, now we can get the download URL
+        await getDownloadURL(uploadTask.snapshot.ref).then(
+          async (downloadURL) => {
+            console.log("File available at", downloadURL);
+          }
+        );
+      }
+    );
+  }
+  // firebase yükleme
+
+  //
+
+  async function handleFileUpload(e) {
     if (
       e.target.files[0].type == "image/jpeg" ||
       e.target.files[0].type == "image/png"
     ) {
-      file.push(e.target.files[0]);
+      const imageLink = await getFirebaseUrl(e.target.files[0]);
+
+      file.push(imageLink);
+
       console.log("Başarılı");
       if (fileError == true) {
         setFileError(false);
@@ -115,6 +202,9 @@ function HomePage() {
           <div class="flex flex-row mt-16 items-center ">
             <p class="text-line-gray font-medium text-lg"> Şirket Adı*</p>
             <input
+              onChange={(e) => {
+                setSirketAdi(e.target.value);
+              }}
               type="text"
               class={`outline-none border-input focus:border-janus-focus-blue font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 ml-18`}
             />
@@ -145,7 +235,7 @@ function HomePage() {
               options={data}
               labelField="username"
               valueField="email"
-              onChange={(values) => setSektor(values)}
+              onChange={(values) => setSirketTuru(values)}
               placeholder="Seç.."
             />
           </div>
@@ -155,6 +245,9 @@ function HomePage() {
               Web Sitesi Url'si *
             </p>
             <input
+              onChange={(e) => {
+                setWebUrl(e.target.value);
+              }}
               type="text"
               class={`outline-none border-input focus:border-janus-focus-blue font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 ml-5`}
             />
@@ -185,10 +278,10 @@ function HomePage() {
                   <img class="rounded-xl  " src={autosign} />
                 </div>
                 <div>
-                  <img class="rounded-xl  " src={autosign} />
+                  <img class="rounded-xl  " src={lockedTemplate} />
                 </div>
                 <div>
-                  <img class="rounded-xl  " src={autosign} />
+                  <img class="rounded-xl  " src={lockedTemplate} />
                 </div>
               </Carousel>
             </div>
@@ -229,6 +322,15 @@ function HomePage() {
 
                 <div class="flex justify-end">
                   <button
+                    onClick={async () => {
+                      const docRef = await addDoc(collection(db, "links"), {
+                        companyName: sirketAdi,
+                        webSite: webUrl,
+                        sirketTuru: sirketTuru,
+                        sektor: sektor,
+                        imageLink: file[0],
+                      });
+                    }}
                     disabled={value != 0}
                     class="disabled:opacity-50 focus:outline-none bg-compOrange mt-2 rounded-xl text-white  h-8 px-5  text-center inline flex items-center  font-roboto"
                   >
@@ -250,7 +352,6 @@ function HomePage() {
     }
   }
 
- 
   return (
     <div
       class={
