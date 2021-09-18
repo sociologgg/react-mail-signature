@@ -84,7 +84,7 @@ function SignUp() {
             setName(e.target.value);
           }}
           type="text"
-          class={`outline-none w-100% border-input focus:border-janus-focus-blue font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 mt-7`}
+          class={`outline-none w-100% border-input focus:border-janus-focus-blue  font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 mt-7`}
           placeholder="İsim"
         />
       </div>
@@ -147,7 +147,7 @@ function SignUp() {
       <div class="mt-4 flex flex-row px-4 ">
         <p class="text-base text-input-gray font-roboto">Zaten üye misin?</p>
         <Link
-          to="/SignIn"
+          to="/auth/SignIn"
           class="ml-1 text-base text-janus-dark-blue font-roboto"
         >
           Giriş yap

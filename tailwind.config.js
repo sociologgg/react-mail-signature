@@ -32,7 +32,10 @@ module.exports = {
         ...forLoop(),
       },
 
-      padding: { 100: "32.5rem", ...forLoop() },
+      padding: { 100: "32.5rem", ...forLoop(),
+      '10%':'10%'
+    
+    },
       backgroundColor: {
         "janus-site-blue": "#167FFC",
         "janus-site-bluef": "#1061c4",
@@ -44,6 +47,10 @@ module.exports = {
         "janus-blue": "#3CABDB",
         "dark-blue": "#8833FF",
         "hover-dark-blue ": "#720EFF",
+        'hubspot':'#FF7A59',
+        'gmail':'#36A549',
+        'yahoo':'#6C489E',
+        'apple':'#979797'
       },
       maxWidth: {
         "1/4": "25%",
@@ -69,13 +76,30 @@ module.exports = {
         "rstpsw-gray": "#979797",
         "janus-purple": "#6C489E",
         "line-gray": "#7B7B7B",
+        'mail-gray':'#656565',
+        'light-blue':'#3CADBD',
+        'hubspot':'#FF7A59',
+        'gmail':'#36A549',
+        'yahoo':'#6C489E',
+        'apple':'#979797'
+        
       },
       fontSize: {
         ...forLoop(),
       },
+      bottom:
+      {
+        ...forLoop()
+      },
 
       boxShadow: {
         input: "1px 1px 5px rgba(0, 49, 108, 0.15)",
+        card: "0 1px 2px 4px rgba(0, 0, 0, 0.05)",
+        'sign-input':"1px 1px 5px 0px rgba(0, 49, 108, 0.15)"
+      },
+      inset:
+      {
+          ...forLoop()
       },
       borderColor: {
         input: "#D3D7DF",
@@ -83,6 +107,8 @@ module.exports = {
         "janus-focus-blue": "#167FFC",
         "line-gray": "#7B7B7B",
         "error-red": "#D63835",
+        
+        "janus-purple": "#6C489E",
       },
       borderWidth: {
         0.5: "0.5px",
@@ -99,6 +125,9 @@ module.exports = {
   variants: {
     extend: {
       opacity: ["disabled"],
+      borderWidth: ['hover', 'focus'],
+      borderColor: ['hover', 'focus'],
+
     },
   },
   plugins: [],

@@ -250,7 +250,7 @@ function HomePage() {
     }
   }
 
-  console.log(sektor);
+ 
   return (
     <div
       class={

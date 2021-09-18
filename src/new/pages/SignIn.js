@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import BeatLoader from "react-spinners/BeatLoader";
 import { useDispatch } from "react-redux";
-
+import { useRouteMatch } from "react-router";
 function SignIn() {
   let dispatch = useDispatch();
   async function handleLogin() {
@@ -14,7 +14,7 @@ function SignIn() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user);
+      
         setLoading(false);
         setEmailError("");
         setPasswordError("");
@@ -124,7 +124,7 @@ function SignIn() {
       </div>
 
       <Link
-        to="PassRes"
+        to="/auth/PassRes"
         class="mt-8px text-base text-janus-dark-blue text-right font-roboto"
       >
         Şifreni mi unuttun?
@@ -150,7 +150,7 @@ function SignIn() {
         <p class="text-base text-input-gray font-roboto">
           Kayıtlı Değil misin?
         </p>
-        <Link to="/SignUp" class="ml-1 text-base text-janus-purple font-roboto">
+        <Link to="/auth/SignUp" class="ml-1 text-base text-janus-purple font-roboto">
           Kaydol
         </Link>
       </div>
