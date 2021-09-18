@@ -1,5 +1,6 @@
 import React, { Component, useState, useRef } from "react";
 import "@material-tailwind/react/tailwind.css";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Dropdown from "@material-tailwind/react/Dropdown";
 import DropdownItem from "@material-tailwind/react/DropdownItem";
 import DropdownLink from "@material-tailwind/react/DropdownLink";
@@ -175,19 +176,19 @@ function HomePage() {
       return (
         <div class={`px-96 `}>
           <div class="mt-5 flex flex-col">
-            <div class="">
+            <div>
               <p class=" text-janus-purple">E Posta İmzası Teması Seçin</p>
             </div>
-            <div class="mt-3">
+            <div class=" ">
               <Carousel onChange={onChange}>
                 <div>
                   <img class="rounded-xl  " src={autosign} />
                 </div>
                 <div>
-                  <img class="" src={lockedTemplate}></img>
+                  <img class="rounded-xl  " src={autosign} />
                 </div>
                 <div>
-                  <img class="" src={lockedTemplate} />
+                  <img class="rounded-xl  " src={autosign} />
                 </div>
               </Carousel>
             </div>
