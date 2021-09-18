@@ -55,7 +55,7 @@ const links ={
 
 
 
-function SignaturePage() {
+function SignaturePage({companyName,logoURL,webURL}) {
 
   const [linkList, setLinkList] = useState([]);
   const [fname, setfName] = useState("İsim");

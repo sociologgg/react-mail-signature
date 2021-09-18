@@ -40,6 +40,7 @@ module.exports = {
         "janus-site-blue": "#167FFC",
         "janus-site-bluef": "#1061c4",
         success: "#36A54926",
+        compOrange: "#FCB20E",
         "mail-gray": "#E5E5E5",
         "login-red": "#E74825",
         "login-red-hover": "#CD3716",
@@ -66,6 +67,7 @@ module.exports = {
 
       textColor: {
         label: "#50565F",
+        "janus-red": "#D63835",
         "dark-blue": "#6EA4BF",
         "error-red": "#D63835",
         "login-red": "#E74825",

@@ -147,7 +147,7 @@ function SignUp() {
       <div class="mt-4 flex flex-row px-4 ">
         <p class="text-base text-input-gray font-roboto">Zaten üye misin?</p>
         <Link
-          to="/SignIn"
+          to="/auth/SignIn"
           class="ml-1 text-base text-janus-dark-blue font-roboto"
         >
           Giriş yap
