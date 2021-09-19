@@ -110,7 +110,7 @@ function SignaturePage({companyName,logoURL,webURL}) {
                         <td className="">
                         <tr>
                           <td className="w-24px ">
-                        <a href={`https://${mail}`}><img src={mailImage} className="w-14px mt-10px h-14px"/></a>
+                        <a href={`mailto:${mail}`}><img src={mailImage} className="w-14px mt-10px h-14px"/></a>
                         </td>  
                         <td className="font-light   text-10px font-robot pt-10px text-mail-gray">
                          {mail}
@@ -181,7 +181,7 @@ function SignaturePage({companyName,logoURL,webURL}) {
                 <input onChange={(e)=>{setTitle(e.target.value)}} className="w-310px h-40px px-4 shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 rounded-md focus:outline-none"/> </div>
               <div className="flex mt-20px flex-row items-center  justify-between">
                 <p className="font-roboto text-line-gray text-16px">E-posta*</p> 
-                <input onChange={(e)=>{setMail(`mailto:${e.target.value}`)}} className="w-310px px-4 h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 rounded-md focus:outline-none"/> 
+                <input onChange={(e)=>{setMail(`${e.target.value}`)}} className="w-310px px-4 h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 rounded-md focus:outline-none"/> 
                 </div>
               <div className="flex mt-20px flex-row items-center  justify-between"><p className="font-roboto text-line-gray text-16px">Telefon*</p> <input className="w-310px px-4 h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 rounded-md focus:outline-none"/> </div>
               

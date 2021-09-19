@@ -44,6 +44,7 @@ function HomePage() {
   const [fileError, setFileError] = useState(false);
   const [fileSuccess, setFileSuccess] = useState(false);
   const [popUpValue, setPopUpValue] = useState(0);
+  const [popUpValue2, setPopUpValue2] = useState(0);
   const file = [];
 
   useEffect(async () => {
@@ -194,7 +195,53 @@ function HomePage() {
       );
     }
   }
+  function handlePopUp2() {
+    if (popUpValue2 == 1) {
+      return (
+        <div class="  flex-column absolute h-1/4  z-20 shadow-2xl  rounded-3xl overflow-hidden bg-white mt-64  justify-center px-3 ">
+          <div class="flex justify-end items-center mt-2 ">
+            <button
+              onClick={() => {
+                setPopUpValue2(0);
+              }}
+              class="focus:outline-none"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 mr-3"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+<div className="px-20 mt-30px">
+<button onClick={()=>{
+ alert('Panoya Kopyalandı')
+ navigator.clipboard.writeText('http://localhost:3000/1jTuTrmisjdZuH1bEIUj');}}
+className="bg-janus-site-blue rounded-xl font-roboto text-white w-36 py-10px focus:outline-none ">Linki Kopyala</button>
 
+    </div>         
+    <div className="px-20 mt-20px">
+<button 
+onClick={()=>{
+ 
+
+}}
+className="bg-janus-site-blue rounded-xl font-roboto text-white  w-36  py-10px focus:outline-none"><a target="_blank" href="http://localhost:3000/1jTuTrmisjdZuH1bEIUj">Link'e Git </a></button>
+
+    </div>         
+        </div>
+      );
+    }
+  }
   function pageManager() {
     if (page == 0) {
       return (
@@ -272,8 +319,8 @@ function HomePage() {
             <div>
               <p class=" text-janus-purple">E Posta İmzası Teması Seçin</p>
             </div>
-            <div class=" ">
-              <Carousel onChange={onChange}>
+            <div class="">
+              <Carousel width="382px"  onChange={onChange}>
                 <div>
                   <img class="rounded-xl  " src={autosign} />
                 </div>
@@ -323,13 +370,14 @@ function HomePage() {
                 <div class="flex justify-end">
                   <button
                     onClick={async () => {
-                      const docRef = await addDoc(collection(db, "links"), {
+                      /*const docRef = await addDoc(collection(db, "links"), {
                         companyName: sirketAdi,
                         webSite: webUrl,
                         sirketTuru: sirketTuru,
                         sektor: sektor,
                         imageLink: file[0],
-                      });
+                      });*/
+                      setPopUpValue2(1);
                     }}
                     disabled={value != 0}
                     class="disabled:opacity-50 focus:outline-none bg-compOrange mt-2 rounded-xl text-white  h-8 px-5  text-center inline flex items-center  font-roboto"
@@ -362,6 +410,7 @@ function HomePage() {
     >
       {" "}
       {handlePopUp()}
+      {handlePopUp2()}
       <div class="w-screen h-100%  ">
         <div class="flex justify-between items-center">
           <p class="font-bold text-4xl mt-8 text-white mb-5 font-roboto">
