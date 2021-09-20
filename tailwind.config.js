@@ -51,6 +51,7 @@ module.exports = {
         "hover-dark-blue ": "#720EFF",
         'hubspot':'#FF7A59',
         'gmail':'#36A549',
+        'janus-gray':'#6A6B6D',
         'yahoo':'#6C489E',
         'apple':'#979797'
       },
@@ -59,7 +60,7 @@ module.exports = {
         "1/2": "50%",
         "3/4": "75%",
         "100%": "100%",
-        '470px':'470px'
+        ...forLoop()
       },
       maxHeight: {
         "1/4": "25%",
@@ -104,8 +105,9 @@ module.exports = {
       },
       inset:
       {
-          ...forLoop()
-      },
+          ...forLoop(),
+        'minus16px':'-16px'
+        },
       borderColor: {
         input: "#D3D7DF",
         "login-red": "#ED9319",

@@ -16,6 +16,7 @@
   import PopUp from "../components/PopUp";
   import party from '../../images/party.png'
   import arrow from '../../images/arrowhome.png'
+  import info_circle from '../../images/info_circle.png'
   import {
     getStorage,
     ref,
@@ -48,6 +49,9 @@
     const [popUpValue, setPopUpValue] = useState(0);
     const [popUpValue2, setPopUpValue2] = useState(0);
     const [popUpValue3, setPopUpValue3] = useState(0);
+    const [isDropdownOpen1, setIsDropdownOpen1] = useState(false);
+    const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
+    const [hoverInfoVisible, setHoverInfoVisible] = useState(false);
     const file = [];
 
     useEffect(async () => {
@@ -289,7 +293,7 @@
                 </div>
                 <div className="w-20px"/>
                 <div className="flex-1 flex justify-start">
-                <button className="py-10px px-6px bg-compOrange rounded-md focus:outline-none">
+                <button className="py-10px px-6px bg-compOrange hover:bg-compOrange-hover rounded-md focus:outline-none">
                   <a target="_blank" href="http://localhost:3000/1jTuTrmisjdZuH1bEIUj" className="text-white text-16px font-roboto">E-posta İmzası Üret</a>
                 </button>
             </div>
@@ -302,22 +306,26 @@
       if (page == 0) {
         return (
           <div>
-            <div class="flex flex-row mt-16 items-center ">
+            <div class="flex  flex-row mt-16 items-center ">
               <p class="text-line-gray font-medium text-lg"> Şirket Adı*</p>
               <input
                 onChange={(e) => {
                   setSirketAdi(e.target.value);
                 }}
                 type="text"
-                class={`outline-none border-input focus:border-janus-focus-blue font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 ml-18`}
+                class={`outline-none border-input focus:border-janus-focus-blue w-290px  font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 ml-18`}
               />
             </div>
-            <div class="mt-5 flex flex-row items-center ">
+            <div class={`mt-5 flex  flex-row relative  ${isDropdownOpen1 ? `h-250px`:''}`}>
+              <div className="justify-start h-10  w-100% items-center flex">
               <p class="text-line-gray font-medium text-lg"> Sektör </p>
               <Select
-                className={`   font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3  `}
+                className={`w-400px relative font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3  `}
                 multi={false}
-                style={{ width: 205, marginLeft: 107 }}
+                dropdownHeight="200px"
+                onDropdownOpen={()=>{setIsDropdownOpen1(true)}}
+                onDropdownClose={()=>{setIsDropdownOpen1(false)}}
+                style={{width:290, marginLeft: 107 }}
                 dropdownPosition="bottom"
                 values={[]}
                 options={data}
@@ -326,15 +334,20 @@
                 onChange={(values) => setSektor(values)}
                 placeholder="Seç.."
               />
+              </div>
             </div>
-            <div class="mt-5 flex flex-row items-center ">
+            <div class={`mt-5 flex  flex-row relative ${isDropdownOpen2 ? `h-250px`:''}`}>
+              <div className="justify-center h-10  items-center flex">
               <p class="text-line-gray font-medium text-lg"> Şirket Türü </p>
               <Select
                 className={`   font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 ml-18 `}
-                style={{ width: 205 }}
-                multi={false}
+                style={{ width: '290px' }}
+                dropdownHeight="200px"
+                multi={false}   onDropdownOpen={()=>{setIsDropdownOpen2(true)}}
+                onDropdownClose={()=>{setIsDropdownOpen2(false)}}
                 dropdownPosition="bottom"
                 values={[]}
+                
                 options={data}
                 labelField="username"
                 valueField="email"
@@ -342,7 +355,8 @@
                 placeholder="Seç.."
               />
             </div>
-            <div class="flex flex-row mt-5 items-center ">
+            </div>
+            <div class="flex flex-row mt-5 items-center relative ">
               <p class="text-line-gray font-medium text-lg">
                 {" "}
                 Web Sitesi Url'si *
@@ -352,9 +366,15 @@
                   setWebUrl(e.target.value);
                 }}
                 type="text"
-                class={`outline-none border-input focus:border-janus-focus-blue font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 ml-5`}
+                class={`outline-none w-290px border-input focus:border-janus-focus-blue font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 ml-5`}
               />
+              <img 
+              onMouseEnter={()=>{setHoverInfoVisible(true)}}
+              onMouseLeave={()=>{setHoverInfoVisible(false)}}
+              src={info_circle} className="w-16px absolute z-10 right-10px h-16px"/>
+            <p className={`${hoverInfoVisible ?`absolute`:'hidden'} absolute px-6px bg-janus-gray  py-4px top-minus16px rounded-md text-white text-center right-2 text-10px font-roboto w-auto`}>Websitenizin anasayfasını (www.ornek.com) ekleyin</p>
             </div>
+           
             <div class="flex flex-row justify-end">
               <button
                 onClick={() => {
@@ -430,7 +450,7 @@
                   
                   </div>
 
-                  <div class="flex flex-1   justify-center lg:mt-32px md:mt-20px">
+                  <div class="flex flex-1   justify-center lg:mt-20px md:mt-20px">
                     <button
                       onClick={async () => {
                         /*const docRef = await addDoc(collection(db, "links"), {
@@ -488,7 +508,7 @@
             </div>
           </div>
 
-          <div class="flex  flex-1    shadow-2xl  rounded-3xl overflow-hidden bg-white mt-5 flex-column justify-center  ">
+          <div class="flex  flex-1 px-20px    shadow-2xl  rounded-3xl overflow-hidden bg-white mt-5 flex-column justify-center  ">
             {pageManager()}
           </div>
         </div>

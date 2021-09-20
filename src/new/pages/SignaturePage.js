@@ -63,7 +63,7 @@ function SignaturePage({companyName,logoURL,webURL}) {
   const [title, setTitle] = useState("Unvan");
   const [web, setWeb] = useState("www.usejanus.com");
   const [mail, setMail] = useState("lorem@ipsum.com");
-  const [mailIndex, setMailIndex] = useState(1);
+  const [mailIndex, setMailIndex] = useState(0);
 
   function descrpManager()
   {
