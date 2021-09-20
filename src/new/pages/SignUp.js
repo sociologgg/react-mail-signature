@@ -140,7 +140,7 @@ function SignUp() {
 
       <button
         onClick={handleRegister}
-        class="h-10 rounded-lg bg-janus-site-blue hover:bg-janus-site-bluef  mt-7 text-base text-white font-roboto"
+        class="h-10 rounded-lg bg-janus-site-blue hover:bg-janus-blue-hover  mt-7 text-base text-white font-roboto"
       >
         Kaydol
       </button>

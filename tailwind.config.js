@@ -38,9 +38,11 @@ module.exports = {
     },
       backgroundColor: {
         "janus-site-blue": "#167FFC",
+        'janus-blue-hover':'#0470F0',
         "janus-site-bluef": "#1061c4",
         success: "#36A54926",
         compOrange: "#FCB20E",
+        'compOrange-hover': "#FBAD17",
         "mail-gray": "#E5E5E5",
         "login-red": "#E74825",
         "login-red-hover": "#CD3716",
@@ -57,6 +59,7 @@ module.exports = {
         "1/2": "50%",
         "3/4": "75%",
         "100%": "100%",
+        '470px':'470px'
       },
       maxHeight: {
         "1/4": "25%",
@@ -81,7 +84,9 @@ module.exports = {
         'hubspot':'#FF7A59',
         'gmail':'#36A549',
         'yahoo':'#6C489E',
-        'apple':'#979797'
+        'apple':'#979797',
+        'info-red':'#D63835'
+        
         
       },
       fontSize: {

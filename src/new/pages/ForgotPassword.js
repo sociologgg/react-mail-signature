@@ -75,7 +75,7 @@ function ForgotPassword() {
               disabled={tick == true}
               onClick={sendEmailforResetPassword}
               class={`${
-                tick ? `bg-success px-20` : `bg-janus-site-blue`
+                tick ? `bg-success px-20` : `bg-janus-site-blue hover:bg-janus-blue-hover `
               } h-10 rounded-lg   mt-7 text-base text-white font-roboto px-6 `}
             >
               {loading ? (

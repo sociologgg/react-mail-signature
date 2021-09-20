@@ -134,7 +134,7 @@ function SignIn() {
 
       <button
         onClick={handleLogin}
-        class="h-10 rounded-lg bg-janus-site-blue hover:bg-janus-site-bluef  flex items-center justify-center  mt-32px text-base text-white font-roboto"
+        class="h-10 rounded-lg bg-janus-site-blue hover:bg-janus-blue-hover focus:outline-none  flex items-center justify-center  mt-32px text-base text-white font-roboto"
       >
         {loading ? (
           <BeatLoader
