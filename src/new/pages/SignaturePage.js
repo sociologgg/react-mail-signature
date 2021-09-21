@@ -43,8 +43,17 @@ import {
   uploadString,
   getDownloadURL,
 } from "firebase/storage";
-import { Link } from "react-router-dom";
 
+import {
+  collection,
+  addDoc,
+  getFirestore,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
+
+const axios = require("axios");
 var vCardsJS = require("vcards-js");
 
 function classNames(...classes) {
@@ -63,8 +72,10 @@ const links = {
   WEB: 256,
 };
 
-function SignaturePage({ companyName, logoURL, webURL }) {
+function SignaturePage({ logoLink, weburl }) {
   const storage = getStorage();
+  const db = getFirestore();
+  const [cardPath, setCardPath] = useState();
   const [linkList, setLinkList] = useState([]);
   const [fname, setfName] = useState("İsim");
   const [lname, setLName] = useState("Soyisim");
@@ -73,6 +84,8 @@ function SignaturePage({ companyName, logoURL, webURL }) {
   const [phone, setPhone] = useState("");
   const [mail, setMail] = useState("lorem@ipsum.com");
   const [mailIndex, setMailIndex] = useState(0);
+  // img'ın yönleceği path (oluşan docid'den alınır)
+  const [imgpath, setImgPath] = useState("");
 
   function descrpManager() {
     if (mailIndex == 1) return <SignDetails_hubspot />;
@@ -98,7 +111,7 @@ function SignaturePage({ companyName, logoURL, webURL }) {
             >
               <tbody>
                 <th className=" w-132px">
-                  <img src={janusmail} className="h-72px  w-72px ml-30px" />
+                  <img src={logoLink} className="h-72px  w-72px ml-30px" />
                 </th>
                 <th className=" w-200px pr-30px">
                   <tr>
@@ -593,7 +606,7 @@ function SignaturePage({ companyName, logoURL, webURL }) {
                 </Menu>
               </div>
               <button
-                onClick={() => {
+                onClick={async () => {
                   var vCard = vCardsJS();
                   vCard.firstName = fname;
                   vCard.lastName = lname;
@@ -607,9 +620,22 @@ function SignaturePage({ companyName, logoURL, webURL }) {
                     "vcards/" + fname + lname + ".vcf"
                   );
                   uploadString(storageRef, card).then((snapshot) => {
-                    getDownloadURL(snapshot.ref).then((downloadURL) => {
+                    getDownloadURL(snapshot.ref).then(async (downloadURL) => {
                       console.log("File available at", downloadURL);
+                      setCardPath(downloadURL);
+                      console.log(linkList);
+                      console.log(cardPath);
 
+                      // firebase firestore işlemleri
+
+                      /*fetch(
+                        "https://firebasestorage.googleapis.com/v0/b/mail-signature-c886b.appspot.com/o/vcards%2Fsadsadsadasdsadsa.vcf?alt=media&token=7c655c91-4e9f-4b22-a95b-6ac8196d4b60",
+                        {
+                          method: "GET",
+                        }
+                      ).then((response) => {
+                        console.log(response);
+                      }); */
                       /*  fetch(downloadURL, { method: "GET" })
                         .then((response) => {
                           response.blob();
@@ -621,7 +647,30 @@ function SignaturePage({ companyName, logoURL, webURL }) {
               >
                 Kaydet{" "}
               </button>
-              <button class="mt-5">İndir </button>
+              <button
+                onClick={async () => {
+                  const docRef = await addDoc(collection(db, "cards"), {
+                    fname: fname,
+                    lname: lname,
+                    title: title,
+                    mail: mail,
+                    phone: phone,
+                    linkList: linkList,
+                    logo: logoLink,
+                    onclickpath: cardPath,
+                    cardImage: "",
+                  });
+
+                  setImgPath(docRef.id);
+                  console.log(imgpath);
+
+                  // doc id oluşmalı ki resme atayabilelim, ilk atandığında dokunabilir olmayacak (çünkü app js'de komponent oluşmadı henüz)
+                }}
+              >
+                {" "}
+                Database'e yükle{" "}
+              </button>
+
               <p className="text-janus-purple  font-bold text-18px text-center mt-50px">
                 E-posta İmzası Ekle
               </p>
