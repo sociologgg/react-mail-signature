@@ -9,6 +9,7 @@ import twitter from '../../images/twitter.png'
 import linkedin from '../../images/linkedin2.png'
 import youtube from '../../images/youtube.png'
 import { useState } from 'react'
+import html2canvas from 'html2canvas';
 import linkedinbw from '../../images/linkedinbw.png'
 import facebookbw from '../../images/facebookbw.png'
 import youtubebw from '../../images/youtubebw.png'
@@ -25,7 +26,7 @@ import hubspot from '../../images/small/hubspot.png'
 import outlook from '../../images/small/outlook.png'
 import apple from '../../images/small/apple.png'
 import yahoo from '../../images/small/yahoo.png'
-
+import { useRef } from 'react'
 import gmailg from '../../images/big/gmail.png'
 import hubspotg from '../../images/big/hubspot.png'
 import outlookg from '../../images/big/outlook.png'
@@ -53,10 +54,29 @@ const links ={
 
 };
 
-
+  function copyToClipboard(html) {
+    var container = document.createElement("div");
+    container.innerHTML = html;
+    container.style.position = "fixed";
+    container.style.pointerEvents = "none";
+    container.style.opacity = 0;
+    document.body.appendChild(container);
+    window.getSelection().removeAllRanges();
+    var range = document.createRange();
+    range.selectNode(container);
+    window.getSelection().addRange(range);
+    document.execCommand("copy");
+    document.body.removeChild(container);
+    //alert("Copied");
+  }
+  function copy(docId)
+  {
+    console.log(docId);
+    copyToClipboard(docId);
+  }
 
 function SignaturePage({companyName,logoURL,webURL}) {
-
+  const tableRef = useRef(null);
   const [linkList, setLinkList] = useState([]);
   const [fname, setfName] = useState("İsim");
   const [lname, setLName] = useState("Soyisim");
@@ -92,7 +112,18 @@ function SignaturePage({companyName,logoURL,webURL}) {
           </div>
           <Scrollbars className="rounded-3xl mt-5">
           <div class="flex overflow-y-scroll pb-24  flex-1 block  shadow-2xl  rounded-3xl  bg-white flex-col  items-center ">
-            <table cellSpacing='0' class="min-w-332px min-h-132px shadow-card mt-80px ">
+        <div className="min-w-332px h-132px block mt-80px shadow-card">
+          <div className="h-132px flex items-center">
+            <div class="bg-red-500">
+            <img src={janusmail} className="h-72px  w-auto ml-30px " />
+          </div>
+          <div class="ml-30px">
+          </div>
+          </div>
+          </div>
+      
+        {/*
+            <table id="signature" ref={tableRef} cellSpacing='0' class="min-w-332px min-h-132px shadow-card block mt-80px ">
                 <tbody >
                     <th className=" w-132px">
                         <img src={janusmail} className="h-72px  w-72px ml-30px" />
@@ -108,12 +139,12 @@ function SignaturePage({companyName,logoURL,webURL}) {
                     </tr>
                     <tr className="h-24px  ">
                         <td className="">
-                        <tr>
-                          <td className="w-24px ">
-                        <a href={`mailto:${mail}`}><img src={mailImage} className="w-14px mt-10px h-14px"/></a>
+                        <tr class="bg-blue-500 align-top">
+                          <td className="w-24px">
+                        <a href={`mailto:${mail}`}><img src={mailImage} className="w-14px mt-4px h-14px"/></a>
                         </td>  
-                        <td className="font-light   text-10px font-robot pt-10px text-mail-gray">
-                         {mail}
+                        <td className="font-light   text-10px font-robot align-top  text-mail-gray">
+                      <p>   {mail} </p>
                         </td>
                         </tr>
                         </td>
@@ -164,7 +195,7 @@ function SignaturePage({companyName,logoURL,webURL}) {
              
                 
             </table>
-
+*/}
           
             <div className="flex flex-col py-6 ">
               
@@ -444,9 +475,34 @@ function SignaturePage({companyName,logoURL,webURL}) {
              
               </div>
                     {descrpManager()}
+                    <button onClick={()=>{html2canvas(document.getElementById("signature"),{backgroundColor:'red',display:'block',}).then(function(canvas) {
+                   canvas.style.textAlign="top";
+                   var table = document.getElementById("signature");
+                    var img = document.getElementById("janusmail2");
+                    
+                    var table2 = document.getElementById("signature2");
 
+                     
+                    //var a = document.createElement("");
+                    img.src = canvas.toDataURL("image/png");  
+               
+                      copy(table2.innerHTML);
+});}}>hello</button>
           </div>
+          
           </Scrollbars>
+          <table id="signature2" ref={tableRef} cellSpacing='0' class="min-w-332px min-h-132px shadow-card mt-80px ">
+                <tbody >
+                    <th className=" w-132px">
+                      <a href="https://www.google.com"> 
+                        <img id="janusmail2" src={janusmail} />
+                      </a>
+                    </th>
+                  
+                </tbody>
+             
+                
+            </table>
         </div>
       </div>
     )
