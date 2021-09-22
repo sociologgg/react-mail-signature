@@ -19,6 +19,8 @@ import {} from "./firebase/firebase";
 import { useSelector } from "react-redux";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import HiCard from "./new/pages/HiCard";
+
 function App() {
   const isLoggedIn = useSelector((state) => state.auth);
   console.log(isLoggedIn.isLoggedIn);
@@ -26,7 +28,8 @@ function App() {
   const db = getFirestore();
   const arr = [];
   const dataArr = [];
-
+  const cardDataArr = [];
+  const [cardURLS, setCardURLS] = useState([]);
   const [url, setUrls] = useState([]);
   const [images, setImages] = useState([{}]);
   useEffect(async () => {
@@ -35,10 +38,22 @@ function App() {
       dataArr.push(doc.data().images);
       arr.push({
         id: doc.id,
-        images: doc.data().images,
-        webSite: doc.data().webSite,
+        logolink: doc.data().logoLink,
+        weburl: doc.data().webUrl,
+      });
+      console.log(arr);
+    });
+    // hihello card sayfası için dökümanlar
+    const cardSnapshot = await getDocs(await collection(db, "cards"));
+    cardSnapshot.forEach((doc) => {
+      cardDataArr.push({
+        fname: doc.data().fname,
+        id: doc.id,
       });
     });
+
+    setCardURLS(cardDataArr);
+
     setUrls(arr);
 
     setImages(dataArr);
@@ -46,8 +61,6 @@ function App() {
 
   function handleRoute(images) {
     return url.map((item, index) => {
-      console.log(url[index].id);
-
       return (
         <Route
           path={"/" + url[index].id}
@@ -55,7 +68,31 @@ function App() {
             return (
               <SignaturePage
                 {...props}
-                //logoURL={}
+                logoLink={url[index].logolink[0]}
+                weburl={url[index].weburl}
+
+                //webURL={}
+                //companyName={}
+              />
+            );
+          }}
+        ></Route>
+      );
+    });
+  }
+
+  function handleRouteCards() {
+    return cardURLS.map((item, index) => {
+      console.log(cardURLS);
+      return (
+        <Route
+          path={"/" + cardURLS[index].id}
+          render={(props) => {
+            return (
+              <HiCard
+                {...props}
+                data={cardURLS[index].fname}
+
                 //webURL={}
                 //companyName={}
               />
@@ -84,6 +121,7 @@ function App() {
             <Redirect to="/auth" />
           </Route>
           {handleRoute(images)}
+          {handleRouteCards()}
 
           <Route path="/auth" component={Dashboard}>
             {second()}
