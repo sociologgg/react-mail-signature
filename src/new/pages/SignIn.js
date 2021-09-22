@@ -35,14 +35,15 @@ function SignIn() {
             "Şifrenizi Yanlış Girdiniz. " + "Lütfen Tekrar Deneyiniz."
           );
           setEmailError("");
-        } else if (
-          errorCode == "auth/user-not-found" ||
-          errorCode == "auth/invalid-email"
-        ) {
+        } else if (errorCode == "auth/user-not-found") {
           console.log("ASKNLDASNLKDASKLMDAS");
           setEmailError(
             "Kullanıcı bulunamadı. Lütfen kullanıcı adınızı kontrol edin ve tekrar deneyin."
           );
+          setPasswordError("");
+        } else if (errorCode == "auth/invalid-email") {
+          console.log("ASKNLDASNLKDASKLMDAS");
+          setEmailError("Mail formatını düzeltin!");
           setPasswordError("");
         }
 
@@ -134,7 +135,8 @@ function SignIn() {
 
       <button
         onClick={handleLogin}
-        class="h-10 rounded-lg bg-janus-site-blue hover:bg-janus-blue-hover focus:outline-none  flex items-center justify-center  mt-32px text-base text-white font-roboto"
+        disabled={email == "" || password == ""}
+        class="h-10 rounded-lg bg-janus-site-blue hover:bg-janus-blue-hover focus:outline-none  flex items-center justify-center  mt-32px text-base text-white font-roboto disabled:opacity-50"
       >
         {loading ? (
           <BeatLoader

@@ -13,6 +13,7 @@ function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [tick, setTick] = useState(false);
+  const [error, setError] = useState();
   const auth = getAuth();
 
   function sendEmailforResetPassword() {
@@ -24,13 +25,43 @@ function ForgotPassword() {
         setLoading(false);
         setPage(1);
       })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+      .catch((errorr) => {
+        const errorCode = errorr.code;
+        const errorMessage = errorr.message;
         console.log(errorCode, errorMessage);
         setLoading(false);
+
+        if (errorCode == "auth/user-not-found") {
+          setError("Böyle bir mail adresi sistemde kayıtlı değil!");
+          console.log("ASKNLDASNLKDASKLMDAS");
+        } else if (errorCode == "auth/invalid-email") {
+          setError(
+            "Geçersiz mail formatı! Lütfen sisteme kayıtlı olduğunuz mail adresini girin!"
+          );
+          console.log("error is : ", error);
+        }
+
         // ..
       });
+  }
+
+  function handleShowInvalidEmailError() {
+    if (error == "Böyle bir mail adresi sistemde kayıtlı değil!") {
+      return (
+        <div class="flex justify-center mt-2 font-roboto text-error-red">
+          <p>{error}</p>
+        </div>
+      );
+    } else if (
+      error ==
+      "Geçersiz mail formatı! Lütfen sisteme kayıtlı olduğunuz mail adresini girin!"
+    ) {
+      return (
+        <p class="flex justify-center mt-2 font-roboto text-error-red px-20">
+          {error}
+        </p>
+      );
+    }
   }
 
   function pageManager() {
@@ -69,14 +100,18 @@ function ForgotPassword() {
             class="  outline-none border-input focus:border-janus-focus-blue font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3  mt-10"
             placeholder="E-posta"
           />
+          {handleShowInvalidEmailError()}
+
           <div>
             {" "}
             <button
-              disabled={tick == true}
+              disabled={tick == true || email == ""}
               onClick={sendEmailforResetPassword}
               class={`${
-                tick ? `bg-success px-20` : `bg-janus-site-blue hover:bg-janus-blue-hover `
-              } h-10 rounded-lg   mt-7 text-base text-white font-roboto px-6 `}
+                tick
+                  ? `bg-success px-20 disabled:opacity-50`
+                  : `bg-janus-site-blue hover:bg-janus-blue-hover disabled:opacity-50`
+              } h-10 rounded-lg   mt-7 text-base text-white font-roboto px-6 disabled:opacity-50`}
             >
               {loading ? (
                 <BeatLoader
@@ -99,7 +134,7 @@ function ForgotPassword() {
           </div>
           <div class="mt-5">
             <Link
-              to="/SignUp"
+              to="/auth/SignUp"
               class="mt-5 ml-1 text-base text-janus-dark-blue font-roboto font-bold"
             >
               Yeni hesap oluştur

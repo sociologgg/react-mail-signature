@@ -72,8 +72,8 @@ function SignUp() {
     return <p class="text-sm text-error-red mt-2px">{emailError}</p>;
   }
 
-  const eye = <FontAwesomeIcon className="opacity-40"  icon={faEye} />;
-  const eyeSlash = <FontAwesomeIcon className="opacity-40"  icon={faEyeSlash} />;
+  const eye = <FontAwesomeIcon className="opacity-40" icon={faEye} />;
+  const eyeSlash = <FontAwesomeIcon className="opacity-40" icon={faEyeSlash} />;
 
   return (
     <div class=" flex w-236px flex-col">
@@ -140,7 +140,8 @@ function SignUp() {
 
       <button
         onClick={handleRegister}
-        class="h-10 rounded-lg bg-janus-site-blue hover:bg-janus-blue-hover  mt-7 text-base text-white font-roboto"
+        disabled={name == "" || surname == "" || email == "" || password == ""}
+        class="h-10 rounded-lg bg-janus-site-blue hover:bg-janus-blue-hover  mt-7 text-base text-white font-roboto disabled:opacity-50"
       >
         Kaydol
       </button>
