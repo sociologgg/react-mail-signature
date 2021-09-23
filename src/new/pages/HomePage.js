@@ -17,6 +17,7 @@ import PopUp from "../components/PopUp";
 import party from "../../images/party.png";
 import arrow from "../../images/arrowhome.png";
 import info_circle from "../../images/info_circle.png";
+import girlontable from "../../images/girlontable.png";
 import {
   getStorage,
   ref,
@@ -36,9 +37,9 @@ function HomePage() {
 
   const db = getFirestore();
 
-  const [sirketAdi, setSirketAdi] = useState();
-  const [sirketTuru, setSirketTuru] = useState();
-  const [webUrl, setWebUrl] = useState();
+  const [sirketAdi, setSirketAdi] = useState("");
+  const [sirketTuru, setSirketTuru] = useState("");
+  const [webUrl, setWebUrl] = useState("");
   const [user, setUser] = useState({ email: "" });
   const [value, setValue] = useState(0);
   const [page, setPage] = useState(0);
@@ -46,6 +47,7 @@ function HomePage() {
   const fileInputRef = useRef();
   const [fileError, setFileError] = useState(false);
   const [fileSuccess, setFileSuccess] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [popUpValue, setPopUpValue] = useState(0);
   const [popUpValue2, setPopUpValue2] = useState(0);
   const [popUpValue3, setPopUpValue3] = useState(0);
@@ -110,7 +112,10 @@ function HomePage() {
         await getDownloadURL(uploadTask.snapshot.ref).then(
           async (downloadURL) => {
             console.log("File available at", downloadURL);
+
             setLogoLink(downloadURL);
+            setIsButtonDisabled(false);
+
             fileLink.push(downloadURL);
 
             setLogoLink(fileLink);
@@ -130,14 +135,12 @@ function HomePage() {
       e.target.files[0].type == "image/png"
     ) {
       const imageLink = await getFirebaseUrl(e.target.files[0]);
-
+      setFileSuccess(true);
       console.log("Başarılı");
       if (fileError == true) {
         setFileError(false);
         setFileSuccess(true);
       }
-
-      setFileSuccess(true);
     } else {
       console.log("Başarısız");
       setFileError(true);
@@ -335,210 +338,221 @@ function HomePage() {
   function pageManager() {
     if (page == 0) {
       return (
-        <div>
-          <div class="flex  flex-row mt-16 items-center ">
-            <p class="text-line-gray font-medium text-lg"> Şirket Adı*</p>
-            <input
-              onChange={(e) => {
-                setSirketAdi(e.target.value);
-              }}
-              type="text"
-              class={`outline-none border-input focus:border-janus-focus-blue w-290px  font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 ml-18`}
-            />
-          </div>
-          <div
-            class={`mt-5 flex  flex-row relative  ${
-              isDropdownOpen1 ? `h-250px` : ""
-            }`}
-          >
-            <div className="justify-start h-10  w-100% items-center flex">
-              <p class="text-line-gray font-medium text-lg"> Sektör </p>
-              <Select
-                className={`w-400px relative font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3  `}
-                multi={false}
-                dropdownHeight="200px"
-                onDropdownOpen={() => {
-                  setIsDropdownOpen1(true);
-                }}
-                onDropdownClose={() => {
-                  setIsDropdownOpen1(false);
-                }}
-                style={{ width: 290, marginLeft: 107 }}
-                dropdownPosition="bottom"
-                values={[]}
-                options={data}
-                labelField="username"
-                valueField="email"
-                onChange={(values) => setSektor(values)}
-                placeholder="Seç.."
-              />
+        <div class="  flex l shadow-2xl  rounded-3xl overflow-hidden bg-white mt-5  justify-center  ">
+          <div class=" flex  flex-column w-100%">
+            <div class="flex-col flex justify-center     w-3/4 h-100%   ">
+              <div class="  flex flex-row  w-100% justify-center items-center ">
+                <p class="text-line-gray font-medium text-lg">
+                  {" "}
+                  Organizasyon adı*
+                </p>
+                <input
+                  onChange={(e) => {
+                    setSirketAdi(e.target.value);
+                  }}
+                  type="text"
+                  class={`outline-none border-input focus:border-janus-focus-blue w-290px  font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 ml-18 `}
+                />
+              </div>
+              {/* <div className="justify-center h-10  items-center flex flex-row  mt-4">
+                <p class="text-line-gray font-medium text-lg "> Sektör </p>
+                <Select
+                  className={`   font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 ml-44 `}
+                  style={{ width: "290px" }}
+                  dropdownHeight="200px"
+                  multi={false}
+                  onDropdownOpen={() => {
+                    setIsDropdownOpen2(true);
+                  }}
+                  onDropdownClose={() => {
+                    setIsDropdownOpen2(false);
+                  }}
+                  dropdownPosition="bottom"
+                  values={[]}
+                  options={data}
+                  labelField="username"
+                  valueField="email"
+                  onChange={(values) => setSektor(values)}
+                  placeholder="Seç.."
+                />
+              </div>
+              <div className="justify-center h-10  items-center flex mt-4">
+                <p class="text-line-gray font-medium text-lg">
+                  {" "}
+                  Organizasyon Türü{" "}
+                </p>
+                <Select
+                  className={`   font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 ml-18 `}
+                  style={{ width: "290px" }}
+                  dropdownHeight="200px"
+                  multi={false}
+                  onDropdownOpen={() => {
+                    setIsDropdownOpen2(true);
+                  }}
+                  onDropdownClose={() => {
+                    setIsDropdownOpen2(false);
+                  }}
+                  dropdownPosition="bottom"
+                  values={[]}
+                  options={data}
+                  labelField="username"
+                  valueField="email"
+                  onChange={(values) => setSirketTuru(values)}
+                  placeholder="Seç.."
+                />
+              </div>*/}
+              <div class="flex mt-5  items-center relative ">
+                <p class="text-line-gray ml-14 font-medium text-lg">
+                  {" "}
+                  Web Sitesi Url'si *
+                </p>
+                <input
+                  onChange={(e) => {
+                    setWebUrl(e.target.value);
+                  }}
+                  type="text"
+                  class={`outline-none w-290px border-input focus:border-janus-focus-blue font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 ml-20`}
+                />
+                <img
+                  onMouseEnter={() => {
+                    setHoverInfoVisible(true);
+                  }}
+                  onMouseLeave={() => {
+                    setHoverInfoVisible(false);
+                  }}
+                  src={info_circle}
+                  className="w-16px absolute z-10 right-10px h-16px mr-14"
+                />
+                <p
+                  className={`${
+                    hoverInfoVisible ? `absolute` : "hidden"
+                  } absolute px-6px bg-janus-gray  py-4px top-minus16px rounded-md text-white text-center right-2 text-10px font-roboto w-auto`}
+                >
+                  Websitenizin anasayfasını (www.ornek.com) ekleyin
+                </p>
+              </div>
+              <div class="flex flex-row justify-end">
+                <button
+                  disabled={webUrl == "" || sirketAdi == ""}
+                  onClick={() => {
+                    setPage(1);
+                  }}
+                  class="h-10 rounded-lg bg-compOrange hover:bg-compOrange-hover focus:outline-none   flex items-center justify-center  text-base text-white font-roboto mt-5 px-6  mr-14 disabled:opacity-50"
+                >
+                  {" "}
+                  Devam{" "}
+                </button>
+              </div>
             </div>
-          </div>
-          <div
-            class={`mt-5 flex  flex-row relative ${
-              isDropdownOpen2 ? `h-250px` : ""
-            }`}
-          >
-            <div className="justify-center h-10  items-center flex">
-              <p class="text-line-gray font-medium text-lg"> Şirket Türü </p>
-              <Select
-                className={`   font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 ml-18 `}
-                style={{ width: "290px" }}
-                dropdownHeight="200px"
-                multi={false}
-                onDropdownOpen={() => {
-                  setIsDropdownOpen2(true);
-                }}
-                onDropdownClose={() => {
-                  setIsDropdownOpen2(false);
-                }}
-                dropdownPosition="bottom"
-                values={[]}
-                options={data}
-                labelField="username"
-                valueField="email"
-                onChange={(values) => setSirketTuru(values)}
-                placeholder="Seç.."
-              />
-            </div>
-          </div>
-          <div class="flex flex-row mt-5 items-center relative ">
-            <p class="text-line-gray font-medium text-lg">
-              {" "}
-              Web Sitesi Url'si *
-            </p>
-            <input
-              onChange={(e) => {
-                setWebUrl(e.target.value);
-              }}
-              type="text"
-              class={`outline-none w-290px border-input focus:border-janus-focus-blue font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 ml-5`}
-            />
-            <img
-              onMouseEnter={() => {
-                setHoverInfoVisible(true);
-              }}
-              onMouseLeave={() => {
-                setHoverInfoVisible(false);
-              }}
-              src={info_circle}
-              className="w-16px absolute z-10 right-10px h-16px"
-            />
-            <p
-              className={`${
-                hoverInfoVisible ? `absolute` : "hidden"
-              } absolute px-6px bg-janus-gray  py-4px top-minus16px rounded-md text-white text-center right-2 text-10px font-roboto w-auto`}
-            >
-              Websitenizin anasayfasını (www.ornek.com) ekleyin
-            </p>
-          </div>
 
-          <div class="flex flex-row justify-end">
-            <button
-              onClick={() => {
-                setPage(1);
-              }}
-              class="h-10 rounded-lg bg-compOrange hover:bg-compOrange-hover focus:outline-none   flex items-center justify-center  text-base text-white font-roboto mt-10 px-6 "
-            >
-              {" "}
-              Devam{" "}
-            </button>
+            <div class=" flex-column justify-center h-100% h-full bg-mail-gray">
+              <div class=" mt-24">
+                <p class=" text-janus-dark-blue  text-xl font-roboto">
+                  Admin olarak organizasyonunuz adına bilgileri doldurun
+                </p>
+              </div>
+              <div class="flex justify-center mt-16 ">
+                <img src={girlontable} class="  w-80 h-80"></img>
+              </div>
+            </div>
           </div>
         </div>
       );
     } else {
       return (
-        <div className="w-100% relative flex justify-center">
-          <div className="absolute flex left-12px top-30px  items-center  text-24px text-janus-dark-blue">
-            <button
-              onClick={() => setPage(0)}
-              className="pl-20px focus:outline-none py-20px flex items-center"
-            >
-              <img src={arrow} className="w-7px    h-14px" />{" "}
-              <p className="ml-10px">Geri </p>
-            </button>
-          </div>
-          <div class="mt-5   block">
-            <div>
-              <p class=" text-janus-purple">E Posta İmzası Teması Seçin</p>
-            </div>
-            <div class="flex justify-center mt-2">
-              <Carousel
-                renderIndicator={() => {}}
-                width="382px "
-                onChange={onChange}
+        <div class="flex  flex-1 px-20px    shadow-2xl  rounded-3xl overflow-hidden bg-white mt-5 flex-column justify-center  ">
+          <div className="w-100% relative flex justify-center">
+            <div className="absolute flex left-12px top-30px  items-center  text-24px text-janus-dark-blue">
+              <button
+                onClick={() => setPage(0)}
+                className="pl-20px focus:outline-none py-20px flex items-center"
               >
-                <div>
-                  <img class="rounded-xl  " src={autosign} />
-                </div>
-                <div>
-                  <img class="rounded-xl  " src={lockedTemplate} />
-                </div>
-                <div>
-                  <img class="rounded-xl  " src={lockedTemplate} />
-                </div>
-              </Carousel>
+                <img src={arrow} className="w-7px    h-14px" />{" "}
+                <p className="ml-10px">Geri </p>
+              </button>
             </div>
-            <div class="flex flex-row  ">
+            <div class="mt-5   block">
               <div>
-                <img class=" h-auto lg:w-130px md:90px" src={sirklogo}></img>
+                <p class=" text-janus-purple">E Posta İmzası Teması Seçin</p>
               </div>
-              <div class=" flex-col pl-34px">
-                <div class="flex justify-start">
-                  <p class="text-janus-dark-blue  text-18px font-roboto">
-                    Fotoğraf yükle
-                  </p>
+              <div class="flex justify-center mt-2">
+                <Carousel
+                  renderIndicator={() => {}}
+                  width="382px "
+                  onChange={onChange}
+                >
+                  <div>
+                    <img class="rounded-xl  " src={autosign} />
+                  </div>
+                  <div>
+                    <img class="rounded-xl  " src={lockedTemplate} />
+                  </div>
+                  <div>
+                    <img class="rounded-xl  " src={lockedTemplate} />
+                  </div>
+                </Carousel>
+              </div>
+              <div class="flex flex-row  ">
+                <div>
+                  <img class=" h-auto lg:w-130px md:90px" src={sirklogo}></img>
                 </div>
-                <div class="flex  justify-start lg:mt-18px">
-                  <p class="leading-3 text-14px font-light text-input-gray text-left">
-                    Kare formatta maximum 80x80 pixsel
-                    <br /> png veya jpeg görsel kullanın
-                  </p>
-                </div>
+                <div class=" flex-col pl-34px">
+                  <div class="flex justify-start">
+                    <p class="text-janus-dark-blue  text-18px font-roboto">
+                      Fotoğraf yükle
+                    </p>
+                  </div>
+                  <div class="flex  justify-start lg:mt-18px">
+                    <p class="leading-3 text-14px font-light text-input-gray text-left">
+                      Kare formatta maximum 80x80 pixsel
+                      <br /> png veya jpeg görsel kullanın
+                    </p>
+                  </div>
 
-                <div class="  flex items-center lg:mt-18px md:mt-8px justify-start">
-                  <button
-                    disabled={fileSuccess == true}
-                    class="focus:outline-none disabled:opacity-50 hover:bg-janus-blue-hover  py-10px text-center flex justify-center px-12px rounded-md text-white   bg-janus-site-blue text-center text-16px inline flex items-center  font-roboto "
-                    onClick={() => fileInputRef.current.click()}
-                  >
-                    Dosya seç
-                  </button>
-                  <p className="font-roboto text-14px  ml-16px text-info-red">
-                    {handleFileError()}
-                    {handleFileSuccess()}
-                  </p>
-                  <input
-                    onChange={handleFileUpload}
-                    multiple={false}
-                    ref={fileInputRef}
-                    type="file"
-                    hidden
-                  />
-                </div>
+                  <div class="  flex items-center lg:mt-18px md:mt-8px justify-start">
+                    <button
+                      disabled={fileSuccess == true}
+                      class="focus:outline-none disabled:opacity-50 hover:bg-janus-blue-hover  py-10px text-center flex justify-center px-12px rounded-md text-white   bg-janus-site-blue text-center text-16px inline flex items-center  font-roboto "
+                      onClick={() => fileInputRef.current.click()}
+                    >
+                      Dosya seç
+                    </button>
+                    <p className="font-roboto text-14px  ml-16px text-info-red">
+                      {handleFileError()}
+                      {handleFileSuccess()}
+                    </p>
+                    <input
+                      onChange={handleFileUpload}
+                      multiple={false}
+                      ref={fileInputRef}
+                      type="file"
+                      hidden
+                    />
+                  </div>
 
-                <div class="flex flex-1   justify-center lg:mt-20px md:mt-20px">
-                  <button
-                    onClick={async () => {
-                      const logoUrl = {
-                        logourl: fileLink[0],
-                      };
-                      const docRef = await addDoc(collection(db, "links"), {
-                        sektor: sektor,
-                        sirketAdi: sirketAdi,
-                        sirketTuru: sirketTuru,
-                        webUrl: webUrl,
-                        logoLink: logoLink,
-                      });
-                      setUrlGo(docRef.id);
+                  <div class="flex flex-1   justify-center lg:mt-20px md:mt-20px">
+                    <button
+                      onClick={async () => {
+                        const logoUrl = {
+                          logourl: fileLink[0],
+                        };
+                        const docRef = await addDoc(collection(db, "links"), {
+                          sektor: sektor,
+                          sirketAdi: sirketAdi,
+                          sirketTuru: sirketTuru,
+                          webUrl: webUrl,
+                          logoLink: logoLink,
+                        });
+                        setUrlGo(docRef.id);
 
-                      setPopUpValue3(1);
-                    }}
-                    disabled={value != 0}
-                    class="disabled:opacity-50  hover:bg-compOrange-hover focus:outline-none bg-compOrange mt-2 rounded-md text-white  px-26px py-10px  text-center inline flex items-center  font-roboto"
-                  >
-                    Kaydet
-                  </button>
+                        setPopUpValue3(1);
+                      }}
+                      disabled={value != 0 || isButtonDisabled == true}
+                      class="disabled:opacity-50  hover:bg-compOrange-hover focus:outline-none bg-compOrange mt-2 rounded-md text-white  px-26px py-10px  text-center inline flex items-center  font-roboto"
+                    >
+                      Kaydet
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -570,17 +584,15 @@ function HomePage() {
       >
         <div class="w-screen h-100% flex flex-col   ">
           <div class="flex  justify-between items-center">
-            <p class="font-bold text-4xl mt-8 text-white mb-5 font-roboto">
+            <p class="font-bold text-4xl mt-2 text-white mb-5 font-roboto">
               Şirket Bilgileri
             </p>
-            <div class="mt-8">
+            <div class="mt-2">
               <DropAcc />
             </div>
           </div>
 
-          <div class="flex  flex-1 px-20px    shadow-2xl  rounded-3xl overflow-hidden bg-white mt-5 flex-column justify-center  ">
-            {pageManager()}
-          </div>
+          {pageManager()}
         </div>
       </div>
     </div>

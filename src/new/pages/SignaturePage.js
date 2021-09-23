@@ -1,21 +1,21 @@
-import React from 'react'
-import janusmail from '../../images/janusmail.png'
-import instagram from '../../images/instagram.png'
-import globe from '../../images/globe.png'
-import globe2 from '../../images/globe2.png'
-import mailImage from '../../images/mail.png'
-import facebook from '../../images/facebook.png'
-import twitter from '../../images/twitter.png'
-import linkedin from '../../images/linkedin2.png'
-import youtube from '../../images/youtube.png'
-import { useState } from 'react'
-import html2canvas from 'html2canvas';
-import linkedinbw from '../../images/linkedinbw.png'
-import facebookbw from '../../images/facebookbw.png'
-import youtubebw from '../../images/youtubebw.png'
-import twitterbw from '../../images/twitterbw.png'
-import instagrambw from '../../images/instagrambw.png'
-import DropAcc2 from '../components/DropAcc2'
+import React from "react";
+import janusmail from "../../images/janusmail.png";
+import instagram from "../../images/instagram.png";
+import globe from "../../images/globe.png";
+import globe2 from "../../images/globe2.png";
+import mailImage from "../../images/mail.png";
+import facebook from "../../images/facebook.png";
+import twitter from "../../images/twitter.png";
+import linkedin from "../../images/linkedin2.png";
+import youtube from "../../images/youtube.png";
+import { useState } from "react";
+import html2canvas from "html2canvas";
+import linkedinbw from "../../images/linkedinbw.png";
+import facebookbw from "../../images/facebookbw.png";
+import youtubebw from "../../images/youtubebw.png";
+import twitterbw from "../../images/twitterbw.png";
+import instagrambw from "../../images/instagrambw.png";
+import DropAcc2 from "../components/DropAcc2";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import trash from "../../images/trash.png";
@@ -76,27 +76,25 @@ const links = {
   WEB: 256,
 };
 
-  function copyToClipboard(html) {
-    var container = document.createElement("div");
-    container.innerHTML = html;
-    container.style.position = "fixed";
-    container.style.pointerEvents = "none";
-    container.style.opacity = 0;
-    document.body.appendChild(container);
-    window.getSelection().removeAllRanges();
-    var range = document.createRange();
-    range.selectNode(container);
-    window.getSelection().addRange(range);
-    document.execCommand("copy");
-    document.body.removeChild(container);
-    //alert("Copied");
-  }
-  function copy(docId)
-  {
-    console.log(docId);
-    copyToClipboard(docId);
-  }
-
+function copyToClipboard(html) {
+  var container = document.createElement("div");
+  container.innerHTML = html;
+  container.style.position = "fixed";
+  container.style.pointerEvents = "none";
+  container.style.opacity = 0;
+  document.body.appendChild(container);
+  window.getSelection().removeAllRanges();
+  var range = document.createRange();
+  range.selectNode(container);
+  window.getSelection().addRange(range);
+  document.execCommand("copy");
+  document.body.removeChild(container);
+  //alert("Copied");
+}
+function copy(docId) {
+  console.log(docId);
+  copyToClipboard(docId);
+}
 
 function SignaturePage({ logoLink, weburl }) {
   const storage = getStorage();
@@ -104,12 +102,12 @@ function SignaturePage({ logoLink, weburl }) {
   const [cardPath, setCardPath] = useState();
   const [linkList, setLinkList] = useState([]);
   const [linkListData, setLinkListData] = useState({
-youtube:"",
-facebook:"",
-twitter:"",
-linkedin:"",
-instagram:"",
-web:weburl
+    youtube: "",
+    facebook: "",
+    twitter: "",
+    linkedin: "",
+    instagram: "",
+    web: weburl,
   });
   const [fname, setfName] = useState("İsim");
   const [lname, setLName] = useState("Soyisim");
@@ -135,7 +133,7 @@ web:weburl
       <div class="w-100% h-100% flex flex-col z-10">
         <div class="flex justify-between items-center">
           <p class="font-bold text-4xl mt-8 text-white mb-5 font-roboto">
-            E-Posta Imzası
+            E-Posta İmzası
           </p>
         </div>
         <Scrollbars className="bg-white rounded-3xl mt-5">
@@ -149,71 +147,113 @@ web:weburl
                     <th className=" w-200px pr-30px">
                     <tr>
                     <td className="font-roboto  whitespace-nowrap pt-26px w-200px text-left font-bold text-mail-gray text-14px">
-                    {fname + " " + lname}
-                   </td>
-                    </tr>
-                    <tr className="font-roboto font-light text-10px text-left  text-mail-gray">
+                      {fname + " " + lname}
+                    </td>
+                  </tr>
+                  <tr className="font-roboto font-light text-10px text-left  text-mail-gray">
                     {title}
-                    </tr>
-                    <tr className="h-24px  ">
-                        <td className="">
-                        <tr>
-                          <td className="w-24px ">
-                        <a href={`mailto:${mail}`}><img src={mailImage} className="w-14px mt-10px h-14px"/></a>
-                        </td>  
-                        <td className="font-light   text-10px font-robot pt-10px text-mail-gray">
-                        
+                  </tr>
+                  <tr className="h-24px  ">
+                    <td className="">
+                      <tr>
+                        <td className="w-24px ">
+                          <a href={`mailto:${mail}`}>
+                            <img
+                              src={mailImage}
+                              className="w-14px mt-10px h-14px"
+                            />
+                          </a>
                         </td>
-                        </tr>
-                        </td>
-                      
-                    </tr>
-                    
-                   {linkList.includes(links.WEB) ? <tr className="h-24px">
-                        <td className="">
+                        <td className="font-light   text-10px font-robot pt-10px text-mail-gray"></td>
+                      </tr>
+                    </td>
+                  </tr>
+
+                  {linkList.includes(links.WEB) ? (
+                    <tr className="h-24px">
+                      <td className="">
                         <tr>
                           <td className="w-24px">
-                        <a href={`https://${web}`}><img src={globe} className="w-14px mt-10px h-14px"/></a>
-                        </td>  
-                        <td className="font-light pt-10px   text-10px font-robot  text-mail-gray">
-                        
-                        </td>
+                            <a href={`https://${web}`}>
+                              <img
+                                src={globe}
+                                className="w-14px mt-10px h-14px"
+                              />
+                            </a>
+                          </td>
+                          <td className="font-light pt-10px   text-10px font-robot  text-mail-gray"></td>
                         </tr>
-                        </td>
-                      
-                    </tr>:<tr/>
-}
-<tr className="h-14px">
-                        <td className="h-24px pt-10px pl-2px">
-                        <tr>
-                          {linkList.map((index,i)=>{
-                            if(index == links.LINKEDIN)
-                              return <td className=" w-24px align-bottom"><img src={linkedinbw} className="w-14px h-14px"/></td>
-                            if(index == links.INSTAGRAM)
-                              return <td className="w-24px align-bottom"><a><img src={instagrambw} className="w-14px h-14px"/></a></td>
-                            if(index == links.FACEBOOK)
-                              return <td className="w-24px"><a><img src={facebookbw} className="h-14px"/></a></td>
-                            if(index == links.TWITTER)
-                              return <td className="w-24px"><a><img src={twitterbw} className="w-14px h-14px"/></a></td>
-                            if(index == links.YOUTUBE)
-                              return <td className="w-24px"><a><img src={youtubebw} className="w-14px h-14px"/></a></td>
-                       })}
-                        </tr>
-                        </td>
-                      
-                    </tr>
-                    
-                    <tr className="text-janus-dark-blue w-100% text-12px mt-30px  text-right font-roboto ">
-                      <td className="pt-10px pb-26px">
-                      Created by JANUS
                       </td>
                     </tr>
-                    </th>
-                </tbody>
-             
-                
+                  ) : (
+                    <tr />
+                  )}
+                  <tr className="h-14px">
+                    <td className="h-24px pt-10px pl-2px">
+                      <tr>
+                        {linkList.map((index, i) => {
+                          if (index == links.LINKEDIN)
+                            return (
+                              <td className=" w-24px align-bottom">
+                                <img
+                                  src={linkedinbw}
+                                  className="w-14px h-14px"
+                                />
+                              </td>
+                            );
+                          if (index == links.INSTAGRAM)
+                            return (
+                              <td className="w-24px align-bottom">
+                                <a>
+                                  <img
+                                    src={instagrambw}
+                                    className="w-14px h-14px"
+                                  />
+                                </a>
+                              </td>
+                            );
+                          if (index == links.FACEBOOK)
+                            return (
+                              <td className="w-24px">
+                                <a>
+                                  <img src={facebookbw} className="h-14px" />
+                                </a>
+                              </td>
+                            );
+                          if (index == links.TWITTER)
+                            return (
+                              <td className="w-24px">
+                                <a>
+                                  <img
+                                    src={twitterbw}
+                                    className="w-14px h-14px"
+                                  />
+                                </a>
+                              </td>
+                            );
+                          if (index == links.YOUTUBE)
+                            return (
+                              <td className="w-24px">
+                                <a>
+                                  <img
+                                    src={youtubebw}
+                                    className="w-14px h-14px"
+                                  />
+                                </a>
+                              </td>
+                            );
+                        })}
+                      </tr>
+                    </td>
+                  </tr>
+
+                  <tr className="text-janus-dark-blue w-100% text-12px mt-30px  text-right font-roboto ">
+                    <td className="pt-10px pb-26px">Created by JANUS</td>
+                  </tr>
+                </th>
+              </tbody>
             </table>
-     
+
             <div className="flex flex-col py-6 ">
               <div className="flex mt-20px flex-row items-center justify-between">
                 <p className="font-roboto text-line-gray text-16px">Ad*</p>
@@ -268,15 +308,14 @@ web:weburl
                     return (
                       <div className="relative mt-20px flex items-center ">
                         <input
-                        onChange={(e)=>{
-                          setLinkListData((state)=>({
+                          onChange={(e) => {
+                            setLinkListData((state) => ({
                               ...state,
-                              instagram:e.target.value
-
-                          }));
-
-                        }}
-                         className="w-312px h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 focus:outline-none pl-40px" />
+                              instagram: e.target.value,
+                            }));
+                          }}
+                          className="w-312px h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 focus:outline-none pl-40px"
+                        />
                         <img
                           className="absolute left-4px top-4px z-10 w-30px h-30px"
                           src={instagram}
@@ -288,11 +327,10 @@ web:weburl
                                 return item != links.INSTAGRAM;
                               })
                             );
-                            setLinkListData((state)=>({
+                            setLinkListData((state) => ({
                               ...state,
-                              instagram:""
-
-                          }));
+                              instagram: "",
+                            }));
                           }}
                           className="ml-20px"
                         >
@@ -306,16 +344,14 @@ web:weburl
                     return (
                       <div className="relative  mt-20px  flex items-center">
                         <input
-                        onChange={(e)=>{
-                          setLinkListData((state)=>({
+                          onChange={(e) => {
+                            setLinkListData((state) => ({
                               ...state,
-                              facebook:e.target.value
-
-                          }));
-
-
-                        }}
-                        className="w-312px h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 focus:outline-none pl-40px" />
+                              facebook: e.target.value,
+                            }));
+                          }}
+                          className="w-312px h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 focus:outline-none pl-40px"
+                        />
                         <img
                           className="absolute left-4px top-4px z-10 w-30px h-30px"
                           src={facebook}
@@ -326,13 +362,11 @@ web:weburl
                               linkList.filter((item) => {
                                 return item != links.FACEBOOK;
                               })
-                              
                             );
-                            setLinkListData((state)=>({
+                            setLinkListData((state) => ({
                               ...state,
-                             facebook:""
-
-                          }));
+                              facebook: "",
+                            }));
                           }}
                           className="ml-20px"
                         >
@@ -347,15 +381,14 @@ web:weburl
                     return (
                       <div className="relative  mt-20px flex items-center">
                         <input
-                            onChange={(e)=>{
-                              setLinkListData((state)=>({
-                                  ...state,
-                                  twitter:e.target.value
-    
-                              }));
-    
-                            }}
-                        className="w-312px h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 focus:outline-none pl-40px" />
+                          onChange={(e) => {
+                            setLinkListData((state) => ({
+                              ...state,
+                              twitter: e.target.value,
+                            }));
+                          }}
+                          className="w-312px h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 focus:outline-none pl-40px"
+                        />
                         <img
                           className="absolute left-4px top-4px z-10 w-30px h-30px"
                           src={twitter}
@@ -366,12 +399,10 @@ web:weburl
                               linkList.filter((item) => {
                                 return item != links.TWITTER;
                               })
-
-                              );
-                              setLinkListData((state)=>({
-                                ...state,
-                                twitter:""
-  
+                            );
+                            setLinkListData((state) => ({
+                              ...state,
+                              twitter: "",
                             }));
                           }}
                           className="ml-20px"
@@ -389,7 +420,6 @@ web:weburl
                           value={weburl}
                           onChange={(e) => {
                             setWeb(e.target.value);
-                          
                           }}
                           className="w-312px h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 focus:outline-none pl-40px"
                         />
@@ -417,15 +447,14 @@ web:weburl
                     return (
                       <div className="relative  mt-20px items-center flex">
                         <input
-                            onChange={(e)=>{
-                              setLinkListData((state)=>({
-                                  ...state,
-                                linkedin:e.target.value
-    
-                              }));
-    
-                            }}
-                        className="w-312px h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 focus:outline-none pl-40px" />
+                          onChange={(e) => {
+                            setLinkListData((state) => ({
+                              ...state,
+                              linkedin: e.target.value,
+                            }));
+                          }}
+                          className="w-312px h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 focus:outline-none pl-40px"
+                        />
                         <img
                           className="absolute left-8px top-8px z-10 w-24px h-24px"
                           src={linkedin}
@@ -437,11 +466,10 @@ web:weburl
                                 return item != links.LINKEDIN;
                               })
                             );
-                            setLinkListData((state)=>({
+                            setLinkListData((state) => ({
                               ...state,
-                              youtube:""
-
-                          }));
+                              youtube: "",
+                            }));
                           }}
                           className="ml-20px"
                         >
@@ -455,15 +483,14 @@ web:weburl
                     return (
                       <div className="relative mt-20px items-center flex">
                         <input
-                            onChange={(e)=>{
-                              setLinkListData((state)=>({
-                                  ...state,
-                                  youtube:e.target.value
-    
-                              }));
-    
-                            }}
-                        className="w-312px h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 focus:outline-none pl-40px" />
+                          onChange={(e) => {
+                            setLinkListData((state) => ({
+                              ...state,
+                              youtube: e.target.value,
+                            }));
+                          }}
+                          className="w-312px h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 focus:outline-none pl-40px"
+                        />
                         <img
                           className="absolute left-4px top-4px  z-10 w-30px h-30px border-r-1 border-gray-500"
                           src={youtube}
@@ -475,11 +502,10 @@ web:weburl
                                 return item != links.YOUTUBE;
                               })
                             );
-                            setLinkListData((state)=>({
+                            setLinkListData((state) => ({
                               ...state,
-                              youtube:""
-
-                          }));
+                              youtube: "",
+                            }));
                           }}
                           className="ml-20px"
                         >
@@ -640,8 +666,6 @@ web:weburl
                             </button>
                           )}
                         </Menu.Item>
-
-                        
                       </div>
                     </Menu.Items>
                   </Transition>
@@ -797,59 +821,46 @@ web:weburl
                       img.crossOrigin = "anonymous";
                     var table2 = document.getElementById("signature2");
 
-                     
                     //var a = document.createElement("");
-                    img.src = canvas.toDataURL("image/png");  
-               
-                    
+                    img.src = canvas.toDataURL("image/png");
 
-                      let r = (Math.random() + 1).toString(36).substring(2);
-                      
-                   
-                     
-                      const storageRef = ref(storage, "alim/" +r);
-                     uploadString(
-                        storageRef,
-                        canvas.toDataURL(),
-                        'data_url'
-                      ).then((snapshot)=>{
-                        console.log('Uploaded a data_url string!');
-                     
-                        getDownloadURL(snapshot.ref).then(
-                          async(downloadURL)=>{
-                         
-                          img.src = downloadURL;
-                          copy(table2.innerHTML);
-                          console.log(imgpath);
-                        }
-                        )
-                      })                      
-                   
+                    let r = (Math.random() + 1).toString(36).substring(2);
 
-});}}>Kopyala( Kaydet ve database e yukleden sonra bas)</button>
+                    const storageRef = ref(storage, "alim/" + r);
+                    uploadString(
+                      storageRef,
+                      canvas.toDataURL(),
+                      "data_url"
+                    ).then((snapshot) => {
+                      console.log("Uploaded a data_url string!");
+
+                      getDownloadURL(snapshot.ref).then(async (downloadURL) => {
+                        img.src = downloadURL;
+                        copy(table2.innerHTML);
+                        console.log(imgpath);
+                      });
+                    });
+                  });
+                }}
+              >
+                Kopyala( Kaydet ve database e yukleden sonra bas)
+              </button>
+            </div>
           </div>
-          </div>
-          </Scrollbars>
-       
-        </div>
+        </Scrollbars>
+      </div>
       <table id="signature2" className="absolute hidden">
         <tbody>
           <th>
-          <tr>
-            <a href={imgpath}>
-            <img id="janusmail2"/>
-          </a>
-          </tr>
-
+            <tr>
+              <a href={imgpath}>
+                <img id="janusmail2" />
+              </a>
+            </tr>
           </th>
-
         </tbody>
-        
       </table>
-      
-      
-      </div>
-   
+    </div>
   );
 }
 
