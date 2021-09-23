@@ -45,6 +45,7 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 
+
 import {
   collection,
   addDoc,
@@ -54,7 +55,9 @@ import {
   getDocs,
 } from "firebase/firestore";
 
-const axios = require("axios");
+
+
+
 var vCardsJS = require("vcards-js");
 
 function classNames(...classes) {
@@ -126,6 +129,7 @@ web:weburl
     else if (mailIndex == 5) return <SignDetails_apple />;
   }
 
+
   return (
     <div class="h-screen w-screen pt-10 pb-20 flex z-10 relative justify-center px-64 bg-janus-site-blue">
       <div class="w-100% h-100% flex flex-col z-10">
@@ -137,10 +141,10 @@ web:weburl
         <Scrollbars className="bg-white rounded-3xl mt-5">
        
         <div class="flex overflow-y-scroll pb-24  flex-1 block  shadow-2xl  rounded-3xl  bg-white flex-col  items-center ">
-        <table cellSpacing='0' id="signature" class="min-w-332px min-h-132px bg-white  mt-80px ">
+        <table cellSpacing='0' id="signature" class="min-w-332px min-h-132px bg-white border-0.5 border-solid border-signborder  mt-80px ">
                 <tbody >
                     <th className=" w-132px">
-                        <img src={janusmail} className="h-72px  w-72px ml-30px" />
+                        <img id="logoLink" src={logoLink} className="h-72px  w-72px ml-30px" />
                     </th>
                     <th className=" w-200px pr-30px">
                     <tr>
@@ -786,11 +790,11 @@ web:weburl
                 </button>
               </div>
                     {descrpManager()}
-                    <button onClick={async ()=>{html2canvas(document.getElementById("signature"),{backgroundColor:'#ebebeb',display:'block',}).then(async function(canvas) {
-                   canvas.style.textAlign="top";
+                      <button onClick={async ()=>{html2canvas(document.getElementById("signature"),{backgroundColor:'#ebebeb',display:'block',useCORS:true,allowTaint:true}).then(async function(canvas) {
+                    canvas.style.textAlign="top";
                    var table = document.getElementById("signature");
                     var img = document.getElementById("janusmail2");
-                    
+                      img.crossOrigin = "anonymous";
                     var table2 = document.getElementById("signature2");
 
                      
