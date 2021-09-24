@@ -49,6 +49,11 @@ function App() {
       cardDataArr.push({
         fname: doc.data().fname,
         id: doc.id,
+        logoURL:doc.data().logo,
+        lname:doc.data().lname,
+        title:doc.data().title,
+        mail:doc.data().mail,
+        linklist:doc.data().linkList
       });
     });
 
@@ -70,7 +75,7 @@ function App() {
                 {...props}
                 logoLink={url[index].logolink[0]}
                 weburl={url[index].weburl}
-
+              
                 //webURL={}
                 //companyName={}
               />
@@ -91,8 +96,12 @@ function App() {
             return (
               <HiCard
                 {...props}
-                data={cardURLS[index].fname}
-
+                fname={cardURLS[index].fname}
+                logo = {cardURLS[index].logoURL}
+                lname={cardURLS[index].lname}
+                title={cardURLS[index].title}
+                mail={cardURLS[index].mail}
+                linklist ={cardURLS[index].linklist}
                 //webURL={}
                 //companyName={}
               />
