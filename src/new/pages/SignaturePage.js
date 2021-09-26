@@ -8,6 +8,7 @@ import facebook from "../../images/facebook.png";
 import twitter from "../../images/twitter.png";
 import linkedin from "../../images/linkedin2.png";
 import youtube from "../../images/youtube.png";
+import * as rasterizeHTML from "rasterizehtml";
 import { useState } from "react";
 import html2canvas from "html2canvas";
 import linkedinbw from "../../images/linkedinbw.png";
@@ -123,7 +124,7 @@ function SignaturePage({ logoLink, weburl }) {
     else if (mailIndex == 4) return <SignDetails_yahoo />;
     else if (mailIndex == 5) return <SignDetails_apple />;
   }
-
+  console.log(logoLink);
   return (
     <div class="h-screen w-screen pt-10 pb-20 flex z-10 relative justify-center px-64 bg-janus-site-blue">
       <div class="w-100% h-100% flex flex-col z-10">
@@ -141,7 +142,11 @@ function SignaturePage({ logoLink, weburl }) {
             >
               <tbody>
                 <th className=" w-132px">
-                  <img src={logoLink} className="h-72px  w-72px ml-30px" />
+                  <img
+                    id="logo"
+                    src={logoLink}
+                    className="h-72px  w-72px ml-30px"
+                  />
                 </th>
                 <th className=" w-200px pr-30px">
                   <tr>
@@ -820,6 +825,11 @@ function SignaturePage({ logoLink, weburl }) {
                     display: "block",
                   }).then(async function (canvas) {
                     canvas.style.textAlign = "top";
+                    var logo = document.getElementById("logo");
+                    var canvas2 = document.createElement("canvas");
+                    var ctx = canvas2.getContext("2d");
+                    rasterizeHTML.drawHTML("<img src = {logoLink}/>", canvas);
+
                     var table = document.getElementById("signature");
                     var img = document.getElementById("janusmail2");
 
