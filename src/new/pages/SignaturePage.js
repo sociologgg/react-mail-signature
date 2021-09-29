@@ -7,6 +7,7 @@ import mailImage from "../../images/mail.png";
 import facebook from "../../images/facebook.png";
 import twitter from "../../images/twitter.png";
 import linkedin from "../../images/linkedin2.png";
+import BeatLoader from "react-spinners/BeatLoader";
 import youtube from "../../images/youtube.png";
 import { useState } from "react";
 import html2canvas from "html2canvas";
@@ -76,24 +77,50 @@ const links = {
   WEB: 256,
 };
 
-function copyToClipboard(html) {
-  var container = document.createElement("div");
+async function copyToClipboard(html) {
+  var container = document.createElement("DIV");
   container.innerHTML = html;
   container.style.position = "fixed";
   container.style.pointerEvents = "none";
   container.style.opacity = 0;
   document.body.appendChild(container);
-  window.getSelection().removeAllRanges();
+  var selection = document.getSelection();
   var range = document.createRange();
+  
   range.selectNode(container);
-  window.getSelection().addRange(range);
-  document.execCommand("copy");
-  document.body.removeChild(container);
+ 
+ 
+  selection.removeAllRanges();
+  selection.addRange(range);
+
+  console.log('copy success', document.execCommand('copy'));
+  selection.removeAllRanges();
+  
+   //navigator.clipboard.writeText(container);
+ 
+ document.body.removeChild(container);
   //alert("Copied");
 }
-function copy(docId) {
-  console.log(docId);
+
+  
+function selectElementContents() {
+  var urlField = document.querySelector('#signature2');
+   
+  // create a Range object
+  var range = document.createRange();  
+  // set the Node to select the "range"
+  range.selectNode(urlField);
+  // add the Range to the set of window selections
+  window.getSelection().addRange(range);
+   
+  // execute 'copy', can't 'cut' in this case
+  let a = document.execCommand('copy')
+  console.log('hello %b',a);
+  ;}
+async function copy(docId) {
+ await console.log(docId);
   copyToClipboard(docId);
+selectElementContents()
 }
 
 function SignaturePage({ logoLink, weburl }) {
@@ -109,16 +136,19 @@ function SignaturePage({ logoLink, weburl }) {
     instagram: "",
     web: weburl,
   });
+  let cardPathVariable;
   const [fname, setfName] = useState("İsim");
   const [lname, setLName] = useState("Soyisim");
   const [title, setTitle] = useState("Unvan");
   const [web, setWeb] = useState("www.usejanus.com");
   const [phone, setPhone] = useState("");
   const [mail, setMail] = useState("lorem@ipsum.com");
-  const [mailIndex, setMailIndex] = useState(0);
+  const [loading,setLoading] = useState(false);
+  const [mailIndex, setMailIndex] = useState(2);
   // img'ın yönleceği path (oluşan docid'den alınır)
+  const [showDescrp, setShowDescrp] = useState(false);
   const [imgpath, setImgPath] = useState("");
-
+  let imgpath2;
   function descrpManager() {
     if (mailIndex == 1) return <SignDetails_hubspot />;
     else if (mailIndex == 2) return <SignDetails_gmail />;
@@ -126,8 +156,7 @@ function SignaturePage({ logoLink, weburl }) {
     else if (mailIndex == 4) return <SignDetails_yahoo />;
     else if (mailIndex == 5) return <SignDetails_apple />;
   }
-
-
+ 
   return (
     <div class="h-screen w-screen pt-10 pb-20 flex z-10 relative justify-center px-64 bg-janus-site-blue">
       <div class="w-100% h-100% flex flex-col z-10">
@@ -671,8 +700,12 @@ function SignaturePage({ logoLink, weburl }) {
                   </Transition>
                 </Menu>
               </div>
+              <div className="flex mt-60px">
+                            <div className="flex flex-1"/>
               <button
+              className="bg-compOrange hover:bg-compOrange-hover py-10px px-26px rounded focus:outline-none"
                 onClick={async () => {
+                 setLoading(true);
                   var vCard = vCardsJS();
                   vCard.firstName = fname;
                   vCard.lastName = lname;
@@ -685,12 +718,14 @@ function SignaturePage({ logoLink, weburl }) {
                     storage,
                     "vcards/" + fname + lname + ".vcf"
                   );
-                  uploadString(storageRef, card).then((snapshot) => {
-                    getDownloadURL(snapshot.ref).then(async (downloadURL) => {
-                      console.log("File available at", downloadURL);
-                      setCardPath(downloadURL);
-                      console.log(linkList);
-                      console.log(cardPath);
+                  await uploadString(storageRef, card).then(async(snapshot) =>{
+                    await getDownloadURL(snapshot.ref).then(async (downloadURL) => {
+                     await  console.log("File available at", downloadURL);
+                    cardPathVariable = downloadURL;
+                     console.log(downloadURL);
+                     await setCardPath(downloadURL);
+                     await console.log(linkList);
+                     await  console.log(cardPathVariable);
 
                       // firebase firestore işlemleri
 
@@ -709,11 +744,69 @@ function SignaturePage({ logoLink, weburl }) {
                         .then((response) => console.log(response)); */
                     });
                   });
-                }}
+                
+                  const  docRef = await addDoc(await collection(db, "cards"), {
+                    fname: fname,
+                    lname: lname,
+                    title: title,
+                    mail: mail,
+                    phone: phone,
+                    linkList: linkListData,
+                    logo: logoLink,
+                    onclickpath: cardPathVariable,
+                    cardImage: "",
+                  });
+                  setImgPath(docRef.id);
+                    imgpath2 = docRef.id;
+                   await console.log(imgpath);
+                  
+                  html2canvas(document.getElementById("signature"),{backgroundColor:'#ebebeb',display:'block',useCORS:true,allowTaint:true}).then(async function(canvas) {
+                    canvas.style.textAlign="top";
+                   var table = document.getElementById("signature");
+                    var img = document.getElementById("janusmail2");
+                      img.crossOrigin = "anonymous";
+                    var table2 = document.getElementById("signature2");
+                    const ahref = document.getElementById("idforpath");
+                    ahref.href = imgpath2;
+                    //var a = document.createElement("");
+                    img.src = canvas.toDataURL("image/png");
+
+                    let r = (Math.random() + 1).toString(36).substring(2);
+
+                    const storageRef = ref(storage, "alim/" + r);
+                    uploadString(
+                      storageRef,
+                      canvas.toDataURL(),
+                      "data_url"
+                    ).then((snapshot) => {
+                      console.log("Uploaded a data_url string!");
+
+                      getDownloadURL(snapshot.ref).then(async (downloadURL) => {
+                        img.src = downloadURL;
+                     
+                       await  setShowDescrp(true);
+                      setLoading(false);
+                      });
+                    });
+                  });
+               
+                }
+              
+              }
               >
-                Kaydet{" "}
-              </button>
-              <button
+                
+               {loading ? 
+               <BeatLoader
+            color={"#ffffff"}
+            loading={true}
+            size={10}
+            speedMultiplier={1}
+          />:
+                <p className="text-white text-16px font-roboto">Kaydet</p>
+                } 
+                </button>
+              </div>
+            {/*  <button
                 onClick={async () => {
                   const docRef = await addDoc(collection(db, "cards"), {
                     fname: fname,
@@ -723,25 +816,26 @@ function SignaturePage({ logoLink, weburl }) {
                     phone: phone,
                     linkList: linkListData,
                     logo: logoLink,
-                    onclickpath: cardPath,
+                    onclickpath: cardPathVariable,
                     cardImage: "",
                   });
 
                   setImgPath(docRef.id);
-                  console.log(imgpath);
+                  imgpath2 = docRef.id
+                  
 
                   // doc id oluşmalı ki resme atayabilelim, ilk atandığında dokunabilir olmayacak (çünkü app js'de komponent oluşmadı henüz)
                 }}
               >
                 {" "}
                 Database'e yükle{" "}
-              </button>
-
-              <p className="text-janus-purple  font-bold text-18px text-center mt-50px">
+              </button>*/}
+    { showDescrp ?   <p className="text-janus-purple  font-bold text-18px text-center mt-50px">
                 E-posta İmzası Ekle
-              </p>
-
-              <div class="flex items-start mt-24px">
+                      </p>
+                    :<></>  
+                    }
+{ showDescrp ?     <div class="flex items-start mt-24px">
                 <button
                   onClick={() => {
                     setMailIndex(1);
@@ -812,9 +906,10 @@ function SignaturePage({ logoLink, weburl }) {
                     src={mailIndex == 5 ? appleg : apple}
                   />{" "}
                 </button>
-              </div>
-                    {descrpManager()}
-                      <button onClick={async ()=>{html2canvas(document.getElementById("signature"),{backgroundColor:'#ebebeb',display:'block',useCORS:true,allowTaint:true}).then(async function(canvas) {
+              </div> : <></>
+}
+                    {showDescrp ? descrpManager(): <div/>}
+              {/*        <button onClick={async ()=>{html2canvas(document.getElementById("signature"),{backgroundColor:'#ebebeb',display:'block',useCORS:true,allowTaint:true}).then(async function(canvas) {
                     canvas.style.textAlign="top";
                    var table = document.getElementById("signature");
                     var img = document.getElementById("janusmail2");
@@ -837,23 +932,25 @@ function SignaturePage({ logoLink, weburl }) {
                       getDownloadURL(snapshot.ref).then(async (downloadURL) => {
                         img.src = downloadURL;
                         copy(table2.innerHTML);
-                        console.log(imgpath);
+                      
                       });
                     });
                   });
                 }}
               >
                 Kopyala( Kaydet ve database e yukleden sonra bas)
-              </button>
+              </button>*/}
             </div>
+    
           </div>
+     
         </Scrollbars>
       </div>
       <table id="signature2" className="absolute hidden">
         <tbody>
           <th>
             <tr>
-              <a href={imgpath}>
+              <a id="idforpath" href={imgpath2}>
                 <img id="janusmail2" />
               </a>
             </tr>
