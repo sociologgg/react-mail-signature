@@ -787,7 +787,7 @@ function SignaturePage({ logoLink, weburl }) {
                       img.crossOrigin = "anonymous";
                       var table2 = document.getElementById("signature2");
                       const ahref = document.getElementById("idforpath");
-                      ahref.href = imgpath2;
+                      ahref.href = `https://hidden-castle-63973.herokuapp.com/`+imgpath2;
                       //var a = document.createElement("");
                       img.src = canvas.toDataURL("image/png");
 
