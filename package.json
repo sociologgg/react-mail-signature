@@ -2,6 +2,9 @@
   "name": "mail-signature",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "14.15.3"
+  },
   "dependencies": {
     "@brainhubeu/react-carousel": "^2.0.4",
     "@craco/craco": "^6.2.0",
