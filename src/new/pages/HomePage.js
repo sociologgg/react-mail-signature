@@ -9,7 +9,7 @@ import DropAcc from "../components/DropAcc";
 import Select from "react-dropdown-select";
 import autosign from "../../images/autosign.png";
 import lockedTemplate from "../../images/lockedTemplate.png";
-import lock from "../../images/u_lock-alt.png";
+
 import sirklogo from "../../images/sirklogo.png";
 import orangelock from "../../images/orangelock.png";
 import { Carousel } from "react-responsive-carousel";
