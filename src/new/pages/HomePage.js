@@ -5,7 +5,7 @@ import Dropdown from "@material-tailwind/react/Dropdown";
 import DropdownItem from "@material-tailwind/react/DropdownItem";
 import DropdownLink from "@material-tailwind/react/DropdownLink";
 import DropAcc from "../components/DropAcc";
-import DropComp from "../components/DropComp";
+
 import Select from "react-dropdown-select";
 import autosign from "../../images/autosign.png";
 import lockedTemplate from "../../images/lockedTemplate.png";
@@ -244,7 +244,7 @@ const location = useLocation();
             <button
               onClick={() =>
                 navigator.clipboard.writeText(
-                  "http://localhost:3000/1jTuTrmisjdZuH1bEIUj"
+                  window.location.href.replace('home')
                 )
               }
               className="bg-janus-site-blue rounded-xl font-roboto text-white w-36 py-10px focus:outline-none "
