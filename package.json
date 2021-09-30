@@ -25,6 +25,7 @@
     "html2canvas": "^1.3.2",
     "html2canvas-proxy": "^1.0.1",
     "image-to-base64": "^2.2.0",
+    "rasterizehtml": "^1.3.0",
     "react": "^17.0.2",
     "react-copy-html-to-clipboard": "^6.0.4",
     "react-custom-scrollbars": "^4.2.1",

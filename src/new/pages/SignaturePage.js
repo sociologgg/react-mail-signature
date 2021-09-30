@@ -9,6 +9,7 @@ import twitter from "../../images/twitter.png";
 import linkedin from "../../images/linkedin2.png";
 import BeatLoader from "react-spinners/BeatLoader";
 import youtube from "../../images/youtube.png";
+
 import { useState } from "react";
 import html2canvas from "html2canvas";
 import linkedinbw from "../../images/linkedinbw.png";
@@ -46,7 +47,6 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 
-
 import {
   collection,
   addDoc,
@@ -55,9 +55,6 @@ import {
   where,
   getDocs,
 } from "firebase/firestore";
-
-
-
 
 var vCardsJS = require("vcards-js");
 
@@ -86,41 +83,39 @@ async function copyToClipboard(html) {
   document.body.appendChild(container);
   var selection = document.getSelection();
   var range = document.createRange();
-  
+
   range.selectNode(container);
- 
- 
+
   selection.removeAllRanges();
   selection.addRange(range);
 
-  console.log('copy success', document.execCommand('copy'));
+  console.log("copy success", document.execCommand("copy"));
   selection.removeAllRanges();
-  
-   //navigator.clipboard.writeText(container);
- 
- document.body.removeChild(container);
+
+  //navigator.clipboard.writeText(container);
+
+  document.body.removeChild(container);
   //alert("Copied");
 }
 
-  
 function selectElementContents() {
-  var urlField = document.querySelector('#signature2');
-   
+  var urlField = document.querySelector("#signature2");
+
   // create a Range object
-  var range = document.createRange();  
+  var range = document.createRange();
   // set the Node to select the "range"
   range.selectNode(urlField);
   // add the Range to the set of window selections
   window.getSelection().addRange(range);
-   
+
   // execute 'copy', can't 'cut' in this case
-  let a = document.execCommand('copy')
-  console.log('hello %b',a);
-  ;}
+  let a = document.execCommand("copy");
+  console.log("hello %b", a);
+}
 async function copy(docId) {
- await console.log(docId);
+  await console.log(docId);
   copyToClipboard(docId);
-selectElementContents()
+  selectElementContents();
 }
 
 function SignaturePage({ logoLink, weburl }) {
@@ -143,7 +138,8 @@ function SignaturePage({ logoLink, weburl }) {
   const [web, setWeb] = useState("www.usejanus.com");
   const [phone, setPhone] = useState("");
   const [mail, setMail] = useState("lorem@ipsum.com");
-  const [loading,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [disKaydet, setDisKaydet] = useState(false);
   const [mailIndex, setMailIndex] = useState(2);
   // img'ın yönleceği path (oluşan docid'den alınır)
   const [showDescrp, setShowDescrp] = useState(false);
@@ -156,7 +152,7 @@ function SignaturePage({ logoLink, weburl }) {
     else if (mailIndex == 4) return <SignDetails_yahoo />;
     else if (mailIndex == 5) return <SignDetails_apple />;
   }
- 
+
   return (
     <div class="h-screen w-screen pt-10 pb-20 flex z-10 relative justify-center px-64 bg-janus-site-blue">
       <div class="w-100% h-100% flex flex-col z-10">
@@ -166,15 +162,22 @@ function SignaturePage({ logoLink, weburl }) {
           </p>
         </div>
         <Scrollbars className="bg-white rounded-3xl mt-5">
-       
-        <div class="flex overflow-y-scroll pb-24  flex-1 block  shadow-2xl  rounded-3xl  bg-white flex-col  items-center ">
-        <table cellSpacing='0' id="signature" class="min-w-332px min-h-132px bg-white border-0.5 border-solid border-signborder  mt-80px ">
-                <tbody >
-                    <th className=" w-132px">
-                        <img id="logoLink" src={logoLink} className="h-72px  w-72px ml-30px" />
-                    </th>
-                    <th className=" w-200px pr-30px">
-                    <tr>
+          <div class="flex overflow-y-scroll pb-24  flex-1 block  shadow-2xl  rounded-3xl  bg-white flex-col  items-center ">
+            <table
+              cellSpacing="0"
+              id="signature"
+              class="min-w-332px min-h-132px bg-white border-0.5 border-solid border-signborder  mt-80px "
+            >
+              <tbody>
+                <th className=" w-132px">
+                  <img
+                    id="logoLink"
+                    src={logoLink}
+                    className="h-72px  w-72px ml-30px"
+                  />
+                </th>
+                <th className=" w-200px pr-30px">
+                  <tr>
                     <td className="font-roboto  whitespace-nowrap pt-26px w-200px text-left font-bold text-mail-gray text-14px">
                       {fname + " " + lname}
                     </td>
@@ -708,35 +711,38 @@ function SignaturePage({ logoLink, weburl }) {
                 </Menu>
               </div>
               <div className="flex mt-60px">
-                            <div className="flex flex-1"/>
-              <button
-              className="bg-compOrange hover:bg-compOrange-hover py-10px px-26px rounded focus:outline-none"
-                onClick={async () => {
-                 setLoading(true);
-                  var vCard = vCardsJS();
-                  vCard.firstName = fname;
-                  vCard.lastName = lname;
-                  vCard.title = title;
-                  vCard.email = mail;
-                  vCard.cellPhone = phone;
-                  const card = vCard.getFormattedString();
+                <div className="flex flex-1" />
+                <button
+                  disabled={disKaydet == true}
+                  className="bg-compOrange hover:bg-compOrange-hover py-10px px-26px rounded focus:outline-none disabled:opacity-50"
+                  onClick={async () => {
+                    setLoading(true);
+                    var vCard = vCardsJS();
+                    vCard.firstName = fname;
+                    vCard.lastName = lname;
+                    vCard.title = title;
+                    vCard.email = mail;
+                    vCard.cellPhone = phone;
+                    const card = vCard.getFormattedString();
 
-                  const storageRef = ref(
-                    storage,
-                    "vcards/" + fname + lname + ".vcf"
-                  );
-                  await uploadString(storageRef, card).then(async(snapshot) =>{
-                    await getDownloadURL(snapshot.ref).then(async (downloadURL) => {
-                     await  console.log("File available at", downloadURL);
-                    cardPathVariable = downloadURL;
-                     console.log(downloadURL);
-                     await setCardPath(downloadURL);
-                     await console.log(linkList);
-                     await  console.log(cardPathVariable);
+                    const storageRef = ref(
+                      storage,
+                      "vcards/" + fname + lname + ".vcf"
+                    );
+                    await uploadString(storageRef, card).then(
+                      async (snapshot) => {
+                        await getDownloadURL(snapshot.ref).then(
+                          async (downloadURL) => {
+                            await console.log("File available at", downloadURL);
+                            cardPathVariable = downloadURL;
+                            console.log(downloadURL);
+                            await setCardPath(downloadURL);
+                            await console.log(linkList);
+                            await console.log(cardPathVariable);
 
-                      // firebase firestore işlemleri
+                            // firebase firestore işlemleri
 
-                      /*fetch(
+                            /*fetch(
                         "https://firebasestorage.googleapis.com/v0/b/mail-signature-c886b.appspot.com/o/vcards%2Fsadsadsadasdsadsa.vcf?alt=media&token=7c655c91-4e9f-4b22-a95b-6ac8196d4b60",
                         {
                           method: "GET",
@@ -744,76 +750,83 @@ function SignaturePage({ logoLink, weburl }) {
                       ).then((response) => {
                         console.log(response);
                       }); */
-                      /*  fetch(downloadURL, { method: "GET" })
+                            /*  fetch(downloadURL, { method: "GET" })
                         .then((response) => {
                           response.blob();
                         })
                         .then((response) => console.log(response)); */
+                          }
+                        );
+                      }
+                    );
+
+                    const docRef = await addDoc(await collection(db, "cards"), {
+                      fname: fname,
+                      lname: lname,
+                      title: title,
+                      mail: mail,
+                      phone: phone,
+                      linkList: linkListData,
+                      logo: logoLink,
+                      onclickpath: cardPathVariable,
+                      cardImage: "",
                     });
-                  });
-                
-                  const  docRef = await addDoc(await collection(db, "cards"), {
-                    fname: fname,
-                    lname: lname,
-                    title: title,
-                    mail: mail,
-                    phone: phone,
-                    linkList: linkListData,
-                    logo: logoLink,
-                    onclickpath: cardPathVariable,
-                    cardImage: "",
-                  });
-                  setImgPath(docRef.id);
+                    setImgPath(docRef.id);
                     imgpath2 = docRef.id;
-                   await console.log(imgpath);
-                  
-                  html2canvas(document.getElementById("signature"),{backgroundColor:'#ebebeb',display:'block',useCORS:true,allowTaint:true}).then(async function(canvas) {
-                    canvas.style.textAlign="top";
-                   var table = document.getElementById("signature");
-                    var img = document.getElementById("janusmail2");
+                    await console.log(imgpath);
+
+                    html2canvas(document.getElementById("signature"), {
+                      backgroundColor: "#ebebeb",
+                      display: "block",
+                      useCORS: true,
+                      allowTaint: true,
+                    }).then(async function (canvas) {
+                      canvas.style.textAlign = "top";
+                      var table = document.getElementById("signature");
+                      var img = document.getElementById("janusmail2");
                       img.crossOrigin = "anonymous";
-                    var table2 = document.getElementById("signature2");
-                    const ahref = document.getElementById("idforpath");
-                    ahref.href = imgpath2;
-                    //var a = document.createElement("");
-                    img.src = canvas.toDataURL("image/png");
+                      var table2 = document.getElementById("signature2");
+                      const ahref = document.getElementById("idforpath");
+                      ahref.href = imgpath2;
+                      //var a = document.createElement("");
+                      img.src = canvas.toDataURL("image/png");
 
-                    let r = (Math.random() + 1).toString(36).substring(2);
+                      let r = (Math.random() + 1).toString(36).substring(2);
 
-                    const storageRef = ref(storage, "alim/" + r);
-                    uploadString(
-                      storageRef,
-                      canvas.toDataURL(),
-                      "data_url"
-                    ).then((snapshot) => {
-                      console.log("Uploaded a data_url string!");
+                      const storageRef = ref(storage, "alim/" + r);
+                      uploadString(
+                        storageRef,
+                        canvas.toDataURL(),
+                        "data_url"
+                      ).then((snapshot) => {
+                        console.log("Uploaded a data_url string!");
 
-                      getDownloadURL(snapshot.ref).then(async (downloadURL) => {
-                        img.src = downloadURL;
-                     
-                       await  setShowDescrp(true);
-                      setLoading(false);
+                        getDownloadURL(snapshot.ref).then(
+                          async (downloadURL) => {
+                            img.src = downloadURL;
+
+                            await setShowDescrp(true);
+                            setLoading(false);
+                            setDisKaydet(true);
+                          }
+                        );
                       });
                     });
-                  });
-               
-                }
-              
-              }
-              >
-                
-               {loading ? 
-               <BeatLoader
-            color={"#ffffff"}
-            loading={true}
-            size={10}
-            speedMultiplier={1}
-          />:
-                <p className="text-white text-16px font-roboto">Kaydet</p>
-                } 
+                  }}
+                >
+                  {loading ? (
+                    <BeatLoader
+                      color={"#ffffff"}
+                      loading={true}
+                      size={10}
+                      speedMultiplier={1}
+                    />
+                  ) : (
+                    <p className="text-white text-16px font-roboto">Kaydet</p>
+                  )}
                 </button>
               </div>
-            {/*  <button
+              {/*  <button
                 onClick={async () => {
                   const docRef = await addDoc(collection(db, "cards"), {
                     fname: fname,
@@ -837,90 +850,95 @@ function SignaturePage({ logoLink, weburl }) {
                 {" "}
                 Database'e yükle{" "}
               </button>*/}
-    { showDescrp ?   <p className="text-janus-purple  font-bold text-18px text-center mt-50px">
-                E-posta İmzası Ekle
-                      </p>
-                    :<></>  
-                    }
-{ showDescrp ?     <div class="flex items-start mt-24px">
-                <button
-                  onClick={() => {
-                    setMailIndex(1);
-                  }}
-                  className={` focus:outline-none mx-4px ${
-                    mailIndex == 1 ? `opacity-100` : `opacity-50`
-                  }`}
-                >
-                  {" "}
-                  <img
-                    className="w-80px "
-                    src={mailIndex == 1 ? hubspotg : hubspot}
-                  />{" "}
-                </button>
-                <button
-                  onClick={() => {
-                    setMailIndex(2);
-                  }}
-                  className={` focus:outline-none mx-4px ${
-                    mailIndex == 2 ? `opacity-100` : `opacity-50`
-                  }`}
-                >
-                  {" "}
-                  <img
-                    className="w-80px "
-                    src={mailIndex == 2 ? gmailg : gmail}
-                  />{" "}
-                </button>
-                <button
-                  onClick={() => {
-                    setMailIndex(3);
-                  }}
-                  className={` focus:outline-none mx-4px ${
-                    mailIndex == 3 ? `opacity-100` : `opacity-50`
-                  }`}
-                >
-                  {" "}
-                  <img
-                    className="w-80px"
-                    src={mailIndex == 3 ? outlookg : outlook}
-                  />{" "}
-                </button>
-                <button
-                  onClick={() => {
-                    setMailIndex(4);
-                  }}
-                  className={` focus:outline-none mx-4px ${
-                    mailIndex == 4 ? `opacity-100` : `opacity-50`
-                  }`}
-                >
-                  {" "}
-                  <img
-                    className="w-80px "
-                    src={mailIndex == 4 ? yahoog : yahoo}
-                  />{" "}
-                </button>
-                <button
-                  onClick={() => {
-                    setMailIndex(5);
-                  }}
-                  className={` focus:outline-none mx-4px ${
-                    mailIndex == 5 ? `opacity-100` : `opacity-50`
-                  }`}
-                >
-                  {" "}
-                  <img
-                    className="w-80px"
-                    src={mailIndex == 5 ? appleg : apple}
-                  />{" "}
-                </button>
-              </div> : <></>
-}
-                    {showDescrp ? descrpManager(): <div/>}
+              {showDescrp ? (
+                <p className="text-janus-purple  font-bold text-18px text-center mt-50px">
+                  E-posta İmzası Ekle
+                </p>
+              ) : (
+                <></>
+              )}
+              {showDescrp ? (
+                <div class="flex items-start mt-24px">
+                  <button
+                    onClick={() => {
+                      setMailIndex(1);
+                    }}
+                    className={` focus:outline-none mx-4px ${
+                      mailIndex == 1 ? `opacity-100` : `opacity-50`
+                    }`}
+                  >
+                    {" "}
+                    <img
+                      className="w-80px "
+                      src={mailIndex == 1 ? hubspotg : hubspot}
+                    />{" "}
+                  </button>
+                  <button
+                    onClick={() => {
+                      setMailIndex(2);
+                    }}
+                    className={` focus:outline-none mx-4px ${
+                      mailIndex == 2 ? `opacity-100` : `opacity-50`
+                    }`}
+                  >
+                    {" "}
+                    <img
+                      className="w-80px "
+                      src={mailIndex == 2 ? gmailg : gmail}
+                    />{" "}
+                  </button>
+                  <button
+                    onClick={() => {
+                      setMailIndex(3);
+                    }}
+                    className={` focus:outline-none mx-4px ${
+                      mailIndex == 3 ? `opacity-100` : `opacity-50`
+                    }`}
+                  >
+                    {" "}
+                    <img
+                      className="w-80px"
+                      src={mailIndex == 3 ? outlookg : outlook}
+                    />{" "}
+                  </button>
+                  <button
+                    onClick={() => {
+                      setMailIndex(4);
+                    }}
+                    className={` focus:outline-none mx-4px ${
+                      mailIndex == 4 ? `opacity-100` : `opacity-50`
+                    }`}
+                  >
+                    {" "}
+                    <img
+                      className="w-80px "
+                      src={mailIndex == 4 ? yahoog : yahoo}
+                    />{" "}
+                  </button>
+                  <button
+                    onClick={() => {
+                      setMailIndex(5);
+                    }}
+                    className={` focus:outline-none mx-4px ${
+                      mailIndex == 5 ? `opacity-100` : `opacity-50`
+                    }`}
+                  >
+                    {" "}
+                    <img
+                      className="w-80px"
+                      src={mailIndex == 5 ? appleg : apple}
+                    />{" "}
+                  </button>
+                </div>
+              ) : (
+                <></>
+              )}
+              {showDescrp ? descrpManager() : <div />}
               {/*        <button onClick={async ()=>{html2canvas(document.getElementById("signature"),{backgroundColor:'#ebebeb',display:'block',useCORS:true,allowTaint:true}).then(async function(canvas) {
                     canvas.style.textAlign="top";
                    var table = document.getElementById("signature");
                     var img = document.getElementById("janusmail2");
-                      img.crossOrigin = "anonymous";
+                    img.crossOrigin = "anonymous";
                     var table2 = document.getElementById("signature2");
 
                     //var a = document.createElement("");
@@ -948,9 +966,7 @@ function SignaturePage({ logoLink, weburl }) {
                 Kopyala( Kaydet ve database e yukleden sonra bas)
               </button>*/}
             </div>
-    
           </div>
-     
         </Scrollbars>
       </div>
       <table id="signature2" className="absolute hidden">
