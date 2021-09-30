@@ -338,11 +338,11 @@ function HomePage() {
   function pageManager() {
     if (page == 0) {
       return (
-        <div class="  flex l shadow-2xl  rounded-3xl overflow-hidden bg-white mt-5  justify-center  ">
-          <div class=" flex  flex-column w-100%">
-            <div class="flex-col flex justify-center     w-3/4 h-100%   ">
-              <div class="  flex flex-row  w-100% justify-center items-center ">
-                <p class="text-line-gray font-medium text-lg">
+        <div class="  flex  shadow-2xl flex-col h-100%  rounded-3xl overflow-hidden bg-white mt-5  justify-center  ">
+          <div class=" flex     flex-1 w-100%">
+            <div class="flex-col flex justify-center w-3/4    h-100%   ">
+              <div class="  flex flex-row ml-14   w-100%  items-center ">
+                <p class="text-line-gray inline whitespace-nowrap text-left font-medium text-lg">
                   {" "}
                   Organizasyon adı*
                 </p>
@@ -402,35 +402,37 @@ function HomePage() {
                 />
               </div>*/}
               <div class="flex mt-5  items-center relative ">
-                <p class="text-line-gray ml-14 font-medium text-lg">
-                  {" "}
+                <p class="text-line-gray inline whitespace-nowrap ml-14 font-medium text-lg">
                   Web Sitesi Url'si *
                 </p>
-                <input
-                  onChange={(e) => {
-                    setWebUrl(e.target.value);
-                  }}
-                  type="text"
-                  class={`outline-none w-290px border-input focus:border-janus-focus-blue font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 ml-20`}
-                />
-                <img
-                  onMouseEnter={() => {
-                    setHoverInfoVisible(true);
-                  }}
-                  onMouseLeave={() => {
-                    setHoverInfoVisible(false);
-                  }}
-                  src={info_circle}
-                  className="w-16px absolute z-10 right-10px h-16px mr-14"
-                />
-                <p
-                  className={`${
-                    hoverInfoVisible ? `absolute` : "hidden"
-                  } absolute px-6px bg-janus-gray  py-4px top-minus16px rounded-md text-white text-center right-2 text-10px font-roboto w-auto`}
-                >
-                  Websitenizin anasayfasını (www.ornek.com) ekleyin
-                </p>
+                <div className="relative">
+                  <input
+                    onChange={(e) => {
+                      setWebUrl(e.target.value);
+                    }}
+                    type="text"
+                    class={`outline-none w-290px border-input focus:border-janus-focus-blue font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 ml-20`}
+                  />
+                  <img
+                    onMouseEnter={() => {
+                      setHoverInfoVisible(true);
+                    }}
+                    onMouseLeave={() => {
+                      setHoverInfoVisible(false);
+                    }}
+                    src={info_circle}
+                    className="w-16px absolute z-10 right-0px top-10px right-16px h-16px "
+                  />
+                  <p
+                    className={`${
+                      hoverInfoVisible ? `absolute` : "hidden"
+                    } absolute px-6px bg-janus-gray  py-4px top-minus16px rounded-md text-white text-center right-2 text-10px font-roboto w-auto`}
+                  >
+                    Websitenizin anasayfasını (www.ornek.com) ekleyin
+                  </p>
+                </div>
               </div>
+
               <div class="flex flex-row justify-end">
                 <button
                   disabled={webUrl == "" || sirketAdi == ""}
@@ -447,7 +449,7 @@ function HomePage() {
 
             <div class=" flex-column justify-center h-100% h-full bg-mail-gray">
               <div class=" mt-24">
-                <p class=" text-janus-dark-blue  text-xl font-roboto">
+                <p class=" text-janus-dark-blue px-16  text-xl font-roboto">
                   Admin olarak organizasyonunuz adına bilgileri doldurun
                 </p>
               </div>
@@ -504,8 +506,7 @@ function HomePage() {
                   </div>
                   <div class="flex  justify-start lg:mt-18px">
                     <p class="leading-3 text-14px font-light text-input-gray text-left">
-                      Kare formatta maximum 80x80 pixsel
-                      <br /> png veya jpeg görsel kullanın
+                      Kare formatta png veya jpeg görsel kullanın
                     </p>
                   </div>
 
@@ -585,7 +586,7 @@ function HomePage() {
         <div class="w-screen h-100% flex flex-col   ">
           <div class="flex  justify-between items-center">
             <p class="font-bold text-4xl mt-2 text-white mb-5 font-roboto">
-              Şirket Bilgileri
+              Organizasyon Bilgileri
             </p>
             <div class="mt-2">
               <DropAcc />

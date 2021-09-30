@@ -7,7 +7,35 @@ function SignDetails_hubspot() {
             <div className="flex mt-20px">
                 <p className="font-bold text-16px text-hubspot">01</p>
                 <div className="pl-20px  font-light text-left text-input-gray"><p>İmzanızın HTML' ni kopyalayın: </p> 
-                    <div className="flex mt-12px"><p className="underline"> İmzanı Kopyala</p>
+                    <div className="flex mt-12px"><p className="underline"><button      className="focus:outline-none"
+                    onClick={()=>{
+                        var container = document.createElement("DIV");
+                        var table = document.getElementById("signature2");
+                        container.innerHTML = table.innerHTML;
+                        container.style.position = "fixed";
+                        container.style.pointerEvents = "none";
+                        container.style.opacity = 0;
+                        document.body.appendChild(container);
+                        var selection = document.getSelection();
+                        var range = document.createRange();
+                        
+                        range.selectNode(container);
+                       
+                       
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                       
+                        console.log('copy success', document.execCommand('copy'));
+                        selection.removeAllRanges();
+                        
+                         //navigator.clipboard.writeText(container);
+                       
+                       document.body.removeChild(container);
+                        //alert("Copied");
+
+                    }}
+                    
+                    > İmzanı Kopyala </button></p>
                     <p className="ml-12px text-hubspot underline">Kaynak Kodunu Kopyala</p>
                     </div>
                 </div>
@@ -69,7 +97,38 @@ function SignDetails_gmail() {
             <div className="flex mt-20px">
                 <p className="font-bold text-16px text-gmail">01</p>
                 <div className="pl-20px  font-light text-left text-input-gray"><p>İmzanızın HTML' ni kopyalayın: </p> 
-                    <div className="flex mt-12px"><p className="underline"> İmzanı Kopyala</p>
+                    <div className="flex mt-12px"><p className="underline">
+                    <button      className="focus:outline-none"
+                    onClick={()=>{
+                        var container = document.createElement("DIV");
+                        var table = document.getElementById("signature2");
+                        container.innerHTML = table.innerHTML;
+                        container.style.position = "fixed";
+                        container.style.pointerEvents = "none";
+                        container.style.opacity = 0;
+                        document.body.appendChild(container);
+                        var selection = document.getSelection();
+                        var range = document.createRange();
+                        
+                        range.selectNode(container);
+                       
+                       
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                       
+                        console.log('copy success', document.execCommand('copy'));
+                        selection.removeAllRanges();
+                        
+                         //navigator.clipboard.writeText(container);
+                       
+                       document.body.removeChild(container);
+                        //alert("Copied");
+
+                    }}
+                    
+                    > İmzanı Kopyala </button>
+
+                    </p>
                     <p className="ml-12px text-gmail underline">Kaynak Kodunu Kopyala</p>
                     </div>
                 </div>
@@ -133,7 +192,40 @@ function SignDetails_outlook() {
             <div className="flex mt-20px">
                 <p className="font-bold text-16px text-janus-dark-blue">01</p>
                 <div className="pl-20px  font-light text-left text-input-gray"><p>İmzanızın HTML' ni kopyalayın: </p> 
-                    <div className="flex mt-12px"><p className="underline"> İmzanı Kopyala</p>
+                    <div className="flex mt-12px"><p className="underline">
+                    <button
+                    className="focus:outline-none"
+                    onClick={()=>{
+                        var container = document.createElement("DIV");
+                        var table = document.getElementById("signature2");
+                        container.innerHTML = table.innerHTML;
+                        container.style.position = "fixed";
+                        container.style.pointerEvents = "none";
+                        container.style.opacity = 0;
+                        document.body.appendChild(container);
+                        var selection = document.getSelection();
+                        var range = document.createRange();
+                        
+                        range.selectNode(container);
+                       
+                       
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                       
+                        console.log('copy success', document.execCommand('copy'));
+                        selection.removeAllRanges();
+                        
+                         //navigator.clipboard.writeText(container);
+                       
+                       document.body.removeChild(container);
+                        //alert("Copied");
+
+                    }}
+                    
+                    > İmzanı Kopyala </button>
+
+
+                        </p>
                     <p className="ml-12px text-janus-dark-blue underline">Kaynak Kodunu Kopyala</p>
                     </div>
                 </div>
@@ -190,7 +282,37 @@ function SignDetails_yahoo() {
             <div className="flex mt-20px">
                 <p className="font-bold text-16px text-yahoo">01</p>
                 <div className="pl-20px  font-light text-left text-input-gray"><p>İmzanızın HTML' ni kopyalayın: </p> 
-                    <div className="flex mt-12px"><p className="underline"> İmzanı Kopyala</p>
+                    <div className="flex mt-12px"><p className="underline"> 
+                    <button
+                    onClick={()=>{
+                        var container = document.createElement("DIV");
+                        var table = document.getElementById("signature2");
+                        container.innerHTML = table.innerHTML;
+                        container.style.position = "fixed";
+                        container.style.pointerEvents = "none";
+                        container.style.opacity = 0;
+                        document.body.appendChild(container);
+                        var selection = document.getSelection();
+                        var range = document.createRange();
+                        
+                        range.selectNode(container);
+                       
+                       
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                       
+                        console.log('copy success', document.execCommand('copy'));
+                        selection.removeAllRanges();
+                        
+                         //navigator.clipboard.writeText(container);
+                       
+                       document.body.removeChild(container);
+                        //alert("Copied");
+
+                    }}
+                    
+                    > İmzanı Kopyala </button>
+                    </p>
                     <p className="ml-12px text-yahoo underline">Kaynak Kodunu Kopyala</p>
                     </div>
                 </div>
@@ -242,7 +364,38 @@ function SignDetails_apple() {
             <div className="flex mt-20px">
                 <p className="font-bold text-16px text-apple">01</p>
                 <div className="pl-20px  font-light text-left text-input-gray"><p>İmzanızın HTML' ni kopyalayın: </p> 
-                    <div className="flex mt-12px"><p className="underline"> İmzanı Kopyala</p>
+                    <div className="flex mt-12px"><p className="underline">
+                    <button className="focus:outline-none"
+                    onClick={()=>{
+                        var container = document.createElement("DIV");
+                        var table = document.getElementById("signature2");
+                        container.innerHTML = table.innerHTML;
+                        container.style.position = "fixed";
+                        container.style.pointerEvents = "none";
+                        container.style.opacity = 0;
+                        document.body.appendChild(container);
+                        var selection = document.getSelection();
+                        var range = document.createRange();
+                        
+                        range.selectNode(container);
+                       
+                       
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                       
+                        console.log('copy success', document.execCommand('copy'));
+                        selection.removeAllRanges();
+                        
+                         //navigator.clipboard.writeText(container);
+                       
+                       document.body.removeChild(container);
+                        //alert("Copied");
+
+                    }}
+                    
+                    > İmzanı Kopyala </button>
+
+                    </p>
                     <p className="ml-12px text-janus-dark-blue underline">Kaynak Kodunu Kopyala</p>
                     </div>
                 </div>
