@@ -18,7 +18,7 @@ function Dashboard() {
           </p>
         </div>
         <div class="flex  h-3/4   shadow-2xl  rounded-3xl overflow-hidden bg-white mt-10 ">
-          <div class="w-1/2 h-100% bg-white flex-col p-16  flex lg:justify-start md:justify-start justify-center  items-center rounded-l-3xl">
+          <div class="w-1/2 h-100% bg-white flex-col p-8  flex  justify-center  items-center rounded-l-3xl">
           <Switch>
             <Route  path={`/auth/SignUp`} >
               <SignUp />

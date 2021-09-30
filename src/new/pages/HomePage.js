@@ -18,6 +18,7 @@ import party from "../../images/party.png";
 import arrow from "../../images/arrowhome.png";
 import info_circle from "../../images/info_circle.png";
 import girlontable from "../../images/girlontable.png";
+import Scrollbars from "react-custom-scrollbars";
 import {
   getStorage,
   ref,
@@ -270,7 +271,9 @@ function HomePage() {
   function handlePopUp3() {
     if (popUpValue3 == 1) {
       return (
-        <div class=" flex-column absolute max-w-470px   p-20px pb-40px z-20 shadow-2xl  rounded-3xl overflow-hidden bg-white mt-64  justify-center ">
+    
+        <div class=" flex-column absolute max-w-470px h-screen items-center flex   z-20     justify-center ">
+          <div className="flex flex-col bg-white shadow-2xl  rounded-3xl p-20px pb-40px overflow-hidden">
           <div class="flex justify-end mt-2 ">
             <button
               onClick={() => {
@@ -299,27 +302,31 @@ function HomePage() {
             <img className="h-190px w-190px" src={party} />
           </div>
           <div class=" mt-36px  px-40px  flex justify-center items-center ">
-            <p class=" font-roboto  font-light text-16px ">
-              E-posta imzası tasarımınızı admin olarak şirket adına
-              oluşturdunuz. Ekip arkadaşlarınızın kişisel bilgilerini doldurması
-              için linki paylaşmalısınız!
+           <div>
+            <p class=" font-roboto  font-light text-16px text-left">
+              E-posta imzası tasarımınızı admin olarak şirket adına  oluşturdunuz.</p>
+              
+             
+              <p class=" font-roboto  font-light text-left text-16px  mt-16px">
+                
+              Ekip arkadaşlarınızın kişisel bilgilerini doldurması için  <button 
+               onClick={() =>
+                navigator.clipboard.writeText(
+                  `http://localhost:3000/${urlgo}`
+                )
+              }
+              className="underline text-janus-dark-blue focus:outline-none">Linki Kopyala</button> butonuna tıklayarak paylaşın 
             </p>
-          </div>
-          <div className="flex mt-20px justify-center">
-            <div className="flex-1 flex justify-end">
-              <button
-                onClick={() =>
-                  navigator.clipboard.writeText(
-                    `http://localhost:3000/${urlgo}`
-                  )
-                }
-                className="font-roboto text-janus-dark-blue underline text-16px focus:outline-none"
-              >
-                Linki Kopyala
-              </button>
+            <p class=" font-roboto  font-light text-left text-16px  mt-16px">
+            E-posta imzanızı oluşturmak için ‘’E-posta İmzası Üret’’ butonuna tıklayın.
+            </p>
             </div>
-            <div className="w-20px" />
-            <div className="flex-1 flex justify-start">
+          </div>
+         
+         
+          <div className="flex mt-30px justify-center">
+            
+            <div className="flex-1 flex justify-center">
               <button className="py-10px px-6px bg-compOrange hover:bg-compOrange-hover rounded-md focus:outline-none">
                 <a
                   target="_blank"
@@ -331,7 +338,12 @@ function HomePage() {
               </button>
             </div>
           </div>
+         
+         
+         
+
         </div>
+     </div>
       );
     }
   }
@@ -465,7 +477,9 @@ function HomePage() {
       );
     } else {
       return (
-        <div class="flex  flex-1 px-20px    shadow-2xl  rounded-3xl overflow-hidden bg-white mt-5 flex-column justify-center  ">
+        <Scrollbars className="bg-white shadow-2xl rounded-3xl mt-5">
+        <div class="flex  flex-1 px-20px      pb-20px rounded-3xl overflow-hidden bg-white mt-5 flex-column justify-center  ">
+        
           <div className="w-100% relative flex justify-center">
             <div className="absolute flex left-12px top-30px  items-center  text-24px text-janus-dark-blue">
               <button
@@ -480,6 +494,7 @@ function HomePage() {
               <div>
                 <p class=" text-janus-purple">E Posta İmzası Teması Seçin</p>
               </div>
+            
               <div class="flex justify-center mt-2">
                 <Carousel
                   renderIndicator={() => {}}
@@ -569,7 +584,9 @@ function HomePage() {
             <div>
               <p class="mt-5 text-janus-purple">E Posta İmzası Teması Seçin</p>
         </div>*/}
+       
         </div>
+        </Scrollbars>
       );
     }
   }
@@ -590,7 +607,7 @@ function HomePage() {
         <div class="w-screen h-100% flex flex-col   ">
           <div class="flex  justify-between items-center">
             <p class="font-bold text-4xl mt-2 text-white mb-5 font-roboto">
-              Şirket Bilgileri
+            Organizasyon Bilgileri
             </p>
             <div class="mt-2">
               <DropAcc />

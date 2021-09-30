@@ -86,8 +86,8 @@ function SignIn() {
       <p class="text-4xl text-janus-dark-blue font-bold font-roboto">
         Giriş Yap{" "}
       </p>
-
-      <div className="pt-40px">
+      <p className="mt-30px text-16px text-yahoo">Organizasyonun admini olarak giriş yapın</p>
+      <div className="pt-20px">
         <input
           onChange={(e) => {
             setEmail(e.target.value);

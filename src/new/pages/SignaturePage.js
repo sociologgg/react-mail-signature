@@ -344,12 +344,14 @@ function SignaturePage({ logoLink, weburl }) {
                             }));
                           }}
                           className="w-312px h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 focus:outline-none pl-40px"
-                        />
+                          placeholder="Instagram Profil URL'i"
+                      />
                         <img
                           className="absolute left-4px top-4px z-10 w-30px h-30px"
                           src={instagram}
                         />
                         <button
+                        class="focus:outline-none ml-20px"
                           onClick={() => {
                             setLinkList(
                               linkList.filter((item) => {
@@ -380,12 +382,13 @@ function SignaturePage({ logoLink, weburl }) {
                             }));
                           }}
                           className="w-312px h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 focus:outline-none pl-40px"
-                        />
+                          placeholder="Facebook Profil URL'i"
+                   />
                         <img
                           className="absolute left-4px top-4px z-10 w-30px h-30px"
                           src={facebook}
                         />
-                        <button
+                        <button    class="focus:outline-none ml-20px"
                           onClick={() => {
                             setLinkList(
                               linkList.filter((item) => {
@@ -397,7 +400,7 @@ function SignaturePage({ logoLink, weburl }) {
                               facebook: "",
                             }));
                           }}
-                          className="ml-20px"
+                         
                         >
                           {" "}
                           <img src={trash} className="w-24px h-24px" />{" "}
@@ -417,12 +420,13 @@ function SignaturePage({ logoLink, weburl }) {
                             }));
                           }}
                           className="w-312px h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 focus:outline-none pl-40px"
+                          placeholder="Twitter Profil URL'i"
                         />
                         <img
                           className="absolute left-4px top-4px z-10 w-30px h-30px"
                           src={twitter}
                         />
-                        <button
+                        <button    class="focus:outline-none ml-20px"
                           onClick={() => {
                             setLinkList(
                               linkList.filter((item) => {
@@ -434,7 +438,7 @@ function SignaturePage({ logoLink, weburl }) {
                               twitter: "",
                             }));
                           }}
-                          className="ml-20px"
+                        
                         >
                           {" "}
                           <img src={trash} className="w-24px h-24px" />{" "}
@@ -451,12 +455,13 @@ function SignaturePage({ logoLink, weburl }) {
                             setWeb(e.target.value);
                           }}
                           className="w-312px h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 focus:outline-none pl-40px"
+                          
                         />
                         <img
                           className="absolute left-8px top-8px z-10 w-24px h-24px"
                           src={globe2}
                         />
-                        <button
+                        <button    class="focus:outline-none ml-20px"
                           onClick={() => {
                             setLinkList(
                               linkList.filter((item) => {
@@ -464,7 +469,7 @@ function SignaturePage({ logoLink, weburl }) {
                               })
                             );
                           }}
-                          className="ml-20px"
+                         
                         >
                           {" "}
                           <img src={trash} className="w-24px h-24px" />{" "}
@@ -483,12 +488,13 @@ function SignaturePage({ logoLink, weburl }) {
                             }));
                           }}
                           className="w-312px h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 focus:outline-none pl-40px"
+                          placeholder="LinkedIn Profil URL'i"
                         />
                         <img
                           className="absolute left-8px top-8px z-10 w-24px h-24px"
                           src={linkedin}
                         />
-                        <button
+                        <button    class="focus:outline-none ml-20px"
                           onClick={() => {
                             setLinkList(
                               linkList.filter((item) => {
@@ -500,7 +506,7 @@ function SignaturePage({ logoLink, weburl }) {
                               youtube: "",
                             }));
                           }}
-                          className="ml-20px"
+                          
                         >
                           {" "}
                           <img src={trash} className="w-24px h-24px" />{" "}
@@ -512,6 +518,7 @@ function SignaturePage({ logoLink, weburl }) {
                     return (
                       <div className="relative mt-20px items-center flex">
                         <input
+                        placeholder="Youtube Profil URL'i"
                           onChange={(e) => {
                             setLinkListData((state) => ({
                               ...state,
@@ -524,7 +531,7 @@ function SignaturePage({ logoLink, weburl }) {
                           className="absolute left-4px top-4px  z-10 w-30px h-30px border-r-1 border-gray-500"
                           src={youtube}
                         />
-                        <button
+                        <button class="focus:outline-none ml-20px"
                           onClick={() => {
                             setLinkListData(
                               linkList.filter((item) => {
@@ -536,7 +543,7 @@ function SignaturePage({ logoLink, weburl }) {
                               youtube: "",
                             }));
                           }}
-                          className="ml-20px"
+                         
                         >
                           {" "}
                           <img src={trash} className="w-24px h-24px" />{" "}

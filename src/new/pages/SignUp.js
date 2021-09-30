@@ -76,8 +76,9 @@ function SignUp() {
   const eyeSlash = <FontAwesomeIcon className="opacity-40" icon={faEyeSlash} />;
 
   return (
-    <div class=" flex w-236px flex-col">
+    <div class=" flex w-236px justify-center flex-col">
       <p class="text-4xl text-janus-dark-blue font-bold font-roboto">Kaydol </p>
+      <p className="mt-30px text-16px text-yahoo">Organizasyonun admini olarak kaydolun</p>
       <div>
         <input
           onChange={(e) => {
