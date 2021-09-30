@@ -505,8 +505,7 @@ function SignDetails_apple() {
                          //navigator.clipboard.writeText(container);
                        
                        document.body.removeChild(container);
-                        //alert("Copied");
-
+                       
                     }}
                     
                     > İmzanı Kopyala </button>
