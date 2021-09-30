@@ -24,7 +24,7 @@ module.exports = {
         "100%": "100%",
 
         "215px": "215px",
-
+        '620px':'620px',
         "760px": "760px",
       },
       margin: {
@@ -128,6 +128,7 @@ module.exports = {
         "janus-focus-blue": "#167FFC",
         "line-gray": "#7B7B7B",
         "error-red": "#D63835",
+        'signborder':'#ebe9e6',
         
         "janus-purple": "#6C489E",
       },

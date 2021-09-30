@@ -55,7 +55,6 @@ import {
   getDocs,
 } from "firebase/firestore";
 
-const axios = require("axios");
 var vCardsJS = require("vcards-js");
 
 function classNames(...classes) {
@@ -124,7 +123,7 @@ function SignaturePage({ logoLink, weburl }) {
     else if (mailIndex == 4) return <SignDetails_yahoo />;
     else if (mailIndex == 5) return <SignDetails_apple />;
   }
-  console.log(logoLink);
+
   return (
     <div class="h-screen w-screen pt-10 pb-20 flex z-10 relative justify-center px-64 bg-janus-site-blue">
       <div class="w-100% h-100% flex flex-col z-10">
@@ -138,12 +137,12 @@ function SignaturePage({ logoLink, weburl }) {
             <table
               cellSpacing="0"
               id="signature"
-              class="min-w-332px min-h-132px bg-white  mt-80px "
+              class="min-w-332px min-h-132px bg-white border-0.5 border-solid border-signborder  mt-80px "
             >
               <tbody>
                 <th className=" w-132px">
                   <img
-                    id="logo"
+                    id="logoLink"
                     src={logoLink}
                     className="h-72px  w-72px ml-30px"
                   />
@@ -823,16 +822,13 @@ function SignaturePage({ logoLink, weburl }) {
                   html2canvas(document.getElementById("signature"), {
                     backgroundColor: "#ebebeb",
                     display: "block",
+                    useCORS: true,
+                    allowTaint: true,
                   }).then(async function (canvas) {
                     canvas.style.textAlign = "top";
-                    var logo = document.getElementById("logo");
-                    var canvas2 = document.createElement("canvas");
-                    var ctx = canvas2.getContext("2d");
-                    rasterizeHTML.drawHTML("<img src = {logoLink}/>", canvas);
-
                     var table = document.getElementById("signature");
                     var img = document.getElementById("janusmail2");
-
+                    img.crossOrigin = "anonymous";
                     var table2 = document.getElementById("signature2");
 
                     //var a = document.createElement("");
