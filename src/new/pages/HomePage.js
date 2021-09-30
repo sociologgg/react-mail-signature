@@ -18,6 +18,7 @@ import party from "../../images/party.png";
 import arrow from "../../images/arrowhome.png";
 import info_circle from "../../images/info_circle.png";
 import girlontable from "../../images/girlontable.png";
+import { useLocation } from "react-router";
 import Scrollbars from "react-custom-scrollbars";
 import {
   getStorage,
@@ -58,6 +59,7 @@ function HomePage() {
   const fileLink = [];
   const [logoLink, setLogoLink] = useState();
   const [urlgo, setUrlGo] = useState("");
+const location = useLocation();
 
   useEffect(async () => {
     const stUser = await JSON.parse(localStorage.getItem("user"));
@@ -80,13 +82,13 @@ function HomePage() {
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log("Upload is " + progress + "% done");
+     
         switch (snapshot.state) {
           case "paused":
-            console.log("Upload is paused");
+           
             break;
           case "running":
-            console.log("Upload is running");
+          
             break;
         }
       },
@@ -112,7 +114,7 @@ function HomePage() {
         // Upload completed successfully, now we can get the download URL
         await getDownloadURL(uploadTask.snapshot.ref).then(
           async (downloadURL) => {
-            console.log("File available at", downloadURL);
+           
 
             setLogoLink(downloadURL);
             setIsButtonDisabled(false);
@@ -120,7 +122,7 @@ function HomePage() {
             fileLink.push(downloadURL);
 
             setLogoLink(fileLink);
-            console.log(fileLink);
+          
           }
         );
       }
@@ -137,13 +139,13 @@ function HomePage() {
     ) {
       const imageLink = await getFirebaseUrl(e.target.files[0]);
       setFileSuccess(true);
-      console.log("Başarılı");
+    
       if (fileError == true) {
         setFileError(false);
         setFileSuccess(true);
       }
     } else {
-      console.log("Başarısız");
+    
       setFileError(true);
     }
   }
@@ -167,7 +169,7 @@ function HomePage() {
     } else {
       setValue(value);
     }
-    console.log(value);
+   
   };
 
   function handlePopUp() {
@@ -312,7 +314,7 @@ function HomePage() {
               Ekip arkadaşlarınızın kişisel bilgilerini doldurması için  <button 
                onClick={() =>
                 navigator.clipboard.writeText(
-                  `http://localhost:3000/${urlgo}`
+                  window.location.href.replace('home','')+`${urlgo}`
                 )
               }
               className="underline text-janus-dark-blue focus:outline-none">Linki Kopyala</button> butonuna tıklayarak paylaşın 
@@ -330,7 +332,7 @@ function HomePage() {
               <button className="py-10px px-6px bg-compOrange hover:bg-compOrange-hover rounded-md focus:outline-none">
                 <a
                   target="_blank"
-                  href={`http://localhost:3000/${urlgo}`}
+                  href={  window.location.href.replace('home','')+`${urlgo}`}
                   className="text-white text-16px font-roboto"
                 >
                   E-posta İmzası Üret

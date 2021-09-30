@@ -20,11 +20,13 @@ import { useSelector } from "react-redux";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import HiCard from "./new/pages/HiCard";
-
+import { useLocation } from 'react-router-dom'
 function App() {
   const isLoggedIn = useSelector((state) => state.auth);
   console.log(isLoggedIn.isLoggedIn);
-
+  const location = useLocation();
+  console.log('hello');
+  console.log(location.pathname);
   const db = getFirestore();
   const arr = [];
   const dataArr = [];
@@ -41,7 +43,7 @@ function App() {
         logolink: doc.data().logoLink,
         weburl: doc.data().webUrl,
       });
-      console.log(arr);
+    
     });
     // hihello card sayfası için dökümanlar
     const cardSnapshot = await getDocs(await collection(db, "cards"));
@@ -88,7 +90,7 @@ function App() {
 
   function handleRouteCards() {
     return cardURLS.map((item, index) => {
-      console.log(cardURLS);
+     
       return (
         <Route
           path={"/" + cardURLS[index].id}
