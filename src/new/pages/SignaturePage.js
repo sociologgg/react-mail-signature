@@ -429,7 +429,7 @@ function checkInstagram()
                               instagram: e.target.value,
                             }));
                           }}
-                          className={`w-312px h-40px shadow-sign-input ${clicked && linkList.includes(links.INSTAGRAM)? (linkListData.instagram.includes("https://www.instagram.com/") ?'border-error-red border-0.5': 'focus:border-janus-focus-blue focus:border-0.5')   :'focus:border-janus-focus-blue focus:border-0.5'} focus:border-0.5 focus:outline-none pl-40px`}
+                          className={`w-312px h-40px shadow-sign-input ${clicked && linkList.includes(links.INSTAGRAM)? (!linkListData.instagram.includes("https://www.instagram.com/") ?'border-error-red border-0.5': 'focus:border-janus-focus-blue focus:border-0.5')   :'focus:border-janus-focus-blue focus:border-0.5'} focus:border-0.5 focus:outline-none pl-40px`}
                           placeholder="Instagram Profil URL'i"
                       />
                         <img

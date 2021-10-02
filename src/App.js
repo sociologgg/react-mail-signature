@@ -55,7 +55,8 @@ function App() {
         lname:doc.data().lname,
         title:doc.data().title,
         mail:doc.data().mail,
-        linklist:doc.data().linkList
+        linklist:doc.data().linkList,
+        phone:doc.data().phone
       });
     });
 
@@ -104,6 +105,7 @@ function App() {
                 title={cardURLS[index].title}
                 mail={cardURLS[index].mail}
                 linklist ={cardURLS[index].linklist}
+                phone ={cardURLS[index].phone}
                 //webURL={}
                 //companyName={}
               />

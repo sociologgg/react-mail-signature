@@ -7,7 +7,8 @@ import facebookLogo from '../../images/signfacebook.png'
 import youtubeLogo from '../../images/signyoutube.png'
 import instagramLogo from '../../images/signinstagram.png'
 import twitterLogo from '../../images/signtwitter.png'
-function HiCard({ fname,logo,lname,title, mail,linklist}) {
+import fi_phone from '../../images/fi_phone2.png'
+function HiCard({ fname,logo,lname,title, mail,linklist,phone}) {
 
 function socialmediamanager()
 {
@@ -20,7 +21,7 @@ return( <div className="flex items-center mt-20px">
  { linklist.facebook   !=""? <div><a href={linklist.facebook}><img className="w-24px h-auto ml-10px" src={facebookLogo}/> </a> </div>:<></> }
 </div> )
 }
-
+console.log(fname);
   return (
     <div className="w-screen h-screen bg-janus-site-blue flex justify-center items-center">
       <div>
@@ -43,8 +44,9 @@ return( <div className="flex items-center mt-20px">
           </div>
           <div className="mt-28px">
               
-             {/*phone*/} <div></div>
-            {/*mail*/} {mail != "" ? <div className="flex items-center "> <a href={`mailto:`+mail}><img className="w-20px h-auto" src={maillogo}/></a> <p className="ml-12px font-roboto text-10px text-left  text-mail-gray">{mail}</p>  </div> : <div/>}
+             {/*phone*/}<div className="flex items-center "> <img className="w-20px h-auto" src={fi_phone}/> <p className="ml-12px font-roboto text-10px text-left  text-mail-gray"> {phone} </p>  </div>
+            
+            {/*mail*/} {mail != "" ? <div className="flex items-center mt-10px "> <a href={`mailto:`+mail}><img className="w-20px h-auto" src={maillogo}/></a> <p className="ml-12px font-roboto text-10px text-left  text-mail-gray">{mail}</p>  </div> : <div/>}
             {/*websitesi*/} {linklist.web != "" ? <div className="flex items-center mt-10px">  <a href={linklist.web.includes("https://") ? linklist.web:`https://`+linklist.web }><img className="w-20px h-auto" src={globeLogo}/> </a> <p className="ml-12px font-roboto text-10px text-left  text-mail-gray">{linklist.web}</p>  </div> : <div/>}
             {/*Sosyal medya*/}{socialmediamanager()}
           </div>
