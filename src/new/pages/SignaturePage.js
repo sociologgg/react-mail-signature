@@ -9,7 +9,7 @@ import twitter from "../../images/twitter.png";
 import linkedin from "../../images/linkedin2.png";
 import BeatLoader from "react-spinners/BeatLoader";
 import youtube from "../../images/youtube.png";
-
+import fi_phone from "../../images/fi_phone.png";
 import { useState } from "react";
 import html2canvas from "html2canvas";
 import linkedinbw from "../../images/linkedinbw.png";
@@ -28,7 +28,7 @@ import hubspot from "../../images/small/hubspot.png";
 import outlook from "../../images/small/outlook.png";
 import apple from "../../images/small/apple.png";
 import yahoo from "../../images/small/yahoo.png";
-
+import { useRef } from "react";
 import gmailg from "../../images/big/gmail.png";
 import hubspotg from "../../images/big/hubspot.png";
 import outlookg from "../../images/big/outlook.png";
@@ -61,6 +61,8 @@ var vCardsJS = require("vcards-js");
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
+
+
 
 const links = {
   LINKEDIN: 1,
@@ -119,6 +121,7 @@ async function copy(docId) {
 }
 
 function SignaturePage({ logoLink, weburl }) {
+  const [clicked, setClicked] = useState(false);
   const storage = getStorage();
   const db = getFirestore();
   const [cardPath, setCardPath] = useState();
@@ -152,7 +155,65 @@ function SignaturePage({ logoLink, weburl }) {
     else if (mailIndex == 4) return <SignDetails_yahoo />;
     else if (mailIndex == 5) return <SignDetails_apple />;
   }
+function checkLinkedIn()
+{
+    if(linkList.includes(links.LINKEDIN))
+  {
+    console.log('hello');
+    return linkListData.linkedin.includes("https://www.linkedin.com/");
+  }
+  else{
+    return true;
+  }
+}
+function checkTwitter()
+{
+    if(linkList.includes(links.Twitter))
+  {
+    return linkListData.twitter.includes("https://twitter.com/");
+  }
+  else{
+    return true;
+  }
+}
+function checkFacebook()
+{
+    if(linkList.includes(links.FACEBOOK))
+  {
+    return linkListData.facebook.includes("https://www.facebook.com/");
+  }
+  else{
+    return true;
+  }
+}
+function checkYoutube()
+{
+    if(linkList.includes(links.YOUTUBE))
+  {
+    return linkListData.youtube.includes("https://www.youtube.com/channel/");
+  }
+  else{
+    return true;
+  }
+}
+function checkInstagram()
+{
+    if(linkList.includes(links.INSTAGRAM))
+  {
+    return linkListData.instagram.includes("https://www.instagram.com/");
+  }
+  else{
+    return true;
+  }
+}
+  function checkModified()
+  {
 
+
+    return (fname != "") && (fname!="İsim") && (lname !="") && (lname!="Soyisim") && (title!="Unvan") && (title!="") && (mail!="lorem@ipsum.com") && (mail!="") && checkLinkedIn() && checkFacebook() && checkInstagram() && checkYoutube() && checkTwitter();
+    
+  }
+  const scrollref = useRef(null);
   return (
     <div class="h-screen w-screen pt-10 pb-20 flex z-10 relative justify-center px-64 bg-janus-site-blue">
       <div class="w-100% h-100% flex flex-col z-10">
@@ -161,7 +222,7 @@ function SignaturePage({ logoLink, weburl }) {
             E-Posta İmzası
           </p>
         </div>
-        <Scrollbars className="bg-white rounded-3xl mt-5">
+        <Scrollbars ref={scrollref} className="bg-white rounded-3xl mt-5">
           <div class="flex overflow-y-scroll pb-24  flex-1 block  shadow-2xl  rounded-3xl  bg-white flex-col  items-center ">
             <table
               cellSpacing="0"
@@ -185,21 +246,36 @@ function SignaturePage({ logoLink, weburl }) {
                   <tr className="font-roboto font-light text-10px text-left  text-mail-gray">
                     {title}
                   </tr>
-                  <tr className="h-24px  ">
+                  
+               
+                 <tr className="h-24px  ">
                     <td className="">
                       <tr>
                         <td className="w-24px ">
-                          <a href={`mailto:${mail}`}>
+                         
                             <img
                               src={mailImage}
                               className="w-14px mt-10px h-14px"
                             />
-                          </a>
+                         
                         </td>
                         <td className="font-light   text-10px font-robot pt-10px text-mail-gray"></td>
                       </tr>
                     </td>
                   </tr>
+                  { phone!= "" ?( <tr className="h-24px  ">
+                    <td>
+                        <tr>
+                        <td className="w-24px ">
+                          <img
+                              src={fi_phone}
+                              className="w-14px mt-10px h-14px"
+                            />
+                          </td>
+                        </tr>
+                    </td>
+                    </tr>) : <tr/>
+}
 
                   {linkList.includes(links.WEB) ? (
                     <tr className="h-24px">
@@ -290,42 +366,48 @@ function SignaturePage({ logoLink, weburl }) {
               <div className="flex mt-20px flex-row items-center justify-between">
                 <p className="font-roboto text-line-gray text-16px">Ad*</p>
                 <input
+                placeholder="Lütfen Adınızı Girin"
                   onChange={(e) => {
                     setfName(e.target.value);
                   }}
-                  className="focus:border-janus-focus-blue focus:border-0.5 w-310px px-4 h-40px shadow-sign-input rounded-md focus:outline-none ml-20"
+                  className={` w-310px px-4 h-40px shadow-sign-input rounded-md focus:outline-none ml-20 ${clicked ? ((fname=="" || fname=="İsim") ?'border-error-red border-0.5': 'focus:border-janus-focus-blue focus:border-0.5')   :'focus:border-janus-focus-blue focus:border-0.5'}` }
                 />
               </div>
               <div className="flex mt-20px flex-row items-center  justify-between">
                 <p className="font-roboto text-line-gray text-16px">Soyad*</p>
                 <input
+                  placeholder="Lütfen soyadınızı Girin"
                   onChange={(e) => {
                     setLName(e.target.value);
                   }}
-                  className="w-310px px-4 h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 rounded-md focus:outline-none"
+                  className={`w-310px px-4 h-40px shadow-sign-input ${clicked ? ((lname=="" || lname=="Soyisim") ?'border-error-red border-0.5': 'focus:border-janus-focus-blue focus:border-0.5')   :'focus:border-janus-focus-blue focus:border-0.5'}  rounded-md focus:outline-none`}
                 />
               </div>
               <div className="flex mt-20px flex-row items-center  justify-between">
                 <p className="font-roboto text-line-gray text-16px">Unvan*</p>
                 <input
+                  placeholder="Lütfen unvanınızı girin"
                   onChange={(e) => {
                     setTitle(e.target.value);
                   }}
-                  className="w-310px h-40px px-4 shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 rounded-md focus:outline-none"
+                  className={`w-310px ${clicked ? ((title=="" || title=="Unvan") ?'border-error-red border-0.5': 'focus:border-janus-focus-blue focus:border-0.5')   :'focus:border-janus-focus-blue focus:border-0.5'} h-40px px-4 shadow-sign-input  rounded-md focus:outline-none`}
                 />{" "}
               </div>
               <div className="flex mt-20px flex-row items-center  justify-between">
                 <p className="font-roboto text-line-gray text-16px">E-posta*</p>
                 <input
+                  placeholder="Lütfen mail adresinizi girin"
                   onChange={(e) => {
                     setMail(`${e.target.value}`);
                   }}
-                  className="w-310px px-4 h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 rounded-md focus:outline-none"
+                  className={`w-310px ${clicked ? ((mail=="" || mail=="lorem@ipsum.com") ?'border-error-red border-0.5': 'focus:border-janus-focus-blue focus:border-0.5')   :'focus:border-janus-focus-blue focus:border-0.5'} px-4 h-40px shadow-sign-input  rounded-md focus:outline-none`}
                 />
               </div>
               <div className="flex mt-20px flex-row items-center  justify-between">
-                <p className="font-roboto text-line-gray text-16px">Telefon*</p>{" "}
+                <p className="font-roboto text-line-gray text-16px">Telefon</p>{" "}
                 <input
+                 placeholder="Lütfen telefon numaranızı girin"
+                type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                   onChange={(e) => {
                     setPhone(e.target.value);
                   }}
@@ -346,7 +428,7 @@ function SignaturePage({ logoLink, weburl }) {
                               instagram: e.target.value,
                             }));
                           }}
-                          className="w-312px h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 focus:outline-none pl-40px"
+                          className={`w-312px h-40px shadow-sign-input ${clicked && linkList.includes(links.INSTAGRAM)? (linkListData.instagram.includes("https://www.instagram.com/") ?'border-error-red border-0.5': 'focus:border-janus-focus-blue focus:border-0.5')   :'focus:border-janus-focus-blue focus:border-0.5'} focus:border-0.5 focus:outline-none pl-40px`}
                           placeholder="Instagram Profil URL'i"
                       />
                         <img
@@ -384,7 +466,7 @@ function SignaturePage({ logoLink, weburl }) {
                               facebook: e.target.value,
                             }));
                           }}
-                          className="w-312px h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 focus:outline-none pl-40px"
+                          className={`w-312px h-40px shadow-sign-input ${clicked && linkList.includes(links.FACEBOOK) ? (!linkListData.facebook.includes("https://www.facebook.com/") ?'border-error-red border-0.5': 'focus:border-janus-focus-blue focus:border-0.5')   :'focus:border-janus-focus-blue focus:border-0.5'} focus:outline-none pl-40px`}
                           placeholder="Facebook Profil URL'i"
                    />
                         <img
@@ -422,7 +504,7 @@ function SignaturePage({ logoLink, weburl }) {
                               twitter: e.target.value,
                             }));
                           }}
-                          className="w-312px h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 focus:outline-none pl-40px"
+                          className={`w-312px h-40px shadow-sign-input ${clicked &&linkList.includes(links.TWITTER) ? (!linkListData.twitter.includes("https://twitter.com/") ?'border-error-red border-0.5': 'focus:border-janus-focus-blue focus:border-0.5')   :'focus:border-janus-focus-blue focus:border-0.5'} focus:outline-none pl-40px`}
                           placeholder="Twitter Profil URL'i"
                         />
                         <img
@@ -490,7 +572,7 @@ function SignaturePage({ logoLink, weburl }) {
                               linkedin: e.target.value,
                             }));
                           }}
-                          className="w-312px h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 focus:outline-none pl-40px"
+                          className={`w-312px h-40px shadow-sign-input ${clicked && linkList.includes(links.LINKEDIN) ? (!linkListData.linkedin.includes("https://www.linkedin.com/") ?'border-error-red border-0.5': 'focus:border-janus-focus-blue focus:border-0.5')   :'focus:border-janus-focus-blue focus:border-0.5'} focus:outline-none pl-40px`}
                           placeholder="LinkedIn Profil URL'i"
                         />
                         <img
@@ -528,7 +610,7 @@ function SignaturePage({ logoLink, weburl }) {
                               youtube: e.target.value,
                             }));
                           }}
-                          className="w-312px h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 focus:outline-none pl-40px"
+                          className={`w-312px h-40px shadow-sign-input ${clicked && linkList.includes(links.YOUTUBE)? (!linkListData.youtube.includes("https://www.youtube.com/channel/") ?'border-error-red border-0.5': 'focus:border-janus-focus-blue focus:border-0.5')   :'focus:border-janus-focus-blue focus:border-0.5'} focus:outline-none pl-40px`}
                         />
                         <img
                           className="absolute left-4px top-4px  z-10 w-30px h-30px border-r-1 border-gray-500"
@@ -716,6 +798,9 @@ function SignaturePage({ logoLink, weburl }) {
                   disabled={disKaydet == true}
                   className="bg-compOrange hover:bg-compOrange-hover py-10px px-26px rounded focus:outline-none disabled:opacity-50"
                   onClick={async () => {
+                   
+                   if(checkModified()){
+                    setClicked(false);
                     setLoading(true);
                     var vCard = vCardsJS();
                     vCard.firstName = fname;
@@ -811,7 +896,13 @@ function SignaturePage({ logoLink, weburl }) {
                           }
                         );
                       });
-                    });
+                    });}
+                    else{
+                      setClicked(true);
+                      scrollref.current.scrollToTop();
+                   
+                    }
+                    
                   }}
                 >
                   {loading ? (
