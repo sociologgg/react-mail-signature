@@ -60,6 +60,7 @@ function HomePage() {
   const [logoLink, setLogoLink] = useState();
   const [urlgo, setUrlGo] = useState("");
 const location = useLocation();
+  const [fileName, setFileName] = useState();
 
   useEffect(async () => {
     const stUser = await JSON.parse(localStorage.getItem("user"));
@@ -138,8 +139,11 @@ const location = useLocation();
       e.target.files[0].type == "image/png"
     ) {
       const imageLink = await getFirebaseUrl(e.target.files[0]);
+      console.log(e.target.files[0]);
       setFileSuccess(true);
-    
+      console.log("Başarılı");
+      setFileName(e.target.files[0].name);
+      console.log(fileName);
       if (fileError == true) {
         setFileError(false);
         setFileSuccess(true);
@@ -152,7 +156,7 @@ const location = useLocation();
 
   function handleFileSuccess() {
     if (fileSuccess) {
-      return <p>Dosya yüklendi</p>;
+      return <p>{fileName}</p>;
     }
   }
 
@@ -355,7 +359,7 @@ const location = useLocation();
         <div class="  flex  shadow-2xl flex-col h-100%  rounded-3xl overflow-hidden bg-white mt-5  justify-center  ">
           <div class=" flex     flex-1 w-100%">
             <div class="flex-col flex justify-center w-3/4    h-100%   ">
-              <div class="  flex flex-row ml-14   w-100%  items-center ">
+              <div class="  flex flex-row  justifty-center  w-100%  items-center  ml-12">
                 <p class="text-line-gray inline whitespace-nowrap text-left font-medium text-lg">
                   {" "}
                   Organizasyon adı*
@@ -365,7 +369,7 @@ const location = useLocation();
                     setSirketAdi(e.target.value);
                   }}
                   type="text"
-                  class={`outline-none border-input focus:border-janus-focus-blue w-290px  font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 ml-18 `}
+                  class={`outline-none border-input focus:border-janus-focus-blue w-290px  font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 ml-7 `}
                 />
               </div>
               {/* <div className="justify-center h-10  items-center flex flex-row  mt-4">
@@ -416,7 +420,7 @@ const location = useLocation();
                 />
               </div>*/}
               <div class="flex mt-5  items-center relative ">
-                <p class="text-line-gray inline whitespace-nowrap ml-14 font-medium text-lg">
+                <p class="text-line-gray inline whitespace-nowrap ml-12 font-medium text-lg">
                   Web Sitesi Url'si *
                 </p>
                 <div className="relative">
@@ -425,7 +429,7 @@ const location = useLocation();
                       setWebUrl(e.target.value);
                     }}
                     type="text"
-                    class={`outline-none w-290px border-input focus:border-janus-focus-blue font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 ml-20`}
+                    class={`outline-none w-290px border-input focus:border-janus-focus-blue font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 ml-9`}
                   />
                   <img
                     onMouseEnter={() => {
@@ -529,7 +533,6 @@ const location = useLocation();
 
                   <div class="  flex items-center lg:mt-18px md:mt-8px justify-start">
                     <button
-                      disabled={fileSuccess == true}
                       class="focus:outline-none disabled:opacity-50 hover:bg-janus-blue-hover  py-10px text-center flex justify-center px-12px rounded-md text-white   bg-janus-site-blue text-center text-16px inline flex items-center  font-roboto "
                       onClick={() => fileInputRef.current.click()}
                     >

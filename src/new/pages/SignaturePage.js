@@ -144,6 +144,7 @@ function SignaturePage({ logoLink, weburl }) {
   const [loading, setLoading] = useState(false);
   const [disKaydet, setDisKaydet] = useState(false);
   const [mailIndex, setMailIndex] = useState(2);
+  const [isSaved, setIsSaved] = useState(false);
   // img'ın yönleceği path (oluşan docid'den alınır)
   const [showDescrp, setShowDescrp] = useState(false);
   const [imgpath, setImgPath] = useState("");
@@ -795,7 +796,6 @@ function checkInstagram()
               <div className="flex mt-60px">
                 <div className="flex flex-1" />
                 <button
-                  disabled={disKaydet == true}
                   className="bg-compOrange hover:bg-compOrange-hover py-10px px-26px rounded focus:outline-none disabled:opacity-50"
                   onClick={async () => {
                    
