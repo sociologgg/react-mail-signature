@@ -12,16 +12,24 @@ function HiCard({ fname,logo,lname,title, mail,linklist,phone}) {
 
 function socialmediamanager()
 {
-return( <div className="flex items-center mt-20px">
- { linklist.linkedin    !=""? <div> <a href={linklist.linkedin.includes("https://") ? linklist.linkedin :`https://`+linklist.linkedin}><img className="w-24px h-auto" src={linkedinLogo}/> </a> </div>:<></> }
- { linklist.instagram  !=""? <div>  <a href={linklist.instagram}><img className="w-24px h-auto ml-10px" src={instagramLogo}/> </a> </div>:<></> }
+  
+  let isinstaFirst  = (linklist.linkedin ==""); 
+  let isyoutubeFirst = isinstaFirst && linklist.instagram == "";
+  let istwitterFirst = isyoutubeFirst && linklist.youtube == "";
+  let isfacebookfirst = istwitterFirst && linklist.twitter=="";
 
- { linklist.youtube   !=""? <div> <a href={  linklist.youtube}><img className="w-24px h-auto ml-10px" src={youtubeLogo}/>  </a></div>:<></> }
- { linklist.twitter   !=""? <div> <a href={linklist.twitter}><img className="w-24px h-auto ml-10px" src={twitterLogo}/>  </a></div>:<></> }
- { linklist.facebook   !=""? <div><a href={linklist.facebook}><img className="w-24px h-auto ml-10px" src={facebookLogo}/> </a> </div>:<></> }
+
+return( <div className="flex items-center mt-20px">
+  
+ { linklist.linkedin    !=""? <div> <a href={linklist.linkedin.includes("https://") ? linklist.linkedin :`https://`+linklist.linkedin}><img className="w-24px h-auto" src={linkedinLogo}/> </a> </div>:<></> }
+ { linklist.instagram  !=""? <div>  <a href={linklist.instagram}><img className={`w-24px h-auto ${isinstaFirst ? '': `ml-10px`}`} src={instagramLogo}/> </a> </div>:<></> }
+
+ { linklist.youtube   !=""? <div> <a href={  linklist.youtube}><img className={`w-24px h-auto ${isyoutubeFirst ? '': `ml-10px`}`} src={youtubeLogo}/>  </a></div>:<></> }
+ { linklist.twitter   !=""? <div> <a href={linklist.twitter}><img className={`w-24px h-auto ${istwitterFirst ? '': `ml-10px`}`} src={twitterLogo}/>  </a></div>:<></> }
+ { linklist.facebook   !=""? <div><a href={linklist.facebook}><img className={`w-24px h-auto ${isfacebookfirst ? '': `ml-10px`}`} src={facebookLogo}/> </a> </div>:<></> }
 </div> )
 }
-console.log(fname);
+
   return (
     <div className="w-screen h-screen bg-janus-site-blue flex justify-center items-center">
       <div>
@@ -44,7 +52,7 @@ console.log(fname);
           </div>
           <div className="mt-28px">
               
-             {/*phone*/}<div className="flex items-center "> <img className="w-20px h-auto" src={fi_phone}/> <p className="ml-12px font-roboto text-10px text-left  text-mail-gray"> {phone} </p>  </div>
+             {/*phone*/}{phone !=""? <div className="flex items-center "> <img className="w-20px h-auto" src={fi_phone}/> <p className="ml-12px font-roboto text-10px text-left  text-mail-gray"> {phone} </p>  </div>: <div/>}
             
             {/*mail*/} {mail != "" ? <div className="flex items-center mt-10px "> <a href={`mailto:`+mail}><img className="w-20px h-auto" src={maillogo}/></a> <p className="ml-12px font-roboto text-10px text-left  text-mail-gray">{mail}</p>  </div> : <div/>}
             {/*websitesi*/} {linklist.web != "" ? <div className="flex items-center mt-10px">  <a href={linklist.web.includes("https://") ? linklist.web:`https://`+linklist.web }><img className="w-20px h-auto" src={globeLogo}/> </a> <p className="ml-12px font-roboto text-10px text-left  text-mail-gray">{linklist.web}</p>  </div> : <div/>}
@@ -59,6 +67,7 @@ console.log(fname);
 
       </div>
     </div>
+   
     </div>
   );
 }

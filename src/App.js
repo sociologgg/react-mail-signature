@@ -23,10 +23,9 @@ import HiCard from "./new/pages/HiCard";
 import { useLocation } from 'react-router-dom'
 function App() {
   const isLoggedIn = useSelector((state) => state.auth);
-  console.log(isLoggedIn.isLoggedIn);
+
   const location = useLocation();
-  console.log('hello');
-  console.log(location.pathname);
+ 
   const db = getFirestore();
   const arr = [];
   const dataArr = [];
@@ -42,6 +41,7 @@ function App() {
         id: doc.id,
         logolink: doc.data().logoLink,
         weburl: doc.data().webUrl,
+        companyName: doc.data().sirketAdi
       });
     
     });
@@ -78,7 +78,7 @@ function App() {
                 {...props}
                 logoLink={url[index].logolink[0]}
                 weburl={url[index].weburl}
-              
+                companyName= {url[index].companyName}
                 //webURL={}
                 //companyName={}
               />
