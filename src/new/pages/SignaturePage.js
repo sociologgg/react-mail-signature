@@ -62,8 +62,6 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-
-
 const links = {
   LINKEDIN: 1,
   INSTAGRAM: 2,
@@ -156,63 +154,58 @@ function SignaturePage({ logoLink, weburl }) {
     else if (mailIndex == 4) return <SignDetails_yahoo />;
     else if (mailIndex == 5) return <SignDetails_apple />;
   }
-function checkLinkedIn()
-{
-    if(linkList.includes(links.LINKEDIN))
-  {
-    console.log('hello');
-    return linkListData.linkedin.includes("https://www.linkedin.com/");
+  function checkLinkedIn() {
+    if (linkList.includes(links.LINKEDIN)) {
+      console.log("hello");
+      return linkListData.linkedin.includes("https://www.linkedin.com/");
+    } else {
+      return true;
+    }
   }
-  else{
-    return true;
+  function checkTwitter() {
+    if (linkList.includes(links.Twitter)) {
+      return linkListData.twitter.includes("https://twitter.com/");
+    } else {
+      return true;
+    }
   }
-}
-function checkTwitter()
-{
-    if(linkList.includes(links.Twitter))
-  {
-    return linkListData.twitter.includes("https://twitter.com/");
+  function checkFacebook() {
+    if (linkList.includes(links.FACEBOOK)) {
+      return linkListData.facebook.includes("https://www.facebook.com/");
+    } else {
+      return true;
+    }
   }
-  else{
-    return true;
+  function checkYoutube() {
+    if (linkList.includes(links.YOUTUBE)) {
+      return linkListData.youtube.includes("https://www.youtube.com/channel/");
+    } else {
+      return true;
+    }
   }
-}
-function checkFacebook()
-{
-    if(linkList.includes(links.FACEBOOK))
-  {
-    return linkListData.facebook.includes("https://www.facebook.com/");
+  function checkInstagram() {
+    if (linkList.includes(links.INSTAGRAM)) {
+      return linkListData.instagram.includes("https://www.instagram.com/");
+    } else {
+      return true;
+    }
   }
-  else{
-    return true;
-  }
-}
-function checkYoutube()
-{
-    if(linkList.includes(links.YOUTUBE))
-  {
-    return linkListData.youtube.includes("https://www.youtube.com/channel/");
-  }
-  else{
-    return true;
-  }
-}
-function checkInstagram()
-{
-    if(linkList.includes(links.INSTAGRAM))
-  {
-    return linkListData.instagram.includes("https://www.instagram.com/");
-  }
-  else{
-    return true;
-  }
-}
-  function checkModified()
-  {
-
-
-    return (fname != "") && (fname!="İsim") && (lname !="") && (lname!="Soyisim") && (title!="Unvan") && (title!="") && (mail!="lorem@ipsum.com") && (mail!="") && checkLinkedIn() && checkFacebook() && checkInstagram() && checkYoutube() && checkTwitter();
-    
+  function checkModified() {
+    return (
+      fname != "" &&
+      fname != "İsim" &&
+      lname != "" &&
+      lname != "Soyisim" &&
+      title != "Unvan" &&
+      title != "" &&
+      mail != "lorem@ipsum.com" &&
+      mail != "" &&
+      checkLinkedIn() &&
+      checkFacebook() &&
+      checkInstagram() &&
+      checkYoutube() &&
+      checkTwitter()
+    );
   }
   const scrollref = useRef(null);
   return (
@@ -247,36 +240,36 @@ function checkInstagram()
                   <tr className="font-roboto font-light text-10px text-left  text-mail-gray">
                     {title}
                   </tr>
-                  
-               
-                 <tr className="h-24px  ">
+
+                  <tr className="h-24px  ">
                     <td className="">
                       <tr>
                         <td className="w-24px ">
-                         
-                            <img
-                              src={mailImage}
-                              className="w-14px mt-10px h-14px"
-                            />
-                         
+                          <img
+                            src={mailImage}
+                            className="w-14px mt-10px h-14px"
+                          />
                         </td>
                         <td className="font-light   text-10px font-robot pt-10px text-mail-gray"></td>
                       </tr>
                     </td>
                   </tr>
-                  { phone!= "" ?( <tr className="h-24px  ">
-                    <td>
+                  {phone != "" ? (
+                    <tr className="h-24px  ">
+                      <td>
                         <tr>
-                        <td className="w-24px ">
-                          <img
+                          <td className="w-24px ">
+                            <img
                               src={fi_phone}
                               className="w-14px mt-10px h-14px"
                             />
                           </td>
                         </tr>
-                    </td>
-                    </tr>) : <tr/>
-}
+                      </td>
+                    </tr>
+                  ) : (
+                    <tr />
+                  )}
 
                   {linkList.includes(links.WEB) ? (
                     <tr className="h-24px">
@@ -367,11 +360,17 @@ function checkInstagram()
               <div className="flex mt-20px flex-row items-center justify-between">
                 <p className="font-roboto text-line-gray text-16px">Ad*</p>
                 <input
-                placeholder="Lütfen Adınızı Girin"
+                  placeholder="Lütfen Adınızı Girin"
                   onChange={(e) => {
                     setfName(e.target.value);
                   }}
-                  className={` w-310px px-4 h-40px shadow-sign-input rounded-md focus:outline-none ml-20 ${clicked ? ((fname=="" || fname=="İsim") ?'border-error-red border-0.5': 'focus:border-janus-focus-blue focus:border-0.5')   :'focus:border-janus-focus-blue focus:border-0.5'}` }
+                  className={` w-310px px-4 h-40px shadow-sign-input rounded-md focus:outline-none ml-20 ${
+                    clicked
+                      ? fname == "" || fname == "İsim"
+                        ? "border-error-red border-0.5"
+                        : "focus:border-janus-focus-blue focus:border-0.5"
+                      : "focus:border-janus-focus-blue focus:border-0.5"
+                  }`}
                 />
               </div>
               <div className="flex mt-20px flex-row items-center  justify-between">
@@ -381,7 +380,13 @@ function checkInstagram()
                   onChange={(e) => {
                     setLName(e.target.value);
                   }}
-                  className={`w-310px px-4 h-40px shadow-sign-input ${clicked ? ((lname=="" || lname=="Soyisim") ?'border-error-red border-0.5': 'focus:border-janus-focus-blue focus:border-0.5')   :'focus:border-janus-focus-blue focus:border-0.5'}  rounded-md focus:outline-none`}
+                  className={`w-310px px-4 h-40px shadow-sign-input ${
+                    clicked
+                      ? lname == "" || lname == "Soyisim"
+                        ? "border-error-red border-0.5"
+                        : "focus:border-janus-focus-blue focus:border-0.5"
+                      : "focus:border-janus-focus-blue focus:border-0.5"
+                  }  rounded-md focus:outline-none`}
                 />
               </div>
               <div className="flex mt-20px flex-row items-center  justify-between">
@@ -391,7 +396,13 @@ function checkInstagram()
                   onChange={(e) => {
                     setTitle(e.target.value);
                   }}
-                  className={`w-310px ${clicked ? ((title=="" || title=="Unvan") ?'border-error-red border-0.5': 'focus:border-janus-focus-blue focus:border-0.5')   :'focus:border-janus-focus-blue focus:border-0.5'} h-40px px-4 shadow-sign-input  rounded-md focus:outline-none`}
+                  className={`w-310px ${
+                    clicked
+                      ? title == "" || title == "Unvan"
+                        ? "border-error-red border-0.5"
+                        : "focus:border-janus-focus-blue focus:border-0.5"
+                      : "focus:border-janus-focus-blue focus:border-0.5"
+                  } h-40px px-4 shadow-sign-input  rounded-md focus:outline-none`}
                 />{" "}
               </div>
               <div className="flex mt-20px flex-row items-center  justify-between">
@@ -401,14 +412,21 @@ function checkInstagram()
                   onChange={(e) => {
                     setMail(`${e.target.value}`);
                   }}
-                  className={`w-310px ${clicked ? ((mail=="" || mail=="lorem@ipsum.com") ?'border-error-red border-0.5': 'focus:border-janus-focus-blue focus:border-0.5')   :'focus:border-janus-focus-blue focus:border-0.5'} px-4 h-40px shadow-sign-input  rounded-md focus:outline-none`}
+                  className={`w-310px ${
+                    clicked
+                      ? mail == "" || mail == "lorem@ipsum.com"
+                        ? "border-error-red border-0.5"
+                        : "focus:border-janus-focus-blue focus:border-0.5"
+                      : "focus:border-janus-focus-blue focus:border-0.5"
+                  } px-4 h-40px shadow-sign-input  rounded-md focus:outline-none`}
                 />
               </div>
               <div className="flex mt-20px flex-row items-center  justify-between">
                 <p className="font-roboto text-line-gray text-16px">Telefon</p>{" "}
                 <input
-                 placeholder="Lütfen telefon numaranızı girin"
-                type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                  placeholder="Lütfen telefon numaranızı girin"
+                  type="tel"
+                  pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                   onChange={(e) => {
                     setPhone(e.target.value);
                   }}
@@ -429,15 +447,23 @@ function checkInstagram()
                               instagram: e.target.value,
                             }));
                           }}
-                          className={`w-312px h-40px shadow-sign-input ${clicked && linkList.includes(links.INSTAGRAM)? (linkListData.instagram.includes("https://www.instagram.com/") ?'border-error-red border-0.5': 'focus:border-janus-focus-blue focus:border-0.5')   :'focus:border-janus-focus-blue focus:border-0.5'} focus:border-0.5 focus:outline-none pl-40px`}
+                          className={`w-312px h-40px shadow-sign-input ${
+                            clicked && linkList.includes(links.INSTAGRAM)
+                              ? linkListData.instagram.includes(
+                                  "https://www.instagram.com/"
+                                )
+                                ? "border-error-red border-0.5"
+                                : "focus:border-janus-focus-blue focus:border-0.5"
+                              : "focus:border-janus-focus-blue focus:border-0.5"
+                          } focus:border-0.5 focus:outline-none pl-40px`}
                           placeholder="Instagram Profil URL'i"
-                      />
+                        />
                         <img
                           className="absolute left-4px top-4px z-10 w-30px h-30px"
                           src={instagram}
                         />
                         <button
-                        class="focus:outline-none ml-20px"
+                          class="focus:outline-none ml-20px"
                           onClick={() => {
                             setLinkList(
                               linkList.filter((item) => {
@@ -467,14 +493,23 @@ function checkInstagram()
                               facebook: e.target.value,
                             }));
                           }}
-                          className={`w-312px h-40px shadow-sign-input ${clicked && linkList.includes(links.FACEBOOK) ? (!linkListData.facebook.includes("https://www.facebook.com/") ?'border-error-red border-0.5': 'focus:border-janus-focus-blue focus:border-0.5')   :'focus:border-janus-focus-blue focus:border-0.5'} focus:outline-none pl-40px`}
+                          className={`w-312px h-40px shadow-sign-input ${
+                            clicked && linkList.includes(links.FACEBOOK)
+                              ? !linkListData.facebook.includes(
+                                  "https://www.facebook.com/"
+                                )
+                                ? "border-error-red border-0.5"
+                                : "focus:border-janus-focus-blue focus:border-0.5"
+                              : "focus:border-janus-focus-blue focus:border-0.5"
+                          } focus:outline-none pl-40px`}
                           placeholder="Facebook Profil URL'i"
-                   />
+                        />
                         <img
                           className="absolute left-4px top-4px z-10 w-30px h-30px"
                           src={facebook}
                         />
-                        <button    class="focus:outline-none ml-20px"
+                        <button
+                          class="focus:outline-none ml-20px"
                           onClick={() => {
                             setLinkList(
                               linkList.filter((item) => {
@@ -486,7 +521,6 @@ function checkInstagram()
                               facebook: "",
                             }));
                           }}
-                         
                         >
                           {" "}
                           <img src={trash} className="w-24px h-24px" />{" "}
@@ -505,14 +539,23 @@ function checkInstagram()
                               twitter: e.target.value,
                             }));
                           }}
-                          className={`w-312px h-40px shadow-sign-input ${clicked &&linkList.includes(links.TWITTER) ? (!linkListData.twitter.includes("https://twitter.com/") ?'border-error-red border-0.5': 'focus:border-janus-focus-blue focus:border-0.5')   :'focus:border-janus-focus-blue focus:border-0.5'} focus:outline-none pl-40px`}
+                          className={`w-312px h-40px shadow-sign-input ${
+                            clicked && linkList.includes(links.TWITTER)
+                              ? !linkListData.twitter.includes(
+                                  "https://twitter.com/"
+                                )
+                                ? "border-error-red border-0.5"
+                                : "focus:border-janus-focus-blue focus:border-0.5"
+                              : "focus:border-janus-focus-blue focus:border-0.5"
+                          } focus:outline-none pl-40px`}
                           placeholder="Twitter Profil URL'i"
                         />
                         <img
                           className="absolute left-4px top-4px z-10 w-30px h-30px"
                           src={twitter}
                         />
-                        <button    class="focus:outline-none ml-20px"
+                        <button
+                          class="focus:outline-none ml-20px"
                           onClick={() => {
                             setLinkList(
                               linkList.filter((item) => {
@@ -524,7 +567,6 @@ function checkInstagram()
                               twitter: "",
                             }));
                           }}
-                        
                         >
                           {" "}
                           <img src={trash} className="w-24px h-24px" />{" "}
@@ -541,13 +583,13 @@ function checkInstagram()
                             setWeb(e.target.value);
                           }}
                           className="w-312px h-40px shadow-sign-input focus:border-janus-focus-blue focus:border-0.5 focus:outline-none pl-40px"
-                          
                         />
                         <img
                           className="absolute left-8px top-8px z-10 w-24px h-24px"
                           src={globe2}
                         />
-                        <button    class="focus:outline-none ml-20px"
+                        <button
+                          class="focus:outline-none ml-20px"
                           onClick={() => {
                             setLinkList(
                               linkList.filter((item) => {
@@ -555,7 +597,6 @@ function checkInstagram()
                               })
                             );
                           }}
-                         
                         >
                           {" "}
                           <img src={trash} className="w-24px h-24px" />{" "}
@@ -573,14 +614,23 @@ function checkInstagram()
                               linkedin: e.target.value,
                             }));
                           }}
-                          className={`w-312px h-40px shadow-sign-input ${clicked && linkList.includes(links.LINKEDIN) ? (!linkListData.linkedin.includes("https://www.linkedin.com/") ?'border-error-red border-0.5': 'focus:border-janus-focus-blue focus:border-0.5')   :'focus:border-janus-focus-blue focus:border-0.5'} focus:outline-none pl-40px`}
+                          className={`w-312px h-40px shadow-sign-input ${
+                            clicked && linkList.includes(links.LINKEDIN)
+                              ? !linkListData.linkedin.includes(
+                                  "https://www.linkedin.com/"
+                                )
+                                ? "border-error-red border-0.5"
+                                : "focus:border-janus-focus-blue focus:border-0.5"
+                              : "focus:border-janus-focus-blue focus:border-0.5"
+                          } focus:outline-none pl-40px`}
                           placeholder="LinkedIn Profil URL'i"
                         />
                         <img
                           className="absolute left-8px top-8px z-10 w-24px h-24px"
                           src={linkedin}
                         />
-                        <button    class="focus:outline-none ml-20px"
+                        <button
+                          class="focus:outline-none ml-20px"
                           onClick={() => {
                             setLinkList(
                               linkList.filter((item) => {
@@ -592,7 +642,6 @@ function checkInstagram()
                               youtube: "",
                             }));
                           }}
-                          
                         >
                           {" "}
                           <img src={trash} className="w-24px h-24px" />{" "}
@@ -604,20 +653,29 @@ function checkInstagram()
                     return (
                       <div className="relative mt-20px items-center flex">
                         <input
-                        placeholder="Youtube Profil URL'i"
+                          placeholder="Youtube Profil URL'i"
                           onChange={(e) => {
                             setLinkListData((state) => ({
                               ...state,
                               youtube: e.target.value,
                             }));
                           }}
-                          className={`w-312px h-40px shadow-sign-input ${clicked && linkList.includes(links.YOUTUBE)? (!linkListData.youtube.includes("https://www.youtube.com/channel/") ?'border-error-red border-0.5': 'focus:border-janus-focus-blue focus:border-0.5')   :'focus:border-janus-focus-blue focus:border-0.5'} focus:outline-none pl-40px`}
+                          className={`w-312px h-40px shadow-sign-input ${
+                            clicked && linkList.includes(links.YOUTUBE)
+                              ? !linkListData.youtube.includes(
+                                  "https://www.youtube.com/channel/"
+                                )
+                                ? "border-error-red border-0.5"
+                                : "focus:border-janus-focus-blue focus:border-0.5"
+                              : "focus:border-janus-focus-blue focus:border-0.5"
+                          } focus:outline-none pl-40px`}
                         />
                         <img
                           className="absolute left-4px top-4px  z-10 w-30px h-30px border-r-1 border-gray-500"
                           src={youtube}
                         />
-                        <button class="focus:outline-none ml-20px"
+                        <button
+                          class="focus:outline-none ml-20px"
                           onClick={() => {
                             setLinkListData(
                               linkList.filter((item) => {
@@ -629,7 +687,6 @@ function checkInstagram()
                               youtube: "",
                             }));
                           }}
-                         
                         >
                           {" "}
                           <img src={trash} className="w-24px h-24px" />{" "}
@@ -798,36 +855,38 @@ function checkInstagram()
                 <button
                   className="bg-compOrange hover:bg-compOrange-hover py-10px px-26px rounded focus:outline-none disabled:opacity-50"
                   onClick={async () => {
-                   
-                   if(checkModified()){
-                    setClicked(false);
-                    setLoading(true);
-                    var vCard = vCardsJS();
-                    vCard.firstName = fname;
-                    vCard.lastName = lname;
-                    vCard.title = title;
-                    vCard.email = mail;
-                    vCard.cellPhone = phone;
-                    const card = vCard.getFormattedString();
+                    if (checkModified()) {
+                      setClicked(false);
+                      setLoading(true);
+                      var vCard = vCardsJS();
+                      vCard.firstName = fname;
+                      vCard.lastName = lname;
+                      vCard.title = title;
+                      vCard.email = mail;
+                      vCard.cellPhone = phone;
+                      const card = vCard.getFormattedString();
 
-                    const storageRef = ref(
-                      storage,
-                      "vcards/" + fname + lname + ".vcf"
-                    );
-                    await uploadString(storageRef, card).then(
-                      async (snapshot) => {
-                        await getDownloadURL(snapshot.ref).then(
-                          async (downloadURL) => {
-                            await console.log("File available at", downloadURL);
-                            cardPathVariable = downloadURL;
-                            console.log(downloadURL);
-                            await setCardPath(downloadURL);
-                            await console.log(linkList);
-                            await console.log(cardPathVariable);
+                      const storageRef = ref(
+                        storage,
+                        "vcards/" + fname + lname + ".vcf"
+                      );
+                      await uploadString(storageRef, card).then(
+                        async (snapshot) => {
+                          await getDownloadURL(snapshot.ref).then(
+                            async (downloadURL) => {
+                              await console.log(
+                                "File available at",
+                                downloadURL
+                              );
+                              cardPathVariable = downloadURL;
+                              console.log(downloadURL);
+                              await setCardPath(downloadURL);
+                              await console.log(linkList);
+                              await console.log(cardPathVariable);
 
-                            // firebase firestore işlemleri
+                              // firebase firestore işlemleri
 
-                            /*fetch(
+                              /*fetch(
                         "https://firebasestorage.googleapis.com/v0/b/mail-signature-c886b.appspot.com/o/vcards%2Fsadsadsadasdsadsa.vcf?alt=media&token=7c655c91-4e9f-4b22-a95b-6ac8196d4b60",
                         {
                           method: "GET",
@@ -835,74 +894,78 @@ function checkInstagram()
                       ).then((response) => {
                         console.log(response);
                       }); */
-                            /*  fetch(downloadURL, { method: "GET" })
+                              /*  fetch(downloadURL, { method: "GET" })
                         .then((response) => {
                           response.blob();
                         })
                         .then((response) => console.log(response)); */
-                          }
-                        );
-                      }
-                    );
+                            }
+                          );
+                        }
+                      );
 
-                    const docRef = await addDoc(await collection(db, "cards"), {
-                      fname: fname,
-                      lname: lname,
-                      title: title,
-                      mail: mail,
-                      phone: phone,
-                      linkList: linkListData,
-                      logo: logoLink,
-                      onclickpath: cardPathVariable,
-                      cardImage: "",
-                    });
-                    setImgPath(docRef.id);
-                    imgpath2 = docRef.id;
-                    await console.log(imgpath);
+                      const docRef = await addDoc(
+                        await collection(db, "cards"),
+                        {
+                          fname: fname,
+                          lname: lname,
+                          title: title,
+                          mail: mail,
+                          phone: phone,
+                          linkList: linkListData,
+                          logo: logoLink,
+                          onclickpath: cardPathVariable,
+                          cardImage: "",
+                        }
+                      );
+                      setImgPath(docRef.id);
+                      imgpath2 = docRef.id;
+                      await console.log(imgpath);
 
-                    html2canvas(document.getElementById("signature"), {
-                      backgroundColor: "#ebebeb",
-                      display: "block",
-                      useCORS: true,
-                      allowTaint: true,
-                    }).then(async function (canvas) {
-                      canvas.style.textAlign = "top";
-                      var table = document.getElementById("signature");
-                      var img = document.getElementById("janusmail2");
-                      img.crossOrigin = "anonymous";
-                      var table2 = document.getElementById("signature2");
-                      const ahref = document.getElementById("idforpath");
-                      ahref.href = `https://hidden-castle-63973.herokuapp.com/`+imgpath2;
-                      //var a = document.createElement("");
-                      img.src = canvas.toDataURL("image/png");
+                      html2canvas(document.getElementById("signature"), {
+                        backgroundColor: "#ebebeb",
+                        display: "block",
+                        useCORS: true,
+                        allowTaint: true,
+                      }).then(async function (canvas) {
+                        canvas.style.textAlign = "top";
+                        var table = document.getElementById("signature");
+                        var img = document.getElementById("janusmail2");
+                        img.crossOrigin = "anonymous";
+                        var table2 = document.getElementById("signature2");
+                        const ahref = document.getElementById("idforpath");
+                        //ahref.href =
+                        //  `https://hidden-castle-63973.herokuapp.com/` +
+                        // imgpath2;
+                        ahref.href = `http://localhost:3000/` + imgpath2;
+                        //var a = document.createElement("");
+                        img.src = canvas.toDataURL("image/png");
 
-                      let r = (Math.random() + 1).toString(36).substring(2);
+                        let r = (Math.random() + 1).toString(36).substring(2);
 
-                      const storageRef = ref(storage, "alim/" + r);
-                      uploadString(
-                        storageRef,
-                        canvas.toDataURL(),
-                        "data_url"
-                      ).then((snapshot) => {
-                        console.log("Uploaded a data_url string!");
+                        const storageRef = ref(storage, "alim/" + r);
+                        uploadString(
+                          storageRef,
+                          canvas.toDataURL(),
+                          "data_url"
+                        ).then((snapshot) => {
+                          console.log("Uploaded a data_url string!");
 
-                        getDownloadURL(snapshot.ref).then(
-                          async (downloadURL) => {
-                            img.src = downloadURL;
+                          getDownloadURL(snapshot.ref).then(
+                            async (downloadURL) => {
+                              img.src = downloadURL;
 
-                            await setShowDescrp(true);
-                            setLoading(false);
-                            setDisKaydet(true);
-                          }
-                        );
+                              await setShowDescrp(true);
+                              setLoading(false);
+                              setDisKaydet(true);
+                            }
+                          );
+                        });
                       });
-                    });}
-                    else{
+                    } else {
                       setClicked(true);
                       scrollref.current.scrollToTop();
-                   
                     }
-                    
                   }}
                 >
                   {loading ? (

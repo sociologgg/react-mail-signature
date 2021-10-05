@@ -2,13 +2,13 @@ import { call, put, takeEvery, takeLatest, all } from "redux-saga/effects";
 import firebaseService from "../firebase/firebaseService";
 
 function* loginUser(action) {
-  console.log(action);
   try {
     const user = yield call(
       firebaseService.login,
       action.payload.email,
       action.payload.password
     );
+    // console.log(user);
 
     yield put({ type: "USER_LOGIN_SUCCEEDED", payload: user });
   } catch (e) {

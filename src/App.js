@@ -5,6 +5,9 @@ import HomePage from "./new/pages/HomePage";
 import Last from "./new/layouts/Last";
 import Test from "./pages/Test";
 import CardTest from "./pages/CardTest";
+import {} from "./firebase/firebase";
+
+import { onAuthStateChanged } from "@firebase/auth";
 
 import ForgotPassword from "./new/pages/ForgotPassword";
 import {
@@ -15,22 +18,33 @@ import {
   Redirect,
 } from "react-router-dom";
 import SignaturePage from "./new/pages/SignaturePage";
-import {} from "./firebase/firebase";
+
 import { useSelector } from "react-redux";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import HiCard from "./new/pages/HiCard";
-import { useLocation } from 'react-router-dom'
+import { useLocation } from "react-router-dom";
+import { getAuth } from "@firebase/auth";
+import EmailVerification from "./new/pages/EmailVerification";
+import NewHiCard from "./new/pages/NewHiCard";
 function App() {
+  useEffect(() => {
+    console.log("app js : ", auth?.currentUser?.emailVerified);
+  }, []);
+
   const isLoggedIn = useSelector((state) => state.auth);
-  console.log(isLoggedIn.isLoggedIn);
+  const auth = getAuth();
+
+  // console.log(isLoggedIn.isLoggedIn);
   const location = useLocation();
-  console.log('hello');
-  console.log(location.pathname);
+  // console.log("hello");
+  // console.log(location.pathname);
+
   const db = getFirestore();
   const arr = [];
   const dataArr = [];
   const cardDataArr = [];
+  const [authUser, setAuthUser] = useState({});
   const [cardURLS, setCardURLS] = useState([]);
   const [url, setUrls] = useState([]);
   const [images, setImages] = useState([{}]);
@@ -43,7 +57,6 @@ function App() {
         logolink: doc.data().logoLink,
         weburl: doc.data().webUrl,
       });
-    
     });
     // hihello card sayfası için dökümanlar
     const cardSnapshot = await getDocs(await collection(db, "cards"));
@@ -51,11 +64,12 @@ function App() {
       cardDataArr.push({
         fname: doc.data().fname,
         id: doc.id,
-        logoURL:doc.data().logo,
-        lname:doc.data().lname,
-        title:doc.data().title,
-        mail:doc.data().mail,
-        linklist:doc.data().linkList
+        logoURL: doc.data().logo,
+        lname: doc.data().lname,
+        title: doc.data().title,
+        mail: doc.data().mail,
+        linklist: doc.data().linkList,
+        phone: doc.data().phone,
       });
     });
 
@@ -77,7 +91,7 @@ function App() {
                 {...props}
                 logoLink={url[index].logolink[0]}
                 weburl={url[index].weburl}
-              
+
                 //webURL={}
                 //companyName={}
               />
@@ -90,20 +104,20 @@ function App() {
 
   function handleRouteCards() {
     return cardURLS.map((item, index) => {
-     
       return (
         <Route
           path={"/" + cardURLS[index].id}
           render={(props) => {
             return (
-              <HiCard
+              <NewHiCard
                 {...props}
                 fname={cardURLS[index].fname}
-                logo = {cardURLS[index].logoURL}
+                logo={cardURLS[index].logoURL}
                 lname={cardURLS[index].lname}
                 title={cardURLS[index].title}
                 mail={cardURLS[index].mail}
-                linklist ={cardURLS[index].linklist}
+                linklist={cardURLS[index].linklist}
+                phone={cardURLS[index].phone}
                 //webURL={}
                 //companyName={}
               />
@@ -115,17 +129,34 @@ function App() {
   }
 
   function first() {
-    if (!isLoggedIn.isLoggedIn) return <Redirect to="/auth" />;
+    if (!isLoggedIn.isLoggedIn || !isLoggedIn.user.emailVerified)
+      return <Redirect to="/auth" />;
   }
   function second() {
-    if (isLoggedIn.isLoggedIn) return <Redirect to="/home" />;
+    if (isLoggedIn.isLoggedIn && isLoggedIn.user.emailVerified)
+      return <Redirect to="/home" />;
+    else if (isLoggedIn.isLoggedIn && !isLoggedIn.user.emailVerified) {
+      return <Redirect to="/emailverification" />;
+    }
   }
+
+  function third() {
+    if (!isLoggedIn.isLoggedIn) return <Redirect to="/auth" />;
+    else if (auth?.currentUser?.emailVerified) {
+      <Redirect to="/home" />;
+    }
+  }
+
   return (
     <div className="App">
       <Router>
         <Switch>
           <Route exact path="/auth/PassRes">
             <ForgotPassword />
+          </Route>
+
+          <Route path="/emailverification" component={EmailVerification}>
+            {third()}
           </Route>
 
           <Route exact path="/">
