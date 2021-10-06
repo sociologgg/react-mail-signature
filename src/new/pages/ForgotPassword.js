@@ -18,7 +18,9 @@ function ForgotPassword() {
 
   function sendEmailforResetPassword() {
     setLoading(true);
-    sendPasswordResetEmail(auth, email)
+    sendPasswordResetEmail(auth, email, {
+      url: "http://localhost:3000/auth/SignIn",
+    })
       .then(() => {
         console.log("taksim");
         setTick(true);
@@ -83,24 +85,29 @@ function ForgotPassword() {
   }
 
   return (
-    <div class="h-screen w-screen  flex z-10 relative justify-center  px-100 bg-janus-site-blue">
+    <div class="h-screen w-screen  flex z-10 relative justify-center  px-100  bg-janus-site-blue">
       <div class="w-screen h-100% ">
-        <div class="  flex-column   h-3/4  shadow-2xl  rounded-3xl overflow-hidden bg-white mt-20  ">
-          <img class="mt-16 ml-52 " src={unlock} />
+        <div class="flex  flex-col  h-3/4  shadow-2xl  rounded-3xl overflow-hidden bg-white mt-20  ">
+          <div class="flex justify-center mt-10 ">
+            {" "}
+            <img class=" " src={unlock} />
+          </div>
+
           <p class="font-roboto mt-14 text-janus-dark-blue font-medium text-base">
             Giriş yaparken sorun mu yaşıyorsun ?
           </p>
           <div class="  px-20 mt-5 text-rstpsw-gray">{pageManager()}</div>
-
-          <input
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-            type="text"
-            class="  outline-none border-input focus:border-janus-focus-blue font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3  mt-10"
-            placeholder="E-posta"
-          />
-          {handleShowInvalidEmailError()}
+          <div>
+            <input
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+              type="text"
+              class="  outline-none border-input focus:border-janus-focus-blue font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3  mt-10"
+              placeholder="E-posta"
+            />
+            {handleShowInvalidEmailError()}
+          </div>
 
           <div>
             {" "}

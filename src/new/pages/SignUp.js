@@ -15,8 +15,10 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  sendEmailVerification,
 } from "firebase/auth";
 import {} from "../../firebase/firebase";
+import { useDispatch } from "react-redux";
 
 function SignUp() {
   const db = getFirestore();
@@ -27,6 +29,7 @@ function SignUp() {
   const [passwordShown, setPasswordShown] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const dispatch = useDispatch();
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
@@ -50,6 +53,20 @@ function SignUp() {
             surname: surname,
             email: email,
             uid: user.uid,
+          })
+            .then((e) => {
+              console.log(e);
+            })
+            .catch((e) => {
+              console.log(e.errorCode);
+            });
+
+          dispatch({
+            type: "USER_LOGIN_REQUESTED",
+            payload: { email, password },
+          });
+          await sendEmailVerification(auth.currentUser, {
+            url: "http://localhost:3000",
           });
         })
         .catch(async (error) => {
@@ -78,7 +95,9 @@ function SignUp() {
   return (
     <div class=" flex w-236px justify-center flex-col">
       <p class="text-4xl text-janus-dark-blue font-bold font-roboto">Kaydol </p>
-      <p className="mt-30px text-16px text-yahoo">Organizasyonun admini olarak kaydolun</p>
+      <p className="mt-30px text-16px text-yahoo">
+        Organizasyonun admini olarak kaydolun
+      </p>
       <div>
         <input
           onChange={(e) => {

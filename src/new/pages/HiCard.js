@@ -33,19 +33,10 @@ return( <div className="flex items-center mt-20px">
   return (
     <div className="w-screen h-screen bg-janus-site-blue flex justify-center items-center">
       <div>
-      <img className="w-620px h-114px" src={januslogo}/>
-      
-      <div className="min-h-176px mt-36px   flex">
-      <div className="flex-1 flex"/>
+        <img className="w-620px h-114px" src={januslogo} />
 
-      <div className="bg-white  flex min-w-374px rounded-lg px-30px py-26px">
-      <div className="flex flex-col justify-center  h-100%">
-        <img src={logo} className="w-72px h-auto" />
-      </div>
-        <div className="pl-30px  flex-1">
-           <div className="font-roboto  whitespace-nowrap  text-left font-bold text-mail-gray text-20px">
-            {fname + ' ' + lname}
-          </div> 
+        <div className="min-h-176px mt-36px   flex">
+          <div className="flex-1 flex" />
 
           <div className="font-roboto font-light text-14px text-left  text-mail-gray">
           {title}
@@ -65,10 +56,55 @@ return( <div className="flex items-center mt-20px">
     </div>
       <div className="flex-1 flex"/>
 
-      </div>
-    </div>
-   
-    </div>
+              <div className="font-roboto font-light text-14px text-left  text-mail-gray">
+                {title}
+              </div>
+              <div className="mt-28px">
+                {/*phone*/} <div></div>
+                {/*mail*/}{" "}
+                {mail != "" ? (
+                  <div className="flex items-center ">
+                    {" "}
+                    <a href={`mailto:` + mail}>
+                      <img className="w-20px h-auto" src={maillogo} />
+                    </a>{" "}
+                    <p className="ml-12px font-roboto text-10px text-left  text-mail-gray">
+                      {mail}
+                    </p>{" "}
+                  </div>
+                ) : (
+                  <div />
+                )}
+                {/*websitesi*/}{" "}
+                {linklist.web != "" ? (
+                  <div className="flex items-center mt-10px">
+                    {" "}
+                    <a
+                      href={
+                        linklist.web.includes("https://")
+                          ? linklist.web
+                          : `https://` + linklist.web
+                      }
+                    >
+                      <img className="w-20px h-auto" src={globeLogo} />{" "}
+                    </a>{" "}
+                    <p className="ml-12px font-roboto text-10px text-left  text-mail-gray">
+                      {linklist.web}
+                    </p>{" "}
+                  </div>
+                ) : (
+                  <div />
+                )}
+                {/*Sosyal medya*/}
+                {socialmediamanager()}
+              </div>
+              <div className="mt-24px flex justify-end">
+                <p className="text-janus-dark-blue font-roboto text-12px">
+                  Created by JANUS
+                </p>
+              </div>
+            </div>
+          
   );
 }
 

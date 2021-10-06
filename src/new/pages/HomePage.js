@@ -59,7 +59,7 @@ function HomePage() {
   const fileLink = [];
   const [logoLink, setLogoLink] = useState();
   const [urlgo, setUrlGo] = useState("");
-const location = useLocation();
+  const location = useLocation();
   const [fileName, setFileName] = useState();
 
   useEffect(async () => {
@@ -83,13 +83,11 @@ const location = useLocation();
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-     
+
         switch (snapshot.state) {
           case "paused":
-           
             break;
           case "running":
-          
             break;
         }
       },
@@ -115,15 +113,12 @@ const location = useLocation();
         // Upload completed successfully, now we can get the download URL
         await getDownloadURL(uploadTask.snapshot.ref).then(
           async (downloadURL) => {
-           
-
             setLogoLink(downloadURL);
             setIsButtonDisabled(false);
 
             fileLink.push(downloadURL);
 
             setLogoLink(fileLink);
-          
           }
         );
       }
@@ -149,7 +144,6 @@ const location = useLocation();
         setFileSuccess(true);
       }
     } else {
-    
       setFileError(true);
     }
   }
@@ -173,7 +167,6 @@ const location = useLocation();
     } else {
       setValue(value);
     }
-   
   };
 
   function handlePopUp() {
@@ -248,7 +241,7 @@ const location = useLocation();
             <button
               onClick={() =>
                 navigator.clipboard.writeText(
-                  window.location.href.replace('home')
+                  window.location.href.replace("home")
                 )
               }
               className="bg-janus-site-blue rounded-xl font-roboto text-white w-36 py-10px focus:outline-none "
@@ -277,79 +270,78 @@ const location = useLocation();
   function handlePopUp3() {
     if (popUpValue3 == 1) {
       return (
-    
         <div class=" flex-column absolute max-w-470px h-screen items-center flex   z-20     justify-center ">
           <div className="flex flex-col bg-white shadow-2xl  rounded-3xl p-20px pb-40px overflow-hidden">
-          <div class="flex justify-end mt-2 ">
-            <button
-              onClick={() => {
-                setPopUpValue3(0);
-              }}
-              class="focus:outline-none"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6 mr-3"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+            <div class="flex justify-end mt-2 ">
+              <button
+                onClick={() => {
+                  setPopUpValue3(0);
+                }}
+                class="focus:outline-none"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
-
-          <div class="flex  justify-center mt-18px">
-            <img className="h-190px w-190px" src={party} />
-          </div>
-          <div class=" mt-36px  px-40px  flex justify-center items-center ">
-           <div>
-            <p class=" font-roboto  font-light text-16px text-left">
-              E-posta imzası tasarımınızı admin olarak şirket adına  oluşturdunuz.</p>
-              
-             
-              <p class=" font-roboto  font-light text-left text-16px  mt-16px">
-                
-              Ekip arkadaşlarınızın kişisel bilgilerini doldurması için  <button 
-               onClick={() =>
-                navigator.clipboard.writeText(
-                  window.location.href.replace('home','')+`${urlgo}`
-                )
-              }
-              className="underline text-janus-dark-blue focus:outline-none">Linki Kopyala</button> butonuna tıklayarak paylaşın 
-            </p>
-            <p class=" font-roboto  font-light text-left text-16px  mt-16px">
-            E-posta imzanızı oluşturmak için ‘’E-posta İmzası Üret’’ butonuna tıklayın.
-            </p>
-            </div>
-          </div>
-         
-         
-          <div className="flex mt-30px justify-center">
-            
-            <div className="flex-1 flex justify-center">
-              <button className="py-10px px-6px bg-compOrange hover:bg-compOrange-hover rounded-md focus:outline-none">
-                <a
-                  target="_blank"
-                  href={  window.location.href.replace('home','')+`${urlgo}`}
-                  className="text-white text-16px font-roboto"
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6 mr-3"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
                 >
-                  E-posta İmzası Üret
-                </a>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
               </button>
             </div>
-          </div>
-         
-         
-         
 
+            <div class="flex  justify-center mt-18px">
+              <img className="h-190px w-190px" src={party} />
+            </div>
+            <div class=" mt-36px  px-40px  flex justify-center items-center ">
+              <div>
+                <p class=" font-roboto  font-light text-16px text-left">
+                  E-posta imzası tasarımınızı admin olarak şirket adına
+                  oluşturdunuz.
+                </p>
+
+                <p class=" font-roboto  font-light text-left text-16px  mt-16px">
+                  Ekip arkadaşlarınızın kişisel bilgilerini doldurması için{" "}
+                  <button
+                    onClick={() =>
+                      navigator.clipboard.writeText(
+                        window.location.href.replace("home", "") + `${urlgo}`
+                      )
+                    }
+                    className="underline text-janus-dark-blue focus:outline-none"
+                  >
+                    Linki Kopyala
+                  </button>{" "}
+                  butonuna tıklayarak paylaşın
+                </p>
+                <p class=" font-roboto  font-light text-left text-16px  mt-16px">
+                  E-posta imzanızı oluşturmak için ‘’E-posta İmzası Üret’’
+                  butonuna tıklayın.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex mt-30px justify-center">
+              <div className="flex-1 flex justify-center">
+                <button className="py-10px px-6px bg-compOrange hover:bg-compOrange-hover rounded-md focus:outline-none">
+                  <a
+                    target="_blank"
+                    href={window.location.href.replace("home", "") + `${urlgo}`}
+                    className="text-white text-16px font-roboto"
+                  >
+                    E-posta İmzası Üret
+                  </a>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-     </div>
       );
     }
   }
@@ -421,7 +413,7 @@ const location = useLocation();
               </div>*/}
               <div class="flex mt-5  items-center relative ">
                 <p class="text-line-gray inline whitespace-nowrap ml-12 font-medium text-lg">
-                  Web Sitesi Url'si *
+                  Web Sitesi Url'si
                 </p>
                 <div className="relative">
                   <input
@@ -429,7 +421,7 @@ const location = useLocation();
                       setWebUrl(e.target.value);
                     }}
                     type="text"
-                    class={`outline-none w-290px border-input focus:border-janus-focus-blue font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 ml-9`}
+                    class={`outline-none w-290px border-input focus:border-janus-focus-blue font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 ml-12`}
                   />
                   <img
                     onMouseEnter={() => {
@@ -453,7 +445,7 @@ const location = useLocation();
 
               <div class="flex flex-row justify-end">
                 <button
-                  disabled={webUrl == "" || sirketAdi == ""}
+                  disabled={sirketAdi == ""}
                   onClick={() => {
                     setPage(1);
                   }}
@@ -481,112 +473,113 @@ const location = useLocation();
     } else {
       return (
         <Scrollbars className="bg-white shadow-2xl rounded-3xl mt-5">
-        <div class="flex  flex-1 px-20px      pb-20px rounded-3xl overflow-hidden bg-white mt-5 flex-column justify-center  ">
-        
-          <div className="w-100% relative flex justify-center">
-            <div className="absolute flex left-12px top-30px  items-center  text-24px text-janus-dark-blue">
-              <button
-                onClick={() => setPage(0)}
-                className="pl-20px focus:outline-none py-20px flex items-center"
-              >
-                <img src={arrow} className="w-7px    h-14px" />{" "}
-                <p className="ml-10px">Geri </p>
-              </button>
-            </div>
-            <div class="mt-5   block">
-              <div>
-                <p class=" text-janus-purple">E Posta İmzası Teması Seçin</p>
-              </div>
-            
-              <div class="flex justify-center mt-2">
-                <Carousel
-                  renderIndicator={() => {}}
-                  width="382px "
-                  onChange={onChange}
+          <div class="flex  flex-1 px-20px      pb-20px rounded-3xl overflow-hidden bg-white mt-5 flex-column justify-center  ">
+            <div className="w-100% relative flex justify-center">
+              <div className="absolute flex left-12px top-30px  items-center  text-24px text-janus-dark-blue">
+                <button
+                  onClick={() => setPage(0)}
+                  className="pl-20px focus:outline-none py-20px flex items-center"
                 >
-                  <div>
-                    <img class="rounded-xl  " src={autosign} />
-                  </div>
-                  <div>
-                    <img class="rounded-xl  " src={lockedTemplate} />
-                  </div>
-                  <div>
-                    <img class="rounded-xl  " src={lockedTemplate} />
-                  </div>
-                </Carousel>
+                  <img src={arrow} className="w-7px    h-14px" />{" "}
+                  <p className="ml-10px">Geri </p>
+                </button>
               </div>
-              <div class="flex flex-row  ">
+              <div class="mt-5   block">
                 <div>
-                  <img class=" h-auto lg:w-130px md:90px" src={sirklogo}></img>
+                  <p class=" text-janus-purple">E Posta İmzası Teması Seçin</p>
                 </div>
-                <div class=" flex-col pl-34px">
-                  <div class="flex justify-start">
-                    <p class="text-janus-dark-blue  text-18px font-roboto">
-                      Fotoğraf yükle
-                    </p>
-                  </div>
-                  <div class="flex  justify-start lg:mt-18px">
-                    <p class="leading-3 text-14px font-light text-input-gray text-left">
-                      Kare formatta png veya jpeg görsel kullanın
-                    </p>
-                  </div>
 
-                  <div class="  flex items-center lg:mt-18px md:mt-8px justify-start">
-                    <button
-                      class="focus:outline-none disabled:opacity-50 hover:bg-janus-blue-hover  py-10px text-center flex justify-center px-12px rounded-md text-white   bg-janus-site-blue text-center text-16px inline flex items-center  font-roboto "
-                      onClick={() => fileInputRef.current.click()}
-                    >
-                      Dosya seç
-                    </button>
-                    <p className="font-roboto text-14px  ml-16px text-info-red">
-                      {handleFileError()}
-                      {handleFileSuccess()}
-                    </p>
-                    <input
-                      onChange={handleFileUpload}
-                      multiple={false}
-                      ref={fileInputRef}
-                      type="file"
-                      hidden
-                    />
+                <div class="flex justify-center mt-2">
+                  <Carousel
+                    renderIndicator={() => {}}
+                    width="382px "
+                    onChange={onChange}
+                  >
+                    <div>
+                      <img class="rounded-xl  " src={autosign} />
+                    </div>
+                    <div>
+                      <img class="rounded-xl  " src={lockedTemplate} />
+                    </div>
+                    <div>
+                      <img class="rounded-xl  " src={lockedTemplate} />
+                    </div>
+                  </Carousel>
+                </div>
+                <div class="flex flex-row  ">
+                  <div>
+                    <img
+                      class=" h-auto lg:w-130px md:90px"
+                      src={sirklogo}
+                    ></img>
                   </div>
+                  <div class=" flex-col pl-34px">
+                    <div class="flex justify-start">
+                      <p class="text-janus-dark-blue  text-18px font-roboto">
+                        Fotoğraf yükle
+                      </p>
+                    </div>
+                    <div class="flex  justify-start lg:mt-18px">
+                      <p class="leading-3 text-14px font-light text-input-gray text-left">
+                        Kare formatta png veya jpeg görsel kullanın
+                      </p>
+                    </div>
 
-                  <div class="flex flex-1   justify-center lg:mt-20px md:mt-20px">
-                    <button
-                      onClick={async () => {
-                        const logoUrl = {
-                          logourl: fileLink[0],
-                        };
-                        const docRef = await addDoc(collection(db, "links"), {
-                          sektor: sektor,
-                          sirketAdi: sirketAdi,
-                          sirketTuru: sirketTuru,
-                          webUrl: webUrl,
-                          logoLink: logoLink,
-                        });
-                        setUrlGo(docRef.id);
+                    <div class="  flex items-center lg:mt-18px md:mt-8px justify-start">
+                      <button
+                        class="focus:outline-none disabled:opacity-50 hover:bg-janus-blue-hover  py-10px text-center flex justify-center px-12px rounded-md text-white   bg-janus-site-blue text-center text-16px inline flex items-center  font-roboto "
+                        onClick={() => fileInputRef.current.click()}
+                      >
+                        Dosya seç
+                      </button>
+                      <p className="font-roboto text-14px  ml-16px text-info-red">
+                        {handleFileError()}
+                        {handleFileSuccess()}
+                      </p>
+                      <input
+                        onChange={handleFileUpload}
+                        multiple={false}
+                        ref={fileInputRef}
+                        type="file"
+                        hidden
+                      />
+                    </div>
 
-                        setPopUpValue3(1);
-                      }}
-                      disabled={value != 0 || isButtonDisabled == true}
-                      class="disabled:opacity-50  hover:bg-compOrange-hover focus:outline-none bg-compOrange mt-2 rounded-md text-white  px-26px py-10px  text-center inline flex items-center  font-roboto"
-                    >
-                      Kaydet
-                    </button>
+                    <div class="flex flex-1   justify-center lg:mt-20px md:mt-20px">
+                      <button
+                        onClick={async () => {
+                          const logoUrl = {
+                            logourl: fileLink[0],
+                          };
+                          const docRef = await addDoc(collection(db, "links"), {
+                            sektor: sektor,
+                            sirketAdi: sirketAdi,
+                            sirketTuru: sirketTuru,
+                            webUrl: webUrl,
+                            logoLink: logoLink,
+                          });
+                          setUrlGo(docRef.id);
+
+                          setPopUpValue3(1);
+                        }}
+                        disabled={value != 0 || isButtonDisabled == true}
+                        class="disabled:opacity-50  hover:bg-compOrange-hover focus:outline-none bg-compOrange mt-2 rounded-md text-white  px-26px py-10px  text-center inline flex items-center  font-roboto"
+                      >
+                        Kaydet
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/*<div class="mt-10">
+            {/*<div class="mt-10">
               <img class="w-64 h-40 " src={autosign}></img>
             </div>
             <div>
               <p class="mt-5 text-janus-purple">E Posta İmzası Teması Seçin</p>
         </div>*/}
-       
-        </div>
+          </div>
         </Scrollbars>
       );
     }
@@ -608,7 +601,7 @@ const location = useLocation();
         <div class="w-screen h-100% flex flex-col   ">
           <div class="flex  justify-between items-center">
             <p class="font-bold text-4xl mt-2 text-white mb-5 font-roboto">
-            Organizasyon Bilgileri
+              Organizasyon Bilgileri
             </p>
             <div class="mt-2">
               <DropAcc />

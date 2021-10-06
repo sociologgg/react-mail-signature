@@ -1,29 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+
 import { Link } from "react-router-dom";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  sendEmailVerification,
+  onAuthStateChanged,
+} from "firebase/auth";
 import BeatLoader from "react-spinners/BeatLoader";
 import { useDispatch } from "react-redux";
 import { useRouteMatch } from "react-router";
 function SignIn() {
+  const auth = getAuth();
+
   let dispatch = useDispatch();
   async function handleLogin() {
     setLoading(true);
-    const auth = getAuth();
+
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-
+        
         localStorage.setItem("user", JSON.stringify(user));
 
         setLoading(false);
         setEmailError("");
         setPasswordError("");
+      
         dispatch({
           type: "USER_LOGIN_REQUESTED",
           payload: { email, password },
         });
+
+        if (!user.emailVerified) {
+          sendEmailVerification(user, {
+            url: "http://localhost:3000",
+          });
+        }
       })
       .catch(async (error) => {
         const errorCode = error.code;
@@ -86,7 +101,9 @@ function SignIn() {
       <p class="text-4xl text-janus-dark-blue font-bold font-roboto">
         Giriş Yap{" "}
       </p>
-      <p className="mt-30px text-16px text-yahoo">Organizasyonun admini olarak giriş yapın</p>
+      <p className="mt-30px text-16px text-yahoo">
+        Organizasyonun admini olarak giriş yapın
+      </p>
       <div className="pt-20px">
         <input
           onChange={(e) => {
