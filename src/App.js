@@ -27,13 +27,14 @@ import { useLocation } from "react-router-dom";
 import { getAuth } from "@firebase/auth";
 import EmailVerification from "./new/pages/EmailVerification";
 import NewHiCard from "./new/pages/NewHiCard";
+import { useAuth } from "./firebase/use-auth";
+
 function App() {
   useEffect(() => {
-    console.log("app js : ", auth?.currentUser?.emailVerified);
+    console.log(auth?.currentUser);
   }, []);
-
+  const auth = useAuth();
   const isLoggedIn = useSelector((state) => state.auth);
-  const auth = getAuth();
 
   // console.log(isLoggedIn.isLoggedIn);
   const location = useLocation();
@@ -133,18 +134,15 @@ function App() {
       return <Redirect to="/auth" />;
   }
   function second() {
-    if (isLoggedIn.isLoggedIn && isLoggedIn.user.emailVerified)
+    if (isLoggedIn.isLoggedIn && isLoggedIn.user?.emailVerified)
       return <Redirect to="/home" />;
-    else if (isLoggedIn.isLoggedIn && !isLoggedIn.user.emailVerified) {
+    else if (isLoggedIn.isLoggedIn && !isLoggedIn.user?.emailVerified) {
       return <Redirect to="/emailverification" />;
     }
   }
 
   function third() {
     if (!isLoggedIn.isLoggedIn) return <Redirect to="/auth" />;
-    else if (auth?.currentUser?.emailVerified) {
-      <Redirect to="/home" />;
-    }
   }
 
   return (

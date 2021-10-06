@@ -2,13 +2,15 @@ import React from "react";
 import unlock from "../../images/unlock.png";
 import { useState } from "react";
 import BeatLoader from "react-spinners/BeatLoader";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getAuth, sendEmailVerification } from "@firebase/auth";
 import { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { setUserProperties } from "@firebase/analytics";
 import userEvent from "@testing-library/user-event";
+
 function EmailVerification() {
+  const isLoggedIn = useSelector((state) => state.auth);
   const [tick, setTick] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorCode, setErrorCode] = useState(false);
@@ -19,16 +21,20 @@ function EmailVerification() {
   // alert("Hello");
   //}, 5000);
 
-  useEffect(() => {
+  /*useEffect(() => {
     setInterval(async function () {
       await auth?.currentUser?.reload();
       // `currentUser` is synchronous since FirebaseAuth rework
       auth.currentUser = auth?.currentUser;
       console.log(auth?.currentUser?.emailVerified);
+      if(auth?.currentUser?.emailVerified){
+        dispatch({"USER_LOGIN_REQUESTED",payload : {email,password} })
+
+      }
 
       // true
     }, 10000);
-  }, []);
+  }, []); */
 
   async function handleLogout(e) {
     e.preventDefault();

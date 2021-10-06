@@ -9,17 +9,22 @@ import {
   sendEmailVerification,
   onAuthStateChanged,
 } from "firebase/auth";
+import { useSelector } from "react-redux";
 import BeatLoader from "react-spinners/BeatLoader";
 import { useDispatch } from "react-redux";
-import { useRouteMatch } from "react-router";
+import { Redirect, useHistory, useRouteMatch } from "react-router";
+import { useAuth } from "../../firebase/use-auth";
 function SignIn() {
-  const auth = getAuth();
+  const auth = useAuth();
+  const AUTH = getAuth();
+  const [user, setUser] = useState();
+  const history = useHistory();
 
   let dispatch = useDispatch();
   async function handleLogin() {
     setLoading(true);
 
-    signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(AUTH, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
 
@@ -33,11 +38,11 @@ function SignIn() {
           payload: { email, password },
         });
 
-        if (!user.emailVerified) {
+        /* if (!user.emailVerified) {
           sendEmailVerification(user, {
             url: "http://localhost:3000",
           });
-        }
+        } */
       })
       .catch(async (error) => {
         const errorCode = error.code;

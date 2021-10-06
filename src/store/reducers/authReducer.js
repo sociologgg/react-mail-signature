@@ -3,6 +3,7 @@ import {
   USER_LOGIN_FAILED,
   LOGOUT_SUCCEEDED,
   LOGOUT_FAILED,
+  EMAIL_VERIFIED,
 } from "../actions/types";
 
 const user = JSON.parse(localStorage.getItem("user"));
