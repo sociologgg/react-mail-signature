@@ -41,6 +41,10 @@ function ForgotPassword() {
             "Geçersiz mail formatı! Lütfen sisteme kayıtlı olduğunuz mail adresini girin!"
           );
           console.log("error is : ", error);
+        } else if (errorCode == "auth/timeout") {
+          setError(
+            "Bağlantınızın yavaşlığından dolayı işlem başarısız oldu, lütfen tekrar deneyin!"
+          );
         }
 
         // ..
@@ -117,8 +121,8 @@ function ForgotPassword() {
               class={`${
                 tick
                   ? `bg-success px-20 disabled:opacity-50`
-                  : `bg-janus-site-blue hover:bg-janus-blue-hover disabled:opacity-50`
-              } h-10 rounded-lg   mt-7 text-base text-white font-roboto px-6 disabled:opacity-50`}
+                  : `bg-janus-site-blue hover:bg-janus-blue-hover disabled:opacity-50 `
+              } h-10 rounded-lg   mt-7 text-base text-white font-roboto px-10 disabled:opacity-50`}
             >
               {loading ? (
                 <BeatLoader
@@ -128,7 +132,7 @@ function ForgotPassword() {
                   speedMultiplier={1}
                 />
               ) : tick ? (
-                <p class="text-red-700"> Başarılı </p>
+                <p class="text-janus-dark-blue"> Başarılı </p>
               ) : (
                 "Giriş Bağlantısı Gönder"
               )}

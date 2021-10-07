@@ -5,7 +5,7 @@ import Dropdown from "@material-tailwind/react/Dropdown";
 import DropdownItem from "@material-tailwind/react/DropdownItem";
 import DropdownLink from "@material-tailwind/react/DropdownLink";
 import DropAcc from "../components/DropAcc";
-
+import BeatLoader from "react-spinners/BeatLoader";
 import Select from "react-dropdown-select";
 import autosign from "../../images/autosign.png";
 import lockedTemplate from "../../images/lockedTemplate.png";
@@ -44,8 +44,11 @@ function HomePage() {
   const [webUrl, setWebUrl] = useState("");
   const [user, setUser] = useState({ email: "" });
   const [value, setValue] = useState(0);
+  const [webFileError, setWebFileError] = useState(false);
   const [page, setPage] = useState(0);
   const [sektor, setSektor] = useState([]);
+  const [loadingFile, setLoadingFile] = useState(false);
+  const [loadingKaydet, setLoadingKaydet] = useState(false);
   const fileInputRef = useRef();
   const [fileError, setFileError] = useState(false);
   const [fileSuccess, setFileSuccess] = useState(false);
@@ -159,7 +162,11 @@ function HomePage() {
       return <p>Png veya jpeg formatında dosya seçin</p>;
     }
   }
-
+  function handleWebUrlError() {
+    if (webFileError) {
+      return <p>Lütfen web sitesini doğru formatta yazın!</p>;
+    }
+  }
   const onChange = (value) => {
     if (value == 1 || value == 2) {
       setPopUpValue(1);
@@ -449,7 +456,12 @@ function HomePage() {
                 <button
                   disabled={sirketAdi == ""}
                   onClick={() => {
-                    setPage(1);
+                    if (webUrl == `www.${webUrl}.com`) {
+                      setPage(1);
+                      setWebFileError(false);
+                    } else {
+                      setWebFileError(true);
+                    }
                   }}
                   class="h-10 rounded-lg bg-compOrange hover:bg-compOrange-hover focus:outline-none   flex items-center justify-center  text-base text-white font-roboto mt-5 px-6  mr-14 disabled:opacity-50"
                 >
