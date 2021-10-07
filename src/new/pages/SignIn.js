@@ -27,12 +27,13 @@ function SignIn() {
     signInWithEmailAndPassword(AUTH, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-
+        
         localStorage.setItem("user", JSON.stringify(user));
 
         setLoading(false);
         setEmailError("");
         setPasswordError("");
+      
         dispatch({
           type: "USER_LOGIN_REQUESTED",
           payload: { email, password },

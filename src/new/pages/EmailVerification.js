@@ -8,14 +8,14 @@ import { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { setUserProperties } from "@firebase/analytics";
 import userEvent from "@testing-library/user-event";
-
+import { useSelector } from "react-redux";
 function EmailVerification() {
   const isLoggedIn = useSelector((state) => state.auth);
   const [tick, setTick] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorCode, setErrorCode] = useState(false);
   let dispatch = useDispatch();
-  // let history = useHistory();
+  const user = useSelector((state) => state.auth).user;
   const auth = getAuth();
   //setInterval(function () {
   // alert("Hello");
@@ -27,11 +27,24 @@ function EmailVerification() {
       // `currentUser` is synchronous since FirebaseAuth rework
       auth.currentUser = auth?.currentUser;
       console.log(auth?.currentUser?.emailVerified);
-      if(auth?.currentUser?.emailVerified){
-        dispatch({"USER_LOGIN_REQUESTED",payload : {email,password} })
-
+      
+      if(auth?.currentUser?.emailVerified)
+      {
+        console.log('dispatching');
+        console.log(auth.currentUser);
+      const user = auth.currentUser;
+        dispatch(
+            {
+              type: "USER_CHANGE_REQUEST",
+              payload:{user}
+            }
+          
+          )
+          localStorage.setItem("user", JSON.stringify(user));
+            window.location.reload();
       }
 
+      
       // true
     }, 10000);
   }, []); */

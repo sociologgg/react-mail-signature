@@ -30,10 +30,7 @@ import NewHiCard from "./new/pages/NewHiCard";
 import { useAuth } from "./firebase/use-auth";
 
 function App() {
-  useEffect(() => {
-    console.log(auth?.currentUser);
-  }, []);
-  const auth = useAuth();
+  const user = useSelector((state) => state.auth).user;
   const isLoggedIn = useSelector((state) => state.auth);
 
   // console.log(isLoggedIn.isLoggedIn);
@@ -57,6 +54,7 @@ function App() {
         id: doc.id,
         logolink: doc.data().logoLink,
         weburl: doc.data().webUrl,
+        companyName: doc.data().sirketAdi,
       });
     });
     // hihello card sayfası için dökümanlar
@@ -92,7 +90,7 @@ function App() {
                 {...props}
                 logoLink={url[index].logolink[0]}
                 weburl={url[index].weburl}
-
+                companyName={url[index].companyName}
                 //webURL={}
                 //companyName={}
               />
@@ -130,13 +128,13 @@ function App() {
   }
 
   function first() {
-    if (!isLoggedIn.isLoggedIn || !isLoggedIn.user.emailVerified)
+    if (!isLoggedIn.isLoggedIn || !user.emailVerified)
       return <Redirect to="/auth" />;
   }
   function second() {
-    if (isLoggedIn.isLoggedIn && isLoggedIn.user?.emailVerified)
+    if (isLoggedIn.isLoggedIn && user.emailVerified)
       return <Redirect to="/home" />;
-    else if (isLoggedIn.isLoggedIn && !isLoggedIn.user?.emailVerified) {
+    else if (isLoggedIn.isLoggedIn && !user.emailVerified) {
       return <Redirect to="/emailverification" />;
     }
   }
@@ -154,7 +152,11 @@ function App() {
           </Route>
 
           <Route path="/emailverification" component={EmailVerification}>
-            {third()}
+            {!isLoggedIn.isLoggedIn ? (
+              <Redirect to="/auth" />
+            ) : user.emailVerified ? (
+              <Redirect to="/home" />
+            ) : null}
           </Route>
 
           <Route exact path="/">

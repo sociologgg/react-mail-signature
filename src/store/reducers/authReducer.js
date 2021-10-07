@@ -3,7 +3,7 @@ import {
   USER_LOGIN_FAILED,
   LOGOUT_SUCCEEDED,
   LOGOUT_FAILED,
-  EMAIL_VERIFIED,
+  USER_CHANGE,
 } from "../actions/types";
 
 const user = JSON.parse(localStorage.getItem("user"));
@@ -22,6 +22,12 @@ export default function (state = initialState, action) {
         isLoggedIn: true,
         user: payload.user,
       };
+    case USER_CHANGE: {
+      return {
+        ...state,
+        user: payload.user,
+      };
+    }
 
     case USER_LOGIN_FAILED:
       return {

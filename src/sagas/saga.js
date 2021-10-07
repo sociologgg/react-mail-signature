@@ -25,9 +25,17 @@ function* logoutUser(action) {
   }
 }
 
+function* changeUser(action)
+{
+  yield put({type:"USER_CHANGE",payload:action.payload.user})
+}
+
 function* loginSaga() {
   yield takeEvery("USER_LOGIN_REQUESTED", loginUser);
 }
+function* updateUser()
+{
+  yield takeEvery("USER_CHANGE_REQUEST",changeUser);}
 
 function* logoutSaga(params) {
   yield takeLatest("USER_LOGOUT_REQUESTED", logoutUser);

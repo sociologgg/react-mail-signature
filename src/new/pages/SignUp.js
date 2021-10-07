@@ -65,9 +65,9 @@ function SignUp() {
             type: "USER_LOGIN_REQUESTED",
             payload: { email, password },
           });
-          await sendEmailVerification(auth.currentUser, {
-            url: "http://localhost:3000",
-          });
+          await sendEmailVerification(auth.currentUser
+         //   , {     url: "http://localhost:3000",}
+          );
         })
         .catch(async (error) => {
           const errorCode = error.code;
