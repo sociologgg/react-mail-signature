@@ -7,6 +7,7 @@ import facebookLogo from '../../images/signfacebook.png'
 import youtubeLogo from '../../images/signyoutube.png'
 import instagramLogo from '../../images/signinstagram.png'
 import twitterLogo from '../../images/signtwitter.png'
+import { doc, getDoc} from "firebase/firestore"; 
 import fi_phone from '../../images/fi_phone2.png'
 function HiCard({ fname,logo,lname,title, mail,linklist,phone}) {
 

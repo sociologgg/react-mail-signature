@@ -38,6 +38,7 @@ function SignUp() {
   };
 
   async function handleRegister() {
+    setLoading(true);
     const auth = getAuth();
     if (password.length < 6) {
       setPasswordError("Şifre en az 6 karakter olmalıdır!!");
@@ -46,7 +47,7 @@ function SignUp() {
       return createUserWithEmailAndPassword(auth, email, password)
         .then(async (userCredential) => {
           // Signed in
-          setLoading(true);
+
           const user = userCredential.user;
           console.log(user);
 
@@ -63,11 +64,12 @@ function SignUp() {
             .catch((e) => {
               console.log(e.errorCode);
             });
-          setLoading(false);
+
           dispatch({
             type: "USER_LOGIN_REQUESTED",
             payload: { email, password },
           });
+          setLoading(false);
           await sendEmailVerification(
             auth.currentUser
             //   , {     url: "http://localhost:3000",}

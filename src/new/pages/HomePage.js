@@ -164,7 +164,11 @@ function HomePage() {
   }
   function handleWebUrlError() {
     if (webFileError) {
-      return <p>Lütfen web sitesini doğru formatta yazın!</p>;
+      return (
+        <p className="font-roboto text-error-red">
+          Lütfen web sitesini belirtildiği gibi doğru formatta yazın!
+        </p>
+      );
     }
   }
   const onChange = (value) => {
@@ -318,7 +322,8 @@ function HomePage() {
                   <button
                     onClick={() =>
                       navigator.clipboard.writeText(
-                        window.location.href.replace("home", "") + `${urlgo}`
+                        window.location.href.replace("home", "") +
+                          `generator/${urlgo}`
                       )
                     }
                     className="underline text-janus-dark-blue focus:outline-none"
@@ -339,7 +344,10 @@ function HomePage() {
                 <button className="py-10px px-6px bg-compOrange hover:bg-compOrange-hover rounded-md focus:outline-none">
                   <a
                     target="_blank"
-                    href={window.location.href.replace("home", "") + `${urlgo}`}
+                    href={
+                      window.location.href.replace("home", "") +
+                      `generator/${urlgo}`
+                    }
                     className="text-white text-16px font-roboto"
                   >
                     E-posta İmzası Üret
@@ -456,11 +464,15 @@ function HomePage() {
                 <button
                   disabled={sirketAdi == ""}
                   onClick={() => {
-                    if (webUrl == `www.${webUrl}.com`) {
+                    if (webUrl == "") {
                       setPage(1);
-                      setWebFileError(false);
                     } else {
-                      setWebFileError(true);
+                      if (webUrl.includes(`www`)) {
+                        setWebFileError(false);
+                        setPage(1);
+                      } else {
+                        setWebFileError(true);
+                      }
                     }
                   }}
                   class="h-10 rounded-lg bg-compOrange hover:bg-compOrange-hover focus:outline-none   flex items-center justify-center  text-base text-white font-roboto mt-5 px-6  mr-14 disabled:opacity-50"
@@ -469,6 +481,7 @@ function HomePage() {
                   Devam{" "}
                 </button>
               </div>
+              <div>{handleWebUrlError()}</div>
             </div>
 
             <div class=" flex-column justify-center h-100% h-full bg-mail-gray">
@@ -562,6 +575,7 @@ function HomePage() {
                     <div class="flex flex-1   justify-center lg:mt-20px md:mt-20px">
                       <button
                         onClick={async () => {
+                          setLoadingKaydet(true);
                           const logoUrl = {
                             logourl: fileLink[0],
                           };
@@ -573,13 +587,24 @@ function HomePage() {
                             logoLink: logoLink,
                           });
                           setUrlGo(docRef.id);
-
+                          setLoadingKaydet(false);
                           setPopUpValue3(1);
                         }}
                         disabled={value != 0 || isButtonDisabled == true}
                         class="disabled:opacity-50  hover:bg-compOrange-hover focus:outline-none bg-compOrange mt-2 rounded-md text-white  px-26px py-10px  text-center inline flex items-center  font-roboto"
                       >
-                        Kaydet
+                        {loadingKaydet ? (
+                          <BeatLoader
+                            color={"#ffffff"}
+                            loading={true}
+                            size={10}
+                            speedMultiplier={1}
+                          />
+                        ) : (
+                          <p className="text-white text-16px font-roboto">
+                            Kaydet
+                          </p>
+                        )}
                       </button>
                     </div>
                   </div>

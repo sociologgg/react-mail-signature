@@ -34,7 +34,7 @@ function App() {
   const isLoggedIn = useSelector((state) => state.auth);
 
   // console.log(isLoggedIn.isLoggedIn);
-  const location = useLocation();
+
   // console.log("hello");
   // console.log(location.pathname);
 
@@ -46,7 +46,7 @@ function App() {
   const [cardURLS, setCardURLS] = useState([]);
   const [url, setUrls] = useState([]);
   const [images, setImages] = useState([{}]);
-  useEffect(async () => {
+  /*useEffect(async () => {
     const querySnapshot = await getDocs(await collection(db, "links"));
     querySnapshot.forEach((doc) => {
       dataArr.push(doc.data().images);
@@ -126,7 +126,7 @@ function App() {
       );
     });
   }
-
+*/
   function first() {
     if (!isLoggedIn.isLoggedIn || !user.emailVerified)
       return <Redirect to="/auth" />;
@@ -162,9 +162,36 @@ function App() {
           <Route exact path="/">
             <Redirect to="/auth" />
           </Route>
-          {handleRoute(images)}
-          {handleRouteCards()}
+         
+          <Route
+          path={"/generator/:id"}
+          render={(props) => {
+            return (
+              <SignaturePage
+               
+                
+                //webURL={}
+                //companyName={}
+              />
+            );
+          }}
+        ></Route>
+         {//handleRouteCards()}
+}
+             <Route
+             path={"/signatures/:id"}
+             render={(props) => {
+               return (
+                 <NewHiCard
+                
+           
+                 />
+               );
+             }}
+           >
 
+           </Route>
+          
           <Route path="/auth" component={Dashboard}>
             {second()}
           </Route>
