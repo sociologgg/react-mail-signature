@@ -311,7 +311,7 @@ function HomePage() {
                   <button
                     onClick={() =>
                       navigator.clipboard.writeText(
-                        window.location.href.replace("home", "") + `${urlgo}`
+                        window.location.href.replace("home", "") + `generator/${urlgo}`
                       )
                     }
                     className="underline text-janus-dark-blue focus:outline-none"
@@ -332,7 +332,7 @@ function HomePage() {
                 <button className="py-10px px-6px bg-compOrange hover:bg-compOrange-hover rounded-md focus:outline-none">
                   <a
                     target="_blank"
-                    href={window.location.href.replace("home", "") + `${urlgo}`}
+                    href={window.location.href.replace("home", "") + `generator/${urlgo}`}
                     className="text-white text-16px font-roboto"
                   >
                     E-posta İmzası Üret

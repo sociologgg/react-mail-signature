@@ -8,7 +8,6 @@ import facebook from "../../images/facebook.png";
 import twitter from "../../images/twitter.png";
 import linkedin from "../../images/linkedin2.png";
 import BeatLoader from "react-spinners/BeatLoader";
-
 import youtube from "../../images/youtube.png";
 import fi_phone from "../../images/fi_phone.png";
 import facebooksqr from "../../images/facebooksqr.png";
@@ -47,16 +46,21 @@ import {
   uploadBytesResumable,
   uploadString,
   getDownloadURL,
+  
+  
 } from "firebase/storage";
-
+import { useEffect } from "react";
 import {
   collection,
+  getDoc,
+  doc,
   addDoc,
   getFirestore,
   query,
   where,
   getDocs,
 } from "firebase/firestore";
+import { useLocation } from "react-router";
 
 
 var vCardsJS = require("vcards-js");
@@ -121,7 +125,8 @@ async function copy(docId) {
   selectElementContents();
 }
 
-function SignaturePage({ logoLink, weburl, companyName }) {
+function SignaturePage() {
+  const [weburl, setWeburl] = useState('');
   const [clicked, setClicked] = useState(false);
   const storage = getStorage();
   const db = getFirestore();
@@ -136,6 +141,9 @@ function SignaturePage({ logoLink, weburl, companyName }) {
     web: weburl,
   });
   let cardPathVariable;
+  const [logoLink, setLogoLink]  = useState('');
+ 
+  const [companyName,setCompanyName] = useState('');
   const [fname, setfName] = useState("İsim");
   const [lname, setLName] = useState("Soyisim");
   const [title, setTitle] = useState("Unvan");
@@ -149,6 +157,35 @@ function SignaturePage({ logoLink, weburl, companyName }) {
   // img'ın yönleceği path (oluşan docid'den alınır)
   const [showDescrp, setShowDescrp] = useState(false);
   const [imgpath, setImgPath] = useState("");
+  const location = useLocation();
+  const [pageLoaded, setPageLoaded]= useState(false);
+  useEffect(async() => {
+    const ref = doc(db,"links", location.pathname.replace('/generator/',''));
+  const docSnap = await getDoc(ref);
+  if (docSnap.exists()) {
+      let data = docSnap.data();
+      setCompanyName(data.sirketAdi);
+      setWeburl(data.webUrl);
+      setLogoLink(data.logoLink);
+      setLinkListData((state) => ({
+        ...state,
+        web: data.webUrl,
+      }));
+      setPageLoaded(true);
+  }
+   else {
+    console.log("No such document!");
+    setLoading(false);
+  }
+ 
+  
+    return () => {
+     
+    }
+  }, [])
+  
+
+
   let imgpath2;
   function descrpManager() {
     if (mailIndex == 1) return <SignDetails_hubspot />;
@@ -211,6 +248,7 @@ function SignaturePage({ logoLink, weburl, companyName }) {
     );
   }
   const scrollref = useRef(null);
+  if(pageLoaded){
   return (
     <div class="h-screen w-screen pt-10 pb-20 flex z-10 relative justify-center px-64 bg-janus-site-blue">
       <div class="w-100% h-100% flex flex-col z-10">
@@ -703,7 +741,7 @@ function SignaturePage({ logoLink, weburl, companyName }) {
                       </div>
                     );
                   }
-                  if (index == links.WEB) {
+                  if (index == links.WEB && linkListData.web !="") {
                     return (
                       <div className="relative items-center  mt-20px flex">
                         <input
@@ -847,6 +885,7 @@ function SignaturePage({ logoLink, weburl, companyName }) {
                   >
                     <Menu.Items className="origin-top-left absolute z-10 right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <div className="py-1">
+                       {linkListData.web!="" ?
                         <Menu.Item>
                           {({ active }) => (
                             <button
@@ -867,7 +906,8 @@ function SignaturePage({ logoLink, weburl, companyName }) {
                               Web Sitesi
                             </button>
                           )}
-                        </Menu.Item>
+                        
+                        </Menu.Item>: null }
                         <Menu.Item>
                           {({ active }) => (
                             <button
@@ -1295,7 +1335,7 @@ function SignaturePage({ logoLink, weburl, companyName }) {
                        let coordsYPhone;
                        if(linkList.includes(links.WEB))
                        {
-                         coordsYPhone = 157; 
+                         coordsYPhone = 147; 
                        }   
                        else{
                          coordsYPhone = 118;
@@ -1566,7 +1606,11 @@ function SignaturePage({ logoLink, weburl, companyName }) {
         </tbody>
       </table>
     </div>
-  );
+  );}
+  else
+  {
+    return(<div className="w-screen h-screen bg-janus-site-blue"></div>);
+  }
 }
 
 export default SignaturePage;

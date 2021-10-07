@@ -46,7 +46,7 @@ function App() {
   const [cardURLS, setCardURLS] = useState([]);
   const [url, setUrls] = useState([]);
   const [images, setImages] = useState([{}]);
-  useEffect(async () => {
+  /*useEffect(async () => {
     const querySnapshot = await getDocs(await collection(db, "links"));
     querySnapshot.forEach((doc) => {
       dataArr.push(doc.data().images);
@@ -126,7 +126,7 @@ function App() {
       );
     });
   }
-
+*/
   function first() {
   
     if (!isLoggedIn.isLoggedIn || !user.emailVerified)
@@ -164,7 +164,20 @@ function App() {
           <Route exact path="/">
             <Redirect to="/auth" />
           </Route>
-          {handleRoute(images)}
+         
+          <Route
+          path={"/generator/:id"}
+          render={(props) => {
+            return (
+              <SignaturePage
+               
+                
+                //webURL={}
+                //companyName={}
+              />
+            );
+          }}
+        ></Route>
          {//handleRouteCards()}
 }
              <Route
