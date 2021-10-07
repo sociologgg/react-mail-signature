@@ -19,6 +19,7 @@ import {
 } from "firebase/auth";
 import {} from "../../firebase/firebase";
 import { useDispatch } from "react-redux";
+import BeatLoader from "react-spinners/BeatLoader";
 
 function SignUp() {
   const db = getFirestore();
@@ -29,6 +30,7 @@ function SignUp() {
   const [passwordShown, setPasswordShown] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const togglePasswordVisiblity = () => {
@@ -44,6 +46,7 @@ function SignUp() {
       return createUserWithEmailAndPassword(auth, email, password)
         .then(async (userCredential) => {
           // Signed in
+          setLoading(true);
           const user = userCredential.user;
           console.log(user);
 
@@ -60,13 +63,14 @@ function SignUp() {
             .catch((e) => {
               console.log(e.errorCode);
             });
-
+          setLoading(false);
           dispatch({
             type: "USER_LOGIN_REQUESTED",
             payload: { email, password },
           });
-          await sendEmailVerification(auth.currentUser
-         //   , {     url: "http://localhost:3000",}
+          await sendEmailVerification(
+            auth.currentUser
+            //   , {     url: "http://localhost:3000",}
           );
         })
         .catch(async (error) => {
@@ -163,7 +167,16 @@ function SignUp() {
         disabled={name == "" || surname == "" || email == "" || password == ""}
         class="h-10 rounded-lg bg-janus-site-blue hover:bg-janus-blue-hover  mt-7 text-base text-white font-roboto disabled:opacity-50"
       >
-        Kaydol
+        {loading ? (
+          <BeatLoader
+            color={"#ffffff"}
+            loading={true}
+            size={10}
+            speedMultiplier={1}
+          />
+        ) : (
+          "Kaydol"
+        )}
       </button>
       <div class="mt-4 flex flex-row px-4 ">
         <p class="text-base text-input-gray font-roboto">Zaten üye misin?</p>

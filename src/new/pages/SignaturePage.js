@@ -58,7 +58,6 @@ import {
   getDocs,
 } from "firebase/firestore";
 
-
 var vCardsJS = require("vcards-js");
 
 function classNames(...classes) {
@@ -233,7 +232,7 @@ function SignaturePage({ logoLink, weburl, companyName }) {
                     src={logoLink}
                     className="w-72px h-auto ml-30px"
                     crossOrigin="anonymous"
-                 />
+                  />
                 </th>
                 <th className=" w-200px pr-30px">
                   <tr>
@@ -247,21 +246,20 @@ function SignaturePage({ logoLink, weburl, companyName }) {
                   <tr className="font-roboto font-light text-10px text-left    text-mail-gray">
                     <p className="pt-8px">{companyName}</p>
                   </tr>
-                  
-               
-                 <tr className="h-24px  ">
+
+                  <tr className="h-24px  ">
                     <td className="">
                       <tr>
                         <td className="w-24px ">
-                         
-                            <img
+                          <img
                             id="mailicon"
-                              src={mailImage}
-                              className="w-14px mt-10px h-14px"
-                            />
-                         
+                            src={mailImage}
+                            className="w-14px mt-10px h-14px"
+                          />
                         </td>
-                        <td className="  text-10px font-roboto pt-10px text-mail-gray">{mail}</td>
+                        <td className="  text-10px font-roboto pt-10px text-mail-gray">
+                          {mail}
+                        </td>
                       </tr>
                     </td>
                   </tr>
@@ -276,8 +274,9 @@ function SignaturePage({ logoLink, weburl, companyName }) {
                               className="w-14px mt-10px h-14px"
                             />
                           </td>
-                          <td className="  text-10px font-roboto pt-10px text-mail-gray">{phone}</td>
-                          
+                          <td className="  text-10px font-roboto pt-10px text-mail-gray">
+                            {phone}
+                          </td>
                         </tr>
                       </td>
                     </tr>
@@ -290,7 +289,13 @@ function SignaturePage({ logoLink, weburl, companyName }) {
                       <td className="">
                         <tr>
                           <td className="w-24px">
-                            <a href={ weburl.includes('https://')? weburl: `https://${weburl}`}>
+                            <a
+                              href={
+                                weburl.includes("https://")
+                                  ? weburl
+                                  : `https://${weburl}`
+                              }
+                            >
                               <img
                                 src={globe}
                                 id="globeicon"
@@ -298,7 +303,9 @@ function SignaturePage({ logoLink, weburl, companyName }) {
                               />
                             </a>
                           </td>
-                          <td className=" pt-10px   text-10px font-robot  text-mail-gray">{weburl}</td>
+                          <td className=" pt-10px   text-10px font-robot  text-mail-gray">
+                            {weburl}
+                          </td>
                         </tr>
                       </td>
                     </tr>
@@ -313,7 +320,7 @@ function SignaturePage({ logoLink, weburl, companyName }) {
                             return (
                               <td className=" w-24px align-bottom">
                                 <img
-                                id="linkedinicon"
+                                  id="linkedinicon"
                                   src={linkedinbw}
                                   className="w-14px h-14px"
                                 />
@@ -324,7 +331,7 @@ function SignaturePage({ logoLink, weburl, companyName }) {
                               <td className="w-24px align-bottom">
                                 <a>
                                   <img
-                                  id="instagramicon"
+                                    id="instagramicon"
                                     src={instagrambw}
                                     className="w-14px h-14px"
                                   />
@@ -335,7 +342,11 @@ function SignaturePage({ logoLink, weburl, companyName }) {
                             return (
                               <td className="w-24px">
                                 <a>
-                                  <img id="facebookicon" src={facebooksqr} className="h-14px" />
+                                  <img
+                                    id="facebookicon"
+                                    src={facebooksqr}
+                                    className="h-14px"
+                                  />
                                 </a>
                               </td>
                             );
@@ -356,7 +367,7 @@ function SignaturePage({ logoLink, weburl, companyName }) {
                               <td className="w-24px">
                                 <a>
                                   <img
-                                  id="youtubeicon"
+                                    id="youtubeicon"
                                     src={youtubebw}
                                     className="w-14px h-14px"
                                   />
@@ -379,10 +390,10 @@ function SignaturePage({ logoLink, weburl, companyName }) {
               <div className="flex mt-20px flex-row items-center justify-between">
                 <p className="font-roboto text-line-gray text-16px">Ad*</p>
                 <input
-                placeholder="Lütfen adınızı girin"
+                  placeholder="Lütfen adınızı girin"
                   onChange={(e) => {
-                  setfName(e.target.value);
-             /*         
+                    setfName(e.target.value);
+                    /*         
      const img = document.getElementById('logoLink');
      const mailicon = document.getElementById('mailicon');
      const globeicon = document.getElementById('globeicon');
@@ -584,8 +595,16 @@ function SignaturePage({ logoLink, weburl, companyName }) {
                               instagram: e.target.value,
                             }));
                           }}
-                          className={`w-312px h-40px shadow-sign-input ${clicked && linkList.includes(links.INSTAGRAM)? (!linkListData.instagram.includes("https://www.instagram.com/") ?'border-error-red border-0.5': 'focus:border-janus-focus-blue focus:border-0.5')   :'focus:border-janus-focus-blue focus:border-0.5'} focus:border-0.5 focus:outline-none pl-40px`}
-                          placeholder="Instagram Profil URL'i"
+                          className={`w-312px h-40px shadow-sign-input ${
+                            clicked && linkList.includes(links.INSTAGRAM)
+                              ? !linkListData.instagram.includes(
+                                  "https://www.instagram.com/"
+                                )
+                                ? "border-error-red border-0.5"
+                                : "focus:border-janus-focus-blue focus:border-0.5"
+                              : "focus:border-janus-focus-blue focus:border-0.5"
+                          } focus:border-0.5 focus:outline-none pl-40px`}
+                          placeholder="https://www.instagram.com/alimornk"
                         />
                         <img
                           className="absolute left-4px top-4px z-10 w-30px h-30px"
@@ -631,7 +650,7 @@ function SignaturePage({ logoLink, weburl, companyName }) {
                                 : "focus:border-janus-focus-blue focus:border-0.5"
                               : "focus:border-janus-focus-blue focus:border-0.5"
                           } focus:outline-none pl-40px`}
-                          placeholder="Facebook Profil URL'i"
+                          placeholder="https://www.facebook.com/"
                         />
                         <img
                           className="absolute left-4px top-4px z-10 w-30px h-30px"
@@ -677,7 +696,7 @@ function SignaturePage({ logoLink, weburl, companyName }) {
                                 : "focus:border-janus-focus-blue focus:border-0.5"
                               : "focus:border-janus-focus-blue focus:border-0.5"
                           } focus:outline-none pl-40px`}
-                          placeholder="Twitter Profil URL'i"
+                          placeholder="https://twitter.com/kullaniciadi"
                         />
                         <img
                           className="absolute left-4px top-4px z-10 w-30px h-30px"
@@ -752,7 +771,7 @@ function SignaturePage({ logoLink, weburl, companyName }) {
                                 : "focus:border-janus-focus-blue focus:border-0.5"
                               : "focus:border-janus-focus-blue focus:border-0.5"
                           } focus:outline-none pl-40px`}
-                          placeholder="LinkedIn Profil URL'i"
+                          placeholder="https://www.linkedin.com/"
                         />
                         <img
                           className="absolute left-8px top-8px z-10 w-24px h-24px"
@@ -782,7 +801,7 @@ function SignaturePage({ logoLink, weburl, companyName }) {
                     return (
                       <div className="relative mt-20px items-center flex">
                         <input
-                          placeholder="Youtube Profil URL'i"
+                          placeholder="https://www.youtube.com/channel/"
                           onChange={(e) => {
                             setLinkListData((state) => ({
                               ...state,
@@ -1051,7 +1070,7 @@ function SignaturePage({ logoLink, weburl, companyName }) {
                       imgpath2 = docRef.id;
                       await console.log(imgpath);
 
-                    /*
+                      /*
                     html2canvas(document.getElementById("signature"), {
                       backgroundColor: "#ebebeb",
                       display: "block",
@@ -1215,180 +1234,202 @@ function SignaturePage({ logoLink, weburl, companyName }) {
                       });
                     });
                   */
-                    
-                  
 
-
-                    const imgreal = document.getElementById('logoLink');
-                    imgreal.crossOrigin = "anonymous";
-                    const mailicon = document.getElementById('mailicon');
-                    const globeicon = document.getElementById('globeicon');
-                    const phoneicon = document.getElementById('phoneicon');
-                    const canvas1 = document.getElementById("mailsignaturecanvas");
-                    const linkedinicon = document.getElementById('linkedinicon');
-                    const facebookicon = document.getElementById('facebookicon');
-                    const youtubeicon = document.getElementById('youtubeicon');
-                    const twittericon = document.getElementById('twittericon');
-                    const instagramicon = document.getElementById('instagramicon');
-                     const context = canvas1.getContext('2d');
-                        
-                     let rownum = 0;
-                     if(linkList.includes(links.WEB))
-                     {
-                       rownum +=1;
-                     }
-                     if(phone!=""){
-                     rownum+=1;
-                     }
-                     if(linkList.length >1)
-                     {
-                       rownum +=1;;
-                     }
-                     else if(linkList.length ==1)
-                     {
-                       if(!linkList.includes(links.WEB))
-                       {
-                         rownum+=1;
-                       }
-                     }
-               
-                     if(rownum==0)
-                       //canvas1.height= 172;
-                       canvas1.height= 180;
-                     else if(rownum ==1)
-                       //canvas1.height= 200;
-                       canvas1.height= 208;
-                     else if(rownum ==2)
-                       //canvas1.height = 220;
-                       canvas1.height = 228;
-                     else if(rownum ==3)
-                     //  canvas1.height = 232;
-                       canvas1.height = 240;
-               
-               
-                     context.clearRect(0,0,canvas1.width,canvas1.height);
-               
-                       const coordY = canvas1.height/2 - (imgreal.height/2);
-                                   
-                    
-                      
-                         context.font = 'normal normal 700 14px roboto';
-                         context.fillStyle = '#656565';
-                  
-                            console.log('error check1');
-                         context.drawImage(imgreal, 30,coordY, 72, imgreal.height);
-                            console.log('error check1');
-                     context.fillText(fname+' ' +lname,132,42);    
-                     context.font = 'normal normal 300 10px roboto';
-                     context.fillText(title,132,58);
-                     context.fillText(companyName,132,72);    
-                     context.drawImage(mailicon,132, 89,14, 14)              
-                     context.font = 'normal normal 400 10px roboto';   
-                     context.fillText(mail,154,99);
-                     if(linkList.includes(links.WEB))
-                     {
-                       context.drawImage(globeicon,132,118 ,14,14);
-                       context.fillText(linkListData.web,154,129);
-                     }
-                     if(phone!="")
-                     {
-                       let coordsYPhone;
-                       if(linkList.includes(links.WEB))
-                       {
-                         coordsYPhone = 157; 
-                       }   
-                       else{
-                         coordsYPhone = 118;
-                       }
-                       context.drawImage(phoneicon,132,coordsYPhone,14,14);
-                       context.fillText(phone,154,coordsYPhone+11);
-                     }
-                     let socialMediaCoordsY;
-                     if(linkList.includes(links.WEB) && phone!="")
-                     {
-                         socialMediaCoordsY = 176;
-                     }
-                     else if(linkList.includes(links.WEB)|| phone!="")
-                     {
-                       socialMediaCoordsY = 147;
-                     }
-                     else{
-                       socialMediaCoordsY = 117;
-                     }
-                     let marginL = 132;
-                     {linkList.map((index, i) => {
-                       if (index == links.LINKEDIN)
-                         {
-                           context.drawImage(linkedinicon,marginL,socialMediaCoordsY,14,14);
-                           marginL +=28;
-                         }
-                       if (index == links.INSTAGRAM)
-                         { context.drawImage(instagramicon,marginL,socialMediaCoordsY,14,14);
-                           marginL +=28;
-                         }
-                           if (index == links.FACEBOOK)
-                         {
-                           context.drawImage(facebookicon,marginL,socialMediaCoordsY,14,14);
-                           marginL +=28;
-                         }
-                       if (index == links.TWITTER)
-                         {
-                           context.drawImage(twittericon,marginL,socialMediaCoordsY,14,14);
-                           marginL +=28;
-                         }
-                       if (index == links.YOUTUBE)
-                       {
-                         context.drawImage(youtubeicon,marginL,socialMediaCoordsY,14,14);
-                           marginL +=28;
-                       }
-                     })}
-                       context.font = "normal normal  400 12px roboto";
-                       context.fillStyle= "#167FFC";
-                       context.fillText('Created by JANUS', canvas1.width-130, canvas1.height-26);
-                     
-                       context.shadowColor = '#7d7d7d';
-                       context.shadowBlur = 4;
-                       context.shadowOffsetX = 4;
-                       context.shadowOffsetY = 4;
-                       
-                       context.shadowBlur = 15;
-                        context.strokeStyle= "#cccccc"
-                       context.strokeRect(0, 0, canvas1.width, canvas1.height);
-
-                       var img = document.getElementById("janusmail2");
-                      // img.crossOrigin = "anonymous";
-                      
-                       const ahref = document.getElementById("idforpath");
-                       ahref.href = `https://hidden-castle-63973.herokuapp.com/`+imgpath2;
-                       //var a = document.createElement("");
-                       img.src = canvas1.toDataURL("image/png");
-   
-
-
-
-
-                    let r = (Math.random() + 1).toString(36).substring(2);
-
-                    const storageRef2 = ref(storage, "alim/" + r);
-                    uploadString(
-                      storageRef2,
-                      canvas1.toDataURL(),
-                      "data_url"
-                    ).then((snapshot) => {
-                      console.log("Uploaded a data_url string!");
-
-                      getDownloadURL(snapshot.ref).then(
-                        async (downloadURL) => {
-                          img.src = downloadURL;
-
-                          await setShowDescrp(true);
-                          setLoading(false);
-                          setDisKaydet(true);
-                        }
+                      const imgreal = document.getElementById("logoLink");
+                      imgreal.crossOrigin = "anonymous";
+                      const mailicon = document.getElementById("mailicon");
+                      const globeicon = document.getElementById("globeicon");
+                      const phoneicon = document.getElementById("phoneicon");
+                      const canvas1 = document.getElementById(
+                        "mailsignaturecanvas"
                       );
-                    });
-                  }
-                    else{
+                      const linkedinicon =
+                        document.getElementById("linkedinicon");
+                      const facebookicon =
+                        document.getElementById("facebookicon");
+                      const youtubeicon =
+                        document.getElementById("youtubeicon");
+                      const twittericon =
+                        document.getElementById("twittericon");
+                      const instagramicon =
+                        document.getElementById("instagramicon");
+                      const context = canvas1.getContext("2d");
+
+                      let rownum = 0;
+                      if (linkList.includes(links.WEB)) {
+                        rownum += 1;
+                      }
+                      if (phone != "") {
+                        rownum += 1;
+                      }
+                      if (linkList.length > 1) {
+                        rownum += 1;
+                      } else if (linkList.length == 1) {
+                        if (!linkList.includes(links.WEB)) {
+                          rownum += 1;
+                        }
+                      }
+
+                      if (rownum == 0)
+                        //canvas1.height= 172;
+                        canvas1.height = 180;
+                      else if (rownum == 1)
+                        //canvas1.height= 200;
+                        canvas1.height = 208;
+                      else if (rownum == 2)
+                        //canvas1.height = 220;
+                        canvas1.height = 228;
+                      else if (rownum == 3)
+                        //  canvas1.height = 232;
+                        canvas1.height = 240;
+
+                      context.clearRect(0, 0, canvas1.width, canvas1.height);
+
+                      const coordY = canvas1.height / 2 - imgreal.height / 2;
+
+                      context.font = "normal normal 700 14px roboto";
+                      context.fillStyle = "#656565";
+
+                      console.log("error check1");
+                      context.drawImage(
+                        imgreal,
+                        30,
+                        coordY,
+                        72,
+                        imgreal.height
+                      );
+                      console.log("error check1");
+                      context.fillText(fname + " " + lname, 132, 42);
+                      context.font = "normal normal 300 10px roboto";
+                      context.fillText(title, 132, 58);
+                      context.fillText(companyName, 132, 72);
+                      context.drawImage(mailicon, 132, 89, 14, 14);
+                      context.font = "normal normal 400 10px roboto";
+                      context.fillText(mail, 154, 99);
+                      if (linkList.includes(links.WEB)) {
+                        context.drawImage(globeicon, 132, 118, 14, 14);
+                        context.fillText(linkListData.web, 154, 129);
+                      }
+                      if (phone != "") {
+                        let coordsYPhone;
+                        if (linkList.includes(links.WEB)) {
+                          coordsYPhone = 157;
+                        } else {
+                          coordsYPhone = 118;
+                        }
+                        context.drawImage(phoneicon, 132, coordsYPhone, 14, 14);
+                        context.fillText(phone, 154, coordsYPhone + 11);
+                      }
+                      let socialMediaCoordsY;
+                      if (linkList.includes(links.WEB) && phone != "") {
+                        socialMediaCoordsY = 176;
+                      } else if (linkList.includes(links.WEB) || phone != "") {
+                        socialMediaCoordsY = 147;
+                      } else {
+                        socialMediaCoordsY = 117;
+                      }
+                      let marginL = 132;
+                      {
+                        linkList.map((index, i) => {
+                          if (index == links.LINKEDIN) {
+                            context.drawImage(
+                              linkedinicon,
+                              marginL,
+                              socialMediaCoordsY,
+                              14,
+                              14
+                            );
+                            marginL += 28;
+                          }
+                          if (index == links.INSTAGRAM) {
+                            context.drawImage(
+                              instagramicon,
+                              marginL,
+                              socialMediaCoordsY,
+                              14,
+                              14
+                            );
+                            marginL += 28;
+                          }
+                          if (index == links.FACEBOOK) {
+                            context.drawImage(
+                              facebookicon,
+                              marginL,
+                              socialMediaCoordsY,
+                              14,
+                              14
+                            );
+                            marginL += 28;
+                          }
+                          if (index == links.TWITTER) {
+                            context.drawImage(
+                              twittericon,
+                              marginL,
+                              socialMediaCoordsY,
+                              14,
+                              14
+                            );
+                            marginL += 28;
+                          }
+                          if (index == links.YOUTUBE) {
+                            context.drawImage(
+                              youtubeicon,
+                              marginL,
+                              socialMediaCoordsY,
+                              14,
+                              14
+                            );
+                            marginL += 28;
+                          }
+                        });
+                      }
+                      context.font = "normal normal  400 12px roboto";
+                      context.fillStyle = "#167FFC";
+                      context.fillText(
+                        "Created by JANUS",
+                        canvas1.width - 130,
+                        canvas1.height - 26
+                      );
+
+                      context.shadowColor = "#7d7d7d";
+                      context.shadowBlur = 4;
+                      context.shadowOffsetX = 4;
+                      context.shadowOffsetY = 4;
+
+                      context.shadowBlur = 15;
+                      context.strokeStyle = "#cccccc";
+                      context.strokeRect(0, 0, canvas1.width, canvas1.height);
+
+                      var img = document.getElementById("janusmail2");
+                      // img.crossOrigin = "anonymous";
+
+                      const ahref = document.getElementById("idforpath");
+                      ahref.href =
+                        `https://hidden-castle-63973.herokuapp.com/` + imgpath2;
+                      //var a = document.createElement("");
+                      img.src = canvas1.toDataURL("image/png");
+
+                      let r = (Math.random() + 1).toString(36).substring(2);
+
+                      const storageRef2 = ref(storage, "alim/" + r);
+                      uploadString(
+                        storageRef2,
+                        canvas1.toDataURL(),
+                        "data_url"
+                      ).then((snapshot) => {
+                        console.log("Uploaded a data_url string!");
+
+                        getDownloadURL(snapshot.ref).then(
+                          async (downloadURL) => {
+                            img.src = downloadURL;
+
+                            await setShowDescrp(true);
+                            setLoading(false);
+                            setDisKaydet(true);
+                          }
+                        );
+                      });
+                    } else {
                       setClicked(true);
                       scrollref.current.scrollToTop();
                     }
@@ -1547,11 +1588,16 @@ function SignaturePage({ logoLink, weburl, companyName }) {
               </button>*/}
             </div>
           </div>
-         
-     
-        <canvas className="hidden  shadow-2xl rounded" height={172} width={332} id="mailsignaturecanvas"> asdsad</canvas>
-     
 
+          <canvas
+            className="hidden  shadow-2xl rounded"
+            height={172}
+            width={332}
+            id="mailsignaturecanvas"
+          >
+            {" "}
+            asdsad
+          </canvas>
         </Scrollbars>
       </div>
       <table id="signature2" className="">
@@ -1559,7 +1605,11 @@ function SignaturePage({ logoLink, weburl, companyName }) {
           <th>
             <tr>
               <a id="idforpath" className="" href={imgpath2}>
-                <img crossOrigin="anonymous" className="shadow-2xl" id="janusmail2" />
+                <img
+                  crossOrigin="anonymous"
+                  className="shadow-2xl"
+                  id="janusmail2"
+                />
               </a>
             </tr>
           </th>

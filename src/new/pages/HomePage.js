@@ -357,6 +357,7 @@ function HomePage() {
                   Organizasyon adı*
                 </p>
                 <input
+                  value={sirketAdi}
                   onChange={(e) => {
                     setSirketAdi(e.target.value);
                   }}
@@ -420,6 +421,7 @@ function HomePage() {
                     onChange={(e) => {
                       setWebUrl(e.target.value);
                     }}
+                    value={webUrl}
                     type="text"
                     class={`outline-none w-290px border-input focus:border-janus-focus-blue font-roboto text-input-gray h-10 rounded border-0.5 shadow-input p-3 ml-12`}
                   />

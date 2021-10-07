@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { setUserProperties } from "@firebase/analytics";
 import userEvent from "@testing-library/user-event";
-import { useSelector } from "react-redux";
+
 function EmailVerification() {
   const isLoggedIn = useSelector((state) => state.auth);
   const [tick, setTick] = useState(false);
@@ -21,33 +21,27 @@ function EmailVerification() {
   // alert("Hello");
   //}, 5000);
 
-  /*useEffect(() => {
+  useEffect(() => {
     setInterval(async function () {
       await auth?.currentUser?.reload();
       // `currentUser` is synchronous since FirebaseAuth rework
       auth.currentUser = auth?.currentUser;
-      console.log(auth?.currentUser?.emailVerified);
-      
-      if(auth?.currentUser?.emailVerified)
-      {
-        console.log('dispatching');
+
+      if (auth?.currentUser?.emailVerified) {
+        console.log("dispatching");
         console.log(auth.currentUser);
-      const user = auth.currentUser;
-        dispatch(
-            {
-              type: "USER_CHANGE_REQUEST",
-              payload:{user}
-            }
-          
-          )
-          localStorage.setItem("user", JSON.stringify(user));
-            window.location.reload();
+        const user = auth.currentUser;
+        dispatch({
+          type: "USER_CHANGE_REQUEST",
+          payload: { user },
+        });
+        localStorage.setItem("user", JSON.stringify(user));
+        window.location.reload();
       }
 
-      
       // true
     }, 10000);
-  }, []); */
+  }, []);
 
   async function handleLogout(e) {
     e.preventDefault();
@@ -91,9 +85,7 @@ function EmailVerification() {
                 onClick={() => {
                   setLoading(true);
 
-                  sendEmailVerification(auth.currentUser, {
-                    url: "http://localhost:3000",
-                  })
+                  sendEmailVerification(auth.currentUser)
                     .then(() => {
                       // Email verification sent!
                       // ...
