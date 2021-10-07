@@ -17,10 +17,7 @@ function EmailVerification() {
   let dispatch = useDispatch();
   const user = useSelector((state) => state.auth).user;
   const auth = getAuth();
-  //setInterval(function () {
-  // alert("Hello");
-  //}, 5000);
-
+  
   useEffect(() => {
     setInterval(async function () {
       await auth?.currentUser?.reload();
