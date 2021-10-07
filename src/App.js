@@ -34,7 +34,7 @@ function App() {
   const auth = getAuth();
 
   // console.log(isLoggedIn.isLoggedIn);
-  const location = useLocation();
+
   // console.log("hello");
   // console.log(location.pathname);
 
@@ -165,8 +165,22 @@ function App() {
             <Redirect to="/auth" />
           </Route>
           {handleRoute(images)}
-          {handleRouteCards()}
+         {//handleRouteCards()}
+}
+             <Route
+             path={"/signatures/:id"}
+             render={(props) => {
+               return (
+                 <NewHiCard
+                
+           
+                 />
+               );
+             }}
+           >
 
+           </Route>
+          
           <Route path="/auth" component={Dashboard}>
             {second()}
           </Route>

@@ -1048,7 +1048,7 @@ function SignaturePage({ logoLink, weburl, companyName }) {
                         }
                       );
                       setImgPath(docRef.id);
-                      imgpath2 = docRef.id;
+                      imgpath2 = `signatures/`+docRef.id;
                       await console.log(imgpath);
 
                     /*
