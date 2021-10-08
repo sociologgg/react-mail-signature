@@ -18,7 +18,7 @@ function socialmediamanager()
   let isyoutubeFirst = isinstaFirst && linklist.instagram == "";
   let istwitterFirst = isyoutubeFirst && linklist.youtube == "";
   let isfacebookfirst = istwitterFirst && linklist.twitter=="";
-
+  //hello
 
 return( <div className="flex items-center mt-20px">
   
