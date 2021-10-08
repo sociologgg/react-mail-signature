@@ -42,9 +42,10 @@ function SignUp() {
     const auth = getAuth();
     if (password.length < 6) {
       setPasswordError("Şifre en az 6 karakter olmalıdır!!");
-    } else {
+    } 
+    else {
       setPasswordError("");
-      return createUserWithEmailAndPassword(auth, email, password)
+      return await createUserWithEmailAndPassword(auth, email, password)
         .then(async (userCredential) => {
           // Signed in
 
@@ -83,8 +84,10 @@ function SignUp() {
           } else if (errorCode == "auth/email-already-in-use") {
             setEmailError("Mail adresi kullanımda!");
           }
+          setLoading(false);
         });
     }
+    setLoading(false);
   }
 
   function passwordLengthCheck() {
@@ -167,7 +170,7 @@ function SignUp() {
       <button
         onClick={handleRegister}
         disabled={name == "" || surname == "" || email == "" || password == ""}
-        class="h-10 rounded-lg bg-janus-site-blue hover:bg-janus-blue-hover  mt-7 text-base text-white font-roboto disabled:opacity-50"
+        class="h-10 rounded-lg bg-janus-site-blue hover:bg-janus-blue-hover  mt-7 text-base text-white font-roboto disabled:opacity-50 focus:outline-none"
       >
         {loading ? (
           <BeatLoader
