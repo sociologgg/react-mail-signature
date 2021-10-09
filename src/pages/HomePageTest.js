@@ -132,10 +132,10 @@ function HomePageTest() {
         <div>
           {" "}
           <p class="text-label font-semibold font-poppins text-sm ">
-            Şirket Adı
+            Organizasyon Adı
           </p>
           <input
-            placeholder="Şirket adınızı giriniz"
+            placeholder="Organizasyon adınızı giriniz"
             class=" pl-2 lg:w-300px  h-10 border-2 border-input rounded outline-none focus:border-login-red "
             onChange={(e) => {
               setCompanyName(e.target.value);

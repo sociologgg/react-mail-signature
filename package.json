@@ -35,7 +35,7 @@
     "react-modal": "^3.14.3",
     "react-redux": "^7.2.5",
     "react-responsive": "^9.0.0-beta.4",
-    "react-responsive-carousel": "^3.2.21",
+    "react-responsive-carousel": "git+https://github.com/YigitMemceroktay/React-Modified-Carousel.git",
     "react-router": "^5.2.1",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",

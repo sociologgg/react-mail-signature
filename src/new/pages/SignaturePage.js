@@ -1320,7 +1320,8 @@ function SignaturePage() {
                           canvas1.height = 240;
 
                         context.clearRect(0, 0, canvas1.width, canvas1.height);
-
+                        context.fillStyle = "white";
+                        context.fillRect(0, 0, canvas1.width, canvas1.height);
                         const coordY = canvas1.height / 2 - imgreal.height / 2;
 
                         context.font = "normal normal 700 14px roboto";
@@ -1644,7 +1645,7 @@ function SignaturePage() {
             </canvas>
           </Scrollbars>
         </div>
-        <table id="signature2" className="hidden">
+        <table id="signature2" className="hidden bg-red-500">
           <tbody>
             <th>
               <tr>

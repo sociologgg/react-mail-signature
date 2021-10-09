@@ -313,10 +313,13 @@ function HomePage() {
             <div class=" mt-36px  px-40px  flex justify-center items-center ">
               <div>
                 <p class=" font-roboto  font-light text-16px text-left">
-                  E-posta imzası tasarımınızı admin olarak şirket adına
+                  E-posta imzası tasarımınızı admin olarak organizasyonunuz adına
                   oluşturdunuz.
                 </p>
 
+                <p class=" font-roboto  font-light text-left text-16px  mt-16px">
+                Şimdiye kadar organizasyonunuz adına temel bilgiler olan logo ve websitesi bilgilerini girdiniz. Bunu bir tek siz değiştirebilirsiniz admin olarak
+                </p>
                 <p class=" font-roboto  font-light text-left text-16px  mt-16px">
                   Ekip arkadaşlarınızın kişisel bilgilerini doldurması için{" "}
                   <button
@@ -326,15 +329,14 @@ function HomePage() {
                           `generator/${urlgo}`
                       )
                     }
-                    className="underline text-janus-dark-blue focus:outline-none"
+                    className=" mx-4px my-4px rounded-xl bg-janus-site-blue text-white focus:outline-none"
                   >
-                    Linki Kopyala
+                    <p class="px-10px py-6px">Linki Kopyala</p>
                   </button>{" "}
                   butonuna tıklayarak paylaşın
-                </p>
+              </p>
                 <p class=" font-roboto  font-light text-left text-16px  mt-16px">
-                  E-posta imzanızı oluşturmak için ‘’E-posta İmzası Üret’’
-                  butonuna tıklayın.
+                Kendi e-posta imzanızı oluşturmak için 'E-posta İmzası Üret' butonuna tıklayın
                 </p>
               </div>
             </div>
@@ -499,10 +501,8 @@ function HomePage() {
       );
     } else {
       return (
-        <Scrollbars className="bg-white shadow-2xl rounded-3xl mt-5">
-          <div class="flex  flex-1 px-20px      pb-20px rounded-3xl overflow-hidden bg-white mt-5 flex-column justify-center  ">
-            <div className="w-100% relative flex justify-center">
-              <div className="absolute flex left-12px top-30px  items-center  text-24px text-janus-dark-blue">
+        <div class="flex shadow-2xl  flex-1   relative z-10    pb-30px rounded-3xl overflow-hidden bg-white mt-5 flex-column justify-center  ">
+           <div className="absolute flex left-12px z-20 top-30px  items-center  text-24px text-janus-dark-blue">
                 <button
                   onClick={() => setPage(0)}
                   className="pl-20px focus:outline-none py-20px flex items-center"
@@ -511,6 +511,10 @@ function HomePage() {
                   <p className="ml-10px">Geri </p>
                 </button>
               </div>
+        <Scrollbars className="bg-white  rounded-3xl  relative">
+          <div >
+            <div className="w-100% relative flex justify-center">
+           
               <div class="mt-5   block">
                 <div>
                   <p class=" text-janus-purple">E Posta İmzası Teması Seçin</p>
@@ -620,6 +624,7 @@ function HomePage() {
         </div>*/}
           </div>
         </Scrollbars>
+        </div>
       );
     }
   }

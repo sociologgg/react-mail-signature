@@ -7,7 +7,7 @@ function SignDetails_hubspot() {
             <div className="flex mt-20px">
                 <p className="font-bold text-16px text-hubspot">01</p>
                 <div className="pl-20px  font-light text-left text-input-gray"><p>İmzanızın HTML' ni kopyalayın: </p> 
-                    <div className="flex mt-12px"><p className="underline"><button      className="focus:outline-none"
+                    <div className="flex mt-12px"><p className="underline"><button      className="focus:outline-none bg-hubspot px-10px rounded-md py-8px text-white"
                     onClick={()=>{
                         var container = document.createElement("DIV");
                         var table = document.getElementById("signature2");
@@ -36,36 +36,7 @@ function SignDetails_hubspot() {
                     }}
                     
                     > İmzanı Kopyala </button></p>
-                    <p className="ml-12px text-hubspot underline"><button
-                       onClick={()=>{
-                        var container = document.createElement("DIV");
-                        var table = document.getElementById("signature2");
-                        container.innerHTML = table.innerHTML;
-                        container.style.position = "fixed";
-                        container.style.pointerEvents = "none";
-                        container.style.opacity = 0;
-                        document.body.appendChild(container);
-                        var selection = document.getSelection();
-                        var range = document.createRange();
-                        
-                        range.selectNode(container);
-                       
-                       
-                        selection.removeAllRanges();
-                        selection.addRange(range);
-                       
-                        console.log('copy success', document.execCommand('copy'));
-                        selection.removeAllRanges();
-                        
-                         //navigator.clipboard.writeText(container);
-                       
-                       document.body.removeChild(container);
-                        //alert("Copied");
-
-                    }}
-                    >
-                        Kaynak Kodunu Kopyala
-                        </button></p>
+              
                     </div>
                 </div>
                 </div>
@@ -127,7 +98,7 @@ function SignDetails_gmail() {
                 <p className="font-bold text-16px text-gmail">01</p>
                 <div className="pl-20px  font-light text-left text-input-gray"><p>İmzanızın HTML' ni kopyalayın: </p> 
                     <div className="flex mt-12px"><p className="underline">
-                    <button      className="focus:outline-none"
+                    <button      className="focus:outline-none bg-gmail px-10px rounded-md py-8px text-white"
                     onClick={()=>{
                         var container = document.createElement("DIV");
                         var table = document.getElementById("signature2");
@@ -158,36 +129,7 @@ function SignDetails_gmail() {
                     > İmzanı Kopyala </button>
 
                     </p>
-                    <p className="ml-12px text-gmail underline"><button
-                       onClick={()=>{
-                        var container = document.createElement("DIV");
-                        var table = document.getElementById("signature2");
-                        container.innerHTML = table.innerHTML;
-                        container.style.position = "fixed";
-                        container.style.pointerEvents = "none";
-                        container.style.opacity = 0;
-                        document.body.appendChild(container);
-                        var selection = document.getSelection();
-                        var range = document.createRange();
-                        
-                        range.selectNode(container);
-                       
-                       
-                        selection.removeAllRanges();
-                        selection.addRange(range);
-                       
-                        console.log('copy success', document.execCommand('copy'));
-                        selection.removeAllRanges();
-                        
-                         //navigator.clipboard.writeText(container);
-                       
-                       document.body.removeChild(container);
-                        //alert("Copied");
-
-                    }}
-                    >
-                        Kaynak Kodunu Kopyala
-                        </button></p>
+               
                     </div>
                 </div>
                 </div>
@@ -252,7 +194,7 @@ function SignDetails_outlook() {
                 <div className="pl-20px  font-light text-left text-input-gray"><p>İmzanızın HTML' ni kopyalayın: </p> 
                     <div className="flex mt-12px"><p className="underline">
                     <button
-                    className="focus:outline-none"
+                    className="focus:outline-none bg-janus-site-blue px-10px rounded-md py-8px text-white"
                     onClick={()=>{
                         var container = document.createElement("DIV");
                         var table = document.getElementById("signature2");
@@ -284,36 +226,7 @@ function SignDetails_outlook() {
 
 
                         </p>
-                    <p className="ml-12px text-janus-dark-blue underline"><button
-                       onClick={()=>{
-                        var container = document.createElement("DIV");
-                        var table = document.getElementById("signature2");
-                        container.innerHTML = table.innerHTML;
-                        container.style.position = "fixed";
-                        container.style.pointerEvents = "none";
-                        container.style.opacity = 0;
-                        document.body.appendChild(container);
-                        var selection = document.getSelection();
-                        var range = document.createRange();
-                        
-                        range.selectNode(container);
-                       
-                       
-                        selection.removeAllRanges();
-                        selection.addRange(range);
-                       
-                        console.log('copy success', document.execCommand('copy'));
-                        selection.removeAllRanges();
-                        
-                         //navigator.clipboard.writeText(container);
-                       
-                       document.body.removeChild(container);
-                        //alert("Copied");
-
-                    }}
-                    >
-                        Kaynak Kodunu Kopyala
-                        </button></p>
+             
                     </div>
                 </div>
                 </div>
@@ -371,6 +284,7 @@ function SignDetails_yahoo() {
                 <div className="pl-20px  font-light text-left text-input-gray"><p>İmzanızın HTML' ni kopyalayın: </p> 
                     <div className="flex mt-12px"><p className="underline"> 
                     <button
+                      className="focus:outline-none bg-yahoo px-10px rounded-md py-8px text-white"
                     onClick={()=>{
                         var container = document.createElement("DIV");
                         var table = document.getElementById("signature2");
@@ -400,36 +314,7 @@ function SignDetails_yahoo() {
                     
                     > İmzanı Kopyala </button>
                     </p>
-                    <p className="ml-12px text-yahoo underline"><button
-                       onClick={()=>{
-                        var container = document.createElement("DIV");
-                        var table = document.getElementById("signature2");
-                        container.innerHTML = table.innerHTML;
-                        container.style.position = "fixed";
-                        container.style.pointerEvents = "none";
-                        container.style.opacity = 0;
-                        document.body.appendChild(container);
-                        var selection = document.getSelection();
-                        var range = document.createRange();
-                        
-                        range.selectNode(container);
-                       
-                       
-                        selection.removeAllRanges();
-                        selection.addRange(range);
-                       
-                        console.log('copy success', document.execCommand('copy'));
-                        selection.removeAllRanges();
-                        
-                         //navigator.clipboard.writeText(container);
-                       
-                       document.body.removeChild(container);
-                        //alert("Copied");
-
-                    }}
-                    >
-                        Kaynak Kodunu Kopyala
-                        </button></p>
+       
                     </div>
                 </div>
                 </div>
@@ -481,8 +366,9 @@ function SignDetails_apple() {
                 <p className="font-bold text-16px text-apple">01</p>
                 <div className="pl-20px  font-light text-left text-input-gray"><p>İmzanızın HTML' ni kopyalayın: </p> 
                     <div className="flex mt-12px"><p className="underline">
-                    <button className="focus:outline-none"
-                    onClick={()=>{
+                    <button 
+                     className="focus:outline-none bg-apple px-10px rounded-md py-8px text-white"
+                   onClick={()=>{
                         var container = document.createElement("DIV");
                         var table = document.getElementById("signature2");
                         container.innerHTML = table.innerHTML;
@@ -511,38 +397,7 @@ function SignDetails_apple() {
                     > İmzanı Kopyala </button>
 
                     </p>
-                    <p className="ml-12px text-janus-dark-blue underline"> 
-                    <button
-                       onClick={()=>{
-                        var container = document.createElement("DIV");
-                        var table = document.getElementById("signature2");
-                        container.innerHTML = table.innerHTML;
-                        container.style.position = "fixed";
-                        container.style.pointerEvents = "none";
-                        container.style.opacity = 0;
-                        document.body.appendChild(container);
-                        var selection = document.getSelection();
-                        var range = document.createRange();
-                        
-                        range.selectNode(container);
-                       
-                       
-                        selection.removeAllRanges();
-                        selection.addRange(range);
-                       
-                        console.log('copy success', document.execCommand('copy'));
-                        selection.removeAllRanges();
-                        
-                         //navigator.clipboard.writeText(container);
-                       
-                       document.body.removeChild(container);
-                        //alert("Copied");
-
-                    }}
-                    >
-                        Kaynak Kodunu Kopyala
-                        </button>
-                    </p>
+              
                     </div>
                 </div>
                 </div>
