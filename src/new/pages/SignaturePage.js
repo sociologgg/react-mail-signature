@@ -1640,9 +1640,8 @@ function SignaturePage() {
 
             <canvas
             
-              height={172}
-              width={332}
-              className="h-344px w-664px hidden"
+              
+              className=" w-332px hidden"
               id="mailsignaturecanvas"
             >
               {" "}
@@ -1657,7 +1656,7 @@ function SignaturePage() {
                 <a id="idforpath" className="" href={imgpath2}>
                   <img
                     crossOrigin="anonymous"
-                    className="shadow-2xl w-664px"
+                    className="shadow-2xl w-500px"
                     id="janusmail2"
                   />
                 </a>
