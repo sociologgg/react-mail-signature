@@ -329,7 +329,7 @@ function HomePage() {
                           `generator/${urlgo}`
                       )
                     }
-                    className=" mx-4px my-4px rounded-xl bg-janus-site-blue text-white focus:outline-none"
+                    className=" mx-4px my-4px rounded-md bg-janus-site-blue text-white focus:outline-none"
                   >
                     <p class="px-10px py-6px">Linki Kopyala</p>
                   </button>{" "}
