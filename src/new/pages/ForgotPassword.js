@@ -13,15 +13,17 @@ function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [tick, setTick] = useState(false);
-  const [error, setError] = useState();
+  const [error, setError] = useState("");
   const auth = getAuth();
 
   function sendEmailforResetPassword() {
     setLoading(true);
+    // değiştirilecek
     sendPasswordResetEmail(auth, email, {
-      url: "http://localhost:3000/auth/SignIn",
+      url: "https://hidden-castle-63973.herokuapp.com/auth/SignIn",
     })
       .then(() => {
+        setError("");
         console.log("taksim");
         setTick(true);
         setLoading(false);
@@ -67,6 +69,8 @@ function ForgotPassword() {
           {error}
         </p>
       );
+    } else if (error == "") {
+      <p>""</p>;
     }
   }
 
@@ -139,9 +143,10 @@ function ForgotPassword() {
             </button>
           </div>
           <div class="flex flex-row  justify-center">
-            <div class="border-line-gray mt-10 border-2 h-0 w-24 mr-5 "></div>
+            <div class=" mt-10 bg-janus-gray h-px w-24 mr-5 " />
+
             <p class="mt-8 font-bold text-sm text-line-gray">YA DA</p>
-            <div class="border-line-gray mt-10 border-2 h-0 w-24 ml-5"></div>
+            <div class=" mt-10 bg-janus-gray  h-px w-24 ml-5" />
           </div>
           <div class="mt-5">
             <Link

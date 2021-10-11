@@ -17,7 +17,7 @@ function EmailVerification() {
   let dispatch = useDispatch();
   const user = useSelector((state) => state.auth).user;
   const auth = getAuth();
-  
+
   useEffect(() => {
     setInterval(async function () {
       await auth?.currentUser?.reload();
@@ -102,7 +102,7 @@ function EmailVerification() {
                   tick
                     ? `bg-success px-20 disabled:opacity-50`
                     : `bg-janus-site-blue hover:bg-janus-blue-hover disabled:opacity-50`
-                } h-10 rounded-lg focus:outline-none mt-20 text-base text-white font-roboto px-16 disabled:opacity-50`}
+                } h-10 rounded-lg focus:outline-none mt-12 text-base text-white font-roboto px-16 disabled:opacity-50`}
               >
                 {loading ? (
                   <BeatLoader
@@ -120,9 +120,9 @@ function EmailVerification() {
               <div>{handleShowError()}</div>
             </div>
             <div class="flex flex-row  justify-center">
-              <div class="border-line-gray mt-10 border-2 h-0 w-24 mr-5 "></div>
+              <div class=" mt-10 bg-janus-gray h-px w-24 mr-5 "></div>
               <p class="mt-8 font-bold text-sm text-line-gray">YA DA</p>
-              <div class="border-line-gray mt-10 border-2 h-0 w-24 ml-5"></div>
+              <div class=" mt-10 bg-janus-gray  h-px w-24 ml-5"></div>
             </div>
             <div class="mt-5">
               <button

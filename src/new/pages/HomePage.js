@@ -147,19 +147,28 @@ function HomePage() {
         setFileSuccess(true);
       }
     } else {
+      setFileSuccess(false);
       setFileError(true);
     }
   }
 
   function handleFileSuccess() {
     if (fileSuccess) {
-      return <p>{fileName}</p>;
+      return (
+        <p className=" absolute  font-roboto text-14px  ml-16px text-janus-gray">
+          {fileName}
+        </p>
+      );
     }
   }
 
   function handleFileError() {
     if (fileError) {
-      return <p>Png veya jpeg formatında dosya seçin</p>;
+      return (
+        <div class="absolute flex ">
+          <p class=" text-info-red">Png veya jpeg formatında dosya seçin</p>
+        </div>
+      );
     }
   }
   function handleWebUrlError() {
@@ -313,12 +322,14 @@ function HomePage() {
             <div class=" mt-36px  px-40px  flex justify-center items-center ">
               <div>
                 <p class=" font-roboto  font-light text-16px text-left">
-                  E-posta imzası tasarımınızı admin olarak organizasyonunuz adına
-                  oluşturdunuz.
+                  E-posta imzası tasarımınızı admin olarak organizasyonunuz
+                  adına oluşturdunuz.
                 </p>
 
                 <p class=" font-roboto  font-light text-left text-16px  mt-16px">
-                Şimdiye kadar organizasyonunuz adına temel bilgiler olan logo ve websitesi bilgilerini girdiniz. Bunu bir tek siz değiştirebilirsiniz admin olarak
+                  Şimdiye kadar organizasyonunuz adına temel bilgiler olan logo
+                  ve websitesi bilgilerini girdiniz. Bunu admin olarak bir tek
+                  siz değiştirebilirsiniz.
                 </p>
                 <p class=" font-roboto  font-light text-left text-16px  mt-16px">
                   Ekip arkadaşlarınızın kişisel bilgilerini doldurması için{" "}
@@ -334,9 +345,10 @@ function HomePage() {
                     <p class="px-10px py-6px">Linki Kopyala</p>
                   </button>{" "}
                   butonuna tıklayarak paylaşın
-              </p>
+                </p>
                 <p class=" font-roboto  font-light text-left text-16px  mt-16px">
-                Kendi e-posta imzanızı oluşturmak için 'E-posta İmzası Üret' butonuna tıklayın
+                  Kendi e-posta imzanızı oluşturmak için 'E-posta İmzası Üret'
+                  butonuna tıklayın
                 </p>
               </div>
             </div>
@@ -502,128 +514,132 @@ function HomePage() {
     } else {
       return (
         <div class="flex shadow-2xl  flex-1   relative z-10    pb-30px rounded-3xl overflow-hidden bg-white mt-5 flex-column justify-center  ">
-           <div className="absolute flex left-12px z-20 top-30px  items-center  text-24px text-janus-dark-blue">
-                <button
-                  onClick={() => setPage(0)}
-                  className="pl-20px focus:outline-none py-20px flex items-center"
-                >
-                  <img src={arrow} className="w-7px    h-14px" />{" "}
-                  <p className="ml-10px">Geri </p>
-                </button>
-              </div>
-        <Scrollbars className="bg-white  rounded-3xl  relative">
-          <div >
-            <div className="w-100% relative flex justify-center">
-           
-              <div class="mt-5   block">
-                <div>
-                  <p class=" text-janus-purple">E Posta İmzası Teması Seçin</p>
-                </div>
-
-                <div class="flex justify-center mt-2">
-                  <Carousel
-                    renderIndicator={() => {}}
-                    width="382px "
-                    onChange={onChange}
-                  >
-                    <div>
-                      <img class="rounded-xl  " src={autosign} />
-                    </div>
-                    <div>
-                      <img class="rounded-xl  " src={lockedTemplate} />
-                    </div>
-                    <div>
-                      <img class="rounded-xl  " src={lockedTemplate} />
-                    </div>
-                  </Carousel>
-                </div>
-                <div class="flex flex-row  ">
+          <div className="  absolute left-12px z-20 top-30px  items-center  text-24px text-janus-dark-blue ">
+            <button
+              onClick={() => setPage(0)}
+              className=" focus:outline-none pl-10px flex items-center"
+            >
+              <img src={arrow} className="w-7px    h-14px" />{" "}
+              <p className="ml-10px">Geri </p>
+            </button>
+          </div>
+          <Scrollbars className="bg-white  rounded-3xl  relative">
+            <div>
+              <div className="w-100% relative flex justify-center">
+                <div class="mt-5   block">
                   <div>
-                    <img
-                      class=" h-auto lg:w-130px md:90px"
-                      src={sirklogo}
-                    ></img>
+                    <p class=" text-janus-purple">
+                      E Posta İmzası Teması Seçin
+                    </p>
                   </div>
-                  <div class=" flex-col pl-34px">
-                    <div class="flex justify-start">
-                      <p class="text-janus-dark-blue  text-18px font-roboto">
-                        Fotoğraf yükle
-                      </p>
-                    </div>
-                    <div class="flex  justify-start lg:mt-18px">
-                      <p class="leading-3 text-14px font-light text-input-gray text-left">
-                        Kare formatta png veya jpeg görsel kullanın
-                      </p>
-                    </div>
 
-                    <div class="  flex items-center lg:mt-18px md:mt-8px justify-start">
-                      <button
-                        class="focus:outline-none disabled:opacity-50 hover:bg-janus-blue-hover  py-10px text-center flex justify-center px-12px rounded-md text-white   bg-janus-site-blue text-center text-16px inline flex items-center  font-roboto "
-                        onClick={() => fileInputRef.current.click()}
-                      >
-                        Dosya seç
-                      </button>
-                      <p className="font-roboto text-14px  ml-16px text-info-red">
-                        {handleFileError()}
-                        {handleFileSuccess()}
-                      </p>
-                      <input
-                        onChange={handleFileUpload}
-                        multiple={false}
-                        ref={fileInputRef}
-                        type="file"
-                        hidden
-                      />
+                  <div class="flex justify-center mt-2">
+                    <Carousel
+                      renderIndicator={() => {}}
+                      width="382px "
+                      onChange={onChange}
+                    >
+                      <div>
+                        <img class="rounded-xl  " src={autosign} />
+                      </div>
+                      <div>
+                        <img class="rounded-xl  " src={lockedTemplate} />
+                      </div>
+                      <div>
+                        <img class="rounded-xl  " src={lockedTemplate} />
+                      </div>
+                    </Carousel>
+                  </div>
+                  <div class="flex flex-row  ">
+                    <div>
+                      <img
+                        class=" h-auto lg:w-130px md:90px"
+                        src={sirklogo}
+                      ></img>
                     </div>
+                    <div class=" flex-col pl-34px">
+                      <div class="flex justify-start">
+                        <p class="text-janus-dark-blue  text-18px font-roboto">
+                          Fotoğraf yükle
+                        </p>
+                      </div>
+                      <div class="flex  justify-start lg:mt-18px">
+                        <p class="leading-3 text-14px font-light text-input-gray text-left">
+                          Kare formatta png veya jpeg görsel kullanın
+                        </p>
+                      </div>
 
-                    <div class="flex flex-1   justify-center lg:mt-20px md:mt-20px">
-                      <button
-                        onClick={async () => {
-                          setLoadingKaydet(true);
-                          const logoUrl = {
-                            logourl: fileLink[0],
-                          };
-                          const docRef = await addDoc(collection(db, "links"), {
-                            sektor: sektor,
-                            sirketAdi: sirketAdi,
-                            sirketTuru: sirketTuru,
-                            webUrl: webUrl,
-                            logoLink: logoLink,
-                          });
-                          setUrlGo(docRef.id);
-                          setLoadingKaydet(false);
-                          setPopUpValue3(1);
-                        }}
-                        disabled={value != 0 || isButtonDisabled == true}
-                        class="disabled:opacity-50  hover:bg-compOrange-hover focus:outline-none bg-compOrange mt-2 rounded-md text-white  px-26px py-10px  text-center inline flex items-center  font-roboto"
-                      >
-                        {loadingKaydet ? (
-                          <BeatLoader
-                            color={"#ffffff"}
-                            loading={true}
-                            size={10}
-                            speedMultiplier={1}
-                          />
-                        ) : (
-                          <p className="text-white text-16px font-roboto">
-                            Kaydet
-                          </p>
-                        )}
-                      </button>
+                      <div class="  flex items-center lg:mt-18px md:mt-8px justify-start">
+                        <button
+                          class="focus:outline-none disabled:opacity-50 hover:bg-janus-blue-hover  py-10px text-center flex justify-center px-12px rounded-md text-white   bg-janus-site-blue text-center text-16px inline flex items-center  font-roboto "
+                          onClick={() => fileInputRef.current.click()}
+                        >
+                          Dosya seç
+                        </button>
+                        <p class="mb-5 ml-3">
+                          {handleFileError()}
+                          {handleFileSuccess()}
+                        </p>
+                        <input
+                          onChange={handleFileUpload}
+                          multiple={false}
+                          ref={fileInputRef}
+                          type="file"
+                          hidden
+                        />
+                      </div>
+
+                      <div class="flex flex-1   justify-center lg:mt-20px md:mt-20px">
+                        <button
+                          onClick={async () => {
+                            setLoadingKaydet(true);
+                            const logoUrl = {
+                              logourl: fileLink[0],
+                            };
+                            const docRef = await addDoc(
+                              collection(db, "links"),
+                              {
+                                sektor: sektor,
+                                sirketAdi: sirketAdi,
+                                sirketTuru: sirketTuru,
+                                webUrl: webUrl,
+                                logoLink: logoLink,
+                              }
+                            );
+                            setUrlGo(docRef.id);
+                            setLoadingKaydet(false);
+                            setPopUpValue3(1);
+                          }}
+                          disabled={value != 0 || isButtonDisabled == true}
+                          class="disabled:opacity-50  hover:bg-compOrange-hover focus:outline-none bg-compOrange mt-2 rounded-md text-white  px-26px py-10px  text-center inline flex items-center  font-roboto"
+                        >
+                          {loadingKaydet ? (
+                            <BeatLoader
+                              color={"#ffffff"}
+                              loading={true}
+                              size={10}
+                              speedMultiplier={1}
+                            />
+                          ) : (
+                            <p className="text-white text-16px font-roboto">
+                              Kaydet
+                            </p>
+                          )}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/*<div class="mt-10">
+              {/*<div class="mt-10">
               <img class="w-64 h-40 " src={autosign}></img>
             </div>
             <div>
               <p class="mt-5 text-janus-purple">E Posta İmzası Teması Seçin</p>
         </div>*/}
-          </div>
-        </Scrollbars>
+            </div>
+          </Scrollbars>
         </div>
       );
     }
