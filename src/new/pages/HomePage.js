@@ -42,6 +42,7 @@ function HomePage() {
   const [sirketAdi, setSirketAdi] = useState("");
   const [sirketTuru, setSirketTuru] = useState("");
   const [webUrl, setWebUrl] = useState("");
+  const [uploadProcess, setUploadProcess] = useState(false);
   const [user, setUser] = useState({ email: "" });
   const [value, setValue] = useState(0);
   const [webFileError, setWebFileError] = useState(false);
@@ -134,13 +135,15 @@ function HomePage() {
   async function handleFileUpload(e) {
     if (
       e.target.files[0].type == "image/jpeg" ||
-      e.target.files[0].type == "image/png"
+      e.target.files[0].type == "image/png" ||
+      e.target.files[0].type == "image/jpg"
     ) {
       const imageLink = await getFirebaseUrl(e.target.files[0]);
       console.log(e.target.files[0]);
       setFileSuccess(true);
       console.log("Başarılı");
       setFileName(e.target.files[0].name);
+
       console.log(fileName);
       if (fileError == true) {
         setFileError(false);
@@ -610,7 +613,11 @@ function HomePage() {
                             setLoadingKaydet(false);
                             setPopUpValue3(1);
                           }}
-                          disabled={value != 0 || isButtonDisabled == true}
+                          disabled={
+                            value != 0 ||
+                            isButtonDisabled == true ||
+                            fileError == true
+                          }
                           class="disabled:opacity-50  hover:bg-compOrange-hover focus:outline-none bg-compOrange mt-2 rounded-md text-white  px-26px py-10px  text-center inline flex items-center  font-roboto"
                         >
                           {loadingKaydet ? (
