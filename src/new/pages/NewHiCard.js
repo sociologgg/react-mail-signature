@@ -28,6 +28,7 @@ const  [linklist, setLinkList] =useState({});
 const [phone, setPhone] = useState('');
 const [isLoading,setLoading] = useState(true);
 const [signatureExist, setSignatureExist] = useState(false);
+const [width, setWidth] = useState(0);
    let location = useLocation();
   console.log(location);
   const db = getFirestore();
@@ -58,7 +59,28 @@ setLoading(false)
    
   }
 }, [])
+function socialmediamanager()
+{
+  
+  let isinstaFirst  = (linklist.linkedin ==""); 
+  let isyoutubeFirst = isinstaFirst && linklist.instagram == "";
+  let istwitterFirst = isyoutubeFirst && linklist.youtube == "";
+  let isfacebookfirst = istwitterFirst && linklist.twitter=="";
+  //hello
 
+return( <div className="flex items-center mt-20px">
+  
+ { linklist.linkedin    !=""? <div> <a href={linklist.linkedin.includes("https://") ? linklist.linkedin :`https://`+linklist.linkedin}><img className="w-24px h-auto" src={linkedinLogo}/> </a> </div>:<></> }
+ { linklist.instagram  !=""? <div>  <a href={linklist.instagram}><img className={`w-24px h-auto ${isinstaFirst ? '': `ml-10px`}`} src={instagramLogo}/> </a> </div>:<></> }
+
+ { linklist.youtube   !=""? <div> <a href={  linklist.youtube}><img className={`w-24px h-auto ${isyoutubeFirst ? '': `ml-10px`}`} src={youtubeLogo}/>  </a></div>:<></> }
+ { linklist.twitter   !=""? <div> <a href={linklist.twitter}><img className={`w-24px h-auto ${istwitterFirst ? '': `ml-10px`}`} src={twitterLogo}/>  </a></div>:<></> }
+ { linklist.facebook   !=""? <div><a href={linklist.facebook}><img className={`w-24px h-auto ${isfacebookfirst ? '': `ml-10px`}`} src={facebookLogo}/> </a> </div>:<></> }
+</div> )
+}
+
+
+/*
   function socialmediamanager() {
     return (
       <div className="flex items-center  mt-20px">
@@ -121,7 +143,7 @@ setLoading(false)
       </div>
     );
   }
-
+*/
   function showCard() {
     return (
       <div className=" shadow-hicard flex min-w-374px py-20 px-10 rounded-lg">
@@ -412,7 +434,7 @@ setLoading(false)
                 e-mail Signature
               </p>{" "}
             </div>
-          {signatureExist ?  <div className=" mt-10 bg-white h-1/4 shadow-hicard flex min-w-374px py-8 px-10 rounded-lg">
+          {signatureExist ?  <div className=" mt-10 bg-white  shadow-hicard flex min-w-374px py-8 px-10 rounded-lg">
               <div className="flex flex-col justify-center  h-100%">
                 <img src={logo} className="w-72px h-72px" />
               </div>
