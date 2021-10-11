@@ -78,49 +78,7 @@ const links = {
   WEB: 256,
 };
 
-async function copyToClipboard(html) {
-  var container = document.createElement("DIV");
-  container.innerHTML = html;
-  container.style.position = "fixed";
-  container.style.pointerEvents = "none";
-  container.style.opacity = 0;
-  document.body.appendChild(container);
-  var selection = document.getSelection();
-  var range = document.createRange();
 
-  range.selectNode(container);
-
-  selection.removeAllRanges();
-  selection.addRange(range);
-
-  console.log("copy success", document.execCommand("copy"));
-  selection.removeAllRanges();
-
-  //navigator.clipboard.writeText(container);
-
-  document.body.removeChild(container);
-  //alert("Copied");
-}
-
-function selectElementContents() {
-  var urlField = document.querySelector("#signature2");
-
-  // create a Range object
-  var range = document.createRange();
-  // set the Node to select the "range"
-  range.selectNode(urlField);
-  // add the Range to the set of window selections
-  window.getSelection().addRange(range);
-
-  // execute 'copy', can't 'cut' in this case
-  let a = document.execCommand("copy");
-  console.log("hello %b", a);
-}
-async function copy(docId) {
-  await console.log(docId);
-  copyToClipboard(docId);
-  selectElementContents();
-}
 
 function SignaturePage() {
   const [weburl, setWeburl] = useState("");
@@ -168,6 +126,10 @@ function SignaturePage() {
         ...state,
         web: data.webUrl,
       }));
+      setLinkList((oldArray) => [
+        ...oldArray,
+        links.WEB,
+      ]);
       setPageLoaded(true);
     } else {
       console.log("No such document!");

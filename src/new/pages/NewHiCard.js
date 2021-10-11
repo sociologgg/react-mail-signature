@@ -60,6 +60,7 @@ function NewHiCard() {
     return () => {};
   }, []);
 
+  /*
   function socialmediamanager() {
     return (
       <div className="flex items-center  mt-20px">
@@ -121,7 +122,26 @@ function NewHiCard() {
         )}
       </div>
     );
-  }
+  }*/
+  function socialmediamanager()
+{
+  
+  let isinstaFirst  = (linklist.linkedin ==""); 
+  let isyoutubeFirst = isinstaFirst && linklist.instagram == "";
+  let istwitterFirst = isyoutubeFirst && linklist.youtube == "";
+  let isfacebookfirst = istwitterFirst && linklist.twitter=="";
+  //hello
+
+return( <div className="flex items-center mt-20px">
+  
+ { linklist.linkedin    !=""? <div> <a href={linklist.linkedin.includes("https://") ? linklist.linkedin :`https://`+linklist.linkedin}><img className="w-24px h-auto" src={linkedinLogo}/> </a> </div>:<></> }
+ { linklist.instagram  !=""? <div>  <a href={linklist.instagram}><img className={`w-24px h-auto ${isinstaFirst ? '': `ml-10px`}`} src={instagramLogo}/> </a> </div>:<></> }
+
+ { linklist.youtube   !=""? <div> <a href={  linklist.youtube}><img className={`w-24px h-auto ${isyoutubeFirst ? '': `ml-10px`}`} src={youtubeLogo}/>  </a></div>:<></> }
+ { linklist.twitter   !=""? <div> <a href={linklist.twitter}><img className={`w-24px h-auto ${istwitterFirst ? '': `ml-10px`}`} src={twitterLogo}/>  </a></div>:<></> }
+ { linklist.facebook   !=""? <div><a href={linklist.facebook}><img className={`w-24px h-auto ${isfacebookfirst ? '': `ml-10px`}`} src={facebookLogo}/> </a> </div>:<></> }
+</div> )
+}
 
   function showCard() {
     return (
