@@ -169,6 +169,13 @@ function SignaturePage() {
         ...state,
         web: data.webUrl,
       }));
+      if(data.webUrl != "")
+    {
+      setLinkList((oldArray) => [
+        ...oldArray,
+        links.WEB,
+      ]);
+    }
       setPageLoaded(true);
     } else {
       console.log("No such document!");
@@ -822,7 +829,7 @@ function SignaturePage() {
                               );
                               setLinkListData((state) => ({
                                 ...state,
-                                youtube: "",
+                                linkedin: "",
                               }));
                             }}
                           >
@@ -860,11 +867,12 @@ function SignaturePage() {
                           <button
                             class="focus:outline-none ml-20px"
                             onClick={() => {
-                              setLinkListData(
+                              setLinkList(
                                 linkList.filter((item) => {
                                   return item != links.YOUTUBE;
                                 })
                               );
+                              
                               setLinkListData((state) => ({
                                 ...state,
                                 youtube: "",
