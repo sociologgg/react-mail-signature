@@ -78,7 +78,49 @@ const links = {
   WEB: 256,
 };
 
+async function copyToClipboard(html) {
+  var container = document.createElement("DIV");
+  container.innerHTML = html;
+  container.style.position = "fixed";
+  container.style.pointerEvents = "none";
+  container.style.opacity = 0;
+  document.body.appendChild(container);
+  var selection = document.getSelection();
+  var range = document.createRange();
 
+  range.selectNode(container);
+
+  selection.removeAllRanges();
+  selection.addRange(range);
+
+  console.log("copy success", document.execCommand("copy"));
+  selection.removeAllRanges();
+
+  //navigator.clipboard.writeText(container);
+
+  document.body.removeChild(container);
+  //alert("Copied");
+}
+
+function selectElementContents() {
+  var urlField = document.querySelector("#signature2");
+
+  // create a Range object
+  var range = document.createRange();
+  // set the Node to select the "range"
+  range.selectNode(urlField);
+  // add the Range to the set of window selections
+  window.getSelection().addRange(range);
+
+  // execute 'copy', can't 'cut' in this case
+  let a = document.execCommand("copy");
+  console.log("hello %b", a);
+}
+async function copy(docId) {
+  await console.log(docId);
+  copyToClipboard(docId);
+  selectElementContents();
+}
 
 function SignaturePage() {
   const [weburl, setWeburl] = useState("");
@@ -87,6 +129,7 @@ function SignaturePage() {
   const db = getFirestore();
   const [cardPath, setCardPath] = useState();
   const [linkList, setLinkList] = useState([]);
+  const [signatureHeight,setSignatureHeight] = useState(172);
   const [linkListData, setLinkListData] = useState({
     youtube: "",
     facebook: "",
@@ -126,7 +169,8 @@ function SignaturePage() {
         ...state,
         web: data.webUrl,
       }));
-     if(data.webUrl !=""){
+      if(data.webUrl != "")
+    {
       setLinkList((oldArray) => [
         ...oldArray,
         links.WEB,
@@ -785,7 +829,7 @@ function SignaturePage() {
                               );
                               setLinkListData((state) => ({
                                 ...state,
-                                youtube: "",
+                                linkedin: "",
                               }));
                             }}
                           >
@@ -828,6 +872,7 @@ function SignaturePage() {
                                   return item != links.YOUTUBE;
                                 })
                               );
+                              
                               setLinkListData((state) => ({
                                 ...state,
                                 youtube: "",
@@ -1234,7 +1279,7 @@ function SignaturePage() {
                       });
                     });
                   */
-
+                      const scale = 4;
                         const imgreal = document.getElementById("logoLink");
                         imgreal.crossOrigin = "anonymous";
                         const mailicon = document.getElementById("mailicon");
@@ -1272,44 +1317,47 @@ function SignaturePage() {
 
                         if (rownum == 0)
                           //canvas1.height= 172;
-                          canvas1.height = 180;
-                        else if (rownum == 1)
-                          //canvas1.height= 200;
-                          canvas1.height = 208;
+                          {
+                          canvas1.height = 180*scale;
+                        setSignatureHeight(180);  
+                        }
+                          else if (rownum == 1)
+                          
+                          canvas1.height = 208*scale;
                         else if (rownum == 2)
                           //canvas1.height = 220;
-                          canvas1.height = 228;
+                          canvas1.height = 228 *scale;
                         else if (rownum == 3)
                           //  canvas1.height = 232;
-                          canvas1.height = 240;
-
+                          canvas1.height = 240 * scale;
+                        canvas1.width = 332*scale;
                         context.clearRect(0, 0, canvas1.width, canvas1.height);
                         context.fillStyle = "white";
                         context.fillRect(0, 0, canvas1.width, canvas1.height);
-                        const coordY = canvas1.height / 2 - imgreal.height / 2;
+                        const coordY = (canvas1.height / 2) - ((imgreal.height*scale) / 2);
 
-                        context.font = "normal normal 700 14px roboto";
+                        context.font = "normal normal 700 64px roboto";
                         context.fillStyle = "#656565";
 
                         console.log("error check1");
                         context.drawImage(
                           imgreal,
-                          30,
+                          30*scale,
                           coordY,
-                          72,
-                          imgreal.height
+                          72*scale,
+                          imgreal.height*scale
                         );
                         console.log("error check1");
-                        context.fillText(fname + " " + lname, 132, 42);
-                        context.font = "normal normal 300 10px roboto";
-                        context.fillText(title, 132, 58);
-                        context.fillText(companyName, 132, 72);
-                        context.drawImage(mailicon, 132, 89, 14, 14);
-                        context.font = "normal normal 400 10px roboto";
-                        context.fillText(mail, 154, 99);
+                        context.fillText(fname + " " + lname, 132*scale, 42*scale);
+                        context.font = "normal normal 300 40px roboto";
+                        context.fillText(title, 132*scale, 58*scale);
+                        context.fillText(companyName, 132*scale, 72*scale);
+                        context.drawImage(mailicon, 132*scale, 89*scale, 14*scale, 14*scale);
+                        context.font = "normal normal 400 40px roboto";
+                        context.fillText(mail, 154*scale, 99*scale);
                         if (linkList.includes(links.WEB)) {
-                          context.drawImage(globeicon, 132, 118, 14, 14);
-                          context.fillText(linkListData.web, 154, 129);
+                          context.drawImage(globeicon, 132*scale, 118*scale, 14*scale, 14*scale);
+                          context.fillText(linkListData.web, 154*scale, 129*scale);
                         }
                         if (phone != "") {
                           let coordsYPhone;
@@ -1320,12 +1368,12 @@ function SignaturePage() {
                           }
                           context.drawImage(
                             phoneicon,
-                            132,
-                            coordsYPhone,
-                            14,
-                            14
+                            132*scale,
+                            coordsYPhone*scale,
+                            14*scale,
+                            14*scale
                           );
-                          context.fillText(phone, 154, coordsYPhone + 11);
+                          context.fillText(phone, 154*scale, (coordsYPhone + 11)*scale);
                         }
                         let socialMediaCoordsY;
                         if (linkList.includes(links.WEB) && phone != "") {
@@ -1344,8 +1392,8 @@ function SignaturePage() {
                             if (index == links.LINKEDIN) {
                               context.drawImage(
                                 linkedinicon,
-                                marginL,
-                                socialMediaCoordsY,
+                                marginL*scale,
+                                socialMediaCoordsY*scale,
                                 14,
                                 14
                               );
@@ -1354,51 +1402,51 @@ function SignaturePage() {
                             if (index == links.INSTAGRAM) {
                               context.drawImage(
                                 instagramicon,
-                                marginL,
-                                socialMediaCoordsY,
-                                14,
-                                14
+                                marginL*scale,
+                                socialMediaCoordsY*scale,
+                                14*scale,
+                                14*scale
                               );
                               marginL += 28;
                             }
                             if (index == links.FACEBOOK) {
                               context.drawImage(
                                 facebookicon,
-                                marginL,
-                                socialMediaCoordsY,
-                                14,
-                                14
+                                marginL*scale,
+                                socialMediaCoordsY*scale,
+                                14*scale,
+                                14*scale
                               );
                               marginL += 28;
                             }
                             if (index == links.TWITTER) {
                               context.drawImage(
                                 twittericon,
-                                marginL,
-                                socialMediaCoordsY,
-                                14,
-                                14
+                                marginL*scale,
+                                socialMediaCoordsY*scale,
+                                14*scale,
+                                14*scale
                               );
                               marginL += 28;
                             }
                             if (index == links.YOUTUBE) {
                               context.drawImage(
                                 youtubeicon,
-                                marginL,
-                                socialMediaCoordsY,
-                                14,
-                                14
+                                marginL*scale,
+                                socialMediaCoordsY*scale,
+                                14*scale,
+                                14 * scale
                               );
                               marginL += 28;
                             }
                           });
                         }
-                        context.font = "normal normal  400 12px roboto";
+                        context.font = "normal normal  400 48px roboto";
                         context.fillStyle = "#167FFC";
                         context.fillText(
                           "Created by JANUS",
-                          canvas1.width - 130,
-                          canvas1.height - 26
+                          canvas1.width - 130*scale,
+                          canvas1.height - 26*scale
                         );
 
                         context.shadowColor = "#7d7d7d";
@@ -1599,9 +1647,9 @@ function SignaturePage() {
             </div>
 
             <canvas
-              className="hidden  shadow-2xl rounded"
-              height={172}
-              width={332}
+            
+              
+              className=" w-332px hidden"
               id="mailsignaturecanvas"
             >
               {" "}
@@ -1616,7 +1664,7 @@ function SignaturePage() {
                 <a id="idforpath" className="" href={imgpath2}>
                   <img
                     crossOrigin="anonymous"
-                    className="shadow-2xl"
+                    className="shadow-2xl w-500px"
                     id="janusmail2"
                   />
                 </a>
