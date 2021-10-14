@@ -52,7 +52,7 @@ function SignIn() {
         if (errorCode == "auth/wrong-password") {
           //  console.log("qwlkenlqwewq");
           setPasswordError(
-            "Şifrenizi Yanlış Girdiniz. " + "Lütfen Tekrar Deneyiniz."
+            "Şifrenizi yanlış girdiniz. " + "Lütfen tekrar deneyiniz."
           );
           setEmailError("");
         } else if (errorCode == "auth/user-not-found") {

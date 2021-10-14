@@ -431,124 +431,7 @@ function SignaturePage() {
                     placeholder="Lütfen adınızı girin"
                     onChange={(e) => {
                       setfName(e.target.value);
-                      /*         
-     const img = document.getElementById('logoLink');
-     const mailicon = document.getElementById('mailicon');
-     const globeicon = document.getElementById('globeicon');
-     const phoneicon = document.getElementById('phoneicon');
-     const canvas = document.getElementById("mailsignaturecanvas");
-     const linkedinicon = document.getElementById('linkedinicon');
-     const facebookicon = document.getElementById('facebookicon');
-     const youtubeicon = document.getElementById('youtubeicon');
-     const twittericon = document.getElementById('twittericon');
-     const instagramicon = document.getElementById('instagramicon');
-      const context = canvas.getContext('2d');
-         
-      let rownum = 0;
-      if(linkList.includes(links.WEB))
-      {
-        rownum +=1;
-      }
-      if(phone!=""){
-      rownum+=1;
-      }
-      if(linkList.length >1)
-      {
-        rownum +=1;;
-      }
-      else if(linkList.length ==1)
-      {
-        if(!linkList.includes(links.WEB))
-        {
-          rownum+=1;
-        }
-      }
-
-      if(rownum==0)
-        canvas.height= 172;
-      else if(rownum ==1)
-        canvas.height= 200;
-      else if(rownum ==2)
-        canvas.height = 220;
-      else if(rownum ==3)
-        canvas.height = 232;
-
-
-      context.clearRect(0,0,canvas.width,canvas.height);
-
-        const coordY = canvas.height/2 - (img.height/2);
-                    
-     
-          context.font = 'normal normal 700 14px roboto';
-          context.fillStyle = '#656565';
-      context.drawImage(img, 30,coordY, 72, 72);
-      context.fillText(fname,132,42);    
-      context.font = 'normal normal 300 10px roboto';
-      context.fillText(title,132,58);    
-      context.drawImage(mailicon,132, 75,14, 14)              
-      context.font = 'normal normal 400 10px roboto';   
-      context.fillText(mail,154,85);
-      if(linkList.includes(links.WEB))
-      {
-        context.drawImage(globeicon,132,104,14,14);
-        context.fillText(linkListData.web,154,115);
-      }
-      if(phone!="")
-      {
-        let coordsYPhone;
-        if(linkList.includes(links.WEB))
-        {
-          coordsYPhone = 133; 
-        }   
-        else{
-          coordsYPhone = 104;
-        }
-        context.drawImage(phoneicon,132,coordsYPhone,14,14);
-        context.fillText(phone,154,coordsYPhone+11);
-      }
-      let socialMediaCoordsY;
-      if(linkList.includes(links.WEB) && phone!="")
-      {
-          socialMediaCoordsY = 162;
-      }
-      else if(linkList.includes(links.WEB)|| phone!="")
-      {
-        socialMediaCoordsY = 133;
-      }
-      else{
-        socialMediaCoordsY = 103;
-      }
-      let marginL = 132;
-      {linkList.map((index, i) => {
-        if (index == links.LINKEDIN)
-          {
-            context.drawImage(linkedinicon,marginL,socialMediaCoordsY,14,14);
-            marginL +=28;
-          }
-        if (index == links.INSTAGRAM)
-          { context.drawImage(instagramicon,marginL,socialMediaCoordsY,14,14);
-            marginL +=28;
-          }
-            if (index == links.FACEBOOK)
-          {
-            context.drawImage(facebookicon,marginL,socialMediaCoordsY,14,14);
-            marginL +=28;
-          }
-        if (index == links.TWITTER)
-          {
-            context.drawImage(twittericon,marginL,socialMediaCoordsY,14,14);
-            marginL +=28;
-          }
-        if (index == links.YOUTUBE)
-        {
-          context.drawImage(youtubeicon,marginL,socialMediaCoordsY,14,14);
-            marginL +=28;
-        }
-      })}
-        context.font = "normal normal  400 12px roboto";
-        context.fillStyle= "#167FFC";
-        context.fillText('Created by JANUS', canvas.width-130, canvas.height-26);
-        */
+                 
                     }}
                     className={` w-310px px-4 h-40px shadow-sign-input rounded-md focus:outline-none ml-20 ${
                       clicked
@@ -629,7 +512,10 @@ function SignaturePage() {
                   {linkList.map((index, i) => {
                     if (index == links.INSTAGRAM) {
                       return (
-                        <div className="relative mt-20px flex items-center ">
+                      <div className="mt-20px">
+                         {  clicked && !linkListData.instagram.includes(
+                                    "https://www.instagram.com/") ? <p className="text-14px  text-error-red">Lütfen Geçerli Bir URL giriniz</p> :null}
+                      <div className="relative mt-4px  flex items-center ">
                           <input
                             onChange={(e) => {
                               setLinkListData((state) => ({
@@ -671,11 +557,17 @@ function SignaturePage() {
                             <img src={trash} className="w-24px h-24px" />{" "}
                           </button>
                         </div>
+                     
+                                              </div>
                       );
                     }
                     if (index == links.FACEBOOK) {
                       return (
-                        <div className="relative  mt-20px  flex items-center">
+                       <div className="mt-20px">
+                            {  clicked && !linkListData.facebook.includes(
+                                    "https://www.facebook.com/"
+                                  ) ? <p className="text-14px  text-error-red">Lütfen Geçerli Bir URL giriniz</p> :null}
+                       <div className="relative  mt-4px  flex items-center">
                           <input
                             onChange={(e) => {
                               setLinkListData((state) => ({
@@ -716,12 +608,17 @@ function SignaturePage() {
                             <img src={trash} className="w-24px h-24px" />{" "}
                           </button>
                         </div>
+                        </div>
                       );
                     }
 
                     if (index == links.TWITTER) {
                       return (
-                        <div className="relative  mt-20px flex items-center">
+                        <div className="mt-20px">
+                            {  clicked && !linkListData.twitter.includes(
+                                    "https://twitter.com/"
+                                  ) ? <p className="text-14px  text-error-red">Lütfen Geçerli Bir URL giriniz</p> :null}
+                        <div className="relative  mt-4px flex items-center">
                           <input
                             onChange={(e) => {
                               setLinkListData((state) => ({
@@ -762,6 +659,7 @@ function SignaturePage() {
                             <img src={trash} className="w-24px h-24px" />{" "}
                           </button>
                         </div>
+                        </div>
                       );
                     }
                     if (index == links.WEB && linkListData.web != "") {
@@ -796,7 +694,11 @@ function SignaturePage() {
                     }
                     if (index == links.LINKEDIN) {
                       return (
-                        <div className="relative  mt-20px items-center flex">
+                        <div className="mt-20px">
+                             {  clicked && !linkListData.linkedin.includes(
+                                    "https://www.linkedin.com/"
+                                  ) ? <p className="text-14px  text-error-red">Lütfen Geçerli Bir URL giriniz</p> :null}
+                        <div className="relative  mt-4px items-center flex">
                           <input
                             onChange={(e) => {
                               setLinkListData((state) => ({
@@ -836,12 +738,16 @@ function SignaturePage() {
                             {" "}
                             <img src={trash} className="w-24px h-24px" />{" "}
                           </button>
-                        </div>
+                        </div></div>
                       );
                     }
                     if (index == links.YOUTUBE) {
                       return (
-                        <div className="relative mt-20px items-center flex">
+                        <div className="mt-20px">
+                                       {  clicked && !linkListData.youtube.includes(
+                                    "https://www.youtube.com/channel/"
+                                  )? <p className="text-14px  text-error-red">Lütfen Geçerli Bir URL giriniz</p> :null}
+                        <div className="relative mt-4px items-center flex">
                           <input
                             placeholder="Youtube Profil URL'i"
                             onChange={(e) => {
@@ -883,6 +789,7 @@ function SignaturePage() {
                             <img src={trash} className="w-24px h-24px" />{" "}
                           </button>
                         </div>
+                        </div>
                       );
                     }
                   })}
@@ -907,7 +814,7 @@ function SignaturePage() {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="origin-top-left absolute z-10 right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Items className="origin-top-left absolute z-10 left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <div className="py-1">
                           {linkListData.web != "" ? (
                             <Menu.Item>
@@ -1664,7 +1571,7 @@ function SignaturePage() {
                 <a id="idforpath" className="" href={imgpath2}>
                   <img
                     crossOrigin="anonymous"
-                    className="shadow-2xl w-500px"
+                    className="shadow-2xl w-332px"
                     id="janusmail2"
                   />
                 </a>

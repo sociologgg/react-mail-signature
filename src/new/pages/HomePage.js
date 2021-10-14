@@ -36,7 +36,7 @@ import {
 } from "firebase/firestore";
 function HomePage() {
   const storage = getStorage();
-
+  const scrollRef = useRef(null);
   const db = getFirestore();
 
   const [sirketAdi, setSirketAdi] = useState("");
@@ -123,6 +123,7 @@ function HomePage() {
             fileLink.push(downloadURL);
 
             setLogoLink(fileLink);
+            scrollRef.current.scrollToBottom();
           }
         );
       }
@@ -226,7 +227,7 @@ function HomePage() {
           <div class=" mt-36px  pb-40px ">
             <p class="font-roboto font-light text-16px px-60px">
               Premium planda sınırsız şablona erişebileceksin.
-              <br /> Alternatif şablonlar yakında geliyor
+              <br /> Alternatif şablonlar yakında geliyor!
             </p>
           </div>
         </div>
@@ -526,7 +527,7 @@ function HomePage() {
               <p className="ml-10px">Geri </p>
             </button>
           </div>
-          <Scrollbars className="bg-white  rounded-3xl  relative">
+          <Scrollbars ref={scrollRef} className="bg-white  rounded-3xl  relative">
             <div>
               <div className="w-100% relative flex justify-center">
                 <div class="mt-5   block">
