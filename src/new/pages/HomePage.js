@@ -178,7 +178,7 @@ function HomePage() {
   function handleWebUrlError() {
     if (webFileError) {
       return (
-        <p className="font-roboto text-error-red">
+        <p className="font-roboto text-error-red absolute">
           Lütfen web sitesini belirtildiği gibi doğru formatta yazın!
         </p>
       );
@@ -473,7 +473,7 @@ function HomePage() {
                       hoverInfoVisible ? `absolute` : "hidden"
                     } absolute px-6px bg-janus-gray  py-4px top-minus16px rounded-md text-white text-center right-2 text-10px font-roboto w-auto`}
                   >
-                    Websitenizin anasayfasını (www.ornek.com) ekleyin
+                    Websitenizin anasayfasını (https://www.ornek.com) ekleyin
                   </p>
                 </div>
               </div>
@@ -485,7 +485,7 @@ function HomePage() {
                     if (webUrl == "") {
                       setPage(1);
                     } else {
-                      if (webUrl.includes(`www`)) {
+                      if (webUrl.includes(`http`)) {
                         setWebFileError(false);
                         setPage(1);
                       } else {
@@ -499,7 +499,7 @@ function HomePage() {
                   Devam{" "}
                 </button>
               </div>
-              <div>{handleWebUrlError()}</div>
+              <div class="flex justify-center">{handleWebUrlError()}</div>
             </div>
 
             <div class=" flex-column justify-center h-100% h-full bg-mail-gray">
@@ -527,7 +527,10 @@ function HomePage() {
               <p className="ml-10px">Geri </p>
             </button>
           </div>
-          <Scrollbars ref={scrollRef} className="bg-white  rounded-3xl  relative">
+          <Scrollbars
+            ref={scrollRef}
+            className="bg-white  rounded-3xl  relative"
+          >
             <div>
               <div className="w-100% relative flex justify-center">
                 <div class="mt-5   block">
