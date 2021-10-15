@@ -1,0 +1,616 @@
+[33mcommit 864887b86807921246f86d656002ddf80f69c53f[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Tue Oct 12 00:49:38 2021 +0300
+
+    size change
+
+[33mcommit f5e15020f92f179b00566f5501e0623ad2835175[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Mon Oct 11 18:01:42 2021 +0300
+
+    Crop
+
+[33mcommit f6faea11a202a4328f9da9552bafe3defeebeed6[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Mon Oct 11 18:01:31 2021 +0300
+
+    Crop
+
+[33mcommit de61f2591847f6f2aba438a1edec9d5f60acb2b5[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Sat Oct 9 19:25:33 2021 +0300
+
+    bug fix
+
+[33mcommit 2259a5c77be9feb8c7c5f617a37ef20b17f3af77[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Fri Oct 8 17:45:17 2021 +0300
+
+    Loader error fix signup page
+
+[33mcommit 6c16bad003ab45893862b7909502466be2382d9a[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Fri Oct 8 17:31:30 2021 +0300
+
+    Loader error fix signup page
+
+[33mcommit 057d81d45a35f72f7892fcdc7d3d7195a34971ce[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Thu Oct 7 21:44:25 2021 +0300
+
+    latest fix
+
+[33mcommit 5d7ff758a931d309835517cce954e4e8202b996b[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Thu Oct 7 21:25:20 2021 +0300
+
+    Last fixes
+
+[33mcommit fcdf1b1dea2d76068145e37d1096140a2d5299bf[m
+Merge: 7017654 6185658
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Thu Oct 7 21:13:24 2021 +0300
+
+    alim test
+
+[33mcommit 7017654c49d337d3d475a35279ff70ba51da484a[m
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Thu Oct 7 20:43:02 2021 +0300
+
+    s
+
+[33mcommit 61856587a40e8392202b9bb059671b74d66d2fea[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Thu Oct 7 16:31:51 2021 +0300
+
+    LinkList bug fix
+
+[33mcommit 20a777aec1679c35093f8cb1e53fc1fda705cd17[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Thu Oct 7 15:48:02 2021 +0300
+
+    bug fix
+
+[33mcommit 12b2cceac80e285d0af1b6822398d3436cb823f4[m
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Thu Oct 7 14:20:47 2021 +0300
+
+    last touch 2
+
+[33mcommit 166f0ac44d788d39786de83824e07db3b97482d5[m
+Merge: 527b438 7a42696
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Thu Oct 7 14:20:32 2021 +0300
+
+    last touch
+
+[33mcommit 7a42696f7fcc62307e2c1954b1edff1752070ca8[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Wed Oct 6 20:09:31 2021 +0300
+
+    bug fix
+
+[33mcommit 36a7187f971b4515c35824a9d91d87216dd62464[m
+Merge: 7f0939b 01e1eca
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Wed Oct 6 19:29:53 2021 +0300
+
+    Email verification
+
+[33mcommit 527b4381272ae165e212a185ee10266eaad86c2b[m
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Wed Oct 6 14:35:52 2021 +0300
+
+    some changes in email verification page
+
+[33mcommit 01e1eca2056e8b654b202f358d04b9a24f33ca39[m
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Tue Oct 5 21:41:43 2021 +0300
+
+    new hicard designed
+
+[33mcommit 7f0939b07a6bf119cd07bb3237ecdd0e2fb3ac8b[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Tue Oct 5 21:41:04 2021 +0300
+
+    a
+
+[33mcommit 33abf7ff4619cb76c4433832f748ba20bec1e62a[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Sat Oct 2 21:47:36 2021 +0300
+
+    Added phone
+
+[33mcommit 5d9be4ac90ec1df78d48442c5c91bf6b782f495e[m
+Merge: 8761fd6 bf58c6a
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Sat Oct 2 19:00:39 2021 +0300
+
+    Merged Alims changes
+
+[33mcommit 8761fd63495e519bc98d8a6a2848fe1cfa397f5f[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Sat Oct 2 18:56:44 2021 +0300
+
+    phone added
+
+[33mcommit bf58c6abd180e9df2c6494394d7b6ddb81588ceb[m
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Sat Oct 2 13:27:27 2021 +0300
+
+    some bug fixes
+
+[33mcommit aa99a21eac4fff0fd6930af7c7305e239472ee37[m[33m ([m[1;31mrelease/master[m[33m)[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Thu Sep 30 16:50:59 2021 +0300
+
+    m
+
+[33mcommit fdb5b4f50a8d0a562b97e22546fcc5e04f53440f[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Thu Sep 30 16:26:58 2021 +0300
+
+    m
+
+[33mcommit 94049971b327888018cf8528c62c4389885c27fe[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Thu Sep 30 16:15:45 2021 +0300
+
+    m
+
+[33mcommit e5d197771ae26fe6693af9e952a50ec9f60b58b3[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Thu Sep 30 16:00:01 2021 +0300
+
+    m
+
+[33mcommit f1851c8335efb739dbe30f3858ea494423f4ba1a[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Thu Sep 30 15:04:56 2021 +0300
+
+    ss
+
+[33mcommit 0cde2b784ad492890848c7d4047616be5933dc5d[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Thu Sep 30 14:45:25 2021 +0300
+
+    ss
+
+[33mcommit 702767e90bd1528baab9eec62b0bc8c7da7b663e[m
+Merge: 02a04f4 7331359
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Thu Sep 30 14:31:32 2021 +0300
+
+    changes
+
+[33mcommit 02a04f481261b33839f68c3d6b776ceb18c12ab1[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Thu Sep 30 13:49:56 2021 +0300
+
+    a
+
+[33mcommit aaa36764fcddfc06399d3302bb58f3e9d49aa5c0[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Thu Sep 30 13:37:44 2021 +0300
+
+    a
+
+[33mcommit 11fb861ee7632bb5944971248f4a26ea484dcaad[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Thu Sep 30 13:31:26 2021 +0300
+
+    a
+
+[33mcommit 73313599dfbcec2f66ee1e0e63b79dcaa25c8e25[m
+Merge: 476807d 2ef73d2
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Thu Sep 30 11:04:07 2021 +0300
+
+    last round before the release
+
+[33mcommit 476807da0ee03eab5b4fb9465f169c925aadb809[m
+Merge: c6f8025 8a51a47
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Thu Sep 30 09:27:26 2021 +0300
+
+    Merge branch 'yigit' of https://github.com/sociologgg/react-mail-signature into alim
+
+[33mcommit 2ef73d2505838abc9836293ab97c42028a2b92b6[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Wed Sep 29 11:09:38 2021 +0300
+
+    Loader eklendi
+
+[33mcommit c6f80252cc6db487326536c0110ad94c737bf5a8[m
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Sun Sep 26 11:03:11 2021 +0300
+
+    commit
+
+[33mcommit 8a51a4738db438b0dabef6c756cfdbf9a3d8987a[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Fri Sep 24 15:58:23 2021 +0300
+
+    Signature Page Added
+
+[33mcommit fa41cc163061dc3e4778ccad8097734d718cca25[m
+Merge: 732e0a9 e4845ab
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Thu Sep 23 16:19:21 2021 +0300
+
+    Pulled changes
+
+[33mcommit 732e0a9f1575ace97bb380b0f3aeeb0256384f59[m[33m ([m[1;32mtest[m[33m)[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Thu Sep 23 15:59:51 2021 +0300
+
+    Signature logo bug fix
+
+[33mcommit e4845ab84e4bf5340da7649005ee227cf7d6ba40[m
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Wed Sep 22 23:46:12 2021 +0300
+
+    homepage stilleme ve bug fix
+
+[33mcommit 5b3ad9d43656ebe996b757a93871f2b8c2a8143c[m
+Merge: 6c05aa8 a470c75
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Wed Sep 22 17:21:57 2021 +0300
+
+    signature
+
+[33mcommit 6c05aa841ddeedd7187a44a6eaa01ae907011163[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Wed Sep 22 14:44:16 2021 +0300
+
+    m
+
+[33mcommit a470c7502ed7cad3441ff3ba2d9c2ca507556e5c[m
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Tue Sep 21 22:26:48 2021 +0300
+
+    firebase configurations set up
+
+[33mcommit 522361823050dadc71c7ff1aa3e066beb1039dc9[m
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Mon Sep 20 21:49:41 2021 +0300
+
+    vcf added
+
+[33mcommit ec8aa020cc9081453f3505d7d78973c27cf54912[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Mon Sep 20 14:24:02 2021 +0300
+
+    Info circle addded, many bug fixes, drop down update
+
+[33mcommit 8391a7fa0d09d68a17406002e5843c6f0eda5388[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Mon Sep 20 11:35:02 2021 +0300
+
+    Updated React-Carousel Node-module
+
+[33mcommit 840f79fc02967ef0926e382d42a10a30c99c6ce1[m[33m ([m[1;32myigit[m[33m)[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Mon Sep 20 11:17:59 2021 +0300
+
+    Homepage bug fix
+
+[33mcommit 2a38d3823b641f8eec6c4e7760b3024d05bfd43f[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Sun Sep 19 11:49:12 2021 +0300
+
+    Sunday changes
+
+[33mcommit 38f33214698dc2266840c6039875cce646fcac75[m
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Sat Sep 18 19:01:19 2021 +0300
+
+    son rutus
+
+[33mcommit 91390c1d6069ac61720a9b13d3a3c8b8d3057b36[m
+Merge: 0f50c32 d606c63
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Sat Sep 18 19:01:11 2021 +0300
+
+    son rutus
+
+[33mcommit 0f50c3296505794fabfaf112e2f70978b3a83cf9[m
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Sat Sep 18 18:23:05 2021 +0300
+
+    s
+
+[33mcommit d606c63ff9c02c0a87ae18244eaf72532d45e5ed[m[33m ([m[1;32myigit2[m[33m)[m
+Merge: 4befdbd 6326e66
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Sat Sep 18 17:06:22 2021 +0300
+
+    changes
+
+[33mcommit 4befdbde7e93599dc38a25b4d00c7f15a9c5540c[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Fri Sep 17 23:27:16 2021 +0300
+
+    changes
+
+[33mcommit 6326e6637305822531f4d5a1ef5b41fcf9303486[m
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Fri Sep 17 19:58:45 2021 +0300
+
+    homepage done
+
+[33mcommit a30d41434e6f100b42c276d092c8a4f288db8e77[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Fri Sep 17 18:38:29 2021 +0300
+
+    New page
+
+[33mcommit 2884a197353b7ea39fd0ff788133d24cd75db594[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Thu Sep 16 21:08:59 2021 +0300
+
+    Bug fix
+
+[33mcommit 1fabc1cd3fd50f3313218e93ab935f6f1b8e7de4[m
+Merge: 50b7d57 69c1728
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Thu Sep 16 20:33:04 2021 +0300
+
+    Merge branch 'master' of https://github.com/sociologgg/react-mail-signature into main
+
+[33mcommit 50b7d5709d00f162b9d935416a35a29433991559[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Thu Sep 16 20:32:54 2021 +0300
+
+    Minor changes
+
+[33mcommit 69c172806047b635e9de42f89a6c4c96913eb959[m
+Merge: 6e6551d 22c1d18
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Thu Sep 16 18:31:35 2021 +0300
+
+    try to do dropdown
+
+[33mcommit 6e6551dabc775204a74d78e35f059af7c866f9ba[m
+Merge: cca29b7 e6a5c5d
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Thu Sep 16 15:09:27 2021 +0300
+
+    Merge branch 'yigit' of https://github.com/sociologgg/react-mail-signature
+
+[33mcommit 22c1d18219fbd8ce6402a6e2c7aefdb24df4fb47[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Thu Sep 16 13:12:55 2021 +0300
+
+    Styling changes
+
+[33mcommit b66925bb5fdfe102bf64601d5f04a3eb942a6113[m
+Merge: e6a5c5d cca29b7
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Thu Sep 16 01:08:08 2021 +0300
+
+    Minor changes
+
+[33mcommit cca29b7dd1ee9ebec33bd481dde5b263a8fe0525[m
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Thu Sep 16 00:13:09 2021 +0300
+
+    going
+
+[33mcommit e6a5c5dc2b013aacb1a1ce8b074fd1f877af4d0b[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Wed Sep 15 23:49:27 2021 +0300
+
+    Minor changes
+
+[33mcommit f59bfa31d70395a5f3abc9375680a76b42dde02b[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Wed Sep 15 23:45:02 2021 +0300
+
+    SignIn sayfasini kodladim
+
+[33mcommit 89258cd64830b112150a1cfcf2d805d5761674bb[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Wed Sep 15 23:44:56 2021 +0300
+
+    SignIn sayfasini kodladim
+
+[33mcommit 45c7e085145fe686f8db2e427c9eaa38817af71d[m
+Merge: aa43062 ff99b56
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Wed Sep 15 22:05:03 2021 +0300
+
+    Merge branch 'master' of https://github.com/sociologgg/react-mail-signature into main
+
+[33mcommit ff99b56160b427bb17387f19873508acd553684e[m
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Wed Sep 15 21:47:06 2021 +0300
+
+    new ui started
+
+[33mcommit aa430621b0651fe04e7bfab8756fcca0582da1de[m
+Merge: 031772b 7ae59a1
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Tue Sep 14 21:48:45 2021 +0300
+
+    changes
+
+[33mcommit 031772bc83199f9b2285bcd0d0ca4ed2baea6168[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Tue Sep 14 15:52:06 2021 +0300
+
+    Minor changes
+
+[33mcommit 7ae59a18ab25fa0088f45346ecedcb1068c0b66a[m
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Tue Sep 14 15:45:31 2021 +0300
+
+    storage set up
+
+[33mcommit a454a8ba3b30f89b01ca09fbf3b074d2654c9032[m
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Mon Sep 13 19:04:29 2021 +0300
+
+    name changed 2
+
+[33mcommit 16c9f734a4f75f148f6dc110c7c0a474056b1e94[m
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Mon Sep 13 18:52:27 2021 +0300
+
+    name changed
+
+[33mcommit 9fe7eb28b5c261470b5a452dd9bb2727b43505dc[m
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Mon Sep 13 18:31:47 2021 +0300
+
+    yarn-lock deleted
+
+[33mcommit 792a5ba420ac1675ccbf8a0baa58d429a9afc539[m
+Merge: e5e2332 0a31b28
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Sat Sep 11 22:55:43 2021 +0300
+
+    Merge branch 'yigit' of https://github.com/sociologgg/react-mail-signature
+
+[33mcommit e5e2332de56ceb6957709a935cc48e58d82ed72e[m
+Merge: 0908462 cb0623c
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Sat Sep 11 22:55:32 2021 +0300
+
+    Merge branch 'yigit' of https://github.com/sociologgg/react-mail-signature
+
+[33mcommit 0a31b28c8408cd6e8bc06a5f38079ad60d69e284[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Sat Sep 11 22:54:10 2021 +0300
+
+    Minor change
+
+[33mcommit 0908462ea2866e6e42b115818c2611b9951ea670[m
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Sat Sep 11 22:44:26 2021 +0300
+
+    .
+
+[33mcommit cb0623cce4eef4122ae90deaef8d5af0ee35f51b[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Sat Sep 11 22:33:29 2021 +0300
+
+    Link bugu duzeldı
+
+[33mcommit ea4b35cefe97705c57d3b48ee918b9494e4d5a1d[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Sat Sep 11 14:08:51 2021 +0300
+
+    Minor changes
+
+[33mcommit 9ec9b6d51698f8d48198d65a4c1d451e5e5e9929[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Sat Sep 11 12:53:22 2021 +0300
+
+    Duzenlemeler
+
+[33mcommit d76812f331ee348c6724429c938605fc6f344a65[m
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Sat Sep 11 01:21:39 2021 +0300
+
+    generator set up
+
+[33mcommit c0d6dcaf04ddcff4e7bc9870f6a40fb2c4c3071c[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Fri Sep 10 21:31:23 2021 +0300
+
+    Router Yapisini Duzelttim
+
+[33mcommit 7e60c0de7fdd22a563b92d180b3b48e97436b241[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Fri Sep 10 20:01:10 2021 +0300
+
+    -
+
+[33mcommit 46810827c07b1f211567edce0896de0cff2d7ed0[m
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Fri Sep 10 17:00:47 2021 +0300
+
+    redux set up
+
+[33mcommit 92be95bea8939a5e2c9bbdd425ba3e1370bc8f1c[m
+Merge: 822f14e 01962e7
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Fri Sep 10 14:03:10 2021 +0300
+
+    Merge branch 'yigit' of https://github.com/sociologgg/react-mail-signature
+
+[33mcommit 822f14e61c1767916eb7e3909dec625c74652437[m
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Fri Sep 10 14:02:54 2021 +0300
+
+    .
+
+[33mcommit 01962e7fae77202ac3fe5f3d311d6117b6b737a9[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Thu Sep 9 22:27:01 2021 +0300
+
+    Mail Imzasi Olusturuldu
+
+[33mcommit 986fc5fce505a9eb4f98936c8a6a5c4751248932[m
+Merge: 438ae04 6b2610f
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Tue Sep 7 21:07:30 2021 +0300
+
+    Router Yapisini Kurdum
+
+[33mcommit 438ae04245bc1761af3b01181f2c6034cf143d81[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Tue Sep 7 19:29:04 2021 +0300
+
+    a
+
+[33mcommit 6b2610fb186709b2932cecbe14470d68a5affe3c[m
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Tue Sep 7 18:44:25 2021 +0300
+
+    panel set up
+
+[33mcommit c076f6323c34655f783a2066fcae6c2b99153be2[m
+Merge: 72fed86 769c941
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Mon Sep 6 21:32:13 2021 +0300
+
+    firebase set up
+
+[33mcommit 72fed8674a04c8b2c9d96497caa15a2a08ddd35d[m
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Mon Sep 6 19:31:19 2021 +0300
+
+    s
+
+[33mcommit 769c941c46260fb52ef33944f31fecffba29b448[m
+Author: yigit <yigitmemcer@gmail.com>
+Date:   Sun Sep 5 14:55:49 2021 +0300
+
+    SignUp Sayfasi Ekledim
+
+[33mcommit edb81e52cdb030333ebd333677f4404d4aa3caa0[m
+Merge: 889d3fd 255debd
+Author: Yigit <yigitmemcer@gmail.com>
+Date:   Fri Sep 3 07:32:39 2021 -0700
+
+    Login Page Stylingi
+
+[33mcommit 255debd794fc95d8beae2b37b6dbef6e3ca1a3cf[m
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Fri Sep 3 15:34:06 2021 +0300
+
+    first commit
+
+[33mcommit 889d3fd3670906f62ec0a4ff17c3e6429d57ccb1[m
+Author: Alim Örnek <75851157+sociologgg@users.noreply.github.com>
+Date:   Fri Sep 3 15:30:43 2021 +0300
+
+    Initial commit
+
+[33mcommit 25a5ceea395404fed21ae7c251ec19825160d10d[m
+Author: sociologgg <75851157+sociologgg@users.noreply.github.com>
+Date:   Fri Sep 3 13:03:05 2021 +0300
+
+    Initialize project using Create React App

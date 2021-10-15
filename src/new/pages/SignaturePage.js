@@ -59,8 +59,6 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { useLocation } from "react-router";
-import { getAuth, onAuthStateChanged } from "@firebase/auth";
-import { useDispatch } from "react-redux";
 
 var vCardsJS = require("vcards-js");
 
@@ -159,7 +157,6 @@ function SignaturePage() {
   const [imgpath, setImgPath] = useState("");
   const location = useLocation();
   const [pageLoaded, setPageLoaded] = useState(false);
-
   useEffect(() => {
     (async () => {
       const ref = doc(
@@ -1075,9 +1072,6 @@ function SignaturePage() {
                       ahref.href = `https://hidden-castle-63973.herokuapp.com/`+imgpath2;
                       //var a = document.createElement("");
                       img.src = canvas.toDataURL("image/png");
-
-
-
                       const imgreal = document.getElementById('real');
                       const mailicon = document.getElementById('mailicon');
                       const globeicon = document.getElementById('globeicon');
@@ -1194,14 +1188,7 @@ function SignaturePage() {
                          context.font = "normal normal  400 12px roboto";
                          context.fillStyle= "#167FFC";
                          context.fillText('Created by JANUS', canvas1.width-130, canvas1.height-26);
-
-
-
-
-
-
                       let r = (Math.random() + 1).toString(36).substring(2);
-
                       const storageRef = ref(storage, "alim/" + r);
                       uploadString(
                         storageRef,
@@ -1209,11 +1196,9 @@ function SignaturePage() {
                         "data_url"
                       ).then((snapshot) => {
                         console.log("Uploaded a data_url string!");
-
                           getDownloadURL(snapshot.ref).then(
                             async (downloadURL) => {
                               img.src = downloadURL;
-
                               await setShowDescrp(true);
                               setLoading(false);
                               setDisKaydet(true);
@@ -1484,11 +1469,9 @@ function SignaturePage() {
                     onclickpath: cardPathVariable,
                     cardImage: "",
                   });
-
                   setImgPath(docRef.id);
                   imgpath2 = docRef.id
                   
-
                   // doc id oluşmalı ki resme atayabilelim, ilk atandığında dokunabilir olmayacak (çünkü app js'de komponent oluşmadı henüz)
                 }}
               >
@@ -1585,12 +1568,9 @@ function SignaturePage() {
                     var img = document.getElementById("janusmail2");
                     img.crossOrigin = "anonymous";
                     var table2 = document.getElementById("signature2");
-
                     //var a = document.createElement("");
                     img.src = canvas.toDataURL("image/png");
-
                     let r = (Math.random() + 1).toString(36).substring(2);
-
                     const storageRef = ref(storage, "alim/" + r);
                     uploadString(
                       storageRef,
@@ -1598,7 +1578,6 @@ function SignaturePage() {
                       "data_url"
                     ).then((snapshot) => {
                       console.log("Uploaded a data_url string!");
-
                       getDownloadURL(snapshot.ref).then(async (downloadURL) => {
                         img.src = downloadURL;
                         copy(table2.innerHTML);
@@ -1619,14 +1598,15 @@ function SignaturePage() {
             </canvas>
           </Scrollbars>
         </div>
-        <table id="signature2" className="hidden bg-red-500">
+        <table id="signature2" width={332}>
           <tbody>
             <th>
               <tr>
-                <a id="idforpath" className="" href={imgpath2}>
+                <a id="idforpath" href={imgpath2}>
                   <img
                     crossOrigin="anonymous"
-                    className="shadow-2xl w-332px"
+                    className="shadow-2xl"
+                    width={332}
                     id="janusmail2"
                   />
                 </a>

@@ -1,4 +1,10 @@
-import React, { Component, useState, useRef, useEffect } from "react";
+import React, {
+  Component,
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+} from "react";
 import "@material-tailwind/react/tailwind.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Dropdown from "@material-tailwind/react/Dropdown";
@@ -6,14 +12,16 @@ import DropdownItem from "@material-tailwind/react/DropdownItem";
 import DropdownLink from "@material-tailwind/react/DropdownLink";
 import DropAcc from "../components/DropAcc";
 import BeatLoader from "react-spinners/BeatLoader";
-import Select from "react-dropdown-select";
+import ReactCrop from "react-image-crop";
+import "react-image-crop/dist/ReactCrop.css";
 import autosign from "../../images/autosign.png";
 import lockedTemplate from "../../images/lockedTemplate.png";
+import drivelogo from "../../images/drivelogo.png";
 
 import sirklogo from "../../images/sirklogo.png";
 import orangelock from "../../images/orangelock.png";
 import { Carousel } from "react-responsive-carousel";
-import PopUp from "../components/PopUp";
+
 import party from "../../images/party.png";
 import arrow from "../../images/arrowhome.png";
 import info_circle from "../../images/info_circle.png";
@@ -38,6 +46,8 @@ function HomePage() {
   const storage = getStorage();
   const scrollRef = useRef(null);
   const db = getFirestore();
+  const [upImg, setUpImg] = useState();
+  const imgRef2 = useRef(null);
 
   const [sirketAdi, setSirketAdi] = useState("");
   const [sirketTuru, setSirketTuru] = useState("");
@@ -57,6 +67,7 @@ function HomePage() {
   const [popUpValue, setPopUpValue] = useState(0);
   const [popUpValue2, setPopUpValue2] = useState(0);
   const [popUpValue3, setPopUpValue3] = useState(0);
+  const [popUpValue4, setPopUpValue4] = useState(0);
   const [isDropdownOpen1, setIsDropdownOpen1] = useState(false);
   const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
   const [hoverInfoVisible, setHoverInfoVisible] = useState(false);
@@ -66,93 +77,154 @@ function HomePage() {
   const location = useLocation();
   const [fileName, setFileName] = useState();
 
+  const previewCanvasRef = useRef(null);
+  const [crop, setCrop] = useState({ unit: "%", width: 50, aspect: 1 });
+  const [completedCrop, setCompletedCrop] = useState(null);
   useEffect(async () => {
     const stUser = await JSON.parse(localStorage.getItem("user"));
     setUser(stUser);
   }, []);
+  useEffect(() => {
+    if (!completedCrop || !previewCanvasRef.current || !imgRef2.current) {
+      return;
+    }
 
-  async function getFirebaseUrl(file) {
+    const image = imgRef2.current;
+    const canvas = previewCanvasRef.current;
+    const crop = completedCrop;
+
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    const ctx = canvas.getContext("2d");
+    const pixelRatio = window.devicePixelRatio;
+
+    canvas.width = crop.width * pixelRatio * scaleX;
+    canvas.height = crop.height * pixelRatio * scaleY;
+
+    ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    ctx.imageSmoothingQuality = "high";
+
+    ctx.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      crop.width * scaleX,
+      crop.height * scaleY
+    );
+  }, [completedCrop]);
+  const onLoad = useCallback((img) => {
+    imgRef2.current = img;
+  }, []);
+  async function getFirebaseUrl(canvas, crop) {
+    await setIsButtonDisabled(true);
+    console.log("CANVAS:", canvas);
+    if (!canvas || !crop) {
+      console.log("failed");
+      return;
+    }
     const metadata = {
-      contentType: "image/jpeg",
+      contentType: "image/png",
     };
-    let r = (Math.random() + 1).toString(36).substring(2);
-    let name;
-    name = r + file.name;
+    let a;
+    await canvas.toBlob(
+      async (blob, a) => {
+        let r = (Math.random() + 1).toString(36).substring(2);
+        let name;
+        name = r + blob.name;
+        console.log(blob);
+        const storageRef = ref(storage, "alim/" + name);
+        const uploadTask = uploadBytesResumable(storageRef, blob, metadata);
+        await uploadTask.on(
+          "state_changed",
+          async (snapshot) => {
+            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
-    const storageRef = ref(storage, "alim/" + name);
-    const uploadTask = uploadBytesResumable(storageRef, file, metadata);
-    await uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            switch (snapshot.state) {
+              case "paused":
+                break;
+              case "running":
+                break;
+            }
+          },
+          (error) => {
+            // A full list of error codes is available at
+            // https://firebase.google.com/docs/storage/web/handle-errors
+            switch (error.code) {
+              case "storage/unauthorized":
+                // User doesn't have permission to access the object
+                break;
+              case "storage/canceled":
+                // User canceled the upload
+                break;
 
-        switch (snapshot.state) {
-          case "paused":
-            break;
-          case "running":
-            break;
-        }
-      },
-      (error) => {
-        // A full list of error codes is available at
-        // https://firebase.google.com/docs/storage/web/handle-errors
-        switch (error.code) {
-          case "storage/unauthorized":
-            // User doesn't have permission to access the object
-            break;
-          case "storage/canceled":
-            // User canceled the upload
-            break;
+              // ...
 
-          // ...
+              case "storage/unknown":
+                // Unknown error occurred, inspect error.serverResponse
+                break;
+            }
+          },
+          async (a) => {
+            // Upload completed successfully, now we can get the download URL
+            await getDownloadURL(uploadTask.snapshot.ref).then(
+              async (downloadURL) => {
+                setLogoLink(downloadURL);
+                await setIsButtonDisabled(false);
 
-          case "storage/unknown":
-            // Unknown error occurred, inspect error.serverResponse
-            break;
-        }
-      },
-      async () => {
-        // Upload completed successfully, now we can get the download URL
-        await getDownloadURL(uploadTask.snapshot.ref).then(
-          async (downloadURL) => {
-            setLogoLink(downloadURL);
-            setIsButtonDisabled(false);
-
-            fileLink.push(downloadURL);
-
+                fileLink.push(downloadURL);
+                console.log(fileLink);
+                setLogoLink(fileLink);
+                a = downloadURL;
+              }
+            );
             setLogoLink(fileLink);
             scrollRef.current.scrollToBottom();
           }
         );
-      }
+      },
+      "image/png",
+      1
     );
+    console.log(a);
+    return await a;
   }
   // firebase yükleme
 
   //
 
   async function handleFileUpload(e) {
-    if (
-      e.target.files[0].type == "image/jpeg" ||
-      e.target.files[0].type == "image/png" ||
-      e.target.files[0].type == "image/jpg"
-    ) {
-      const imageLink = await getFirebaseUrl(e.target.files[0]);
-      console.log(e.target.files[0]);
-      setFileSuccess(true);
-      console.log("Başarılı");
-      setFileName(e.target.files[0].name);
-
-      console.log(fileName);
-      if (fileError == true) {
-        setFileError(false);
+    if (e.target.files) {
+      if (
+        e.target.files[0].type == "image/jpeg" ||
+        e.target.files[0].type == "image/png" ||
+        e.target.files[0].type == "image/jpg"
+      ) {
+        console.log(e.target.files);
         setFileSuccess(true);
+
+        console.log("Başarılı");
+        setFileName(e.target.files[0].name);
+
+        console.log(fileName);
+        const reader = new FileReader();
+        reader.addEventListener("load", () => setUpImg(reader.result));
+        reader.readAsDataURL(e.target.files[0]);
+        if (fileError == true) {
+          setFileError(false);
+          setFileSuccess(true);
+          console.log("handled file upload");
+        }
+        setPopUpValue4(1);
+      } else {
+        setFileSuccess(false);
+        setFileError(true);
       }
-    } else {
-      setFileSuccess(false);
-      setFileError(true);
     }
   }
 
@@ -294,7 +366,7 @@ function HomePage() {
   function handlePopUp3() {
     if (popUpValue3 == 1) {
       return (
-        <div class=" flex-column absolute max-w-470px h-screen items-center flex   z-20     justify-center ">
+        <div class=" flex-column absolute  h-screen items-center flex   z-20     justify-center ">
           <div className="flex flex-col bg-white shadow-2xl  rounded-3xl p-20px pb-40px overflow-hidden">
             <div class="flex justify-end mt-2 ">
               <button
@@ -321,39 +393,62 @@ function HomePage() {
             </div>
 
             <div class="flex  justify-center mt-18px">
-              <img className="h-190px w-190px" src={party} />
+              <img className="h-190px w-190px " src={party} />
             </div>
-            <div class=" mt-36px  px-40px  flex justify-center items-center ">
-              <div>
-                <p class=" font-roboto  font-light text-16px text-left">
-                  E-posta imzası tasarımınızı admin olarak organizasyonunuz
-                  adına oluşturdunuz.
-                </p>
-
-                <p class=" font-roboto  font-light text-left text-16px  mt-16px">
-                  Şimdiye kadar organizasyonunuz adına temel bilgiler olan logo
-                  ve websitesi bilgilerini girdiniz. Bunu admin olarak bir tek
-                  siz değiştirebilirsiniz.
-                </p>
-                <p class=" font-roboto  font-light text-left text-16px  mt-16px">
-                  Ekip arkadaşlarınızın kişisel bilgilerini doldurması için{" "}
-                  <button
-                    onClick={() =>
-                      navigator.clipboard.writeText(
-                        window.location.href.replace("home", "") +
-                          `generator/${urlgo}`
-                      )
-                    }
-                    className=" mx-4px my-4px rounded-xl bg-janus-site-blue text-white focus:outline-none"
-                  >
-                    <p class="px-10px py-6px">Linki Kopyala</p>
-                  </button>{" "}
-                  butonuna tıklayarak paylaşın
-                </p>
-                <p class=" font-roboto  font-light text-left text-16px  mt-16px">
-                  Kendi e-posta imzanızı oluşturmak için 'E-posta İmzası Üret'
-                  butonuna tıklayın
-                </p>
+            <div class=" mt-36px   flex justify-center items-center ">
+              <div class="flex justify-center flex-col">
+                <div class="flex justify-center">
+                  <p class="text-janus-dark-blue font-roboto  font-light text-16px text-left">
+                    E-posta imzası tasarımınızı admin olarak organizasyonunuz
+                    adına oluşturdunuz.
+                  </p>
+                </div>
+                <div class="flex justify-center ">
+                  <p class=" font-roboto  font-light text-left text-16px  mt-16px">
+                    Ekip arkadaşlarınızın yaptığınız tasarımı kullanarak kendi
+                    mail imzalarını oluşturması için aşağıdaki linki manuel
+                    olarak veya ‘’Linki Kopyala’’ butonu ile kopyalayayıp
+                    paylaşabilirsiniz.
+                  </p>
+                </div>
+                <div>
+                  <div class=" flex flex-row justify-center h-10 mt-5 items-center ">
+                    <div class="w-80 h-10 flex justify-start  shadow-input rounded-md ">
+                      {" "}
+                      <img src={drivelogo} />
+                      <div class="w-px bg-apple border-solid h-full"></div>
+                      <div class="ml-3 flex items-center ">
+                        <p class="text-apple">
+                          {window.location.href.replace("home", "") +
+                            `generator/${urlgo}`}
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() =>
+                        navigator.clipboard.writeText(
+                          window.location.href.replace("home", "") +
+                            `generator/${urlgo}`
+                        )
+                      }
+                      className="bg-yahoo ml-3 mx-4px my-4px rounded-md  text-white focus:outline-none"
+                    >
+                      <p class="px-10px py-6px">Linki Kopyala</p>
+                    </button>{" "}
+                  </div>
+                </div>
+                <div class="flex justify-center">
+                  <p class="text-janus-dark-blue font-roboto mt-2 font-light text-16px text-left">
+                    *Kopyaladığınız linke tekrar ulaşabilmeniz için linki
+                    kaydetmenizi öneririz.
+                  </p>
+                </div>
+                <div class="flex justify-center">
+                  <p class=" font-roboto  font-light text-left text-16px  mt-16px">
+                    E-posta imzanızı oluşturmak için ‘’E-posta İmzası Oluştur’’
+                    butonuna tıklayın.
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -373,6 +468,48 @@ function HomePage() {
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+      );
+    }
+  }
+  function handlePopUp4() {
+    if (popUpValue4 == 1) {
+      return (
+        <div class=" flex-column absolute   p-20px z-20 shadow-2xl justify-center  rounded-3xl overflow-hidden bg-white mt-32  items-center ">
+          <div className="flex flex-col items-center ">
+            <ReactCrop
+              src={upImg}
+              onImageLoaded={onLoad}
+              crop={crop}
+              className="w-400px h-400px z-20"
+              onChange={(c) => setCrop(c)}
+              onComplete={(c) => setCompletedCrop(c)}
+            />
+            <div className="border-red-500 border-1px">
+              <canvas
+                ref={previewCanvasRef}
+                className="mt-30px "
+                style={{
+                  width: Math.round(100 ?? 0),
+                  height: Math.round(100 ?? 0),
+                }}
+              />
+            </div>
+            <button
+              onClick={async () => {
+                setPopUpValue4(0);
+                const imageLink = await getFirebaseUrl(
+                  previewCanvasRef.current,
+                  completedCrop
+                );
+                await console.log("imagelink", imageLink);
+                await setPopUpValue4(0);
+              }}
+              className="py-10px px-6px font-roboto text-white mt-20px bg-compOrange hover:bg-compOrange-hover rounded-md focus:outline-none"
+            >
+              Logoyu Kırp
+            </button>
           </div>
         </div>
       );
@@ -662,9 +799,10 @@ function HomePage() {
       {handlePopUp()}
       {handlePopUp2()}
       {handlePopUp3()}
+      {handlePopUp4()}
       <div
         class={
-          popUpValue == 0 && popUpValue3 == 0
+          popUpValue == 0 && popUpValue3 == 0 && popUpValue4 == 0
             ? `h-screen w-screen py-10 flex z-10 relative justify-center px-64 bg-janus-site-blue `
             : `h-screen w-screen py-10 flex z-10 relative justify-center px-64 bg-janus-site-blue  opacity-70 `
         }

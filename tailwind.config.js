@@ -123,7 +123,7 @@ module.exports = {
         "line-gray": "#7B7B7B",
         "error-red": "#D63835",
         signborder: "#ebe9e6",
-
+        apple: "#979797",
         "janus-purple": "#6C489E",
       },
       borderWidth: {

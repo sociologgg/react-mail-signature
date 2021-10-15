@@ -90,7 +90,6 @@ function NewHiCard() {
         ) : (
           <></>
         )}
-
         {linklist.youtube != "" ? (
           <div>
             {" "}
@@ -135,7 +134,8 @@ function NewHiCard() {
         {linklist.linkedin != "" ? (
           <div>
             {" "}
-            <a  target="_blank"
+            <a
+              target="_blank"
               href={
                 linklist.linkedin.includes("https://")
                   ? linklist.linkedin
@@ -151,7 +151,7 @@ function NewHiCard() {
         {linklist.instagram != "" ? (
           <div>
             {" "}
-            <a  target="_blank" href={linklist.instagram}>
+            <a target="_blank" href={linklist.instagram}>
               <img
                 className={`w-24px h-auto ${isinstaFirst ? "" : `ml-10px`}`}
                 src={instagramLogo}
@@ -165,7 +165,7 @@ function NewHiCard() {
         {linklist.youtube != "" ? (
           <div>
             {" "}
-            <a  target="_blank" href={linklist.youtube}>
+            <a target="_blank" href={linklist.youtube}>
               <img
                 className={`w-24px h-auto ${isyoutubeFirst ? "" : `ml-10px`}`}
                 src={youtubeLogo}
@@ -178,7 +178,7 @@ function NewHiCard() {
         {linklist.twitter != "" ? (
           <div>
             {" "}
-            <a  target="_blank" href={linklist.twitter}>
+            <a target="_blank" href={linklist.twitter}>
               <img
                 className={`w-24px h-auto ${istwitterFirst ? "" : `ml-10px`}`}
                 src={twitterLogo}
@@ -190,7 +190,7 @@ function NewHiCard() {
         )}
         {linklist.facebook != "" ? (
           <div>
-            <a  target="_blank" href={linklist.facebook}>
+            <a target="_blank" href={linklist.facebook}>
               <img
                 className={`w-24px h-auto ${isfacebookfirst ? "" : `ml-10px`}`}
                 src={facebookLogo}
@@ -236,7 +236,7 @@ function NewHiCard() {
             {mail != "" ? (
               <div className="flex items-center  mt-3">
                 {" "}
-                <a  href={`mailto:` + mail}>
+                <a href={`mailto:` + mail}>
                   <img className="w-20px h-auto" src={maillogo} />
                 </a>{" "}
                 <p className="ml-12px font-roboto text-10px text-left  text-mail-gray">
@@ -250,7 +250,8 @@ function NewHiCard() {
             {linklist.web != "" ? (
               <div className="flex items-center mt-10px">
                 {" "}
-                <a  target="_blank"
+                <a
+                  target="_blank"
                   href={
                     linklist.web.includes("https://")
                       ? linklist.web
@@ -293,7 +294,7 @@ function NewHiCard() {
           {mail != "" ? (
             <div className="flex items-center ">
               {" "}
-              <a  target="_blank" href={`mailto:` + mail}>
+              <a target="_blank" href={`mailto:` + mail}>
                 <img className="w-20px h-auto" src={maillogo} />
               </a>{" "}
               <p className="ml-12px font-roboto text-10px text-left  text-mail-gray">
@@ -307,7 +308,8 @@ function NewHiCard() {
           {linklist.web != "" ? (
             <div className="flex items-center mt-10px">
               {" "}
-              <a  target="_blank"
+              <a
+                target="_blank"
                 href={
                   linklist.web.includes("https://")
                     ? linklist.web
@@ -420,8 +422,8 @@ function NewHiCard() {
                   <div className=" mt-10 bg-white  shadow-hicard flex min-w-374px py-16  px-20 rounded-lg ">
                     <div className="flex flex-col justify-center flex-1">
                       <div className="block">
-                      <img src={logo} className="min-w-72px h-72px" />
-                </div>
+                        <img src={logo} className="min-w-72px h-72px" />
+                      </div>
                     </div>
                     <div className="pl-30px  flex-1">
                       <div className="font-roboto  whitespace-nowrap  text-left font-bold text-mail-gray text-20px">
@@ -449,7 +451,7 @@ function NewHiCard() {
                         {mail != "" ? (
                           <div className="mt-10px flex items-center ">
                             {" "}
-                            <a  href={`mailto:` + mail}>
+                            <a href={`mailto:` + mail}>
                               <img className="w-20px h-auto" src={maillogo} />
                             </a>{" "}
                             <p className="ml-12px font-roboto text-10px text-left  text-mail-gray">
@@ -463,7 +465,8 @@ function NewHiCard() {
                         {linklist.web != "" ? (
                           <div className="flex items-center mt-10px">
                             {" "}
-                            <a  target="_blank"
+                            <a
+                              target="_blank"
                               href={
                                 linklist?.web?.includes("https://")
                                   ? linklist?.web
@@ -545,7 +548,7 @@ function NewHiCard() {
                       {mail != "" ? (
                         <div className="flex items-center mt-3 ">
                           {" "}
-                          <a  target="_blank" href={`mailto:` + mail}>
+                          <a target="_blank" href={`mailto:` + mail}>
                             <img className="w-20px h-auto" src={maillogo} />
                           </a>{" "}
                           <p className="ml-12px font-roboto text-10px text-left  text-mail-gray">
@@ -559,7 +562,8 @@ function NewHiCard() {
                       {linklist.web != "" ? (
                         <div className="flex items-center mt-10px">
                           {" "}
-                          <a  target="_blank"
+                          <a
+                            target="_blank"
                             href={
                               linklist.web.includes("https://")
                                 ? linklist.web
