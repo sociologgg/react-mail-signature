@@ -1,6 +1,7 @@
 // Firebase App (the core Firebase SDK) is always required and must be listed first
 
 import * as firebase from "firebase/app";
+import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 // If you are using v7 or any earlier version of the JS SDK, you should import firebase using namespace import
@@ -26,4 +27,5 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const db = getFirestore();
+const auth = getAuth();
 const storage = getStorage();

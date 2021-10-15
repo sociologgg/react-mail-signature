@@ -59,6 +59,8 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { useLocation } from "react-router";
+import { getAuth, onAuthStateChanged } from "@firebase/auth";
+import { useDispatch } from "react-redux";
 
 var vCardsJS = require("vcards-js");
 
@@ -129,7 +131,7 @@ function SignaturePage() {
   const db = getFirestore();
   const [cardPath, setCardPath] = useState();
   const [linkList, setLinkList] = useState([]);
-  const [signatureHeight,setSignatureHeight] = useState(172);
+  const [signatureHeight, setSignatureHeight] = useState(172);
   const [linkListData, setLinkListData] = useState({
     youtube: "",
     facebook: "",
@@ -157,30 +159,40 @@ function SignaturePage() {
   const [imgpath, setImgPath] = useState("");
   const location = useLocation();
   const [pageLoaded, setPageLoaded] = useState(false);
-  useEffect(async () => {
-    const ref = doc(db, "links", location.pathname.replace("/generator/", ""));
-    const docSnap = await getDoc(ref);
-    if (docSnap.exists()) {
-      let data = docSnap.data();
-      setCompanyName(data.sirketAdi);
-      setWeburl(data.webUrl);
-      setLogoLink(data.logoLink);
-      setLinkListData((state) => ({
-        ...state,
-        web: data.webUrl,
-      }));
-      if(data.webUrl != "")
-    {
-      setLinkList((oldArray) => [
-        ...oldArray,
-        links.WEB,
-      ]);
-    }
-      setPageLoaded(true);
-    } else {
-      console.log("No such document!");
-      setLoading(false);
-    }
+
+  useEffect(() => {
+    (async () => {
+      const ref = doc(
+        db,
+        "links",
+        location.pathname.replace("/generator/", "")
+      );
+      console.log(ref.path);
+      let docSnap;
+      try {
+        docSnap = await getDoc(ref);
+      } catch (e) {
+        console.log(e);
+      }
+
+      if (docSnap.exists()) {
+        let data = docSnap.data();
+        setCompanyName(data.sirketAdi);
+        setWeburl(data.webUrl);
+        setLogoLink(data.logoLink);
+        setLinkListData((state) => ({
+          ...state,
+          web: data.webUrl,
+        }));
+        if (data.webUrl != "") {
+          setLinkList((oldArray) => [...oldArray, links.WEB]);
+        }
+        setPageLoaded(true);
+      } else {
+        console.log("No such document!");
+        setLoading(false);
+      }
+    })();
 
     return () => {};
   }, []);
@@ -431,7 +443,6 @@ function SignaturePage() {
                     placeholder="Lütfen adınızı girin"
                     onChange={(e) => {
                       setfName(e.target.value);
-                 
                     }}
                     className={` w-310px px-4 h-40px shadow-sign-input rounded-md focus:outline-none ml-20 ${
                       clicked
@@ -512,102 +523,112 @@ function SignaturePage() {
                   {linkList.map((index, i) => {
                     if (index == links.INSTAGRAM) {
                       return (
-                      <div className="mt-20px">
-                         {  clicked && !linkListData.instagram.includes(
-                                    "https://www.instagram.com/") ? <p className="text-14px  text-error-red">Lütfen Geçerli Bir URL giriniz</p> :null}
-                      <div className="relative mt-4px  flex items-center ">
-                          <input
-                            onChange={(e) => {
-                              setLinkListData((state) => ({
-                                ...state,
-                                instagram: e.target.value,
-                              }));
-                            }}
-                            className={`w-312px h-40px shadow-sign-input ${
-                              clicked && linkList.includes(links.INSTAGRAM)
-                                ? !linkListData.instagram.includes(
-                                    "https://www.instagram.com/"
-                                  )
-                                  ? "border-error-red border-0.5"
+                        <div className="mt-20px">
+                          {clicked &&
+                          !linkListData.instagram.includes(
+                            "https://www.instagram.com/"
+                          ) ? (
+                            <p className="text-14px  text-error-red">
+                              Lütfen Geçerli Bir URL giriniz
+                            </p>
+                          ) : null}
+                          <div className="relative mt-4px  flex items-center ">
+                            <input
+                              onChange={(e) => {
+                                setLinkListData((state) => ({
+                                  ...state,
+                                  instagram: e.target.value,
+                                }));
+                              }}
+                              className={`w-312px h-40px shadow-sign-input ${
+                                clicked && linkList.includes(links.INSTAGRAM)
+                                  ? !linkListData.instagram.includes(
+                                      "https://www.instagram.com/"
+                                    )
+                                    ? "border-error-red border-0.5"
+                                    : "focus:border-janus-focus-blue focus:border-0.5"
                                   : "focus:border-janus-focus-blue focus:border-0.5"
-                                : "focus:border-janus-focus-blue focus:border-0.5"
-                            } focus:border-0.5 focus:outline-none pl-40px`}
-                            placeholder="Instagram Profil URL'i"
-                          />
-                          <img
-                            className="absolute left-4px top-4px z-10 w-30px h-30px"
-                            src={instagram}
-                          />
-                          <button
-                            class="focus:outline-none ml-20px"
-                            onClick={() => {
-                              setLinkList(
-                                linkList.filter((item) => {
-                                  return item != links.INSTAGRAM;
-                                })
-                              );
-                              setLinkListData((state) => ({
-                                ...state,
-                                instagram: "",
-                              }));
-                            }}
-                            className="ml-20px"
-                          >
-                            {" "}
-                            <img src={trash} className="w-24px h-24px" />{" "}
-                          </button>
+                              } focus:border-0.5 focus:outline-none pl-40px`}
+                              placeholder="Instagram Profil URL'i"
+                            />
+                            <img
+                              className="absolute left-4px top-4px z-10 w-30px h-30px"
+                              src={instagram}
+                            />
+                            <button
+                              class="focus:outline-none ml-20px"
+                              onClick={() => {
+                                setLinkList(
+                                  linkList.filter((item) => {
+                                    return item != links.INSTAGRAM;
+                                  })
+                                );
+                                setLinkListData((state) => ({
+                                  ...state,
+                                  instagram: "",
+                                }));
+                              }}
+                              className="ml-20px"
+                            >
+                              {" "}
+                              <img src={trash} className="w-24px h-24px" />{" "}
+                            </button>
+                          </div>
                         </div>
-                     
-                                              </div>
                       );
                     }
                     if (index == links.FACEBOOK) {
                       return (
-                       <div className="mt-20px">
-                            {  clicked && !linkListData.facebook.includes(
-                                    "https://www.facebook.com/"
-                                  ) ? <p className="text-14px  text-error-red">Lütfen Geçerli Bir URL giriniz</p> :null}
-                       <div className="relative  mt-4px  flex items-center">
-                          <input
-                            onChange={(e) => {
-                              setLinkListData((state) => ({
-                                ...state,
-                                facebook: e.target.value,
-                              }));
-                            }}
-                            className={`w-312px h-40px shadow-sign-input ${
-                              clicked && linkList.includes(links.FACEBOOK)
-                                ? !linkListData.facebook.includes(
-                                    "https://www.facebook.com/"
-                                  )
-                                  ? "border-error-red border-0.5"
+                        <div className="mt-20px">
+                          {clicked &&
+                          !linkListData.facebook.includes(
+                            "https://www.facebook.com/"
+                          ) ? (
+                            <p className="text-14px  text-error-red">
+                              Lütfen Geçerli Bir URL giriniz
+                            </p>
+                          ) : null}
+                          <div className="relative  mt-4px  flex items-center">
+                            <input
+                              onChange={(e) => {
+                                setLinkListData((state) => ({
+                                  ...state,
+                                  facebook: e.target.value,
+                                }));
+                              }}
+                              className={`w-312px h-40px shadow-sign-input ${
+                                clicked && linkList.includes(links.FACEBOOK)
+                                  ? !linkListData.facebook.includes(
+                                      "https://www.facebook.com/"
+                                    )
+                                    ? "border-error-red border-0.5"
+                                    : "focus:border-janus-focus-blue focus:border-0.5"
                                   : "focus:border-janus-focus-blue focus:border-0.5"
-                                : "focus:border-janus-focus-blue focus:border-0.5"
-                            } focus:outline-none pl-40px`}
-                            placeholder="Facebook Profil URL'i"
-                          />
-                          <img
-                            className="absolute left-4px top-4px z-10 w-30px h-30px"
-                            src={facebook}
-                          />
-                          <button
-                            class="focus:outline-none ml-20px"
-                            onClick={() => {
-                              setLinkList(
-                                linkList.filter((item) => {
-                                  return item != links.FACEBOOK;
-                                })
-                              );
-                              setLinkListData((state) => ({
-                                ...state,
-                                facebook: "",
-                              }));
-                            }}
-                          >
-                            {" "}
-                            <img src={trash} className="w-24px h-24px" />{" "}
-                          </button>
-                        </div>
+                              } focus:outline-none pl-40px`}
+                              placeholder="Facebook Profil URL'i"
+                            />
+                            <img
+                              className="absolute left-4px top-4px z-10 w-30px h-30px"
+                              src={facebook}
+                            />
+                            <button
+                              class="focus:outline-none ml-20px"
+                              onClick={() => {
+                                setLinkList(
+                                  linkList.filter((item) => {
+                                    return item != links.FACEBOOK;
+                                  })
+                                );
+                                setLinkListData((state) => ({
+                                  ...state,
+                                  facebook: "",
+                                }));
+                              }}
+                            >
+                              {" "}
+                              <img src={trash} className="w-24px h-24px" />{" "}
+                            </button>
+                          </div>
                         </div>
                       );
                     }
@@ -615,50 +636,55 @@ function SignaturePage() {
                     if (index == links.TWITTER) {
                       return (
                         <div className="mt-20px">
-                            {  clicked && !linkListData.twitter.includes(
-                                    "https://twitter.com/"
-                                  ) ? <p className="text-14px  text-error-red">Lütfen Geçerli Bir URL giriniz</p> :null}
-                        <div className="relative  mt-4px flex items-center">
-                          <input
-                            onChange={(e) => {
-                              setLinkListData((state) => ({
-                                ...state,
-                                twitter: e.target.value,
-                              }));
-                            }}
-                            className={`w-312px h-40px shadow-sign-input ${
-                              clicked && linkList.includes(links.TWITTER)
-                                ? !linkListData.twitter.includes(
-                                    "https://twitter.com/"
-                                  )
-                                  ? "border-error-red border-0.5"
+                          {clicked &&
+                          !linkListData.twitter.includes(
+                            "https://twitter.com/"
+                          ) ? (
+                            <p className="text-14px  text-error-red">
+                              Lütfen Geçerli Bir URL giriniz
+                            </p>
+                          ) : null}
+                          <div className="relative  mt-4px flex items-center">
+                            <input
+                              onChange={(e) => {
+                                setLinkListData((state) => ({
+                                  ...state,
+                                  twitter: e.target.value,
+                                }));
+                              }}
+                              className={`w-312px h-40px shadow-sign-input ${
+                                clicked && linkList.includes(links.TWITTER)
+                                  ? !linkListData.twitter.includes(
+                                      "https://twitter.com/"
+                                    )
+                                    ? "border-error-red border-0.5"
+                                    : "focus:border-janus-focus-blue focus:border-0.5"
                                   : "focus:border-janus-focus-blue focus:border-0.5"
-                                : "focus:border-janus-focus-blue focus:border-0.5"
-                            } focus:outline-none pl-40px`}
-                            placeholder="Twitter Profil URL'i"
-                          />
-                          <img
-                            className="absolute left-4px top-4px z-10 w-30px h-30px"
-                            src={twitter}
-                          />
-                          <button
-                            class="focus:outline-none ml-20px"
-                            onClick={() => {
-                              setLinkList(
-                                linkList.filter((item) => {
-                                  return item != links.TWITTER;
-                                })
-                              );
-                              setLinkListData((state) => ({
-                                ...state,
-                                twitter: "",
-                              }));
-                            }}
-                          >
-                            {" "}
-                            <img src={trash} className="w-24px h-24px" />{" "}
-                          </button>
-                        </div>
+                              } focus:outline-none pl-40px`}
+                              placeholder="Twitter Profil URL'i"
+                            />
+                            <img
+                              className="absolute left-4px top-4px z-10 w-30px h-30px"
+                              src={twitter}
+                            />
+                            <button
+                              class="focus:outline-none ml-20px"
+                              onClick={() => {
+                                setLinkList(
+                                  linkList.filter((item) => {
+                                    return item != links.TWITTER;
+                                  })
+                                );
+                                setLinkListData((state) => ({
+                                  ...state,
+                                  twitter: "",
+                                }));
+                              }}
+                            >
+                              {" "}
+                              <img src={trash} className="w-24px h-24px" />{" "}
+                            </button>
+                          </div>
                         </div>
                       );
                     }
@@ -695,100 +721,111 @@ function SignaturePage() {
                     if (index == links.LINKEDIN) {
                       return (
                         <div className="mt-20px">
-                             {  clicked && !linkListData.linkedin.includes(
-                                    "https://www.linkedin.com/"
-                                  ) ? <p className="text-14px  text-error-red">Lütfen Geçerli Bir URL giriniz</p> :null}
-                        <div className="relative  mt-4px items-center flex">
-                          <input
-                            onChange={(e) => {
-                              setLinkListData((state) => ({
-                                ...state,
-                                linkedin: e.target.value,
-                              }));
-                            }}
-                            className={`w-312px h-40px shadow-sign-input ${
-                              clicked && linkList.includes(links.LINKEDIN)
-                                ? !linkListData.linkedin.includes(
-                                    "https://www.linkedin.com/"
-                                  )
-                                  ? "border-error-red border-0.5"
+                          {clicked &&
+                          !linkListData.linkedin.includes(
+                            "https://www.linkedin.com/"
+                          ) ? (
+                            <p className="text-14px  text-error-red">
+                              Lütfen Geçerli Bir URL giriniz
+                            </p>
+                          ) : null}
+                          <div className="relative  mt-4px items-center flex">
+                            <input
+                              onChange={(e) => {
+                                setLinkListData((state) => ({
+                                  ...state,
+                                  linkedin: e.target.value,
+                                }));
+                              }}
+                              className={`w-312px h-40px shadow-sign-input ${
+                                clicked && linkList.includes(links.LINKEDIN)
+                                  ? !linkListData.linkedin.includes(
+                                      "https://www.linkedin.com/"
+                                    )
+                                    ? "border-error-red border-0.5"
+                                    : "focus:border-janus-focus-blue focus:border-0.5"
                                   : "focus:border-janus-focus-blue focus:border-0.5"
-                                : "focus:border-janus-focus-blue focus:border-0.5"
-                            } focus:outline-none pl-40px`}
-                            placeholder="LinkedIn Profil URL'i"
-                          />
-                          <img
-                            className="absolute left-8px top-8px z-10 w-24px h-24px"
-                            src={linkedin}
-                          />
-                          <button
-                            class="focus:outline-none ml-20px"
-                            onClick={() => {
-                              setLinkList(
-                                linkList.filter((item) => {
-                                  return item != links.LINKEDIN;
-                                })
-                              );
-                              setLinkListData((state) => ({
-                                ...state,
-                                linkedin: "",
-                              }));
-                            }}
-                          >
-                            {" "}
-                            <img src={trash} className="w-24px h-24px" />{" "}
-                          </button>
-                        </div></div>
+                              } focus:outline-none pl-40px`}
+                              placeholder="LinkedIn Profil URL'i"
+                            />
+                            <img
+                              className="absolute left-8px top-8px z-10 w-24px h-24px"
+                              src={linkedin}
+                            />
+                            <button
+                              class="focus:outline-none ml-20px"
+                              onClick={() => {
+                                setLinkList(
+                                  linkList.filter((item) => {
+                                    return item != links.LINKEDIN;
+                                  })
+                                );
+                                setLinkListData((state) => ({
+                                  ...state,
+                                  linkedin: "",
+                                }));
+                              }}
+                            >
+                              {" "}
+                              <img src={trash} className="w-24px h-24px" />{" "}
+                            </button>
+                          </div>
+                        </div>
                       );
                     }
                     if (index == links.YOUTUBE) {
                       return (
                         <div className="mt-20px">
-                                       {  clicked && !linkListData.youtube.includes(
-                                    "https://www.youtube.com/channel/"
-                                  )? <p className="text-14px  text-error-red">Lütfen Geçerli Bir URL giriniz</p> :null}
-                        <div className="relative mt-4px items-center flex">
-                          <input
-                            placeholder="Youtube Profil URL'i"
-                            onChange={(e) => {
-                              setLinkListData((state) => ({
-                                ...state,
-                                youtube: e.target.value,
-                              }));
-                            }}
-                            className={`w-312px h-40px shadow-sign-input ${
-                              clicked && linkList.includes(links.YOUTUBE)
-                                ? !linkListData.youtube.includes(
-                                    "https://www.youtube.com/channel/"
-                                  )
-                                  ? "border-error-red border-0.5"
+                          {clicked &&
+                          !linkListData.youtube.includes(
+                            "https://www.youtube.com/channel/"
+                          ) ? (
+                            <p className="text-14px  text-error-red">
+                              Lütfen Geçerli Bir URL giriniz
+                            </p>
+                          ) : null}
+                          <div className="relative mt-4px items-center flex">
+                            <input
+                              placeholder="Youtube Profil URL'i"
+                              onChange={(e) => {
+                                setLinkListData((state) => ({
+                                  ...state,
+                                  youtube: e.target.value,
+                                }));
+                              }}
+                              className={`w-312px h-40px shadow-sign-input ${
+                                clicked && linkList.includes(links.YOUTUBE)
+                                  ? !linkListData.youtube.includes(
+                                      "https://www.youtube.com/channel/"
+                                    )
+                                    ? "border-error-red border-0.5"
+                                    : "focus:border-janus-focus-blue focus:border-0.5"
                                   : "focus:border-janus-focus-blue focus:border-0.5"
-                                : "focus:border-janus-focus-blue focus:border-0.5"
-                            } focus:outline-none pl-40px`}
-                          />
-                          <img
-                            className="absolute left-4px top-4px  z-10 w-30px h-30px border-r-1 border-gray-500"
-                            src={youtube}
-                          />
-                          <button
-                            class="focus:outline-none ml-20px"
-                            onClick={() => {
-                              setLinkList(
-                                linkList.filter((item) => {
-                                  return item != links.YOUTUBE;
-                                })
-                              );
-                              
-                              setLinkListData((state) => ({
-                                ...state,
-                                youtube: "",
-                              }));
-                            }}
-                          >
-                            {" "}
-                            <img src={trash} className="w-24px h-24px" />{" "}
-                          </button>
-                        </div>
+                              } focus:outline-none pl-40px`}
+                            />
+                            <img
+                              className="absolute left-4px top-4px  z-10 w-30px h-30px border-r-1 border-gray-500"
+                              src={youtube}
+                            />
+                            <button
+                              class="focus:outline-none ml-20px"
+                              onClick={() => {
+                                setLinkList(
+                                  linkList.filter((item) => {
+                                    return item != links.YOUTUBE;
+                                  })
+                                );
+
+                                setLinkListData((state) => ({
+                                  ...state,
+                                  youtube: "",
+                                }));
+                              }}
+                            >
+                              {" "}
+                              <img src={trash} className="w-24px h-24px" />{" "}
+                            </button>
+                          </div>
                         </div>
                       );
                     }
@@ -1186,7 +1223,7 @@ function SignaturePage() {
                       });
                     });
                   */
-                      const scale = 4;
+                        const scale = 4;
                         const imgreal = document.getElementById("logoLink");
                         imgreal.crossOrigin = "anonymous";
                         const mailicon = document.getElementById("mailicon");
@@ -1222,26 +1259,23 @@ function SignaturePage() {
                           }
                         }
 
-                        if (rownum == 0)
+                        if (rownum == 0) {
                           //canvas1.height= 172;
-                          {
-                          canvas1.height = 180*scale;
-                        setSignatureHeight(180);  
-                        }
-                          else if (rownum == 1)
-                          
-                          canvas1.height = 208*scale;
+                          canvas1.height = 180 * scale;
+                          setSignatureHeight(180);
+                        } else if (rownum == 1) canvas1.height = 208 * scale;
                         else if (rownum == 2)
                           //canvas1.height = 220;
-                          canvas1.height = 228 *scale;
+                          canvas1.height = 228 * scale;
                         else if (rownum == 3)
                           //  canvas1.height = 232;
                           canvas1.height = 240 * scale;
-                        canvas1.width = 332*scale;
+                        canvas1.width = 332 * scale;
                         context.clearRect(0, 0, canvas1.width, canvas1.height);
                         context.fillStyle = "white";
                         context.fillRect(0, 0, canvas1.width, canvas1.height);
-                        const coordY = (canvas1.height / 2) - ((imgreal.height*scale) / 2);
+                        const coordY =
+                          canvas1.height / 2 - (imgreal.height * scale) / 2;
 
                         context.font = "normal normal 700 64px roboto";
                         context.fillStyle = "#656565";
@@ -1249,22 +1283,42 @@ function SignaturePage() {
                         console.log("error check1");
                         context.drawImage(
                           imgreal,
-                          30*scale,
+                          30 * scale,
                           coordY,
-                          72*scale,
-                          imgreal.height*scale
+                          72 * scale,
+                          imgreal.height * scale
                         );
                         console.log("error check1");
-                        context.fillText(fname + " " + lname, 132*scale, 42*scale);
+                        context.fillText(
+                          fname + " " + lname,
+                          132 * scale,
+                          42 * scale
+                        );
                         context.font = "normal normal 300 40px roboto";
-                        context.fillText(title, 132*scale, 58*scale);
-                        context.fillText(companyName, 132*scale, 72*scale);
-                        context.drawImage(mailicon, 132*scale, 89*scale, 14*scale, 14*scale);
+                        context.fillText(title, 132 * scale, 58 * scale);
+                        context.fillText(companyName, 132 * scale, 72 * scale);
+                        context.drawImage(
+                          mailicon,
+                          132 * scale,
+                          89 * scale,
+                          14 * scale,
+                          14 * scale
+                        );
                         context.font = "normal normal 400 40px roboto";
-                        context.fillText(mail, 154*scale, 99*scale);
+                        context.fillText(mail, 154 * scale, 99 * scale);
                         if (linkList.includes(links.WEB)) {
-                          context.drawImage(globeicon, 132*scale, 118*scale, 14*scale, 14*scale);
-                          context.fillText(linkListData.web, 154*scale, 129*scale);
+                          context.drawImage(
+                            globeicon,
+                            132 * scale,
+                            118 * scale,
+                            14 * scale,
+                            14 * scale
+                          );
+                          context.fillText(
+                            linkListData.web,
+                            154 * scale,
+                            129 * scale
+                          );
                         }
                         if (phone != "") {
                           let coordsYPhone;
@@ -1275,12 +1329,16 @@ function SignaturePage() {
                           }
                           context.drawImage(
                             phoneicon,
-                            132*scale,
-                            coordsYPhone*scale,
-                            14*scale,
-                            14*scale
+                            132 * scale,
+                            coordsYPhone * scale,
+                            14 * scale,
+                            14 * scale
                           );
-                          context.fillText(phone, 154*scale, (coordsYPhone + 11)*scale);
+                          context.fillText(
+                            phone,
+                            154 * scale,
+                            (coordsYPhone + 11) * scale
+                          );
                         }
                         let socialMediaCoordsY;
                         if (linkList.includes(links.WEB) && phone != "") {
@@ -1299,8 +1357,8 @@ function SignaturePage() {
                             if (index == links.LINKEDIN) {
                               context.drawImage(
                                 linkedinicon,
-                                marginL*scale,
-                                socialMediaCoordsY*scale,
+                                marginL * scale,
+                                socialMediaCoordsY * scale,
                                 14,
                                 14
                               );
@@ -1309,39 +1367,39 @@ function SignaturePage() {
                             if (index == links.INSTAGRAM) {
                               context.drawImage(
                                 instagramicon,
-                                marginL*scale,
-                                socialMediaCoordsY*scale,
-                                14*scale,
-                                14*scale
+                                marginL * scale,
+                                socialMediaCoordsY * scale,
+                                14 * scale,
+                                14 * scale
                               );
                               marginL += 28;
                             }
                             if (index == links.FACEBOOK) {
                               context.drawImage(
                                 facebookicon,
-                                marginL*scale,
-                                socialMediaCoordsY*scale,
-                                14*scale,
-                                14*scale
+                                marginL * scale,
+                                socialMediaCoordsY * scale,
+                                14 * scale,
+                                14 * scale
                               );
                               marginL += 28;
                             }
                             if (index == links.TWITTER) {
                               context.drawImage(
                                 twittericon,
-                                marginL*scale,
-                                socialMediaCoordsY*scale,
-                                14*scale,
-                                14*scale
+                                marginL * scale,
+                                socialMediaCoordsY * scale,
+                                14 * scale,
+                                14 * scale
                               );
                               marginL += 28;
                             }
                             if (index == links.YOUTUBE) {
                               context.drawImage(
                                 youtubeicon,
-                                marginL*scale,
-                                socialMediaCoordsY*scale,
-                                14*scale,
+                                marginL * scale,
+                                socialMediaCoordsY * scale,
+                                14 * scale,
                                 14 * scale
                               );
                               marginL += 28;
@@ -1352,8 +1410,8 @@ function SignaturePage() {
                         context.fillStyle = "#167FFC";
                         context.fillText(
                           "Created by JANUS",
-                          canvas1.width - 130*scale,
-                          canvas1.height - 26*scale
+                          canvas1.width - 130 * scale,
+                          canvas1.height - 26 * scale
                         );
 
                         context.shadowColor = "#7d7d7d";
@@ -1369,7 +1427,9 @@ function SignaturePage() {
                         // img.crossOrigin = "anonymous";
 
                         const ahref = document.getElementById("idforpath");
-                        ahref.href = `https://hidden-castle-63973.herokuapp.com/` + imgpath2;
+                        ahref.href =
+                          `https://hidden-castle-63973.herokuapp.com/` +
+                          imgpath2;
                         //var a = document.createElement("");
                         img.src = canvas1.toDataURL("image/png");
 
@@ -1553,12 +1613,7 @@ function SignaturePage() {
               </div>
             </div>
 
-            <canvas
-            
-              
-              className=" w-332px hidden"
-              id="mailsignaturecanvas"
-            >
+            <canvas className=" w-332px hidden" id="mailsignaturecanvas">
               {" "}
               asdsad
             </canvas>

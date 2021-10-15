@@ -5,7 +5,7 @@ import HomePage from "./new/pages/HomePage";
 import Last from "./new/layouts/Last";
 import Test from "./pages/Test";
 import CardTest from "./pages/CardTest";
-import {} from "./firebase/firebase";
+import "./firebase/firebase";
 
 import { onAuthStateChanged } from "@firebase/auth";
 
@@ -19,7 +19,7 @@ import {
 } from "react-router-dom";
 import SignaturePage from "./new/pages/SignaturePage";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import HiCard from "./new/pages/HiCard";
@@ -28,9 +28,10 @@ import { getAuth } from "@firebase/auth";
 import EmailVerification from "./new/pages/EmailVerification";
 import NewHiCard from "./new/pages/NewHiCard";
 import { useAuth } from "./firebase/use-auth";
+import { initializeApp } from "@firebase/app";
 
 function App() {
-  const user = useSelector((state) => state.auth).user;
+  const user = useSelector((state) => state.auth.user);
   const isLoggedIn = useSelector((state) => state.auth);
 
   // console.log(isLoggedIn.isLoggedIn);
@@ -39,6 +40,7 @@ function App() {
   // console.log(location.pathname);
 
   const db = getFirestore();
+
   const arr = [];
   const dataArr = [];
   const cardDataArr = [];
@@ -46,6 +48,19 @@ function App() {
   const [cardURLS, setCardURLS] = useState([]);
   const [url, setUrls] = useState([]);
   const [images, setImages] = useState([{}]);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    let cancel = false;
+    onAuthStateChanged(getAuth(), (auth) => {
+      if (auth && !cancel) {
+        console.log("dispatch");
+        dispatch({ type: "USER_LOGIN_SUCCEEDED", payload: { user: auth } });
+        cancel = true;
+      }
+    });
+    return () => (cancel = true);
+  }, []);
+
   /*useEffect(async () => {
     const querySnapshot = await getDocs(await collection(db, "links"));
     querySnapshot.forEach((doc) => {
@@ -162,36 +177,29 @@ function App() {
           <Route exact path="/">
             <Redirect to="/auth" />
           </Route>
-         
+
           <Route
-          path={"/generator/:id"}
-          render={(props) => {
-            return (
-              <SignaturePage
-               
-                
+            path={"/generator/:id"}
+            render={(props) => {
+              return (
+                <SignaturePage
+
                 //webURL={}
                 //companyName={}
-              />
-            );
-          }}
-        ></Route>
-         {//handleRouteCards()}
-}
-             <Route
-             path={"/signatures/:id"}
-             render={(props) => {
-               return (
-                 <NewHiCard
-                
-           
-                 />
-               );
-             }}
-           >
+                />
+              );
+            }}
+          ></Route>
+          {
+            //handleRouteCards()}
+          }
+          <Route
+            path={"/signatures/:id"}
+            render={(props) => {
+              return <NewHiCard />;
+            }}
+          ></Route>
 
-           </Route>
-          
           <Route path="/auth" component={Dashboard}>
             {second()}
           </Route>
