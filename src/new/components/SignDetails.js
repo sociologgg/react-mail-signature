@@ -427,7 +427,7 @@ function SignDetails_apple() {
 
                 <div className="flex mt-20px">
                 <p className="font-bold text-16px text-apple">05</p>
-                <div className="pl-20px  font-light text-left text-input-gray"><p>Tercihler açılır penceresinden, ‘’Oluşturma’’ya tıklayın ve ‘’İmza Ekle’’yi seçin
+                <div className="pl-20px  font-light text-left text-input-gray"><p>Kopyaladığınız imzayı, metin kutusuna yapıştırın
 </p> 
                  
                 </div>

@@ -27,13 +27,13 @@ function SignIn() {
     signInWithEmailAndPassword(AUTH, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        
+
         localStorage.setItem("user", JSON.stringify(user));
 
         setLoading(false);
         setEmailError("");
         setPasswordError("");
-      
+
         dispatch({
           type: "USER_LOGIN_REQUESTED",
           payload: { email, password },
@@ -52,7 +52,7 @@ function SignIn() {
         if (errorCode == "auth/wrong-password") {
           //  console.log("qwlkenlqwewq");
           setPasswordError(
-            "Şifrenizi Yanlış Girdiniz. " + "Lütfen Tekrar Deneyiniz."
+            "Şifrenizi yanlış girdiniz. " + "Lütfen tekrar deneyiniz."
           );
           setEmailError("");
         } else if (errorCode == "auth/user-not-found") {
@@ -87,7 +87,7 @@ function SignIn() {
 
   function incorrectPassError() {
     return (
-      <p class="text-16px text-error-red mt-20px text-center">
+      <p class="text-16px text-error-red mt-5px text-center absolute ">
         {passwordError}
       </p>
     );
@@ -95,7 +95,7 @@ function SignIn() {
 
   function invalidUserError() {
     return (
-      <p class="text-16px font-roboto text-center text-error-red mt-20px">
+      <p class=" text-16px font-roboto text-center text-error-red mt-10px  ">
         {emailError}
       </p>
     );
@@ -183,8 +183,8 @@ function SignIn() {
           Kaydol
         </Link>
       </div>
-      {incorrectPassError()}
-      {invalidUserError()}
+      <div class="flex  justify-center"> {incorrectPassError()}</div>
+      <div class="flex justify-center">{invalidUserError()}</div>
     </div>
   );
 }

@@ -24,19 +24,13 @@ class firebaseService {
   async login(email, password) {
     const auth = getAuth();
 
-    return await signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential;
-
-        return user;
-        // ...
-      })
-      .catch((error) => {
+    return await signInWithEmailAndPassword(auth, email, password).catch(
+      (error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
-      });
+      }
+    );
   }
   async logout() {
     const auth = getAuth();

@@ -6,13 +6,13 @@ import firebaseService from "../firebase/firebaseService";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
-import  {toast} from 'react-toastify'
+import { toast } from "react-toastify";
 function Login({ setPage }) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  let history = useHistory();
-  let dispatch = useDispatch();
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   async function handleLogin(e) {
     e.preventDefault();
