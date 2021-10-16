@@ -157,30 +157,39 @@ function SignaturePage() {
   const [imgpath, setImgPath] = useState("");
   const location = useLocation();
   const [pageLoaded, setPageLoaded] = useState(false);
-  useEffect(async () => {
-    const ref = doc(db, "links", location.pathname.replace("/generator/", ""));
-    const docSnap = await getDoc(ref);
-    if (docSnap.exists()) {
-      let data = docSnap.data();
-      setCompanyName(data.sirketAdi);
-      setWeburl(data.webUrl);
-      setLogoLink(data.logoLink);
-      setLinkListData((state) => ({
-        ...state,
-        web: data.webUrl,
-      }));
-      if(data.webUrl != "")
-    {
-      setLinkList((oldArray) => [
-        ...oldArray,
-        links.WEB,
-      ]);
-    }
-      setPageLoaded(true);
-    } else {
-      console.log("No such document!");
-      setLoading(false);
-    }
+  useEffect(() => {
+    (async () => {
+      const ref = doc(
+        db,
+        "links",
+        location.pathname.replace("/generator/", "")
+      );
+      console.log(ref.path);
+      let docSnap;
+      try {
+        docSnap = await getDoc(ref);
+      } catch (e) {
+        console.log(e);
+      }
+
+      if (docSnap.exists()) {
+        let data = docSnap.data();
+        setCompanyName(data.sirketAdi);
+        setWeburl(data.webUrl);
+        setLogoLink(data.logoLink);
+        setLinkListData((state) => ({
+          ...state,
+          web: data.webUrl,
+        }));
+        if (data.webUrl != "") {
+          setLinkList((oldArray) => [...oldArray, links.WEB]);
+        }
+        setPageLoaded(true);
+      } else {
+        console.log("No such document!");
+        setLoading(false);
+      }
+    })();
 
     return () => {};
   }, []);
@@ -1014,6 +1023,7 @@ function SignaturePage() {
                             phone: phone,
                             linkList: linkListData,
                             logo: logoLink,
+                            sirketAdi:companyName,
                             onclickpath: cardPathVariable,
                             cardImage: "",
                           }
@@ -1564,7 +1574,7 @@ function SignaturePage() {
             </canvas>
           </Scrollbars>
         </div>
-        <table id="signature2" width={332}>
+        <table id="signature2" class="hidden" width={332}>
           <tbody>
             <th>
               <tr>

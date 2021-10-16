@@ -1,7 +1,7 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 function forLoop() {
   var obj = {};
-  for (let i = 0; i <= 500; i += 2) {
+  for (let i = 0; i <= 600; i += 2) {
     if (i % 2 == 0) obj[`${i}px`] = `${i}px`;
   }
   return obj;
@@ -123,7 +123,7 @@ module.exports = {
         "line-gray": "#7B7B7B",
         "error-red": "#D63835",
         signborder: "#ebe9e6",
-
+        apple: "#979797",
         "janus-purple": "#6C489E",
       },
       borderWidth: {

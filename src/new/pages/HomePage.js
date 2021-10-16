@@ -14,7 +14,7 @@ import lockedTemplate from "../../images/lockedTemplate.png";
 import sirklogo from "../../images/sirklogo.png";
 import orangelock from "../../images/orangelock.png";
 import { Carousel } from "react-responsive-carousel";
-
+import drivelogo from '../../images/drivelogo.png'
 import party from "../../images/party.png";
 import arrow from "../../images/arrowhome.png";
 import info_circle from "../../images/info_circle.png";
@@ -69,7 +69,7 @@ function HomePage() {
   const [urlgo, setUrlGo] = useState("");
   const location = useLocation();
   const [fileName, setFileName] = useState();
-
+  const [isCopied, setIsCopied] = useState(false);
   const previewCanvasRef = useRef(null);
   const [crop, setCrop] = useState({ unit: '%', width: 50, aspect: 1 });
   const [completedCrop, setCompletedCrop] = useState(null);
@@ -365,7 +365,7 @@ function HomePage() {
   function handlePopUp3() {
     if (popUpValue3 == 1) {
       return (
-        <div class=" flex-column absolute max-w-470px h-screen items-center flex   z-20     justify-center ">
+        <div class=" flex-column absolute  h-screen items-center flex max-w-600px   z-20     justify-center ">
           <div className="flex flex-col bg-white shadow-2xl  rounded-3xl p-20px pb-40px overflow-hidden">
             <div class="flex justify-end mt-2 ">
               <button
@@ -392,39 +392,64 @@ function HomePage() {
             </div>
 
             <div class="flex  justify-center mt-18px">
-              <img className="h-190px w-190px" src={party} />
+              <img className="h-190px w-190px " src={party} />
             </div>
-            <div class=" mt-36px  px-40px  flex justify-center items-center ">
-              <div>
-                <p class=" font-roboto  font-light text-16px text-left">
-                  E-posta imzası tasarımınızı admin olarak organizasyonunuz
-                  adına oluşturdunuz.
-                </p>
-
-                <p class=" font-roboto  font-light text-left text-16px  mt-16px">
-                  Şimdiye kadar organizasyonunuz adına temel bilgiler olan logo
-                  ve websitesi bilgilerini girdiniz. Bunu admin olarak bir tek
-                  siz değiştirebilirsiniz.
-                </p>
-                <p class=" font-roboto  font-light text-left text-16px  mt-16px">
-                  Ekip arkadaşlarınızın kişisel bilgilerini doldurması için{" "}
-                  <button
-                    onClick={() =>
-                      navigator.clipboard.writeText(
-                        window.location.href.replace("home", "") +
-                          `generator/${urlgo}`
-                      )
-                    }
-                    className=" mx-4px my-4px rounded-md bg-janus-site-blue text-white focus:outline-none"
-                  >
-                    <p class="px-10px py-6px">Linki Kopyala</p>
-                  </button>{" "}
-                  butonuna tıklayarak paylaşın
-                </p>
-                <p class=" font-roboto  font-light text-left text-16px  mt-16px">
-                  Kendi e-posta imzanızı oluşturmak için 'E-posta İmzası Üret'
-                  butonuna tıklayın
-                </p>
+            <div class=" mt-36px   flex justify-center items-center ">
+              <div class="flex justify-center flex-col">
+                <div class="flex justify-center">
+                  <p class="text-janus-dark-blue font-roboto  font-light text-16px text-left">
+                    E-posta imzası tasarımınızı admin olarak organizasyonunuz
+                    adına oluşturdunuz.
+                  </p>
+                </div>
+                <div class="flex justify-center">
+                  <p class=" font-roboto  font-light text-left text-16px  mt-16px">
+                    Ekip arkadaşlarınızın yaptığınız tasarımı kullanarak kendi
+                    mail imzalarını oluşturması için aşağıdaki linki manuel
+                    olarak veya ‘’Linki Kopyala’’ butonu ile kopyalayayıp
+                    paylaşabilirsiniz.
+                  </p>
+                </div>
+                <div>
+                  <div className="w-100% pr-50px h-30px"><p className="text-gmail text-right">{isCopied  ? "Link kopyalandı!" :null}</p></div>
+                  <div class=" flex flex-row justify-center h-10 items-center ">
+                    <div class="w-80 h-10 flex justify-start   shadow-input rounded-md ">
+                      {" "}
+                      <img src={drivelogo} />
+                      <div class="w-px bg-apple border-solid h-full"></div>
+                      <div class="ml-3 flex items-center w-100% ">
+                        <input disabled class="text-apple py-4px pr-4px focus:outline-none w-100% " value=  {window.location.href.replace("home", "") +
+                            `generator/${urlgo}`}>
+                        
+                        </input>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() =>{
+                        navigator.clipboard.writeText(
+                          window.location.href.replace("home", "") +
+                            `generator/${urlgo}`
+                        )
+                        setIsCopied(true);
+                      }}
+                      className="bg-yahoo ml-5 mx-4px my-4px rounded-md py-2px px-12px  text-white focus:outline-none"
+                    >
+                      <p class="px-10px py-6px">Linki Kopyala</p>
+                    </button>{" "}
+                  </div>
+                </div>
+                <div class="flex justify-center">
+                  <p class="text-janus-dark-blue font-roboto mt-2 font-light text-16px text-left">
+                    *Kopyaladığınız linke tekrar ulaşabilmeniz için linki
+                    kaydetmenizi öneririz.
+                  </p>
+                </div>
+                <div class="flex justify-center">
+                  <p class=" font-roboto  font-light text-left text-16px  mt-16px">
+                    E-posta imzanızı oluşturmak için ‘’E-posta İmzası Oluştur’’
+                    butonuna tıklayın.
+                  </p>
+                </div>
               </div>
             </div>
 
