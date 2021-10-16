@@ -147,11 +147,11 @@ function NewHiCard() {
   function showCard() {
     return (
       <div className="inline-block">
-      <div className=" shadow-hicard flex min-w-500px   py-20 px-10 rounded-lg">
+      <div className=" shadow-hicard flex min-w-500px items-center   py-20 px-10 rounded-lg">
         <div className="flex flex-col justify-center h-100%">
           <img src={logo} className="w-100px h-100px" />
         </div>
-        <div className="pl-30px flex-1">
+        <div className="pl-40px flex-1">
           <div className="font-roboto  whitespace-nowrap  text-left font-bold text-mail-gray text-20px">
             {fname + " " + lname}
           </div>

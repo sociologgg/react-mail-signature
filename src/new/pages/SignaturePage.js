@@ -1304,18 +1304,10 @@ function SignaturePage() {
                           socialMediaCoordsY = 117;
                         }
                         let marginL = 132;
-                        {
+                        
                           linkList.map((index, i) => {
-                            if (index == links.LINKEDIN) {
-                              context.drawImage(
-                                linkedinicon,
-                                marginL*scale,
-                                socialMediaCoordsY*scale,
-                                14,
-                                14
-                              );
-                              marginL += 28;
-                            }
+                          
+                          
                             if (index == links.INSTAGRAM) {
                               context.drawImage(
                                 instagramicon,
@@ -1325,6 +1317,18 @@ function SignaturePage() {
                                 14*scale
                               );
                               marginL += 28;
+                            }
+                            if(index == links.LINKEDIN)
+                            {
+                              context.drawImage(
+                                linkedinicon,
+                                marginL*scale,
+                                socialMediaCoordsY*scale,
+                                14*scale,
+                                14*scale
+                                
+                              );
+                              marginL+=28;
                             }
                             if (index == links.FACEBOOK) {
                               context.drawImage(
@@ -1357,7 +1361,7 @@ function SignaturePage() {
                               marginL += 28;
                             }
                           });
-                        }
+                        
                         context.font = "normal normal  400 48px roboto";
                         context.fillStyle = "#167FFC";
                         context.fillText(

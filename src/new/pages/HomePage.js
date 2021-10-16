@@ -487,13 +487,13 @@ function HomePage() {
         onChange={(c) => setCrop(c)}
         onComplete={(c) => setCompletedCrop(c)}
       /> 
-      <div className="border-red-500 border-1px">
+      <div className="border-black border-2 mt-30px ">
              <canvas
           ref={previewCanvasRef}
-          className="mt-30px "
+        
           style={{
-            width: Math.round(100?? 0),
-            height: Math.round(100?? 0)
+            width: Math.round(150?? 0),
+            height: Math.round(150?? 0)
           }}
         />
         </div>
