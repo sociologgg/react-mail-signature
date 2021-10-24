@@ -20,7 +20,7 @@ function ForgotPassword() {
     setLoading(true);
     // değiştirilecek
     sendPasswordResetEmail(auth, email, {
-      url: "https://hidden-castle-63973.herokuapp.com/auth/SignIn",
+      url: "https://mailsignaturegenerator.herokuapp.com/auth/SignIn",
     })
       .then(() => {
         setError("");

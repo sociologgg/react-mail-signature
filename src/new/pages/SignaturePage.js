@@ -1385,7 +1385,7 @@ function SignaturePage() {
                         // img.crossOrigin = "anonymous";
 
                         const ahref = document.getElementById("idforpath");
-                        ahref.href = `https://hidden-castle-63973.herokuapp.com/` + imgpath2;
+                        ahref.href = `https://mailsignaturegenerator.herokuapp.com/` + imgpath2;
                         //var a = document.createElement("");
                         img.src = canvas1.toDataURL("image/png");
 
