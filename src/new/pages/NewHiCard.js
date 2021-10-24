@@ -147,7 +147,7 @@ function NewHiCard() {
   function showCard() {
     return (
       <div className="inline-block">
-      <div className=" shadow-hicard flex min-w-500px items-center   py-20 px-10 rounded-lg">
+      <div className=" shadow-hicard flex min-w-500px items-center   py-8 px-10 rounded-lg">
         <div className="flex flex-col justify-center h-100%">
           <img src={logo} className="w-100px h-100px" />
         </div>
@@ -475,7 +475,7 @@ function NewHiCard() {
               </div>
               {signatureExist ? (
                 <div className=" mt-10 bg-white   shadow-hicard flex min-w-374px py-8 px-10 rounded-lg">
-                  <div className="flex flex-col justify-center  flex-1">
+                  <div className="flex flex-col max-w-72px justify-center    flex-1">
                     <img src={logo} className="w-72px h-72px" />
                   </div>
                   <div className="pl-30px  flex-1">
