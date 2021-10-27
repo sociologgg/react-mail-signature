@@ -21,6 +21,7 @@ const socialIcons = {
   twitter: require("../../icons/nfcIcons/akar-icons_twitter-fill.png").default,
   linkedin: require("../../icons/nfcIcons/bx_bxl-linkedin.png").default,
   facebook: require("../../icons/nfcIcons/brandico_facebook.png").default,
+  youtube: require("../../icons/nfcIcons/youtube.png").default,
 };
 
 const Kartvizit = () => {
@@ -61,7 +62,11 @@ const Kartvizit = () => {
 
             const links = Object.entries(doc.data())
               .map(([key, value]) => {
-                if (Object.keys(socialIcons).indexOf(key) !== -1) {
+                if (
+                  Object.keys(socialIcons).indexOf(key) !== -1 &&
+                  value != ""
+                ) {
+                  console.log(value);
                   return { icon: socialIcons[key], href: value };
                 }
               })
@@ -97,6 +102,7 @@ const Kartvizit = () => {
     vCard.email = mail;
     vCard.workUrl = web;
     vCard.homeAddress = location;
+
     // create string format to upload to Firebase Storage
     const card = vCard.getFormattedString();
 
