@@ -31,6 +31,7 @@ function NewHiCard() {
   const [title, setTitle] = useState("");
   const [mail, setMail] = useState("");
   const [linklist, setLinkList] = useState({});
+  const [companyName, setCompanyName] = useState("");
   const [phone, setPhone] = useState("");
   const [isLoading, setLoading] = useState(true);
   const [signatureExist, setSignatureExist] = useState(false);
@@ -51,6 +52,7 @@ function NewHiCard() {
       setMail(data.mail);
       setLinkList(data.linkList);
       setSignatureExist(true);
+      setCompanyName(data.sirketAdi);
     } else {
       console.log("No such document!");
       setSignatureExist(false);
@@ -60,68 +62,6 @@ function NewHiCard() {
     return () => {};
   }, []);
 
-  /*
-  function socialmediamanager() {
-    return (
-      <div className="flex items-center  mt-20px">
-        {linklist.linkedin != "" ? (
-          <div>
-            {" "}
-            <a
-              href={
-                linklist?.linkedin.includes("https://")
-                  ? linklist.linkedin
-                  : `https://` + linklist.linkedin
-              }
-            >
-              <img className="w-24px h-auto" src={linkedinLogo} />{" "}
-            </a>{" "}
-          </div>
-        ) : (
-          <></>
-        )}
-        {linklist.instagram != "" ? (
-          <div>
-            {" "}
-            <a href={linklist.instagram}>
-              <img className="w-24px h-auto ml-10px" src={instagramLogo} />{" "}
-            </a>{" "}
-          </div>
-        ) : (
-          <></>
-        )}
-        {linklist.youtube != "" ? (
-          <div>
-            {" "}
-            <a href={linklist.youtube}>
-              <img className="w-24px h-auto ml-10px" src={youtubeLogo} />{" "}
-            </a>
-          </div>
-        ) : (
-          <></>
-        )}
-        {linklist.twitter != "" ? (
-          <div>
-            {" "}
-            <a href={linklist.twitter}>
-              <img className="w-24px h-auto ml-10px" src={twitterLogo} />{" "}
-            </a>
-          </div>
-        ) : (
-          <></>
-        )}
-        {linklist.facebook != "" ? (
-          <div>
-            <a href={linklist.facebook}>
-              <img className="w-24px h-auto ml-10px" src={facebookLogo} />{" "}
-            </a>{" "}
-          </div>
-        ) : (
-          <></>
-        )}
-      </div>
-    );
-  }*/
   function socialmediamanager() {
     let isinstaFirst = linklist.linkedin == "";
     let isyoutubeFirst = isinstaFirst && linklist.instagram == "";
@@ -206,69 +146,79 @@ function NewHiCard() {
 
   function showCard() {
     return (
-      <div className=" shadow-hicard flex min-w-374px py-20 px-10 rounded-lg">
-        <div className="flex flex-col justify-center h-100%">
-          <img src={logo} className="w-100px h-100px" />
-        </div>
-        <div className="pl-30px flex-1">
-          <div className="font-roboto  whitespace-nowrap  text-left font-bold text-mail-gray text-20px">
-            {fname + " " + lname}
+      <div className="inline-block">
+        <div className=" shadow-hicard flex min-w-500px items-center   py-20 px-10 rounded-lg">
+          <div className="flex flex-col justify-center h-100%">
+            <img src={logo} className="w-100px h-100px" />
           </div>
-          <div className="font-roboto font-light text-14px text-left  text-mail-gray">
-            {title}
-          </div>
-          <div className="mt-20px">
-            {/*phone*/}{" "}
-            {phone != "" ? (
-              <div className="  flex items-center ">
-                {" "}
-                <a>
-                  <img className="w-20px h-auto" src={phonelogo} />
-                </a>{" "}
-                <p className="ml-12px font-roboto text-10px text-left  text-mail-gray">
-                  {phone}
-                </p>{" "}
-              </div>
-            ) : (
-              <div />
-            )}
-            {/*mail*/}{" "}
-            {mail != "" ? (
-              <div className="flex items-center  mt-3">
-                {" "}
-                <a href={`mailto:` + mail}>
-                  <img className="w-20px h-auto" src={maillogo} />
-                </a>{" "}
-                <p className="ml-12px font-roboto text-10px text-left  text-mail-gray">
-                  {mail}
-                </p>{" "}
-              </div>
-            ) : (
-              <div />
-            )}
-            {/*websitesi*/}{" "}
-            {linklist.web != "" ? (
-              <div className="flex items-center mt-10px">
-                {" "}
-                <a
-                  target="_blank"
-                  href={
-                    linklist.web.includes("https://")
-                      ? linklist.web
-                      : `https://` + linklist.web
-                  }
-                >
-                  <img className="w-20px h-auto" src={globeLogo} />{" "}
-                </a>{" "}
-                <p className="ml-12px font-roboto text-10px text-left  text-mail-gray">
-                  {linklist.web}
-                </p>{" "}
-              </div>
-            ) : (
-              <div />
-            )}
-            {/*Sosyal medya*/}
-            {socialmediamanager()}
+          <div className="pl-40px flex-1">
+            <div className="font-roboto  whitespace-nowrap  text-left font-bold text-mail-gray text-20px">
+              {fname + " " + lname}
+            </div>
+            <div className="font-roboto font-light text-14px text-left  text-mail-gray">
+              {title}
+            </div>
+            <div className="font-roboto font-light text-14px text-left  text-mail-gray">
+              {companyName}
+            </div>
+            <div className="mt-20px">
+              {/*phone*/}{" "}
+              {phone != "" ? (
+                <div className="  flex items-center ">
+                  {" "}
+                  <a>
+                    <img className="w-20px h-auto" src={phonelogo} />
+                  </a>{" "}
+                  <p className="ml-12px font-roboto text-10px text-left  text-mail-gray">
+                    {phone}
+                  </p>{" "}
+                </div>
+              ) : (
+                <div />
+              )}
+              {/*mail*/}{" "}
+              {mail != "" ? (
+                <div className="flex items-center  mt-3">
+                  {" "}
+                  <a href={`mailto:` + mail}>
+                    <img className="w-20px h-auto" src={maillogo} />
+                  </a>{" "}
+                  <p className="ml-12px font-roboto text-10px text-left  text-mail-gray">
+                    {mail}
+                  </p>{" "}
+                </div>
+              ) : (
+                <div />
+              )}
+              {/*websitesi*/}{" "}
+              {linklist.web != "" ? (
+                <div className="flex items-center mt-10px">
+                  {" "}
+                  <a
+                    target="_blank"
+                    href={
+                      linklist.web.includes("https://")
+                        ? linklist.web
+                        : `https://` + linklist.web
+                    }
+                  >
+                    <img className="w-20px h-auto" src={globeLogo} />{" "}
+                  </a>{" "}
+                  <p className="ml-12px font-roboto text-10px text-left  text-mail-gray">
+                    {linklist.web}
+                  </p>{" "}
+                </div>
+              ) : (
+                <div />
+              )}
+              {/*Sosyal medya*/}
+              {socialmediamanager()}
+            </div>
+            <div className="mt-24px flex justify-end">
+              <p className="text-janus-dark-blue font-roboto text-12px">
+                Created by JANUS
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -287,6 +237,9 @@ function NewHiCard() {
 
         <div className="font-roboto font-light text-14px text-left  text-mail-gray">
           {title}
+        </div>
+        <div className="font-roboto font-light text-14px text-left  text-mail-gray">
+          {companyName}
         </div>
         <div className="mt-28px">
           {/*phone*/} <div></div>
@@ -352,7 +305,7 @@ function NewHiCard() {
               </div>
               <div class="flex flex-row  justify-center h-3/4  shadow-2xl  rounded-3xl overflow-hidden bg-white mt-7 ">
                 {signatureExist ? (
-                  <div class=" flex flex-col  justify-center w-3/4  px-16  h-100%  ">
+                  <div class=" flex flex-col items-center  justify-center w-3/4  px-16  h-100%  ">
                     {showCard()}
                   </div>
                 ) : (
@@ -419,19 +372,22 @@ function NewHiCard() {
 
               {signatureExist ? (
                 <div class="flex flex-row  justify-center    shadow-2xl  rounded-2xl overflow-hidden bg-white mt-7 p-8">
-                  <div className=" mt-10 bg-white  shadow-hicard flex min-w-374px py-16  px-20 rounded-lg ">
+                  <div className=" mt-10 bg-white  shadow-hicard flex min-w-364px py-16 px-10 rounded-lg ">
                     <div className="flex flex-col justify-center flex-1">
                       <div className="block">
                         <img src={logo} className="min-w-72px h-72px" />
                       </div>
                     </div>
-                    <div className="pl-30px  flex-1">
+                    <div className="pl-40px  flex-1">
                       <div className="font-roboto  whitespace-nowrap  text-left font-bold text-mail-gray text-20px">
                         {fname + " " + lname}
                       </div>
 
                       <div className="font-roboto font-light text-14px text-left  text-mail-gray">
                         {title}
+                      </div>
+                      <div className="font-roboto font-light text-14px text-left  text-mail-gray">
+                        {companyName}
                       </div>
                       <div className="mt-28px">
                         {phone != "" ? (
@@ -452,7 +408,9 @@ function NewHiCard() {
                           <div className="mt-10px flex items-center ">
                             {" "}
                             <a href={`mailto:` + mail}>
-                              <img className="w-20px h-auto" src={maillogo} />
+                              <div class="w-20px block">
+                                <img className="w-20px block" src={maillogo} />
+                              </div>
                             </a>{" "}
                             <p className="ml-12px font-roboto text-10px text-left  text-mail-gray">
                               {mail}

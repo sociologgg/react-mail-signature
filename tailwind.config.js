@@ -1,7 +1,7 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 function forLoop() {
   var obj = {};
-  for (let i = 0; i <= 500; i += 2) {
+  for (let i = 0; i <= 600; i += 2) {
     if (i % 2 == 0) obj[`${i}px`] = `${i}px`;
   }
   return obj;
@@ -51,6 +51,7 @@ module.exports = {
         "janus-gray": "#6A6B6D",
         yahoo: "#6C489E",
         apple: "#979797",
+        nfcBg: "#FAFAFA",
       },
       maxWidth: {
         "1/4": "25%",
@@ -98,6 +99,7 @@ module.exports = {
         yahoo: "#6C489E",
         apple: "#979797",
         "info-red": "#D63835",
+        bigJanus: "#36A9F8",
       },
       fontSize: {
         ...forLoop(),

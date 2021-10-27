@@ -29,6 +29,7 @@ import EmailVerification from "./new/pages/EmailVerification";
 import NewHiCard from "./new/pages/NewHiCard";
 import { useAuth } from "./firebase/use-auth";
 import { initializeApp } from "@firebase/app";
+import Kartvizit from "./new/pages/Kartvizit";
 
 function App() {
   const user = useSelector((state) => state.auth.user);
@@ -160,6 +161,8 @@ function App() {
 
   return (
     <div className="App">
+      <Kartvizit />
+      {/* 
       <Router>
         <Switch>
           <Route exact path="/auth/PassRes">
@@ -209,6 +212,7 @@ function App() {
           </Route>
         </Switch>
       </Router>
+      */}
     </div>
   );
 }
