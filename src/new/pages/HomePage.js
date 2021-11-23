@@ -16,7 +16,7 @@ import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import autosign from "../../images/autosign.png";
 import lockedTemplate from "../../images/lockedTemplate.png";
-
+import { getAuth } from "firebase/auth";
 import sirklogo from "../../images/sirklogo.png";
 import orangelock from "../../images/orangelock.png";
 import { Carousel } from "react-responsive-carousel";
@@ -24,6 +24,8 @@ import drivelogo from "../../images/drivelogo.png";
 import party from "../../images/party.png";
 import arrow from "../../images/arrowhome.png";
 import info_circle from "../../images/info_circle.png";
+import link_error from "../../images/linkerror.png";
+import linklist_logo from "../../images/linklist_exist.png";
 import girlontable from "../../images/girlontable.png";
 import { useLocation } from "react-router";
 import Scrollbars from "react-custom-scrollbars";
@@ -67,10 +69,12 @@ function HomePage() {
   const [popUpValue2, setPopUpValue2] = useState(0);
   const [popUpValue3, setPopUpValue3] = useState(0);
   const [popUpValue4, setPopUpValue4] = useState(0);
+  const [popUpValue6, setPopUpValue6] = useState(0);
   const [isDropdownOpen1, setIsDropdownOpen1] = useState(false);
   const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
   const [hoverInfoVisible, setHoverInfoVisible] = useState(false);
   const fileLink = [];
+  const [userlinks, setUserLinks] = useState([]);
   const [logoLink, setLogoLink] = useState();
   const [urlgo, setUrlGo] = useState("");
   const location = useLocation();
@@ -79,9 +83,20 @@ function HomePage() {
   const previewCanvasRef = useRef(null);
   const [crop, setCrop] = useState({ unit: "%", width: 50, aspect: 1 });
   const [completedCrop, setCompletedCrop] = useState(null);
+
   useEffect(async () => {
     const stUser = await JSON.parse(localStorage.getItem("user"));
+    setUserLinks([]);
+
     setUser(stUser);
+    // exception lazım
+    const q = query(collection(db, "links"), where("uid", "==", stUser.uid));
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, " => ", doc);
+      setUserLinks((a) => [...a, doc]);
+    });
   }, []);
   useEffect(() => {
     if (!completedCrop || !previewCanvasRef.current || !imgRef2.current) {
@@ -305,6 +320,115 @@ function HomePage() {
       );
     }
   }
+  function handlePopUp6() {
+    if (popUpValue6 == 1) {
+      return (
+        <div class=" flex-col absolute min-w-500px     z-20 shadow-2xl  rounded-3xl bg-white mt-36  ">
+          <Scrollbars style={{ width: 740, height: 550, position: "relative" }}>
+            <div className="px-60px">
+              <div class="flex justify-end mt-2 ">
+                <button
+                  onClick={() => {
+                    setPopUpValue6(0);
+                  }}
+                  class="focus:outline-none mt-40px"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6 mr-3"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              <div class="py-10px justify-center">
+                <div className="text-janus-dark-blue text-24px">
+                  E-posta İmzası Linkleri
+                </div>
+              </div>
+              {userlinks.length == 0 ? (
+                <div className="w-100% flex  flex-col items-center  mt-40px">
+                  <img src={link_error} className="w-240px ml-40px" />
+                  <p className="mt-36px">
+                    Henüz organizasyonun adına e-posta imzası oluşturmadın.{" "}
+                    <br /> Hadi tasarımını tamamla ve linklere bu sayfadan
+                    kolayca ulaş!
+                  </p>
+                </div>
+              ) : (
+                <div className="">
+                  <div className="flex justify-between  items-center">
+                    <p className="text-left text-16px text-input-gray">
+                      Organizasyonların adına oluşturduğun e-posta imzası <br />{" "}
+                      linklerine bu sayfadan ulaşabilirsin. Kendi mail imzanı{" "}
+                      <br /> oluşturmak ve linki ekip arkadaşlarınla paylaşmak
+                      için <br /> linki manuel olarak veya ‘’Linki Kopyala’’
+                      butonu ile <br /> kopyalayabilirsin.
+                    </p>
+                    <img className="w-168px" src={linklist_logo} />
+                  </div>
+
+                  {userlinks.map((value, index) => (
+                    <div className="pb-50px  mt-20px  text-left">
+                      {" "}
+                      <p>
+                        {" "}
+                        <a className="text-16px font-medium">
+                          Organizasyon Adı:
+                        </a>{" "}
+                        <a className="font-normal ml-4px">
+                          {value.data().sirketAdi}
+                        </a>
+                      </p>
+                      <div className="flex mt-20px ">
+                        <div class="w-100% h-10 flex justify-start  shadow-input   rounded-md ">
+                          {" "}
+                          <img src={drivelogo} />
+                          <div class="w-px bg-apple border-solid h-full opacity-50"></div>
+                          <div class="ml-3 flex items-center w-100% ">
+                            <input
+                              disabled
+                              class="text-apple py-4px pr-4px focus:outline-none w-100%"
+                              value={
+                                window.location.href.replace("home", "") +
+                                `generator/${value.id}`
+                              }
+                            />
+                          </div>
+                        </div>
+                        <div className="min-w-20px min-h-20px"></div>
+                        <button
+                          onClick={() => {
+                            navigator.clipboard.writeText(
+                              window.location.href.replace("home", "") +
+                                `generator/${value.id}`
+                            );
+                            setIsCopied(true);
+                          }}
+                          className="bg-yahoo  min-w-160px  rounded py-2px px-12px  text-white focus:outline-none"
+                        >
+                          <p class="py-6px">Linki Kopyala</p>
+                        </button>{" "}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </Scrollbars>
+        </div>
+      );
+    }
+  }
   function handlePopUp2() {
     if (popUpValue2 == 1) {
       return (
@@ -485,39 +609,70 @@ function HomePage() {
   function handlePopUp4() {
     if (popUpValue4 == 1) {
       return (
-        <div class=" flex-column absolute   p-20px z-20 shadow-2xl justify-center  rounded-3xl overflow-hidden bg-white mt-32  items-center ">
-          <div className="flex flex-col items-center ">
+        <div class=" flex-column absolute   p-40px z-20 shadow-2xl   rounded-3xl overflow-hidden bg-white mt-32  ">
+          <div className="flex justify-end">
+            <button
+              onClick={() => {
+                setPopUpValue4(0);
+              }}
+              class="focus:outline-none opacity-50"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 mr-3"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+          <div className="flex h-100% pt-10px ">
             <ReactCrop
               src={upImg}
               onImageLoaded={onLoad}
               crop={crop}
-              className="w-400px h-400px z-20"
-              onChange={(c) => setCrop(c)}
+              className="w-386px h-386px rounded-lg z-20"
+              onChange={(c) => {
+                setCrop(c);
+                console.log(c);
+              }}
               onComplete={(c) => setCompletedCrop(c)}
             />
-            <div className="border-black border-2 mt-30px ">
-              <canvas
-                ref={previewCanvasRef}
-                style={{
-                  width: Math.round(150 ?? 0),
-                  height: Math.round(150 ?? 0),
-                }}
-              />
+            <div className="pl-20px flex flex-col justify-between ">
+              <div className="rounded-lg   h-100%  ">
+                <canvas
+                  ref={previewCanvasRef}
+                  className="rounded-lg"
+                  style={{
+                    width: Math.round(152 ?? 0),
+                    height: Math.round(152 ?? 0),
+                  }}
+                />
+              </div>
+              <div className="flex pl-50px">
+                <button
+                  onClick={async () => {
+                    setPopUpValue4(0);
+                    const imageLink = await getFirebaseUrl(
+                      previewCanvasRef.current,
+                      completedCrop
+                    );
+                    await console.log("imagelink", imageLink);
+                    await setPopUpValue4(0);
+                  }}
+                  className="py-10px ml-20px w-100px px-6px font-roboto text-white mt-20px bg-compOrange hover:bg-compOrange-hover rounded-md focus:outline-none"
+                >
+                  Kırp
+                </button>
+              </div>
             </div>
-            <button
-              onClick={async () => {
-                setPopUpValue4(0);
-                const imageLink = await getFirebaseUrl(
-                  previewCanvasRef.current,
-                  completedCrop
-                );
-                await console.log("imagelink", imageLink);
-                await setPopUpValue4(0);
-              }}
-              className="py-10px px-6px font-roboto text-white mt-20px bg-compOrange hover:bg-compOrange-hover rounded-md focus:outline-none"
-            >
-              Logoyu Kırp
-            </button>
           </div>
         </div>
       );
@@ -751,6 +906,7 @@ function HomePage() {
                             const docRef = await addDoc(
                               collection(db, "links"),
                               {
+                                uid: user.uid,
                                 sektor: sektor,
                                 sirketAdi: sirketAdi,
                                 sirketTuru: sirketTuru,
@@ -808,9 +964,13 @@ function HomePage() {
       {handlePopUp2()}
       {handlePopUp3()}
       {handlePopUp4()}
+      {handlePopUp6()}
       <div
         class={
-          popUpValue == 0 && popUpValue3 == 0 && popUpValue4 == 0
+          popUpValue == 0 &&
+          popUpValue3 == 0 &&
+          popUpValue4 == 0 &&
+          popUpValue6 == 0
             ? `h-screen w-screen py-10 flex z-10 relative justify-center px-64 bg-janus-site-blue `
             : `h-screen w-screen py-10 flex z-10 relative justify-center px-64 bg-janus-site-blue  opacity-70 `
         }
@@ -821,7 +981,12 @@ function HomePage() {
               Organizasyon Bilgileri
             </p>
             <div class="mt-2">
-              <DropAcc />
+              <DropAcc
+                setPopUpValue={() => {
+                  setPopUpValue6(1);
+                  console.log("as");
+                }}
+              />
             </div>
           </div>
 

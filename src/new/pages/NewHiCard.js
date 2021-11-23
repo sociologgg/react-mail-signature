@@ -476,7 +476,7 @@ function NewHiCard() {
               </div>
               {signatureExist ? (
                 <div className=" mt-10 bg-white   shadow-hicard flex min-w-374px py-8 px-10 rounded-lg">
-                  <div className="flex flex-col justify-center  flex-1">
+                  <div className="flex flex-col max-w-72px justify-center    flex-1">
                     <img src={logo} className="w-72px h-72px" />
                   </div>
                   <div className="pl-30px  flex-1">

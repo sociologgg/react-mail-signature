@@ -534,7 +534,9 @@ function SignaturePage() {
                               onChange={(e) => {
                                 setLinkListData((state) => ({
                                   ...state,
-                                  instagram: e.target.value,
+                                  instagram: e.target.value.includes("https://")
+                                    ? e.target.value
+                                    : "https://" + e.target.value,
                                 }));
                               }}
                               className={`w-312px h-40px shadow-sign-input ${
@@ -546,7 +548,7 @@ function SignaturePage() {
                                     : "focus:border-janus-focus-blue focus:border-0.5"
                                   : "focus:border-janus-focus-blue focus:border-0.5"
                               } focus:border-0.5 focus:outline-none pl-40px`}
-                              placeholder="Instagram Profil URL'i"
+                              placeholder="https://www.instagram.com/..."
                             />
                             <img
                               className="absolute left-4px top-4px z-10 w-30px h-30px"
@@ -590,7 +592,9 @@ function SignaturePage() {
                               onChange={(e) => {
                                 setLinkListData((state) => ({
                                   ...state,
-                                  facebook: e.target.value,
+                                  facebook: e.target.value.includes("https://")
+                                    ? e.target.value
+                                    : "https://" + e.target.value,
                                 }));
                               }}
                               className={`w-312px h-40px shadow-sign-input ${
@@ -602,7 +606,7 @@ function SignaturePage() {
                                     : "focus:border-janus-focus-blue focus:border-0.5"
                                   : "focus:border-janus-focus-blue focus:border-0.5"
                               } focus:outline-none pl-40px`}
-                              placeholder="Facebook Profil URL'i"
+                              placeholder="https://www.facebook.com/..."
                             />
                             <img
                               className="absolute left-4px top-4px z-10 w-30px h-30px"
@@ -646,7 +650,9 @@ function SignaturePage() {
                               onChange={(e) => {
                                 setLinkListData((state) => ({
                                   ...state,
-                                  twitter: e.target.value,
+                                  twitter: e.target.value.includes("https://")
+                                    ? e.target.value
+                                    : "https://" + e.target.value,
                                 }));
                               }}
                               className={`w-312px h-40px shadow-sign-input ${
@@ -658,7 +664,7 @@ function SignaturePage() {
                                     : "focus:border-janus-focus-blue focus:border-0.5"
                                   : "focus:border-janus-focus-blue focus:border-0.5"
                               } focus:outline-none pl-40px`}
-                              placeholder="Twitter Profil URL'i"
+                              placeholder="https://twitter.com/..."
                             />
                             <img
                               className="absolute left-4px top-4px z-10 w-30px h-30px"
@@ -731,7 +737,9 @@ function SignaturePage() {
                               onChange={(e) => {
                                 setLinkListData((state) => ({
                                   ...state,
-                                  linkedin: e.target.value,
+                                  linkedin: e.target.value.includes("https://")
+                                    ? e.target.value
+                                    : "https://" + e.target.value,
                                 }));
                               }}
                               className={`w-312px h-40px shadow-sign-input ${
@@ -743,7 +751,7 @@ function SignaturePage() {
                                     : "focus:border-janus-focus-blue focus:border-0.5"
                                   : "focus:border-janus-focus-blue focus:border-0.5"
                               } focus:outline-none pl-40px`}
-                              placeholder="LinkedIn Profil URL'i"
+                              placeholder="https://www.linkedin.com/..."
                             />
                             <img
                               className="absolute left-8px top-8px z-10 w-24px h-24px"
@@ -783,11 +791,13 @@ function SignaturePage() {
                           ) : null}
                           <div className="relative mt-4px items-center flex">
                             <input
-                              placeholder="Youtube Profil URL'i"
+                              placeholder="https://www.youtube.com/channel/..."
                               onChange={(e) => {
                                 setLinkListData((state) => ({
                                   ...state,
-                                  youtube: e.target.value,
+                                  youtube: e.target.value.includes("https://")
+                                    ? e.target.value
+                                    : "https://" + e.target.value,
                                 }));
                               }}
                               className={`w-312px h-40px shadow-sign-input ${
@@ -1426,7 +1436,7 @@ function SignaturePage() {
 
                         const ahref = document.getElementById("idforpath");
                         ahref.href =
-                          `https://hidden-castle-63973.herokuapp.com/` +
+                          `https://mailsignaturegenerator.herokuapp.com/` +
                           imgpath2;
                         //var a = document.createElement("");
                         img.src = canvas1.toDataURL("image/png");

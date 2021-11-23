@@ -8,7 +8,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function DropAcc() {
+export default function DropAcc({setPopUpValue}) {
   let dispatch = useDispatch();
 
   async function handleLogout(e) {
@@ -22,6 +22,7 @@ export default function DropAcc() {
           Hesabım
           <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
         </Menu.Button>
+        
       </div>
 
       <Transition
@@ -47,7 +48,19 @@ export default function DropAcc() {
                 </a>
               )}
                   </Menu.Item> */}
-
+<Menu.Item>
+              {({ active }) => (
+                <button
+                  onClick={()=>{setPopUpValue()}}
+                  className={classNames(
+                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    "block w-full text-left px-4 py-2 text-sm"
+                  )}
+                >
+                Linklerim
+                </button>
+              )}
+            </Menu.Item>
             <Menu.Item>
               {({ active }) => (
                 <button

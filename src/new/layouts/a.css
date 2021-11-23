@@ -1,0 +1,10 @@
+.text {
+    display: inline-block;
+      background-color: #167FFC;
+      overflow: hidden;
+      height: 100%;
+      width: 50%;
+      border-radius: 20px;
+      transition: width 1.5s;
+      }
+    
