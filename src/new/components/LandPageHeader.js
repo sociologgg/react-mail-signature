@@ -16,7 +16,7 @@ import {
   XIcon,
 } from "@heroicons/react/outline";
 import { ChevronDownIcon } from "@heroicons/react/solid";
-
+import janus3 from "../../images/janus3.png";
 const solutions = [
   {
     name: "E-mail Signature",
@@ -85,14 +85,20 @@ export default function LandPageHeader() {
       <Popover className="relative  rounded-lg bg-white ">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 ">
           <div className="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
-            <div className="flex justify-start lg:w-0 lg:flex-0"></div>
+            <div className="flex justify-center lg:w-0 lg:flex-1 hidden">
+              <img className=" " src={janus3} />
+            </div>
             <div className="-mr-2 -my-2 md:hidden">
               <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                 <span className="">Open menu</span>
                 <MenuIcon className="h-6 w-6" aria-hidden="true" />
               </Popover.Button>
             </div>
-            <Popover.Group as="nav" className=" md:flex space-x-10">
+            <Popover.Group
+              as="nav"
+              className="flex justify-center items-center md:flex space-x-10"
+            >
+              <img className="h-16" src={janus3} />
               <a
                 href="#"
                 className="text-base font-roboto font-medium text-input-gray hover:text-gray-900"

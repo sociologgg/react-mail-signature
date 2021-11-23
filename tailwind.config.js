@@ -54,6 +54,7 @@ module.exports = {
         nfcBg: "#FAFAFA",
         grayf3: "#f3f3f3",
         footer: "#9FCBFF",
+        aboutOrange: "#FAC14B",
       },
       backgroundImage: {
         landpagebg: "url(/src/images/landpagebg.jpg)",
