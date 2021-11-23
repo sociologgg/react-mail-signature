@@ -4,7 +4,7 @@ import slide1 from "../../images/slide1.png";
 import slide2 from "../../images/slide2.png";
 function LandCarousel() {
   return (
-    <div class="carousel relative rounded relative overflow-hidden mt-20 px-32">
+    <div class=" carousel relative rounded relative overflow-hidden mt-20 px-32">
       <div class="carousel-inner relative overflow-hidden ">
         <input
           class="carousel-open"

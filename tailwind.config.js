@@ -53,6 +53,7 @@ module.exports = {
         apple: "#979797",
         nfcBg: "#FAFAFA",
         grayf3: "#f3f3f3",
+        footer: "#9FCBFF",
       },
       backgroundImage: {
         landpagebg: "url(/src/images/landpagebg.jpg)",

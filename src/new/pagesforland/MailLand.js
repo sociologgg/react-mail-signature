@@ -2,6 +2,7 @@ import React from "react";
 import multicards from "../../images/multicards.png";
 import kalemgirl from "../../images/kalemgirl.png";
 import LandCarousel from "../components/LandCarousel";
+import Footer from "./Footer";
 function MailLand() {
   return (
     <div className="flex flex-col">
@@ -49,8 +50,27 @@ function MailLand() {
         </div>
       </div>
 
-      <div className=" flex px-10 bg-janus-site-blue h-screen   ">
+      <div className=" flex flex-col px-10 bg-janus-site-blue    ">
         <LandCarousel />
+
+        <div className="px-10 flex justify-center mt-20  ">
+          <p className="font-roboto font-medium text-white text-2xl ">
+            Hadi, hemen kaydol ve e-mail imzanı oluştur! Janus ile çok kolay!
+          </p>
+        </div>
+        <div className=" px-10 mb-10 flex justify-center mt-10  ">
+          <button className=" text-xl font-normal focus:outline-none text-white">
+            Giriş yap
+          </button>
+          <button className="ml-5 text-xl font-normal text-white rounded-lg px-3 border-2 border-white focus:outline-none">
+            Hadi Başlayalım!
+          </button>
+        </div>
+        <div className="px-10 mt-20 flex justify-center mb-20">
+          <p className="font-sacramento text-white text-8xl">
+            e-mail Signature
+          </p>
+        </div>
       </div>
     </div>
   );
