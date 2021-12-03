@@ -2,3 +2,181 @@
 @tailwind components;
 @tailwind utilities;
 @material-tailwind /react/tailwind.css;
+
+.bg-landing-text {
+  background: linear-gradient(to right, #167ffc, #6c489e, #d63835, #fcb20e);
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+.bg-landing-text1 {
+  background: linear-gradient(
+    to right,
+    #ffa249,
+    #f0636f,
+    #ad6aca,
+    #7890ee,
+    #3bdf96
+  );
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+
+.bg-landing-text2 {
+  background: linear-gradient(to right, #167ffc, #6c489e, #d63835, #fcb20e);
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+.bg-landing-text3 {
+  background: linear-gradient(to right, #c867a6, #a073d3, #7891ee, #5ab7c3);
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+
+.feature-card {
+  background-color: transparent;
+  height: 320px;
+  perspective: 1000px;
+}
+.feature-card:hover .content {
+  transform: rotateY(-180deg);
+}
+
+.feature-card .content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.5s ease-in-out;
+  transform-style: preserve-3d;
+}
+.feature-card .content .front {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.6);
+  -webkit-backdrop-filter: blur(90px);
+  backdrop-filter: blur(90px);
+  border-radius: 20px;
+  padding: 1.25rem;
+}
+
+.feature-card .content .back {
+  transform: rotateY(-180deg);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.6);
+  -webkit-backdrop-filter: blur(90px);
+  backdrop-filter: blur(90px);
+  border-radius: 20px;
+  padding: 1.25rem;
+}
+
+.row {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+
+  margin-right: calc(var(--bs-gutter-x) * -0.5);
+  margin-left: calc(var(--bs-gutter-x) * -0.5);
+}
+
+.col {
+  flex: 1 0 0%;
+}
+
+.flickity-enabled {
+  position: relative;
+}
+
+.flickity-enabled.is-draggable {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.flickity-viewport {
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+}
+.flickity-slider {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.flickity-slider-transform {
+  transform: translateX(-25%);
+}
+
+.gallery-cell {
+  width: 50%;
+  display: flex;
+  padding: 1rem;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.carousel-open:checked + .carousel-item {
+  position: static;
+  opacity: 100;
+}
+.carousel-item {
+  -webkit-transition: opacity 0.6s ease-out;
+  transition: opacity 0.6s ease-out;
+}
+#carousel-1:checked ~ .control-1,
+#carousel-2:checked ~ .control-2,
+#carousel-3:checked ~ .control-3 {
+  display: block;
+}
+.carousel-indicators {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  bottom: 2%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 10;
+}
+#carousel-1:checked
+  ~ .control-1
+  ~ .carousel-indicators
+  li:nth-child(1)
+  .carousel-bullet,
+#carousel-2:checked
+  ~ .control-2
+  ~ .carousel-indicators
+  li:nth-child(2)
+  .carousel-bullet,
+#carousel-3:checked
+  ~ .control-3
+  ~ .carousel-indicators
+  li:nth-child(3)
+  .carousel-bullet {
+  color: #2b6cb0; /*Set to match the Tailwind colour you want the active one to be */
+}

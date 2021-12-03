@@ -6,14 +6,18 @@ import AboutLand from "../pagesforland/AboutLand";
 import { Route, Link, Router, Redirect, Switch } from "react-router-dom";
 import Footer from "../pagesforland/Footer";
 import key from "../../images/key.png";
+import NfcLand from "../pagesforland/NfcLand";
+import AnasayfaLand from "../pagesforland/AnasayfaLand";
+
 function NewLandingPage() {
   return (
     <div>
-      <div className="w-screen h-screen bg-landpagebg overflow-y-auto">
+      <div className="w-screen h-screen bg-landpagebg overflow-y-auto overflow-x-hidden">
         <div className="">
           <div className=" ">
             <LandPageHeader />
-            <AboutLand />
+            <NfcLand />
+
             <div className="bg-janus-site-blue">
               <div className=" w-full h-px bg-footer"></div>
               <Footer />

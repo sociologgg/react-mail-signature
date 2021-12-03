@@ -55,6 +55,7 @@ module.exports = {
         grayf3: "#f3f3f3",
         footer: "#9FCBFF",
         aboutOrange: "#FAC14B",
+        nfcBg2: "#DFDFDF",
       },
       backgroundImage: {
         landpagebg: "url(/src/images/landpagebg.jpg)",
@@ -110,6 +111,8 @@ module.exports = {
         apple: "#979797",
         "info-red": "#D63835",
         bigJanus: "#36A9F8",
+        orange: "#FCB20E",
+        "virus-green": "#3FDB9B",
       },
       fontSize: {
         ...forLoop(),
