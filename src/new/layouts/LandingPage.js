@@ -77,7 +77,7 @@ function LandingPage() {
     if (page == 0) {
       return (
         <div>
-          <div className="w-100%  flex justify-center ">
+          <div className="w-100% z-20 relative flex justify-center ">
             <div className="text-32px rounded-2xl bg-janus-site-blue flex justify-start w-340px h-8px bg-grayf3 text-janus-dark-blue font-roboto">
               <div ref={myRef} className="text"></div>
             </div>
@@ -338,6 +338,10 @@ function LandingPage() {
           </div>
         </div>
       );
+    }
+    else if(page == 3)
+    {
+
     }
   }
 

@@ -22,12 +22,16 @@ module.exports = {
         w31px: "w31px",
         "50%": "50%",
         "100%": "100%",
-
+        '33%':'33%',
+        '60%':'60%',
+        '65%':'65%',
+        '70%':'70%',
         "215px": "215px",
         "620px": "620px",
         "760px": "760px",
       },
       margin: {
+        'n90px':'-90px',
         18: "4.5rem",
         ...forLoop(),
       },
@@ -57,10 +61,13 @@ module.exports = {
       },
       backgroundImage: {
         landpagebg: "url(/src/images/landpagebg.jpg)",
+        bubbles: "url(/src/images/bubbles.png)"
       },
+   
       maxWidth: {
         "1/4": "25%",
         "1/2": "50%",
+        
         "3/4": "75%",
         "100%": "100%",
         ...forLoop(),
@@ -116,6 +123,10 @@ module.exports = {
       bottom: {
         ...forLoop(),
       },
+      left:
+      {
+'50%':'50%'
+      },
 
       boxShadow: {
         input: "1px 1px 5px rgba(0, 49, 108, 0.15)",
@@ -126,6 +137,7 @@ module.exports = {
       inset: {
         ...forLoop(),
         minus16px: "-16px",
+        '50%':'50%'
       },
       borderColor: {
         input: "#D3D7DF",
