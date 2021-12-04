@@ -125,8 +125,7 @@ function App() {
           <Route path="/auth" component={Dashboard}>
             {second()}
           </Route>
-          <Route exact path="/landingpage" component={NewLandingPage} />
-            
+          <Route  path="/nfc" component={NewLandingPage} />
           <Route exact path="/home" component={HomePage}>
             {first()}
           </Route>

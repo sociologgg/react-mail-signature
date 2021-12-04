@@ -15,6 +15,7 @@ import {
   ViewGridIcon,
   XIcon,
 } from "@heroicons/react/outline";
+import { Route, Link, Router, Redirect, Switch } from "react-router-dom";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import janus3 from "../../images/janus3.png";
 const solutions = [
@@ -22,7 +23,7 @@ const solutions = [
     name: "E-mail Signature",
     description:
       "Get a better understanding of where your traffic is coming from.",
-    href: "/landingpage/mailsignature",
+    href: "/home",
     icon: ChartBarIcon,
   },
   {
@@ -81,7 +82,7 @@ function classNames(...classes) {
 
 export default function LandPageHeader() {
   return (
-    <div className="px-20 mt-10 z-20 relative">
+    <div className="px-20 mt-10 z-30 relative">
       <Popover className="relative  rounded-lg bg-white ">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 ">
           <div className="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
@@ -99,18 +100,18 @@ export default function LandPageHeader() {
               className="flex justify-center items-center md:flex space-x-10"
             >
               <img className="h-16" src={janus3} />
-              <a
-                href="#"
+              <Link
+                to="/nfc/home"
                 className="text-base font-roboto font-medium text-input-gray hover:text-gray-900"
               >
                 Anasayfa
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+              to="/nfc/about"
                 className="text-base font-roboto font-medium text-input-gray hover:text-gray-900"
               >
                 Hakkımızda
-              </a>
+              </Link>
 
               <Popover className="relative">
                 {({ open }) => (
@@ -170,12 +171,12 @@ export default function LandPageHeader() {
                   </>
                 )}
               </Popover>
-              <a
-                href="#"
+              <Link
+                to="/nfc/nature"
                 className="text-base font-roboto font-medium text-input-gray hover:text-gray-900"
               >
                 Doğaya Katkı
-              </a>
+              </Link>
               <a
                 href="#"
                 className="text-base font-roboto font-medium text-input-gray hover:text-gray-900"

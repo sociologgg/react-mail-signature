@@ -10,15 +10,35 @@ import bubble from '../../images/bubbles.png'
 import Example from "../components/PopUp";
 import NfcPopup from "../components/NfcPopup";
 import NfcLand from "../pagesforland/NfcLand";
+import LandingPage from "./LandingPage";
 function NewLandingPage() {
   return (
     <div className="   h-screen ">
       <div className=" bg-landpagebg overflow-y-auto">
         <div className=" ">
-          <LandPageHeader />
-         { /*<MailLand />*/}
+        <LandPageHeader />
+       
+       
+        <Switch>
+        
+          <Route path="/nfc/home">
+       
+           <NfcLand/>
+          </Route>
+          <Route  path="/nfc/nature">
+            <Nature />
+          </Route>
+          <Route  path="/nfc/about">
+            <AboutLand/>
+          </Route>
+          <Route  path="/nfc/nature">
+            <Nature />
+          </Route>
+        </Switch>
+   
+        <Redirect to="/nfc/home"/>
          
-        {/* <Nature/>*/}  <NfcLand/>
+      
 
 
 
