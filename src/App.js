@@ -9,7 +9,7 @@ import "./firebase/firebase";
 import LandingPage from "./new/layouts/LandingPage";
 import { onAuthStateChanged } from "@firebase/auth";
 import NewLandingPage from "./new/layouts/NewLandingPage";
-
+import Nature from "./new/pagesforland/Nature";
 import ForgotPassword from "./new/pages/ForgotPassword";
 import {
   BrowserRouter as Router,
@@ -126,6 +126,7 @@ function App() {
             {second()}
           </Route>
           <Route exact path="/landingpage" component={NewLandingPage} />
+            
           <Route exact path="/home" component={HomePage}>
             {first()}
           </Route>

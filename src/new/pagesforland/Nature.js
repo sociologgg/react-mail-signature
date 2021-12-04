@@ -4,7 +4,7 @@ import cards from '../../images/cards.png'
 import lung from '../../images/lung.jpg'
 function Nature() {
     return (
-        <div className="flex items-center  z-20 flex-col ">
+        <div className="flex items-center  z-0 flex-col ">
         <img src={bubble} className="w-100% z-0 absolute top-0"/>
          <div className=' mt-350px flex flex-col z-20 items-center'>
             <p className='text-janus-dark-blue z-20      text-48px font-bold'>
