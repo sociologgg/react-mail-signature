@@ -6,17 +6,17 @@ import virus from "../../images/nfclandpngs/virus.png";
 import money from "../../images/nfclandpngs/money.png";
 import qrcode from "../../images/nfclandpngs/qrcode.png";
 import group1 from "../../images/nfclandpngs/group1.png";
-import { useEffect, useRef,useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link,
   useParams,
-  useRouteMatch
+  useRouteMatch,
 } from "react-router-dom";
 import NfcPopup from "../components/NfcPopup";
-import './a.css'
+import "./a.css";
 let standardProducts = [
   {
     id: 1,
@@ -25,9 +25,10 @@ let standardProducts = [
     image: require("../../images/nfclandpngs/siyahgeometrikdikey.png").default,
     price: "999.00",
     buy: require("../../images/nfclandpngs/shopping-bag.png").default,
-    imagef: require('../../images/nfc-black-f.png').default,
-    imageb:require('../../images/nfc-black-b.png').default,
-    vertical:true
+    imagef: require("../../images/nfc-black-f.png").default,
+    imageb: require("../../images/nfc-black-b.png").default,
+    vertical: true,
+    ska: false,
   },
   {
     id: 2,
@@ -36,9 +37,10 @@ let standardProducts = [
     image: require("../../images/nfclandpngs/siyahgeometrikyatay.png").default,
     price: "999.00",
     buy: require("../../images/nfclandpngs/shopping-bag.png").default,
-    imagef: require('../../images/nfc-black-fy.png').default,
-    imageb:require('../../images/nfc-black-by.png').default,
-    vertical:false
+    imagef: require("../../images/nfc-black-fy.png").default,
+    imageb: require("../../images/nfc-black-by.png").default,
+    vertical: false,
+    ska: false,
   },
   {
     id: 3,
@@ -47,9 +49,10 @@ let standardProducts = [
     image: require("../../images/nfclandpngs/mavielipsdikey.png").default,
     price: "999.00",
     buy: require("../../images/nfclandpngs/shopping-bag.png").default,
-    imagef: require('../../images/nfc-blue-b.png').default,
-    imageb:require('../../images/nfc-blue-f.png').default,
-    vertical:true
+    imagef: require("../../images/nfc-blue-b.png").default,
+    imageb: require("../../images/nfc-blue-f.png").default,
+    vertical: true,
+    ska: false,
   },
   {
     id: 4,
@@ -58,9 +61,10 @@ let standardProducts = [
     image: require("../../images/nfclandpngs/mavielipsyatay.png").default,
     price: "999.00",
     buy: require("../../images/nfclandpngs/shopping-bag.png").default,
-    imagef: require('../../images/nfc-blue-fy.png').default,
-    imageb:require('../../images/nfc-blue-by.png').default,
-    vertical:false
+    imagef: require("../../images/nfc-blue-fy.png").default,
+    imageb: require("../../images/nfc-blue-by.png").default,
+    vertical: false,
+    ska: false,
   },
 ];
 
@@ -68,75 +72,91 @@ let premiumProducts = [
   {
     id: 1,
     name: "Dinamik",
-    ska: "SKA Eklenebilir",
+    skatitle: "SKA Eklenebilir",
     icon: require("../../images/nfclandpngs/yaprak.png").default,
     image: require("../../images/nfclandpngs/dinamik.png").default,
     price: "999.00",
+    imageb: require("../../images/dinamik-b.png").default,
+    imagef: require("../../images/dinamik-f.png").default,
     buy: require("../../images/nfclandpngs/shopping-bag.png").default,
+    ska: true,
+    vertical: true,
   },
   {
     id: 2,
     name: "Siyah Angular",
-    ska: "SKA Eklenebilir",
+    skatitle: "SKA Eklenebilir",
     icon: require("../../images/nfclandpngs/yaprak.png").default,
     image: require("../../images/nfclandpngs/siyahangular.png").default,
     price: "999.00",
+    imageb: require("../../images/siyahj-angular-b.png").default,
+    imagef: require("../../images/siyah-angular-f.png").default,
     buy: require("../../images/nfclandpngs/shopping-bag.png").default,
+    ska: true,
+    vertical: true,
   },
   {
     id: 3,
     name: "Kozmik Renkli",
-    ska: "SKA Eklenebilir",
+    skatitle: "SKA Eklenebilir",
     icon: require("../../images/nfclandpngs/yaprak.png").default,
     image: require("../../images/nfclandpngs/kozmikrenkli.png").default,
     price: "999.00",
+    imageb: require("../../images/kozmik-renkli-b.png").default,
+    imagef: require("../../images/kozmik-renkli-f.png").default,
     buy: require("../../images/nfclandpngs/shopping-bag.png").default,
+    ska: true,
+    vertical: true,
   },
   {
     id: 4,
     name: "Mor Angular",
-    ska: "SKA Eklenebilir",
+    skatitle: "SKA Eklenebilir",
     icon: require("../../images/nfclandpngs/yaprak.png").default,
     image: require("../../images/nfclandpngs/morangular.png").default,
     price: "999.00",
+    imageb: require("../../images/mor-angular-b.png").default,
+    imagef: require("../../images/mor-angular-f.png").default,
     buy: require("../../images/nfclandpngs/shopping-bag.png").default,
+    ska: true,
+    vertical: true,
   },
   {
     id: 4,
     name: "Siyah Mermer",
-    ska: "SKA Eklenebilir",
+    skatitle: "SKA Eklenebilir",
     icon: require("../../images/nfclandpngs/yaprak.png").default,
     image: require("../../images/nfclandpngs/siyahmermer.png").default,
     price: "999.00",
+    imageb: require("../../images/siyah-mermer-b.png").default,
+    imagef: require("../../images/siyah-mermer-f.png").default,
     buy: require("../../images/nfclandpngs/shopping-bag.png").default,
+
+    ska: true,
+    vertical: true,
   },
 ];
 
-
 function NfcLand() {
-
-
-  const [popUpValue,setPopUpValue] = useState(0);
-  const [name,setName]=useState('')
-  const [icon,setIcon] = useState('');
-  const [imagef,setImagef] = useState('');
-  const [imageb, setImageb] = useState('');
-  const [vertical,setIsVertical] = useState();
+  const [popUpValue, setPopUpValue] = useState(0);
+  const [name, setName] = useState("");
+  const [icon, setIcon] = useState("");
+  const [imagef, setImagef] = useState("");
+  const [imageb, setImageb] = useState("");
+  const [vertical, setIsVertical] = useState();
+  const [price, setPrice] = useState("199.00");
+  const [ska, setSka] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-
-
-
 
   return (
     <div className="flex flex-col ">
-{showPopup ? 
-       <div className='popup'>
-
-       <div className='popup_inner'>
-       <div class="absolute ">askndaslkd</div>
-       <button
+      {showPopup ? (
+        <div className="popup">
+          <div className="popup_inner">
+            <div class="absolute ">askndaslkd</div>
+            <button
               onClick={() => {
-                setShowPopup(false)
+                setShowPopup(false);
               }}
               class="focus:outline-none z-100  absolute  top-8 z-50  right-0 "
             >
@@ -155,14 +175,25 @@ function NfcLand() {
                 />
               </svg>
             </button>
-         <NfcPopup name={name} imageb={imageb} imagef={imagef} vertical={!vertical}/>
-       <button onClick={()=>{setShowPopup(false)}}>close me</button>
-       </div>
-     </div>
-          : null
-        }
+            <NfcPopup
+              name={name}
+              imageb={imageb}
+              imagef={imagef}
+              vertical={!vertical}
+              price={price}
+              ska={ska}
+            />
+            <button
+              onClick={() => {
+                setShowPopup(false);
+              }}
+            >
+              close me
+            </button>
+          </div>
+        </div>
+      ) : null}
 
-     
       <div className="mt-16 flex flex-row justify-center">
         <p className=" text-center font-roboto font-medium text-6xl text-janus-dark-blue">
           Networkingin Geleceğine <br /> Hoş Geldiniz!
@@ -283,37 +314,39 @@ function NfcLand() {
           {standardProducts.map((element) => {
             return (
               <div className="flex flex-col rounded-lg bg-white p-8   ">
-               <button
-               class="focus:outline-none"
-               onClick={()=>{
-                setName(element.name) 
-               setShowPopup(true);
-                setImagef(element.imagef);
-                setImageb(element.imageb);
-                setIsVertical(element.vertical);
-              }}
-               >
-                <div className="flex justify-start">
-                  <img className="  start h-5 w-5 " src={element.icon} />{" "}
-                </div>
-                <div className="self-center justify-self-center ">
-                  {" "}
-                  <img
-                    className="mt-3 self-center justify-self-center"
-                    src={element.image}
-                  />
-                </div>
-                <div className="mt-5 flex flex-row justify-start">
-                  <div className="flex items-start flex-col">
-                    <p className="font-roboto font-bold text-input-gray">
-                      {element.name}
-                    </p>{" "}
-                    <p className="font-roboto font-normal text-sm">
-                      {element.price}{" "}
-                    </p>
+                <button
+                  class="focus:outline-none"
+                  onClick={() => {
+                    setName(element.name);
+                    setShowPopup(true);
+                    setImagef(element.imagef);
+                    setImageb(element.imageb);
+                    setIsVertical(element.vertical);
+                    setPrice(element.price);
+                    setSka(element.ska);
+                  }}
+                >
+                  <div className="flex justify-start">
+                    <img className="  start h-5 w-5 " src={element.icon} />{" "}
                   </div>
-                  <img className=" h-5 w-5" src={element.buy} />
-                </div>
+                  <div className="self-center justify-self-center ">
+                    {" "}
+                    <img
+                      className="mt-3 self-center justify-self-center"
+                      src={element.image}
+                    />
+                  </div>
+                  <div className="mt-5 flex flex-row justify-start">
+                    <div className="flex items-start flex-col">
+                      <p className="font-roboto font-bold text-input-gray">
+                        {element.name}
+                      </p>{" "}
+                      <p className="font-roboto font-normal text-sm">
+                        {element.price}{" "}
+                      </p>
+                    </div>
+                    <img className=" h-5 w-5" src={element.buy} />
+                  </div>
                 </button>
               </div>
             );
@@ -332,30 +365,43 @@ function NfcLand() {
           {premiumProducts.map((element) => {
             return (
               <div className="flex flex-col rounded-lg bg-white p-8   ">
-                <div className="flex justify-start">
-                  <img className="  start h-5 w-5 " src={element.icon} />{" "}
-                </div>
-                <div className="self-center justify-self-center ">
-                  {" "}
-                  <img
-                    className="mt-3 self-center justify-self-center"
-                    src={element.image}
-                  />
-                </div>
-                <div className="mt-5 flex flex-row justify-start">
-                  <div className="flex items-start flex-col">
-                    <span className="bg-clip-text font-roboto bg-landing-text2">
-                      {element.ska}{" "}
-                    </span>
-                    <p className="font-roboto font-bold text-input-gray">
-                      {element.name}
-                    </p>{" "}
-                    <p className="font-roboto font-normal text-sm">
-                      {element.price}{" "}
-                    </p>
+                <button
+                  className="focus:outline-none"
+                  onClick={() => {
+                    setName(element.name);
+                    setShowPopup(true);
+                    setImagef(element.imagef);
+                    setImageb(element.imageb);
+                    setIsVertical(element.vertical);
+                    setPrice(element.price);
+                    setSka(element.ska);
+                  }}
+                >
+                  <div className="flex justify-start">
+                    <img className="  start h-5 w-5 " src={element.icon} />{" "}
                   </div>
-                  <img className=" h-5 w-5" src={element.buy} />
-                </div>
+                  <div className="self-center justify-self-center ">
+                    {" "}
+                    <img
+                      className="mt-3 self-center justify-self-center"
+                      src={element.image}
+                    />
+                  </div>
+                  <div className="mt-5 flex flex-row justify-start">
+                    <div className="flex items-start flex-col">
+                      <span className="bg-clip-text font-roboto bg-landing-text2">
+                        {element.skatitle}{" "}
+                      </span>
+                      <p className="font-roboto font-bold text-input-gray">
+                        {element.name}
+                      </p>{" "}
+                      <p className="font-roboto font-normal text-sm">
+                        {element.price}{" "}
+                      </p>
+                    </div>
+                    <img className=" h-5 w-5" src={element.buy} />
+                  </div>
+                </button>
               </div>
             );
           })}
