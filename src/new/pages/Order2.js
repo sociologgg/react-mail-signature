@@ -1,17 +1,22 @@
 import React, { useState } from "react";
 import phoneIcon from "../../images/ellipse.png";
 import SelectMenu from "../components/SelectMenu";
+import { collection, addDoc } from "firebase/firestore";
+import { getFirestore } from "@firebase/firestore";
 
 const socialIcons = {
-  instagram: require("../../images/cartmakepics/instagram.png").default,
-  twitter: require("../../images/cartmakepics/twitter.png").default,
-  linkedin: require("../../images/cartmakepics/linkedin.png").default,
-  facebook: require("../../images/cartmakepics/facebook.png").default,
-  youtube: require("../../images/cartmakepics/youtube.png").default,
-  web: require("../../images/cartmakepics/website.png").default,
+  instagram: require("../../images/instagram-fill.png").default,
+  twitter: require("../../images/twitter-fill.png").default,
+  linkedin: require("../../images/linkedin-fill.png").default,
+  facebook: require("../../images/facebook-fill.png").default,
+  youtube: require("../../images/youtube-fill.png").default,
+  web: require("../../images/website-fill.png").default,
+  behance: require("../../images/behance-fill.png").default,
+  github: require("../../images/github-fill.png").default,
 };
 
 function Order2({
+  userInformation,
   name,
   title,
   eMail,
@@ -21,43 +26,58 @@ function Order2({
   ppImage,
   orgImage,
   productName,
+  setIndex,
+  selectedSKAS,
 }) {
   const [img, setUpImg] = useState();
   const [links, setLinks] = useState([]);
+  const db = getFirestore();
 
   const [clicked, setclicked] = useState(false);
   const [socialLinks, setSocialLinks] = useState([
     {
       value: "",
-      type: undefined,
+      type: "undefined",
       showSelect: false,
       selectedSocial: "instagram",
     },
     {
       value: "",
-      type: undefined,
+      type: "undefined",
       showSelect: false,
       selectedSocial: "twitter",
     },
     {
       value: "",
-      type: undefined,
+      type: "undefined",
       showSelect: false,
       selectedSocial: "linkedin",
     },
     {
       value: "",
-      type: undefined,
+      type: "undefined",
       showSelect: false,
       selectedSocial: "facebook",
     },
     {
       value: "",
-      type: undefined,
+      type: "undefined",
       showSelect: false,
       selectedSocial: "youtube",
     },
-    { value: "", type: undefined, showSelect: false, selectedSocial: "web" },
+    { value: "", type: "undefined", showSelect: false, selectedSocial: "web" },
+    {
+      value: "",
+      type: "undefined",
+      showSelect: false,
+      selectedSocial: "behance",
+    },
+    {
+      value: "",
+      type: "undefined",
+      showSelect: false,
+      selectedSocial: "github",
+    },
   ]);
 
   async function handleShowSocialMediaIcons() {
@@ -125,6 +145,14 @@ function Order2({
                   <div className="relative mt-20px  flex items-center flex-row">
                     <SelectMenu
                       selectedSocial={selectedSocial}
+                      onInputChange={(value) => {
+                        updateState({
+                          value: value,
+                          type,
+                          showSelect,
+                          selectedSocial,
+                        });
+                      }}
                       onSocialChange={(newSocial) =>
                         updateState({
                           value,
@@ -141,7 +169,24 @@ function Order2({
           </div>
         </div>
         <div className="w-1/2  flex flex-col items-start px-10 -mt-36">
-          <p className="text-rstpsw-gray font-roboto font-bold text-base">
+          <div className="flex flex-row space-x-4">
+            {ppImage != null ? (
+              <div className="relative">
+                <img className="w-130px h-130px relative " src={ppImage} />{" "}
+                {orgImage != null ? (
+                  <img
+                    className="absolute sm:w-50px sm:h-30px rounded-tl-2xl lg:w-70px lg:h-40px  bottom-0  right-0 "
+                    src={orgImage}
+                  />
+                ) : (
+                  ""
+                )}
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
+          <p className="text-rstpsw-gray mt-3 font-roboto font-bold text-base">
             Kart Bilgileri
           </p>
           <div className="p-1 flex flex-row">
@@ -152,7 +197,7 @@ function Order2({
               İsim Soyisim :
             </p>
             <p className="text-rstpsw-gray font-roboto font-normal text-base ml-1">
-              {name}
+              {userInformation?.name}
             </p>
           </div>
           <div class="flex flex-row">
@@ -160,7 +205,7 @@ function Order2({
               Unvan :
             </p>
             <p className="text-rstpsw-gray font-roboto font-normal text-base ml-1">
-              {title}
+              {userInformation?.unvan}
             </p>
           </div>
           <div class="flex flex-row">
@@ -168,7 +213,7 @@ function Order2({
               Şirket :
             </p>
             <p className="text-rstpsw-gray font-roboto font-normal text-base ml-1">
-              {companyName}
+              {userInformation?.sirketAdi}
             </p>
           </div>
           <div class="flex flex-row">
@@ -176,7 +221,7 @@ function Order2({
               Telefon :
             </p>
             <p className="text-rstpsw-gray font-roboto font-normal text-base ml-1">
-              {phone}
+              {userInformation?.telefon}
             </p>
           </div>
           <div class="flex flex-row">
@@ -184,7 +229,7 @@ function Order2({
               E-posta :
             </p>
             <p className="text-rstpsw-gray font-roboto font-normal text-base ml-1">
-              {eMail}
+              {userInformation?.eposta}
             </p>
           </div>
           <div class="flex flex-row">
@@ -192,11 +237,16 @@ function Order2({
               Şirket Adresi :
             </p>
             <p className="text-rstpsw-gray font-roboto font-normal text-base ml-1">
-              {companyAdress}
+              {userInformation?.sirketAdresi}
             </p>
           </div>
           <div className="flex">
-            <button className="text-janus-dark-blue font-roboto font-medium underline outline:none">
+            <button
+              onClick={() => {
+                setIndex(0);
+              }}
+              className="text-janus-dark-blue font-roboto font-medium underline outline:none"
+            >
               Bilgileri düzenle
             </button>
           </div>
@@ -211,7 +261,25 @@ function Order2({
         </div>
       </div>
       <div>
-        <button className="w-236px h-40px bg-janus-site-blue focus:outline-none text-white text-bold rounded-xl mt-78px">
+        <button
+          className="w-236px h-40px bg-janus-site-blue focus:outline-none text-white text-bold rounded-xl mt-78px"
+          onClick={async () => {
+            const docRef = await addDoc(collection(db, "nfcs"), {
+              productName: productName,
+              userInformation: userInformation,
+              ppImage: ppImage,
+              orgImage: orgImage,
+              socialLinks: socialLinks,
+              selectedSKAS: selectedSKAS,
+            })
+              .then((e) => {
+                console.log("Document written with ID: ", docRef.id);
+              })
+              .catch((e) => {
+                console.log(e);
+              });
+          }}
+        >
           Ödeme Adımına Geç
         </button>
       </div>

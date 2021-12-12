@@ -19,6 +19,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import SignaturePage from "./new/pages/SignaturePage";
+import LastNfc from "./new/pages/LastNfc";
 
 import { useSelector, useDispatch } from "react-redux";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
@@ -125,7 +126,10 @@ function App() {
           <Route path="/auth" component={Dashboard}>
             {second()}
           </Route>
-          <Route  path="/nfc" component={NewLandingPage} />
+          <Route path="/nfc" component={NewLandingPage} />
+          <Route path={"/nfcs/:id"}>
+            <LastNfc />
+          </Route>
           <Route exact path="/home" component={HomePage}>
             {first()}
           </Route>

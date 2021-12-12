@@ -87,10 +87,11 @@ function HomePage() {
   useEffect(async () => {
     const stUser = await JSON.parse(localStorage.getItem("user"));
     setUserLinks([]);
+    console.log(stUser);
 
     setUser(stUser);
     // exception lazım
-    const q = query(collection(db, "links"), where("uid", "==", stUser.uid));
+    const q = query(collection(db, "links"), where("uid", "==", stUser?.uid));
 
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {

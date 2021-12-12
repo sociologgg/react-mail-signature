@@ -1,51 +1,89 @@
-import React from 'react'
+import React from "react";
 import bubble from "../../images/bubbles.png";
-import cards from '../../images/cards.png'
-import lung from '../../images/lung.jpg'
+import cards from "../../images/cards.png";
+import lung from "../../images/lung.jpg";
+import cardsMobile from "../../images/Group 2147.png";
+import MediaQuery from "react-responsive";
 function Nature() {
-    return (
+  return (
+    <div>
+      <MediaQuery minWidth={768}>
         <div className="flex items-center  z-0 flex-col ">
-        <img src={bubble} className="w-100% z-0 absolute top-0"/>
-         <div className=' mt-350px flex flex-col z-20 items-center'>
-            <p className='text-janus-dark-blue z-20      text-48px font-bold'>
-                Doğaya Katkı
+          <img src={bubble} className="w-100% z-0 absolute top-0" />
+          <div className=" mt-350px flex flex-col z-20 items-center">
+            <p className="text-janus-dark-blue z-20      text-48px font-bold">
+              Doğaya Katkı
             </p>
-            <p className='text-janus-dark-blue text-36px mt-10px'>
-                Doğaya Katkı = Dijital Kartvizit
+            <p className="text-janus-dark-blue text-36px mt-10px">
+              Doğaya Katkı = Dijital Kartvizit
             </p>
-            <div className='w-65%  text-20px mt-50px'>
-            <p className='font-bold text-input-gray text-20px font-bold'>
+            <div className="w-65%  text-20px mt-50px">
+              <p className="font-bold text-input-gray text-20px font-bold">
+                1 yılda kartvizitler için doğaya verdiğimiz zararı düşündünüz
+                mü?{" "}
+              </p>
+              <p className=" text-input-gray text-20px mt-20px">
+                Dünyada kesilen ağaçların %47'si kağıt yapımına harcanıyor.
+                Kesilen ağaçlar her yıl sera gazı salınımının %12 ila 17'sini
+                oluşturuyor.
+              </p>
+              <p className=" text-input-gray text-20px mt-20px ">
+                Her yıl Dünya çapında 100 milyar kartvizit üretiliyor ve bu da 7
+                milyon ağacın kesilmesine neden oluyor. Bir kartvizitin
+                verilmesinden sonra bir hafta içinde, neredeyse %90'ının çöpe ya
+                da çekmeceye gittiğini biliyor muydunuz?
+              </p>
+              <p className="text-input-gray text-20px font-bold mt-20px">
+                Janus ile bireysel ve kurumsal karbon ayak izinizi akıllı
+                networking destekleriyle azaltabilirsiniz.
+              </p>
+              <div className="flex  mt-100px pb-200px w-100% justify-center ">
+                <img src={cards} className="max-w-1164px min-w-800px" />
 
-            1 yılda kartvizitler için doğaya verdiğimiz zararı düşündünüz mü? </p>
-            <p className=' text-input-gray text-20px mt-20px'>
-Dünyada kesilen ağaçların %47'si kağıt yapımına harcanıyor. Kesilen ağaçlar her yıl sera gazı salınımının %12 ila 17'sini oluşturuyor.
-</p>
-<p className=' text-input-gray text-20px mt-20px '>
-Her yıl Dünya çapında 100 milyar kartvizit üretiliyor ve bu da 7 milyon ağacın kesilmesine neden oluyor. Bir kartvizitin verilmesinden sonra bir hafta içinde, neredeyse %90'ının çöpe ya da çekmeceye gittiğini biliyor muydunuz?
-</p>
-<p className='text-input-gray text-20px font-bold mt-20px'>
-Janus ile bireysel ve kurumsal karbon ayak izinizi akıllı networking destekleriyle azaltabilirsiniz.
-</p>
-          <div className='flex  mt-100px pb-200px w-100% justify-center '> 
-           
-                <img src={cards} className='max-w-1164px min-w-800px'/>
-           
-            
-            <div>
+                <div></div>
 
+                <div></div>
+              </div>
             </div>
-
-            <div>
-
+          </div>
+        </div>
+      </MediaQuery>
+      <MediaQuery maxWidth={767}>
+        <div className="flex items-center  z-0 flex-col overflow-y-hidden overflow-x-hidden ">
+          <img src={bubble} className="w-100% z-0 absolute top-0" />
+          <div className=" mt-100px flex flex-col z-20 items-center">
+            <p className="text-janus-dark-blue font-medium text-36px mt-10px">
+              Doğaya Katkı <br />=<br /> Dijital Kartvizit
+            </p>
+            <div className=" flex flex-col items-start  text-10px mt-50px p-8 ml-4">
+              <p className="font-bold text-input-gray text-20px  font-bold text-left">
+                1 yılda kartvizitler için doğaya verdiğimiz zararı düşündünüz
+                mü?{" "}
+              </p>
+              <p className=" text-input-gray text-20px mt-20px text-left">
+                Dünyada kesilen ağaçların %47'si kağıt yapımına harcanıyor.
+                Kesilen ağaçlar her yıl sera gazı salınımının %12 ila 17'sini
+                oluşturuyor.
+              </p>
+              <p className=" text-input-gray text-20px mt-20px text-left ">
+                Her yıl Dünya çapında 100 milyar kartvizit üretiliyor ve bu da 7
+                milyon ağacın kesilmesine neden oluyor. Bir kartvizitin
+                verilmesinden sonra bir hafta içinde, neredeyse %90'ının çöpe ya
+                da çekmeceye gittiğini biliyor muydunuz?
+              </p>
+              <p className="text-input-gray text-20px font-bold mt-20px text-left">
+                Janus ile bireysel ve kurumsal karbon ayak izinizi akıllı
+                networking destekleriyle azaltabilirsiniz.
+              </p>
+              <div className="flex  mt-100px pb-200px w-100% justify-center ">
+                <img src={cardsMobile} />
+              </div>
             </div>
-
-            </div>      
-          
-            </div>
-            </div>
-      </div>
-    
-        )
+          </div>
+        </div>
+      </MediaQuery>
+    </div>
+  );
 }
 
-export default Nature
+export default Nature;

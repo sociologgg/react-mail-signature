@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import Popup from "reactjs-popup";
 
 import blackb from "../../images/nfc-black-fy.png";
@@ -11,76 +11,114 @@ let kalkinmaAmaclari = [
   {
     id: 1,
     image: require("../../images/skas/Frame 2108.png").default,
+    isSelected: false,
   },
   {
     id: 2,
     image: require("../../images/skas/Frame 2109.png").default,
+    isSelected: false,
   },
   {
     id: 3,
     image: require("../../images/skas/Frame 2110.png").default,
+    isSelected: false,
   },
   {
     id: 4,
     image: require("../../images/skas/Frame 2111.png").default,
+    isSelected: false,
   },
+
   {
     id: 5,
     image: require("../../images/skas/Frame 2112.png").default,
+    isSelected: false,
   },
   {
     id: 6,
     image: require("../../images/skas/Frame 2113.png").default,
+    isSelected: false,
   },
   {
     id: 7,
     image: require("../../images/skas/Frame 2114.png").default,
+    isSelected: false,
   },
   {
     id: 8,
     image: require("../../images/skas/Frame 2115.png").default,
+    isSelected: false,
   },
   {
     id: 9,
     image: require("../../images/skas/Frame 2116.png").default,
+    isSelected: false,
   },
   {
     id: 10,
     image: require("../../images/skas/Frame 2117.png").default,
+    isSelected: false,
   },
   {
     id: 11,
     image: require("../../images/skas/Frame 2118.png").default,
+    isSelected: false,
   },
   {
     id: 12,
     image: require("../../images/skas/Frame 2119.png").default,
+    isSelected: false,
   },
   {
     id: 13,
-    image: require("../../images/skas/Frame 2108.png").default,
+    image: require("../../images/skas/Frame 2120.png").default,
+    isSelected: false,
   },
   {
     id: 14,
-    image: require("../../images/skas/Frame 2108.png").default,
+    image: require("../../images/skas/Frame 2121.png").default,
+    isSelected: false,
   },
   {
     id: 15,
-    image: require("../../images/skas/Frame 2108.png").default,
+    image: require("../../images/skas/Frame 2122.png").default,
+    isSelected: false,
   },
   {
     id: 16,
-    image: require("../../images/skas/Frame 2108.png").default,
+    image: require("../../images/skas/Frame 2123.png").default,
+    isSelected: false,
   },
   {
     id: 17,
-    image: require("../../images/skas/Frame 2108.png").default,
+    image: require("../../images/skas/Frame 2124.png").default,
+    isSelected: false,
   },
 ];
 
-function NfcPopup({ name, imageb, imagef, vertical, price, ska }) {
-  const [selectedSKAS, setSelectedSKAS] = useState({});
+function NfcPopup({ name, imageb, imagef, vertical, price, ska, id }) {
+  const [selectedSKAS, setSelectedSKAS] = useState([]);
   const [index, setIndex] = useState(0);
+  const [isBlue, setIsBlue] = useState(false);
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
+
+  let squareClass = isBlue
+    ? "border-2 border-red-500 focus:outline-none"
+    : "border-none ";
+
+  function handleColorChange(e) {
+    for (let i = 0; i <= selectedSKAS.length; i++) {
+      console.log(i);
+      console.log("for'a girdimm");
+      if (selectedSKAS[i]?.id == e?.id) {
+        console.log("eşleştim");
+
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
   if (index == 0) {
     return (
       <div className="rounded-3xl relative w-1000px min-h-250px   pb-40px bg-white">
@@ -97,15 +135,34 @@ function NfcPopup({ name, imageb, imagef, vertical, price, ska }) {
         {ska ? (
           <div className="w-100% justify-between px-160px  flex pt-80px text-left ">
             <div className="mt-40px">
-              <span className="bg-clip-text font-roboto bg-landing-text2">
-                SKA eklenebilir
-              </span>
-              <p className="text-20px text-input-gray font-bold">{name}</p>
+              {id == 10 ? (
+                <span className="text-input-gray font-roboto ">17 Madde</span>
+              ) : (
+                <span className="bg-clip-text font-roboto bg-landing-text2">
+                  SKA Eklenebilir
+                </span>
+              )}
+              {id == 10 ? (
+                <p className="text-20px bg-clip-text bg-landing-text2 font-bold">
+                  {name}
+                </p>
+              ) : (
+                <p className="text-20px text-input-gray font-bold">{name}</p>
+              )}
+
               <p className="text-16px text-input-gray mt-10px">{price}</p>
-              <p className="mt-22px text-input-gray">
-                Dilerseniz kartvizitin arka yüzüne kalkınma amaçlarından birini
-                ekleyerek kartvizitinizi özelleştirebilirsiniz.
-              </p>
+
+              {id == 10 ? (
+                <p className="mt-22px text-input-gray">
+                  Sağ tarafta konumlanan kartvizit örnek tasarımdır. Seçeceğiniz
+                  amaca uygun olarak kartvizit rengi değişecektir.
+                </p>
+              ) : (
+                <p className="mt-22px text-input-gray">
+                  Dilerseniz kartvizitin arka yüzüne kalkınma amaçlarından
+                  birini ekleyerek kartvizitinizi özelleştirebilirsiniz.
+                </p>
+              )}
             </div>
             {!vertical ? (
               <div className="flex">
@@ -123,6 +180,7 @@ function NfcPopup({ name, imageb, imagef, vertical, price, ska }) {
           <div className="w-100% justify-between px-160px  flex pt-80px text-left ">
             <div className="mt-40px">
               <p className="text-20px text-input-gray font-bold">{name}</p>
+
               <p className="text-16px text-input-gray mt-10px">{price}</p>
               <p className="mt-22px text-input-gray">
                 <a className="text-janus-dark-blue font-bold"> Standart. </a>{" "}
@@ -162,9 +220,31 @@ function NfcPopup({ name, imageb, imagef, vertical, price, ska }) {
                 return (
                   <div>
                     <button
+                      id="buttonid"
+                      className={`${
+                        element.isSelected
+                          ? "border-2 focus:outline-none border-janus-focus-blue"
+                          : "focus:outline-none"
+                      }`}
                       onClick={() => {
-                        setSelectedSKAS(...selectedSKAS, element);
-                        console.log(selectedSKAS);
+                        if (element.isSelected == false) {
+                          kalkinmaAmaclari[element.id - 1].isSelected = true;
+                          console.log(
+                            kalkinmaAmaclari[element.id - 1].isSelected
+                          );
+                          setSelectedSKAS((oldArray) => [...oldArray, element]);
+
+                          console.log(selectedSKAS);
+                        } else {
+                          kalkinmaAmaclari[element.id - 1].isSelected = false;
+                          forceUpdate();
+                          selectedSKAS.filter((a) => {
+                            console.log(a);
+                            return a !== element;
+                          });
+
+                          console.log(selectedSKAS);
+                        }
                       }}
                     >
                       {" "}
@@ -181,7 +261,7 @@ function NfcPopup({ name, imageb, imagef, vertical, price, ska }) {
       </div>
     );
   } else if (index == 1) {
-    return <Order1 name={name} />;
+    return <Order1 selectedSKAS={selectedSKAS} name={name} />;
   } else if (index == 2) {
     return (
       <div className="rounded-3xl relative w-1000px min-h-250px   pb-40px bg-white">

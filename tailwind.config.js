@@ -11,6 +11,23 @@ module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    screens: {
+      sm: "300px",
+      // => @media (min-width: 640px) { ... }
+
+      md: "768px",
+      // => @media (min-width: 768px) { ... }
+
+      lg: "1024px",
+      // => @media (min-width: 1024px) { ... }
+
+      xl: "1280px",
+      // => @media (min-width: 1280px) { ... }
+
+      "2xl": "1536px",
+      // => @media (min-width: 1536px) { ... }
+    },
+
     extend: {
       height: {
         base: "600px",
@@ -22,16 +39,16 @@ module.exports = {
         w31px: "w31px",
         "50%": "50%",
         "100%": "100%",
-        '33%':'33%',
-        '60%':'60%',
-        '65%':'65%',
-        '70%':'70%',
+        "33%": "33%",
+        "60%": "60%",
+        "65%": "65%",
+        "70%": "70%",
         "215px": "215px",
         "620px": "620px",
         "760px": "760px",
       },
       margin: {
-        'n90px':'-90px',
+        n90px: "-90px",
         18: "4.5rem",
         ...forLoop(),
       },
@@ -63,13 +80,14 @@ module.exports = {
       },
       backgroundImage: {
         landpagebg: "url(/src/images/landpagebg.jpg)",
-        bubbles: "url(/src/images/bubbles.png)"
+        bubbles: "url(/src/images/bubbles.png)",
+        mobilebg: "url(/src/images/mobilebg.jpg)",
       },
-   
+
       maxWidth: {
         "1/4": "25%",
         "1/2": "50%",
-        
+
         "3/4": "75%",
         "100%": "100%",
         ...forLoop(),
@@ -127,9 +145,8 @@ module.exports = {
       bottom: {
         ...forLoop(),
       },
-      left:
-      {
-'50%':'50%'
+      left: {
+        "50%": "50%",
       },
 
       boxShadow: {
@@ -141,7 +158,7 @@ module.exports = {
       inset: {
         ...forLoop(),
         minus16px: "-16px",
-        '50%':'50%'
+        "50%": "50%",
       },
       borderColor: {
         input: "#D3D7DF",

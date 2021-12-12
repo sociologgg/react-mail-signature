@@ -3,6 +3,7 @@ import multicards from "../../images/multicards.png";
 import kalemgirl from "../../images/kalemgirl.png";
 import LandCarousel from "../components/LandCarousel";
 import Footer from "./Footer";
+import { Link } from "react-router-dom";
 function MailLand() {
   return (
     <div className="flex flex-col">
@@ -59,12 +60,16 @@ function MailLand() {
           </p>
         </div>
         <div className=" px-10 mb-10 flex justify-center mt-10  ">
-          <button className=" text-xl font-normal focus:outline-none text-white">
-            Giriş yap
-          </button>
-          <button className="ml-5 text-xl font-normal text-white rounded-lg px-3 border-2 border-white focus:outline-none">
-            Hadi Başlayalım!
-          </button>
+          <Link to="/home">
+            <button className=" text-xl font-normal focus:outline-none text-white">
+              Giriş yap
+            </button>
+          </Link>
+          <Link to="/home">
+            <button className="ml-5 text-xl font-normal text-white rounded-lg px-3 border-2 border-white focus:outline-none">
+              Hadi Başlayalım!
+            </button>
+          </Link>
         </div>
         <div className="px-10 mt-20 flex justify-center mb-20">
           <p className="font-sacramento text-white text-8xl">

@@ -8,12 +8,14 @@ import {
   PlusIcon,
 } from "@heroicons/react/solid";
 const socialIcons = {
-  instagram: require("../../images/cartmakepics/instagram.png").default,
-  twitter: require("../../images/cartmakepics/twitter.png").default,
-  linkedin: require("../../images/cartmakepics/linkedin.png").default,
-  facebook: require("../../images/cartmakepics/facebook.png").default,
-  youtube: require("../../images/cartmakepics/youtube.png").default,
-  web: require("../../images/cartmakepics/website.png").default,
+  instagram: require("../../images/instagram-fill.png").default,
+  twitter: require("../../images/twitter-fill.png").default,
+  linkedin: require("../../images/linkedin-fill.png").default,
+  facebook: require("../../images/facebook-fill.png").default,
+  youtube: require("../../images/youtube-fill.png").default,
+  web: require("../../images/website-fill.png").default,
+  behance: require("../../images/behance-fill.png").default,
+  github: require("../../images/github-fill.png").default,
 };
 
 const socialVerifiers = {
@@ -59,6 +61,27 @@ const socialVerifiers = {
       return false;
     }
   },
+  youtube: (value) => {
+    try {
+      return new URL(value).hostname === "youtube.com";
+    } catch (e) {
+      return false;
+    }
+  },
+  behance: (value) => {
+    try {
+      return new URL(value).hostname === "behance.com";
+    } catch (e) {
+      return false;
+    }
+  },
+  github: (value) => {
+    try {
+      return new URL(value).hostname === "github.com";
+    } catch (e) {
+      return false;
+    }
+  },
 };
 const socials = Object.entries(socialIcons).map(([key, value]) => {
   return { key: key, icon: value };
@@ -68,8 +91,13 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function SelectMenu({ selectedSocial, onSocialChange }) {
+export default function SelectMenu({
+  selectedSocial,
+  onSocialChange,
+  onInputChange,
+}) {
   const selected = socials.find((s) => s.key === selectedSocial);
+  const [selectedInputValue, setSelectedInputValue] = useState();
 
   return (
     <Listbox value={selected} onChange={(value) => onSocialChange(value.key)}>
@@ -149,6 +177,7 @@ export default function SelectMenu({ selectedSocial, onSocialChange }) {
         />
 
         <input
+          onChange={(e) => onInputChange(e.target.value)}
           className="h-10 mt-1 pl-10px shadow-input rounded-r focus:outline-none focus:ring-2 focus:janus--dark-blue "
           placeholder={selected.key}
         ></input>

@@ -16,7 +16,11 @@ import {
   useRouteMatch,
 } from "react-router-dom";
 import NfcPopup from "../components/NfcPopup";
+import backbutton from "../../images/Group 2152.png";
+import ileributton from "../../images/Group 2153.png";
 import "./a.css";
+import g10 from "../../images/g10.png";
+
 let standardProducts = [
   {
     id: 1,
@@ -66,9 +70,46 @@ let standardProducts = [
     vertical: false,
     ska: false,
   },
+  {
+    id: 5,
+    name: "Siyah Geometrik - Dikey",
+    icon: require("../../images/nfclandpngs/yaprak.png").default,
+    image: require("../../images/nfclandpngs/siyahgeometrikdikey.png").default,
+    price: "999.00",
+    buy: require("../../images/nfclandpngs/shopping-bag.png").default,
+    imagef: require("../../images/nfc-black-f.png").default,
+    imageb: require("../../images/nfc-black-b.png").default,
+    vertical: true,
+    ska: false,
+  },
+  {
+    id: 6,
+    name: "Siyah Geometrik - Yatay",
+    icon: require("../../images/nfclandpngs/yaprak.png").default,
+    image: require("../../images/nfclandpngs/siyahgeometrikyatay.png").default,
+    price: "999.00",
+    buy: require("../../images/nfclandpngs/shopping-bag.png").default,
+    imagef: require("../../images/nfc-black-fy.png").default,
+    imageb: require("../../images/nfc-black-by.png").default,
+    vertical: false,
+    ska: false,
+  },
 ];
 
 let premiumProducts = [
+  {
+    id: 10,
+    name: "Sürdürülebilir Kalkınma Amaçları",
+    skatitle: "17 Madde",
+    icon: require("../../images/g10.png").default,
+    image: require("../../images/Frame 2128.png").default,
+    price: "999.00",
+    imageb: require("../../images/surdur-b.png").default,
+    imagef: require("../../images/surdur-f.png").default,
+    buy: require("../../images/nfclandpngs/shopping-bag.png").default,
+    ska: true,
+    vertical: true,
+  },
   {
     id: 1,
     name: "Dinamik",
@@ -121,25 +162,75 @@ let premiumProducts = [
     ska: true,
     vertical: true,
   },
+
   {
-    id: 4,
-    name: "Siyah Mermer",
+    id: 1,
+    name: "Dinamik",
     skatitle: "SKA Eklenebilir",
     icon: require("../../images/nfclandpngs/yaprak.png").default,
-    image: require("../../images/nfclandpngs/siyahmermer.png").default,
+    image: require("../../images/nfclandpngs/dinamik.png").default,
     price: "999.00",
-    imageb: require("../../images/siyah-mermer-b.png").default,
-    imagef: require("../../images/siyah-mermer-f.png").default,
+    imageb: require("../../images/dinamik-b.png").default,
+    imagef: require("../../images/dinamik-f.png").default,
     buy: require("../../images/nfclandpngs/shopping-bag.png").default,
-
+    ska: true,
+    vertical: true,
+  },
+  {
+    id: 2,
+    name: "Siyah Angular",
+    skatitle: "SKA Eklenebilir",
+    icon: require("../../images/nfclandpngs/yaprak.png").default,
+    image: require("../../images/nfclandpngs/siyahangular.png").default,
+    price: "999.00",
+    imageb: require("../../images/siyahj-angular-b.png").default,
+    imagef: require("../../images/siyah-angular-f.png").default,
+    buy: require("../../images/nfclandpngs/shopping-bag.png").default,
+    ska: true,
+    vertical: true,
+  },
+  {
+    id: 3,
+    name: "Kozmik Renkli",
+    skatitle: "SKA Eklenebilir",
+    icon: require("../../images/nfclandpngs/yaprak.png").default,
+    image: require("../../images/nfclandpngs/kozmikrenkli.png").default,
+    price: "999.00",
+    imageb: require("../../images/kozmik-renkli-b.png").default,
+    imagef: require("../../images/kozmik-renkli-f.png").default,
+    buy: require("../../images/nfclandpngs/shopping-bag.png").default,
+    ska: true,
+    vertical: true,
+  },
+  {
+    id: 4,
+    name: "Mor Angular",
+    skatitle: "SKA Eklenebilir",
+    icon: require("../../images/nfclandpngs/yaprak.png").default,
+    image: require("../../images/nfclandpngs/morangular.png").default,
+    price: "999.00",
+    imageb: require("../../images/mor-angular-b.png").default,
+    imagef: require("../../images/mor-angular-f.png").default,
+    buy: require("../../images/nfclandpngs/shopping-bag.png").default,
     ska: true,
     vertical: true,
   },
 ];
 
 function NfcLand() {
+  const ref = useRef(null);
+  const ref1 = useRef(null);
+
+  const scroll = (scrollOffset) => {
+    ref.current.scrollLeft += scrollOffset;
+  };
+  const scroll1 = (scrollOffset) => {
+    ref1.current.scrollLeft += scrollOffset;
+  };
+
   const [popUpValue, setPopUpValue] = useState(0);
   const [name, setName] = useState("");
+  const [id, setId] = useState(0);
   const [icon, setIcon] = useState("");
   const [imagef, setImagef] = useState("");
   const [imageb, setImageb] = useState("");
@@ -182,6 +273,7 @@ function NfcLand() {
               vertical={!vertical}
               price={price}
               ska={ska}
+              id={id}
             />
             <button
               onClick={() => {
@@ -208,13 +300,18 @@ function NfcLand() {
             Geleneksel kağıt kartvizitlerinizi çevre dostu, etkili ve yenilikçi
             bir çözümle değiştirin.
           </p>
-          <a className="mt-10 text-janus-dark-blue font-roboto">
+          <a
+            href="#nasilcalisir"
+            className="mt-10 text-janus-dark-blue font-roboto"
+          >
             Nasıl Çalışır?
           </a>
           <div className="mt-4">
-            <button className="bg-janus-site-blue px-8 rounded-lg  focus:outline-none text-white font-roboto h-8">
-              Şimdi Satın Al
-            </button>
+            <a href="#simdisatinal">
+              <button className="bg-janus-site-blue px-8 rounded-lg  focus:outline-none text-white font-roboto h-8">
+                Şimdi Satın Al
+              </button>
+            </a>
           </div>
           <div className="mt-20">
             <span className="bg-clip-text bg-landing-text text-4xl font-bold font-roboto ">
@@ -268,10 +365,13 @@ function NfcLand() {
           <p className="font-roboto font-medium text-yahoo">
             Fırsatları Kaçırma!
           </p>
-          <button className="ml-5 focus:outline-none text-white px-4 rounded-lg bg-yahoo py-1">
-            Hemen Satın Al
-          </button>
+          <a href="#simdisatinal">
+            <button className="ml-5 focus:outline-none text-white px-4 rounded-lg bg-yahoo py-1">
+              Hemen Satın Al
+            </button>
+          </a>
         </div>
+        <a id="nasilcalisir"></a>
         <div className="w-3/5 mx-auto mt-36 flex flex-row">
           <div className="w-1/2 flex flex-col items-start justify-start p-3">
             <p className="text-janus-blue2 font-roboto font-bold text-4xl">
@@ -310,12 +410,30 @@ function NfcLand() {
             başlayın.
           </p>
         </div>
-        <div className="flex flex-row justify-center space-x-6 mt-10 ">
+
+        <button
+          className=" absolute focus:outline-none ml-690px mt-270px "
+          onClick={() => scroll(700)}
+        >
+          <img src={ileributton} />
+        </button>
+        <a id="simdisatinal"></a>
+        <div
+          ref={ref}
+          className="flex px-20  flex-row overflow-x-hidden    space-x-6 mt-10 "
+        >
+          {" "}
+          <button
+            className="focus:outline-none absolute mr-200px mt-230px"
+            onClick={() => scroll(-700)}
+          >
+            <img className="focus:outline-none" src={backbutton} />
+          </button>
           {standardProducts.map((element) => {
             return (
-              <div className="flex flex-col rounded-lg bg-white p-8   ">
+              <div className="  flex-shrink-0  rounded-lg bg-white p-8   ">
                 <button
-                  class="focus:outline-none"
+                  class="focus:outline-none grid grid-rows-3 grid-flow-col max-h-400px "
                   onClick={() => {
                     setName(element.name);
                     setShowPopup(true);
@@ -324,19 +442,20 @@ function NfcLand() {
                     setIsVertical(element.vertical);
                     setPrice(element.price);
                     setSka(element.ska);
+                    setId(element.id);
                   }}
                 >
-                  <div className="flex justify-start">
+                  <div className="flex  justify-start">
                     <img className="  start h-5 w-5 " src={element.icon} />{" "}
                   </div>
-                  <div className="self-center justify-self-center ">
+                  <div className="self-center  justify-self-center ">
                     {" "}
                     <img
                       className="mt-3 self-center justify-self-center"
                       src={element.image}
                     />
                   </div>
-                  <div className="mt-5 flex flex-row justify-start">
+                  <div className="mt-28  flex flex-row justify-between ">
                     <div className="flex items-start flex-col">
                       <p className="font-roboto font-bold text-input-gray">
                         {element.name}
@@ -345,13 +464,17 @@ function NfcLand() {
                         {element.price}{" "}
                       </p>
                     </div>
-                    <img className=" h-5 w-5" src={element.buy} />
+                    <img
+                      className=" justify-self-end self-end  h-5 w-5"
+                      src={element.buy}
+                    />
                   </div>
                 </button>
               </div>
             );
           })}
         </div>
+
         <div className="mt-16 flex px-60">
           <p className="text-rstpsw-gray font-roboto text-3xl font-bold text-left">
             <a className="text-orange font-roboto font-bold text-3xl">
@@ -361,10 +484,25 @@ function NfcLand() {
             eşsiz bir karta sahip olmak için göz atın!
           </p>
         </div>
-        <div className="flex flex-row justify-center  space-x-6 mt-10  ">
+        <button
+          className=" absolute focus:outline-none ml-690px mt-270px "
+          onClick={() => scroll1(700)}
+        >
+          <img src={ileributton} />
+        </button>
+        <div
+          ref={ref1}
+          className="flex px-20  flex-row overflow-x-hidden    space-x-6 mt-10  "
+        >
+          <button
+            className="focus:outline-none absolute mr-200px mt-230px"
+            onClick={() => scroll1(-700)}
+          >
+            <img className="focus:outline-none" src={backbutton} />
+          </button>
           {premiumProducts.map((element) => {
             return (
-              <div className="flex flex-col rounded-lg bg-white p-8   ">
+              <div className="flex flex-shrink-0 flex-col rounded-lg bg-white p-8   ">
                 <button
                   className="focus:outline-none"
                   onClick={() => {
@@ -375,19 +513,23 @@ function NfcLand() {
                     setIsVertical(element.vertical);
                     setPrice(element.price);
                     setSka(element.ska);
+                    setId(element.id);
                   }}
                 >
                   <div className="flex justify-start">
-                    <img className="  start h-5 w-5 " src={element.icon} />{" "}
+                    {element.id == 10 ? (
+                      <img src={g10} />
+                    ) : (
+                      <img className="  start h-5 w-5 " src={element.icon} />
+                    )}
                   </div>
                   <div className="self-center justify-self-center ">
-                    {" "}
                     <img
                       className="mt-3 self-center justify-self-center"
                       src={element.image}
                     />
                   </div>
-                  <div className="mt-5 flex flex-row justify-start">
+                  <div className="mt-5 flex flex-row justify-between">
                     <div className="flex items-start flex-col">
                       <span className="bg-clip-text font-roboto bg-landing-text2">
                         {element.skatitle}{" "}
@@ -399,7 +541,7 @@ function NfcLand() {
                         {element.price}{" "}
                       </p>
                     </div>
-                    <img className=" h-5 w-5" src={element.buy} />
+                    <img className=" h-5 w-5 self-end" src={element.buy} />
                   </div>
                 </button>
               </div>
@@ -428,10 +570,12 @@ function NfcLand() {
               Hadi, birlikte neler yapabiliriz görmek için bizimle iletişime
               geçin!{" "}
             </p>
-            <button className="mt-3 self-center bg-janus-site-blue rounded-lg px-8 py-1 text-white font-roboto focus:outline-none">
-              {" "}
-              İletişime geçin
-            </button>
+            <a href={`mailto:info@usejanus.com`}>
+              <button className="mt-3 self-center bg-janus-site-blue rounded-lg px-8 py-1 text-white font-roboto focus:outline-none">
+                {" "}
+                İletişime geçin
+              </button>
+            </a>
           </div>
           <div>
             <img src={group1} />
