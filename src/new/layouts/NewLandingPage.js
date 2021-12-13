@@ -18,10 +18,15 @@ import MobileHeader from "../components/MobileHeader";
 function NewLandingPage() {
   return (
     <div className="   h-screen ">
-      <div className=" sm:bg-mobilebg md:bg-landpagebg sm:overflow-y-hidden md:overflow-y-auto">
+      <div className=" sm:bg-mobilebg md:bg-landpagebg sm:overflow-y-hidden">
         <div className=" ">
           <div>
-            <LandPageHeader />
+            <MediaQuery minWidth={768}>
+              <LandPageHeader />
+            </MediaQuery>
+            <MediaQuery maxWidth={767}>
+              <MobileHeader />
+            </MediaQuery>
           </div>
 
           <Switch>

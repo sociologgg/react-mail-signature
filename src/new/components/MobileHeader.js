@@ -1,92 +1,82 @@
-import React from "react";
-
-// Mobile filter collapse
+import React, { useState } from "react";
 
 export default function MobileHeader() {
+  const [isMenuOpened, setIsMenuOpened] = useState(false);
+
   return (
     <div>
-      <header
-        role="banner"
-        class="px-0 mx-0 container mx-auto pt-6 mb-6 flex flex-col justify-center"
-      >
-        <div class="flex flex-wrap lg:px-4">
-          <div class="my-2 pr-2 w-5/12 lg:w-3/12 overflow-hidden">
-            <div class="ml-4 lg:ml-0">
-              <a href="/">
-                <img
-                  class="md:pl-6"
-                  src="https://pngimage.net/wp-content/uploads/2019/05/fake-logo-png-.png"
-                />
-              </a>
-            </div>
-          </div>
-          <div class="w-5/12 lg:hidden"></div>
-          <div class="my-2 px-2 w-2/12 lg:hidden flex flex-row">
-            <div class="self-center block mr-4 w-full">
-              <button
-                id="nav-toggle"
-                class="text-first"
-                aria-haspopup="true"
-                aria-expanded="false"
-                aria-controls="menu"
-                aria-label="Navigation"
-              >
-                <img
-                  class="open w-1/2 align-end"
-                  src="https://www.flaticon.com/svg/static/icons/svg/1828/1828859.svg"
-                />
-                <img
-                  class="close hidden w-1/2"
-                  src="https://www.flaticon.com/svg/static/icons/svg/61/61155.svg"
-                />
-              </button>
-            </div>
-          </div>
-          <div class="lg:w-1/12 hidden lg:block"></div>
-          <div
-            class="w-full lg:w-8/12 hidden lg:block bg-black lg:bg-white mt-4 lg:mt-0 lg:text-right"
-            id="nav-content"
-            aria-expanded="false"
-          >
-            <div class="px-6 lg:px-0 lg:pt-5 xl:pt-7">
-              <div>
-                <nav
-                  role="navigation"
-                  aria-labelledby="block-main-menu"
-                  id="block-main"
+      <div className=" ">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex justify-between">
+            <div className="flex space-x-7">
+              <div class="md:hidden flex items-center">
+                <button
+                  class="outline-none mobile-menu-button z-40"
+                  onClick={() => {
+                    setIsMenuOpened(!isMenuOpened);
+                  }}
                 >
-                  <ul class="list-reset lg:flex justify-end flex-1 items-center">
-                    <li class="inline-block w-full text-xl lg:text-base font-semibold no-underline py-2 lg:px-4">
-                      <a
-                        href="/"
-                        class="text-white lg:text-black no-underline is-active"
-                      >
-                        Home
-                      </a>
-                    </li>
-                    <li class="inline-block w-full text-xl lg:text-base font-semibold no-underline py-2 lg:px-4">
-                      <a
-                        href="/page-2"
-                        class="text-white lg:text-black no-underline"
-                      >
-                        Page 2
-                      </a>
-                    </li>
-                    <li class="inline-block w-full text-xl lg:text-base font-semibold no-underline py-2 lg:px-4">
-                      <a
-                        href="/page-2"
-                        class="text-white lg:text-black no-underline is-active"
-                      >
-                        Page 3
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
+                  <svg
+                    class="w-6 h-6 text-gray-500"
+                    x-show="!showMenu"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    stroke="blue"
+                  >
+                    <path d="M4 6h16M4 12h16M4 18h16"></path>
+                  </svg>
+                </button>
+              </div>
+              <div className="">
+                <a href="#" class="flex self-center  items-center py-4 px-2">
+                  <span class="font-bold ml-16  text-janus-dark-blue text-3xl z-40">
+                    JANUS
+                  </span>
+                </a>
               </div>
             </div>
           </div>
         </div>
-      </header>
+      </div>
+      <div class={`${isMenuOpened ? "" : "hidden"}`}>
+        <ul class="">
+          <li class="active">
+            <a
+              href="/nfc/home"
+              class="block text-left text-lg px-4 py-2  text-janus-dark-blue  font-bold"
+            >
+              Anasayfa
+            </a>
+          </li>
+          <li>
+            <a
+              href="/nfc/about"
+              class="block  px-4 text-lg py-2  text-left font-bold text-janus-dark-blue transition duration-300"
+            >
+              Hakkımızda
+            </a>
+          </li>
+          <li>
+            <a
+              href="/nfc/nfccard"
+              class="block  px-4 py-2 text-lg font-bold text-lg text-left text-janus-dark-blue transition duration-300"
+            >
+              NFC
+            </a>
+          </li>
+          <li>
+            <a
+              href="/nfc/nature"
+              class="block  px-4 text-lg  py-2 font-bold text-lg text-left text-janus-dark-blue transition duration-300"
+            >
+              Doğaya Katkı
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 }

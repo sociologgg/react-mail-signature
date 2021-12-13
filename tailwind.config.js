@@ -189,5 +189,5 @@ module.exports = {
       borderColor: ["hover", "focus"],
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 };

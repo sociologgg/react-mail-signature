@@ -4,6 +4,8 @@ import kalemgirl from "../../images/kalemgirl.png";
 import LandCarousel from "../components/LandCarousel";
 import Footer from "./Footer";
 import { Link } from "react-router-dom";
+import Carousel from "../components/Carousel";
+import Carousel1 from "../components/Carousel1";
 function MailLand() {
   return (
     <div className="flex flex-col">
@@ -52,7 +54,7 @@ function MailLand() {
       </div>
 
       <div className=" flex flex-col px-10 bg-janus-site-blue    ">
-        <LandCarousel />
+        <Carousel1 />
 
         <div className="px-10 flex justify-center mt-20  ">
           <p className="font-roboto font-medium text-white text-2xl ">

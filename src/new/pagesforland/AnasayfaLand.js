@@ -5,6 +5,7 @@ import bireysel1 from "../../images/nfclandpngs/bireysel1.png";
 import { collection, addDoc, getFirestore } from "firebase/firestore";
 import MediaQuery from "react-responsive";
 import absoluteblue from "../../images/absoluteblue.png";
+import Carousel from "../components/Carousel";
 let cards = [
   {
     key: 1,
@@ -104,7 +105,7 @@ function AnasayfaLand() {
               </div>
             </div>
           </div>
-
+          <Carousel />
           <div className="grid grid-cols-4 space-x-5 px-40 mt-40 justify-center">
             {cards.map((element) => {
               return (
@@ -131,7 +132,7 @@ function AnasayfaLand() {
             })}
           </div>
 
-          <div className="mt-44 row ">
+          {/*<div className="mt-44 row ">
             <div className="col px-0">
               <div className="flickity-enabled is-draggable" tabIndex="0">
                 <div
@@ -178,7 +179,7 @@ function AnasayfaLand() {
                 </div>
               </div>
             </div>
-          </div>
+          </div>*/}
         </div>
       </MediaQuery>
       <MediaQuery maxWidth={767}>

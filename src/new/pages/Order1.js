@@ -9,6 +9,7 @@ import "react-image-crop/dist/ReactCrop.css";
 import orgInput from "../../images/orgInput.png";
 import Order2 from "./Order2";
 import phoneIcon from "../../images/ellipse.png";
+import MediaQuery from "react-responsive";
 
 function Order1({ name, selectedSKAS }) {
   const fileInputRef = useRef();
@@ -84,43 +85,6 @@ function Order1({ name, selectedSKAS }) {
     }
   }
 
-  useEffect(() => {
-    if (!completedCrop || !previewCanvasRef.current || !imgRef2.current) {
-      return;
-    }
-    console.log("girdim ulan!");
-    const image = imgRef2.current;
-    const canvas = previewCanvasRef.current;
-    const crop = completedCrop;
-
-    const scaleX = image.naturalWidth / image.width;
-    const scaleY = image.naturalHeight / image.height;
-    const ctx = canvas.getContext("2d");
-    const pixelRatio = window.devicePixelRatio;
-
-    canvas.width = crop.width * pixelRatio * scaleX;
-    canvas.height = crop.height * pixelRatio * scaleY;
-
-    ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-    ctx.imageSmoothingQuality = "high";
-
-    ctx.drawImage(
-      image,
-      crop.x * scaleX,
-      crop.y * scaleY,
-      crop.width * scaleX,
-      crop.height * scaleY,
-      0,
-      0,
-      crop.width * scaleX,
-      crop.height * scaleY
-    );
-    console.log("previewww", previewCanvasRef.current);
-  }, [completedCrop]);
-
-  const onLoad = useCallback((img) => {
-    imgRef2.current = img;
-  }, []);
   async function handleFileUpload1(e) {
     if (e.target.files) {
       if (
@@ -136,7 +100,6 @@ function Order1({ name, selectedSKAS }) {
         console.log("başarılı yükleme");
         setOrgImage(e.target.files[0]);
         setFileError(false);
-        setIsCropShown(true);
       } else {
         console.log("başarısız yükleme");
         setFileError(true);
@@ -158,277 +121,440 @@ function Order1({ name, selectedSKAS }) {
     }
   }
 
-  function handleShowCropPopUp() {
-    if (isCropShown) {
-      return (
-        <div class=" flex-column absolute   p-40px z-20 shadow-2xl   rounded-3xl overflow-hidden bg-white mt-32  ">
-          <div className="flex justify-end">
-            <button
-              onClick={() => {
-                setIsCropShown(false);
-              }}
-              class="focus:outline-none opacity-50"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6 mr-3"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
-          <div className="flex h-100% pt-10px ">
-            <ReactCrop
-              onLoad={onLoad}
-              src={ppImage}
-              crop={crop}
-              className="w-386px h-386px rounded-lg z-20"
-              onChange={(c) => {
-                setCrop(c);
-                console.log(c);
-              }}
-              onComplete={(c) => {
-                setCompletedCrop(c);
-              }}
-            />
-          </div>
-          <div className="flex pl-50px">
-            <button
-              onClick={() => {
-                console.log(completedCrop);
-                console.log(previewCanvasRef.current);
-                setIsCropShown(false);
-              }}
-              className="py-10px ml-20px w-100px px-6px font-roboto text-white mt-20px bg-compOrange hover:bg-compOrange-hover rounded-md focus:outline-none"
-            >
-              Kırp
-            </button>
-          </div>
-        </div>
-      );
-    }
-  }
-
   if (index == 0) {
     return (
-      <div className="rounded-3xl relative w-1000px min-h-250px   pb-40px bg-white">
-        <img
-          src={phoneIcon}
-          className="absolute mt-n90px w-180px h-180px left-50% ml-n90px "
-        />
-        <div className="flex justify-center  rounded-md pt-100px">
-          <div className="h-8px w-340px flex justify-center rounded-lg bg-grayf3">
-            <div className="h-100% w-33% bg-janus-site-blue rounded-lg"></div>
-          </div>
-          <div></div>
-        </div>
-
-        <div className="p-16 flex-flex-col ">
-          <p className="font-bold font-roboto text-janus-dark-blue text-2xl">
-            Hadi, kişisel bilgilerini gir ve networkünü hareketlendir!
-          </p>
-          <p className="font-roboto mt-3 text-input-gray ">
-            Kartvizitinde görünmesini istediğin bilgileri girebilirsin.
-          </p>
-          <div className="flex justify-center space-x-10 flex-row p-16">
-            <div>
-              {ppImage != null ? (
-                <img className="rounded-xl w-130px h-130px" src={ppImage} />
-              ) : (
-                <img src={profilInput} />
-              )}
-              <button
-                className="focus:outline-none absolute -mt-4 ml-10"
-                onClick={() => {
-                  fileInputRef.current.click();
-                }}
-              >
-                <img src={uploadButton}></img>{" "}
-              </button>
-              <input
-                multiple={false}
-                ref={fileInputRef}
-                onChange={handleFileUpload}
-                type="file"
-                hidden
-              />
+      <div>
+        <MediaQuery minWidth={768}>
+          <div className="rounded-3xl relative w-1000px min-h-250px   pb-40px bg-white">
+            <img
+              src={phoneIcon}
+              className="absolute mt-n90px w-180px h-180px left-50% ml-n90px "
+            />
+            <div className="flex justify-center  rounded-md pt-100px">
+              <div className="h-8px w-340px flex justify-center rounded-lg bg-grayf3">
+                <div className="h-100% w-33% bg-janus-site-blue rounded-lg"></div>
+              </div>
+              <div></div>
             </div>
 
-            <div>
-              {orgImage != null ? (
-                <img className="rounded-xl w-130px h-130px" src={orgImage} />
-              ) : (
-                <img src={orgInput} />
-              )}
-              <button
-                className="focus:outline-none absolute -mt-4 ml-10"
-                onClick={() => {
-                  fileInputRef2.current.click();
-                }}
-              >
-                <img src={uploadButton}></img>{" "}
-              </button>
-              <input
-                multiple={false}
-                ref={fileInputRef2}
-                onChange={handleFileUpload1}
-                type="file"
-                hidden
-              />
-            </div>
-          </div>
-          <div className="-mt-8"> {handleShowError()}</div>
-          <Formik
-            initialValues={{
-              name: "",
-              eposta: "",
-              telefon: "",
-              unvan: "",
-              sirketAdi: "",
-              sirketAdresi: "",
-            }}
-            validationSchema={schema}
-            onSubmit={(values) => {
-              setUserInformation(values);
-              setIndex(1);
-            }}
-          >
-            {({ errors, touched }) => (
-              <Form className="flex  flex-col">
-                <div className="flex grid grid-cols-2 gap-12 px-20 items-center justify-center">
-                  <div className="flex flex-col items-start">
-                    <p className="text-input-gray font-roboto font-medium">
-                      İsim Soyisim*
-                    </p>
-                    <Field
-                      placeholder="Rafet Tekin"
-                      name="name"
-                      class="outline-none border-input focus:border-janus-focus-blue   font-roboto text-input-gray h-10 w-300px mt-3 rounded border-0.5 p-3 shadow-input "
-                    />
-                    {/* If this field has been touched, and it contains an error, display it
-                     */}
-                    {touched.name && errors.name && (
-                      <div>
-                        <p className="mt-2 font-roboto text-janus-red font-light absolute">
-                          {errors.name}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex flex-col items-start">
-                    <p className="text-input-gray font-roboto font-medium">
-                      Telefon*
-                    </p>
-                    <Field
-                      className="outline-none border-input focus:border-janus-focus-blue   font-roboto text-input-gray h-10 w-300px mt-3 rounded border-0.5 p-3 shadow-input "
-                      name="telefon"
-                      placeholder="05 55 999 99 99"
-                    />
-                    {touched.telefon && errors.telefon && (
-                      <div>
-                        <p className="mt-2 font-roboto text-janus-red font-light absolute">
-                          {errors.telefon}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex flex-col items-start">
-                    <p className="text-input-gray font-roboto font-medium">
-                      E-posta*
-                    </p>
-                    <Field
-                      placeholder="rafetekin@gmail.com"
-                      name="eposta"
-                      className="outline-none border-input focus:border-janus-focus-blue   font-roboto text-input-gray h-10 w-300px mt-3 rounded border-0.5 p-3 shadow-input"
-                    />
-                    {/* If this field has been touched, and it contains an error, display
-              it */}
-                    {touched.eposta && errors.eposta && (
-                      <div>
-                        <p className="mt-2 font-roboto text-janus-red font-light absolute">
-                          {errors.eposta}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex flex-col items-start">
-                    <p className="text-input-gray font-roboto font-medium">
-                      Unvan*
-                    </p>
-                    <Field
-                      placeholder="Product Owner"
-                      name="unvan"
-                      className="outline-none border-input focus:border-janus-focus-blue   font-roboto text-input-gray h-10 w-300px mt-3 rounded border-0.5 p-3 shadow-input"
-                    />
-                    {/* If this field has been touched, and it contains an error, display
-              it */}
-                    {touched.unvan && errors.unvan && (
-                      <div>
-                        <p className="mt-2 font-roboto text-janus-red font-light absolute">
-                          {errors.unvan}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex flex-col items-start">
-                    <p className="text-input-gray font-roboto font-medium">
-                      Şirket Adı
-                    </p>
-                    <Field
-                      placeholder="Microsoft Turkey"
-                      name="sirketAdi"
-                      className="outline-none border-input focus:border-janus-focus-blue   font-roboto text-input-gray h-10 w-300px mt-3 rounded border-0.5 p-3 shadow-input"
-                    />
-                    {/* If this field has been touched, and it contains an error, display
-              it */}
-                    {touched.sirketAdi && errors.sirketAdi && (
-                      <div>
-                        <p className="mt-2 font-roboto text-janus-red font-light absolute">
-                          {errors.sirketAdi}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex flex-col items-start">
-                    <p className="text-input-gray font-roboto font-medium">
-                      Şirket Adresi
-                    </p>
-                    <Field
-                      placeholder="Beşiktaş, İstanbul"
-                      name="sirketAdresi"
-                      className="outline-none border-input focus:border-janus-focus-blue   font-roboto text-input-gray h-10 w-300px mt-3 rounded border-0.5 p-3 shadow-input"
-                    />
-                    {/* If this field has been touched, and it contains an error, display
-              it */}
-                    {touched.sirketAdresi && errors.sirketAdresi && (
-                      <div>
-                        <p className="mt-2 font-roboto text-janus-red font-light absolute">
-                          {errors.sirketAdresi}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <div className=" mt-20 flex items-center justify-center">
+            <div className="p-16 flex-flex-col ">
+              <p className="font-bold font-roboto text-janus-dark-blue text-2xl">
+                Hadi, kişisel bilgilerini gir ve networkünü hareketlendir!
+              </p>
+              <p className="font-roboto mt-3 text-input-gray ">
+                Kartvizitinde görünmesini istediğin bilgileri girebilirsin.
+              </p>
+              <div className="flex justify-center space-x-10 flex-row p-16">
+                <div>
+                  {ppImage != null ? (
+                    <img className="rounded-xl w-130px h-130px" src={ppImage} />
+                  ) : (
+                    <img src={profilInput} />
+                  )}
                   <button
-                    className="w-236px h-40px bg-janus-site-blue focus:outline-none text-white text-bold rounded-xl mt-78px"
-                    type="submit"
+                    className="focus:outline-none absolute -mt-4 ml-10"
+                    onClick={() => {
+                      fileInputRef.current.click();
+                    }}
                   >
-                    Devam Et
+                    <img src={uploadButton}></img>{" "}
                   </button>
+                  <input
+                    multiple={false}
+                    ref={fileInputRef}
+                    onChange={handleFileUpload}
+                    type="file"
+                    hidden
+                  />
                 </div>
-              </Form>
-            )}
-          </Formik>
-        </div>
+
+                <div>
+                  {orgImage != null ? (
+                    <img
+                      className="rounded-xl w-130px h-130px"
+                      src={orgImage}
+                    />
+                  ) : (
+                    <img src={orgInput} />
+                  )}
+                  <button
+                    className="focus:outline-none absolute -mt-4 ml-10"
+                    onClick={() => {
+                      fileInputRef2.current.click();
+                    }}
+                  >
+                    <img src={uploadButton}></img>{" "}
+                  </button>
+                  <input
+                    multiple={false}
+                    ref={fileInputRef2}
+                    onChange={handleFileUpload1}
+                    type="file"
+                    hidden
+                  />
+                </div>
+              </div>
+              <div className="-mt-8"> {handleShowError()}</div>
+              <Formik
+                initialValues={{
+                  name: "",
+                  eposta: "",
+                  telefon: "",
+                  unvan: "",
+                  sirketAdi: "",
+                  sirketAdresi: "",
+                }}
+                validationSchema={schema}
+                onSubmit={(values) => {
+                  setUserInformation(values);
+                  setIndex(1);
+                }}
+              >
+                {({ errors, touched }) => (
+                  <Form className="flex  flex-col">
+                    <div className="flex grid grid-cols-2 gap-12 px-20 items-center justify-center">
+                      <div className="flex flex-col items-start">
+                        <p className="text-input-gray font-roboto font-medium">
+                          İsim Soyisim*
+                        </p>
+                        <Field
+                          placeholder="Rafet Tekin"
+                          name="name"
+                          class="outline-none border-input focus:border-janus-focus-blue   font-roboto text-input-gray h-10 w-300px mt-3 rounded border-0.5 p-3 shadow-input "
+                        />
+                        {/* If this field has been touched, and it contains an error, display it
+                         */}
+                        {touched.name && errors.name && (
+                          <div>
+                            <p className="mt-2 font-roboto text-janus-red font-light absolute">
+                              {errors.name}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex flex-col items-start">
+                        <p className="text-input-gray font-roboto font-medium">
+                          Telefon*
+                        </p>
+                        <Field
+                          className="outline-none border-input focus:border-janus-focus-blue   font-roboto text-input-gray h-10 w-300px mt-3 rounded border-0.5 p-3 shadow-input "
+                          name="telefon"
+                          placeholder="05 55 999 99 99"
+                        />
+                        {touched.telefon && errors.telefon && (
+                          <div>
+                            <p className="mt-2 font-roboto text-janus-red font-light absolute">
+                              {errors.telefon}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex flex-col items-start">
+                        <p className="text-input-gray font-roboto font-medium">
+                          E-posta*
+                        </p>
+                        <Field
+                          placeholder="rafetekin@gmail.com"
+                          name="eposta"
+                          className="outline-none border-input focus:border-janus-focus-blue   font-roboto text-input-gray h-10 w-300px mt-3 rounded border-0.5 p-3 shadow-input"
+                        />
+                        {/* If this field has been touched, and it contains an error, display
+              it */}
+                        {touched.eposta && errors.eposta && (
+                          <div>
+                            <p className="mt-2 font-roboto text-janus-red font-light absolute">
+                              {errors.eposta}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex flex-col items-start">
+                        <p className="text-input-gray font-roboto font-medium">
+                          Unvan*
+                        </p>
+                        <Field
+                          placeholder="Product Owner"
+                          name="unvan"
+                          className="outline-none border-input focus:border-janus-focus-blue   font-roboto text-input-gray h-10 w-300px mt-3 rounded border-0.5 p-3 shadow-input"
+                        />
+                        {/* If this field has been touched, and it contains an error, display
+              it */}
+                        {touched.unvan && errors.unvan && (
+                          <div>
+                            <p className="mt-2 font-roboto text-janus-red font-light absolute">
+                              {errors.unvan}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex flex-col items-start">
+                        <p className="text-input-gray font-roboto font-medium">
+                          Şirket Adı
+                        </p>
+                        <Field
+                          placeholder="Microsoft Turkey"
+                          name="sirketAdi"
+                          className="outline-none border-input focus:border-janus-focus-blue   font-roboto text-input-gray h-10 w-300px mt-3 rounded border-0.5 p-3 shadow-input"
+                        />
+                        {/* If this field has been touched, and it contains an error, display
+              it */}
+                        {touched.sirketAdi && errors.sirketAdi && (
+                          <div>
+                            <p className="mt-2 font-roboto text-janus-red font-light absolute">
+                              {errors.sirketAdi}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex flex-col items-start">
+                        <p className="text-input-gray font-roboto font-medium">
+                          Şirket Adresi
+                        </p>
+                        <Field
+                          placeholder="Beşiktaş, İstanbul"
+                          name="sirketAdresi"
+                          className="outline-none border-input focus:border-janus-focus-blue   font-roboto text-input-gray h-10 w-300px mt-3 rounded border-0.5 p-3 shadow-input"
+                        />
+                        {/* If this field has been touched, and it contains an error, display
+              it */}
+                        {touched.sirketAdresi && errors.sirketAdresi && (
+                          <div>
+                            <p className="mt-2 font-roboto text-janus-red font-light absolute">
+                              {errors.sirketAdresi}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className=" mt-20 flex items-center justify-center">
+                      <button
+                        className="w-236px h-40px bg-janus-site-blue focus:outline-none text-white text-bold rounded-xl mt-78px"
+                        type="submit"
+                      >
+                        Devam Et
+                      </button>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
+            </div>
+          </div>
+        </MediaQuery>
+        <MediaQuery maxWidth={767}>
+          <div className="rounded-3xl relative  max-w-screen min-h-250px    bg-white">
+            <img
+              src={phoneIcon}
+              className="absolute mt-n90px w-180px h-180px left-50% ml-n90px "
+            />
+            <div className="flex justify-center  rounded-md pt-100px">
+              <div className="h-8px w-340px flex justify-center rounded-lg bg-grayf3">
+                <div className="h-100% w-33% bg-janus-site-blue rounded-lg"></div>
+              </div>
+              <div></div>
+            </div>
+            <div className="p-16 flex-flex-col ">
+              <p className="font-bold font-roboto text-janus-dark-blue text-2xl">
+                Hadi, kişisel bilgilerini gir ve networkünü hareketlendir!
+              </p>
+              <p className="font-roboto mt-3 text-input-gray ">
+                Kartvizitinde görünmesini istediğin bilgileri girebilirsin.
+              </p>
+              <div className="flex justify-center space-x-10 flex-row p-4">
+                <div>
+                  {ppImage != null ? (
+                    <img className="rounded-xl w-130px h-130px" src={ppImage} />
+                  ) : (
+                    <img src={profilInput} />
+                  )}
+                  <button
+                    className="focus:outline-none absolute -mt-4 ml-6"
+                    onClick={() => {
+                      fileInputRef.current.click();
+                    }}
+                  >
+                    <img src={uploadButton}></img>{" "}
+                  </button>
+                  <input
+                    multiple={false}
+                    ref={fileInputRef}
+                    onChange={handleFileUpload}
+                    type="file"
+                    hidden
+                  />
+                </div>
+
+                <div>
+                  {orgImage != null ? (
+                    <img
+                      className="rounded-xl w-130px h-130px"
+                      src={orgImage}
+                    />
+                  ) : (
+                    <img src={orgInput} />
+                  )}
+                  <button
+                    className="focus:outline-none absolute -mt-4 ml-6"
+                    onClick={() => {
+                      fileInputRef2.current.click();
+                    }}
+                  >
+                    <img src={uploadButton}></img>{" "}
+                  </button>
+                  <input
+                    multiple={false}
+                    ref={fileInputRef2}
+                    onChange={handleFileUpload1}
+                    type="file"
+                    hidden
+                  />
+                </div>
+              </div>
+              <div className=""> {handleShowError()}</div>
+              <Formik
+                initialValues={{
+                  name: "",
+                  eposta: "",
+                  telefon: "",
+                  unvan: "",
+                  sirketAdi: "",
+                  sirketAdresi: "",
+                }}
+                validationSchema={schema}
+                onSubmit={(values) => {
+                  setUserInformation(values);
+                  setIndex(1);
+                }}
+              >
+                {({ errors, touched }) => (
+                  <Form className="flex  flex-col">
+                    <div className="flex flex-col  items-center justify-center">
+                      <div className="flex flex-col mt-4 items-start">
+                        <p className="text-input-gray font-roboto font-medium">
+                          İsim Soyisim*
+                        </p>
+                        <Field
+                          placeholder="Rafet Tekin"
+                          name="name"
+                          class="outline-none border-input focus:border-janus-focus-blue   font-roboto text-input-gray h-10 w-300px mt-3 rounded border-0.5 p-3 shadow-input "
+                        />
+                        {/* If this field has been touched, and it contains an error, display it
+                         */}
+                        {touched.name && errors.name && (
+                          <div>
+                            <p className="mt-2 font-roboto text-janus-red font-light absolute">
+                              {errors.name}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex flex-col mt-10 items-start">
+                        <p className="text-input-gray font-roboto font-medium">
+                          Telefon*
+                        </p>
+                        <Field
+                          className="outline-none border-input focus:border-janus-focus-blue   font-roboto text-input-gray h-10 w-300px mt-3 rounded border-0.5 p-3 shadow-input "
+                          name="telefon"
+                          placeholder="05 55 999 99 99"
+                        />
+                        {touched.telefon && errors.telefon && (
+                          <div>
+                            <p className="mt-2 font-roboto text-janus-red font-light absolute">
+                              {errors.telefon}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex flex-col mt-10 items-start">
+                        <p className="text-input-gray font-roboto font-medium">
+                          E-posta*
+                        </p>
+                        <Field
+                          placeholder="rafetekin@gmail.com"
+                          name="eposta"
+                          className="outline-none border-input focus:border-janus-focus-blue   font-roboto text-input-gray h-10 w-300px mt-3 rounded border-0.5 p-3 shadow-input"
+                        />
+                        {/* If this field has been touched, and it contains an error, display
+              it */}
+                        {touched.eposta && errors.eposta && (
+                          <div>
+                            <p className="mt-2 font-roboto text-janus-red font-light absolute">
+                              {errors.eposta}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex flex-col mt-10 items-start">
+                        <p className="text-input-gray font-roboto font-medium">
+                          Unvan*
+                        </p>
+                        <Field
+                          placeholder="Product Owner"
+                          name="unvan"
+                          className="outline-none border-input focus:border-janus-focus-blue   font-roboto text-input-gray h-10 w-300px mt-3 rounded border-0.5 p-3 shadow-input"
+                        />
+                        {/* If this field has been touched, and it contains an error, display
+              it */}
+                        {touched.unvan && errors.unvan && (
+                          <div>
+                            <p className="mt-2 font-roboto text-janus-red font-light absolute">
+                              {errors.unvan}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex flex-col mt-10 items-start">
+                        <p className="text-input-gray font-roboto font-medium">
+                          Şirket Adı
+                        </p>
+                        <Field
+                          placeholder="Microsoft Turkey"
+                          name="sirketAdi"
+                          className="outline-none border-input focus:border-janus-focus-blue   font-roboto text-input-gray h-10 w-300px mt-3 rounded border-0.5 p-3 shadow-input"
+                        />
+                        {/* If this field has been touched, and it contains an error, display
+              it */}
+                        {touched.sirketAdi && errors.sirketAdi && (
+                          <div>
+                            <p className="mt-2 font-roboto text-janus-red font-light absolute">
+                              {errors.sirketAdi}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex flex-col mt-10 items-start">
+                        <p className="text-input-gray font-roboto font-medium">
+                          Şirket Adresi
+                        </p>
+                        <Field
+                          placeholder="Beşiktaş, İstanbul"
+                          name="sirketAdresi"
+                          className="outline-none border-input focus:border-janus-focus-blue   font-roboto text-input-gray h-10 w-300px mt-3 rounded border-0.5 p-3 shadow-input"
+                        />
+                        {/* If this field has been touched, and it contains an error, display
+              it */}
+                        {touched.sirketAdresi && errors.sirketAdresi && (
+                          <div>
+                            <p className="mt-2 font-roboto text-janus-red font-light absolute">
+                              {errors.sirketAdresi}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className=" mt-20 flex items-center justify-center">
+                      <button
+                        className="w-236px h-40px bg-janus-site-blue focus:outline-none text-white text-bold rounded-xl mt-78px"
+                        type="submit"
+                      >
+                        Devam Et
+                      </button>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
+            </div>
+          </div>
+        </MediaQuery>
       </div>
     );
   } else if (index == 1) {
