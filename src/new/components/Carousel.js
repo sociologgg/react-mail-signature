@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import MediaQuery from "react-responsive";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import Swipe from "react-easy-swipe";
 
@@ -49,59 +49,119 @@ class Carousel extends Component {
 
   render() {
     return (
-      <div className="mt-8 flex justify-center p-16">
-        <div className=" flex justify-center items-center overflow-hidden relative">
-          <AiOutlineLeft
-            onClick={this.prevSlide}
-            className="absolute left-0 text-3xl inset-y-1/2 text-white cursor-pointer"
-          />
+      <div>
+        <MediaQuery minWidth={768}>
+          <div className="mt-8 flex justify-center p-16">
+            <div className=" flex justify-center items-center overflow-hidden relative">
+              <AiOutlineLeft
+                onClick={this.prevSlide}
+                className="absolute left-0 text-3xl inset-y-1/2 text-white cursor-pointer"
+              />
 
-          <Swipe onSwipeLeft={this.nextSlide} onSwipeRight={this.prevSlide}>
-            {CarouselData.map((slide, index) => {
-              return (
-                <img
-                  src={slide.image}
-                  alt="This is a carousel slide"
-                  key={index}
-                  className={
-                    index === this.state.currentSlide
-                      ? "block w-800px h-500px  "
-                      : "hidden"
-                  }
-                  onMouseEnter={() => {
-                    this.setState({ paused: true });
-                  }}
-                  onMouseLeave={() => {
-                    this.setState({ paused: false });
-                  }}
-                />
-              );
-            })}
-          </Swipe>
+              <Swipe onSwipeLeft={this.nextSlide} onSwipeRight={this.prevSlide}>
+                {CarouselData.map((slide, index) => {
+                  return (
+                    <img
+                      src={slide.image}
+                      alt="This is a carousel slide"
+                      key={index}
+                      className={
+                        index === this.state.currentSlide
+                          ? "block w-788px h-688px  "
+                          : "hidden"
+                      }
+                      onMouseEnter={() => {
+                        this.setState({ paused: true });
+                      }}
+                      onMouseLeave={() => {
+                        this.setState({ paused: false });
+                      }}
+                    />
+                  );
+                })}
+              </Swipe>
 
-          <div className="absolute w-full flex justify-center bottom-0">
-            {CarouselData.map((element, index) => {
-              return (
-                <div
-                  className={
-                    index === this.state.currentSlide
-                      ? "h-2 w-2 bg-blue-700 rounded-full mx-2  cursor-pointer "
-                      : "h-2 w-2 bg-white rounded-full mx-2  cursor-pointer "
-                  }
-                  key={index}
-                  onClick={() => {
-                    this.setCurrentSlide(index);
-                  }}
-                ></div>
-              );
-            })}
+              <div className="absolute w-full flex justify-center bottom-0">
+                {CarouselData.map((element, index) => {
+                  return (
+                    <div
+                      className={
+                        index === this.state.currentSlide
+                          ? "h-1 w-10 bg-aboutOrange rounded-full mx-2   "
+                          : "h-1 w-10 bg-white rounded-full mx-2  "
+                      }
+                      key={index}
+                      onClick={() => {
+                        this.setCurrentSlide(index);
+                      }}
+                    ></div>
+                  );
+                })}
+              </div>
+
+              <AiOutlineRight
+                onClick={this.nextSlide}
+                className="absolute right-0 text-3xl inset-y-1/2 text-white cursor-pointer"
+              />
+            </div>
           </div>
+        </MediaQuery>
+        <MediaQuery maxWidth={767}>
+          <div className="mt-8 flex justify-center p-16">
+            <div className=" flex justify-center items-center overflow-hidden relative">
+              <AiOutlineLeft
+                onClick={this.prevSlide}
+                className="absolute left-0 text-3xl inset-y-1/2 text-white cursor-pointer"
+              />
 
-          <AiOutlineRight
-            onClick={this.nextSlide}
-            className="absolute right-0 text-3xl inset-y-1/2 text-white cursor-pointer"
-          />
-        </div>
+              <Swipe onSwipeLeft={this.nextSlide} onSwipeRight={this.prevSlide}>
+                {CarouselData.map((slide, index) => {
+                  return (
+                    <img
+                      src={slide.image}
+                      alt="This is a carousel slide"
+                      key={index}
+                      className={
+                        index === this.state.currentSlide
+                          ? "block w-384px h-234px    "
+                          : "hidden"
+                      }
+                      onMouseEnter={() => {
+                        this.setState({ paused: true });
+                      }}
+                      onMouseLeave={() => {
+                        this.setState({ paused: false });
+                      }}
+                    />
+                  );
+                })}
+              </Swipe>
+
+              <div className="absolute w-full flex justify-center bottom-0">
+                {CarouselData.map((element, index) => {
+                  return (
+                    <div
+                      className={
+                        index === this.state.currentSlide
+                          ? "h-1 w-10 bg-aboutOrange rounded-full mx-2   "
+                          : "h-1 w-10 bg-white rounded-full mx-2   "
+                      }
+                      key={index}
+                      onClick={() => {
+                        this.setCurrentSlide(index);
+                      }}
+                    ></div>
+                  );
+                })}
+              </div>
+
+              <AiOutlineRight
+                onClick={this.nextSlide}
+                className="absolute right-0 text-3xl inset-y-1/2 text-white cursor-pointer"
+              />
+            </div>
+          </div>
+        </MediaQuery>
       </div>
     );
   }

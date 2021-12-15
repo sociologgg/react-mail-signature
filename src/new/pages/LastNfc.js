@@ -12,7 +12,7 @@ import {
   ref,
   getDownloadURL,
 } from "firebase/storage";
-
+import BeatLoader from "react-spinners/BeatLoader";
 var vCardsJS = require("vcards-js");
 
 const socialIcons = {
@@ -27,6 +27,8 @@ const socialIcons = {
 };
 
 function LastNfc() {
+  const [loading, setIsLoading] = useState(false);
+  const [success, setIsSuccess] = useState(false);
   const db = getFirestore();
   let location = useLocation();
   const [userInfo, setUserInfo] = useState({});
@@ -69,7 +71,7 @@ function LastNfc() {
           <div className="flex mt-8 flex-row items-center">
             <a
               className=" flex flex-shrink-0"
-              href={`${userInfo?.socialLinks[i]?.value}`}
+              href={`http://${userInfo?.socialLinks[i]?.value}`}
             >
               <img className="w-24px h-24px" src={globeLogo} />
             </a>
@@ -83,6 +85,7 @@ function LastNfc() {
   }
 
   async function handleVCardDownload() {
+    setIsLoading(true);
     var vCard = vCardsJS();
     vCard.firstName = userInfo?.userInformation?.name;
     vCard.organization = userInfo?.userInformation?.sirketAdi;
@@ -97,18 +100,24 @@ function LastNfc() {
       "vcards/" + userInfo?.userInformation?.name + ".vcf"
     );
     await uploadString(storageRef, card).then(async (snapshot) => {
-      await getDownloadURL(snapshot.ref).then(async (downloadURL) => {
-        console.log("File available at", downloadURL);
-        const res = await fetch(downloadURL);
-        const blob = await res.blob();
-        var url = window.URL.createObjectURL(blob);
-        var a = document.createElement("a");
-        a.href = url;
-        a.download = `${userInfo?.userInformation?.name}.vcf`;
-        document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
-        a.click();
-        a.remove();
-      });
+      await getDownloadURL(snapshot.ref)
+        .then(async (downloadURL) => {
+          console.log("File available at", downloadURL);
+          const res = await fetch(downloadURL);
+          const blob = await res.blob();
+          var url = window.URL.createObjectURL(blob);
+          var a = document.createElement("a");
+          a.href = url;
+          a.download = `${userInfo?.userInformation?.name}.vcf`;
+          document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
+          a.click();
+          a.remove();
+          setIsLoading(false);
+          setIsSuccess(true);
+        })
+        .catch((e) => {
+          setIsSuccess(false);
+        });
     });
   }
 
@@ -121,7 +130,7 @@ function LastNfc() {
         <div className="mt-10 flex flex-col rounded-xl bg-white sm:w-full  ">
           <div className="sm:flex sm:flex-col md:flex md:flex-row">
             <div className="flex flex-row sm:justify-center p-12 ">
-              <div className="sm:relative">
+              <div className="sm:relative ">
                 {userInfo?.ppImage != null ? (
                   <img
                     className="sm:w-140px  relative rounded-3xl sm:h-140px lg:w-250px lg:h-250px"
@@ -139,7 +148,7 @@ function LastNfc() {
                   <></>
                 ) : (
                   <img
-                    className="sm:w-140px rounded-3xl sm:h-140px lg:w-250px lg:h-250px"
+                    className="sm:w-140px rounded-3xl sm:h-140px lg:w-250px lg:h-250px "
                     src={userInfo?.orgImage}
                   />
                 )}
@@ -217,10 +226,26 @@ function LastNfc() {
           </div>
           <div className="p-4">
             <button
+              disabled={success}
               onClick={handleVCardDownload}
-              className="h-10 rounded-xl bg-janus-site-blue px-24 text-white font-roboto font-medium"
+              className={`${
+                success
+                  ? "h-10 rounded-xl bg-green-300 px-24 text-white font-roboto font-medium"
+                  : "h-10 rounded-xl bg-janus-site-blue px-24 text-white font-roboto font-medium"
+              }`}
             >
-              Kartviziti İndir
+              {loading ? (
+                <BeatLoader
+                  color={"#ffffff"}
+                  loading={true}
+                  size={10}
+                  speedMultiplier={1}
+                />
+              ) : success == false ? (
+                "Kartviziti İndir"
+              ) : (
+                "Başarılı"
+              )}
             </button>
           </div>
         </div>

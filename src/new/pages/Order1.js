@@ -11,7 +11,7 @@ import Order2 from "./Order2";
 import phoneIcon from "../../images/ellipse.png";
 import MediaQuery from "react-responsive";
 
-function Order1({ name, selectedSKAS }) {
+function Order1({ name, selectedSKAS, iyzi }) {
   const fileInputRef = useRef();
   const fileInputRef2 = useRef();
   const [ppImage, setPPImage] = useState(null);
@@ -560,6 +560,7 @@ function Order1({ name, selectedSKAS }) {
   } else if (index == 1) {
     return (
       <Order2
+        iyzi={iyzi}
         userInformation={userInformation}
         selectedSKAS={selectedSKAS}
         setIndex={setIndex}

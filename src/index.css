@@ -91,8 +91,9 @@
 
 .feature-card1 {
   background-color: transparent;
-  height: 250px;
-  perspective: 500px;
+  height: 320px;
+
+  perspective: 1000px;
 }
 .feature-card1:hover .content {
   transform: rotateY(-180deg);

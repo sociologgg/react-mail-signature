@@ -28,72 +28,78 @@ let standardProducts = [
     name: "Siyah Geometrik - Dikey",
     icon: require("../../images/nfclandpngs/yaprak.png").default,
     image: require("../../images/nfclandpngs/siyahgeometrikdikey.png").default,
-    price: "999.00",
+    price: "149,99₺",
     buy: require("../../images/nfclandpngs/shopping-bag.png").default,
     imagef: require("../../images/nfc-black-f.png").default,
     imageb: require("../../images/nfc-black-b.png").default,
     vertical: true,
     ska: false,
+    iyzi: "https://iyzi.link/AHeuEQ",
   },
   {
     id: 2,
     name: "Siyah Geometrik - Yatay",
     icon: require("../../images/nfclandpngs/yaprak.png").default,
     image: require("../../images/nfclandpngs/siyahgeometrikyatay.png").default,
-    price: "999.00",
+    price: "149,99₺",
     buy: require("../../images/nfclandpngs/shopping-bag.png").default,
     imagef: require("../../images/nfc-black-fy.png").default,
     imageb: require("../../images/nfc-black-by.png").default,
     vertical: false,
     ska: false,
+    iyzi: "https://iyzi.link/AHeuEQ",
   },
   {
     id: 3,
     name: "Mavi Elips Dikey",
     icon: require("../../images/nfclandpngs/yaprak.png").default,
     image: require("../../images/nfclandpngs/mavielipsdikey.png").default,
-    price: "999.00",
+    price: "149,99₺",
     buy: require("../../images/nfclandpngs/shopping-bag.png").default,
     imagef: require("../../images/nfc-blue-b.png").default,
     imageb: require("../../images/nfc-blue-f.png").default,
     vertical: true,
     ska: false,
+    iyzi: "https://iyzi.link/AHeuEQ",
   },
   {
     id: 4,
     name: "Mavi Elips Yatay",
     icon: require("../../images/nfclandpngs/yaprak.png").default,
     image: require("../../images/nfclandpngs/mavielipsyatay.png").default,
-    price: "999.00",
+    price: "149,99₺",
     buy: require("../../images/nfclandpngs/shopping-bag.png").default,
     imagef: require("../../images/nfc-blue-fy.png").default,
     imageb: require("../../images/nfc-blue-by.png").default,
     vertical: false,
     ska: false,
+    iyzi: "https://iyzi.link/AHeuEQ",
   },
   {
     id: 5,
     name: "Siyah Geometrik - Dikey",
     icon: require("../../images/nfclandpngs/yaprak.png").default,
     image: require("../../images/nfclandpngs/siyahgeometrikdikey.png").default,
-    price: "999.00",
+    price: "149,99₺",
     buy: require("../../images/nfclandpngs/shopping-bag.png").default,
     imagef: require("../../images/nfc-black-f.png").default,
     imageb: require("../../images/nfc-black-b.png").default,
     vertical: true,
     ska: false,
+    iyzi: "https://iyzi.link/AHeuEQ",
   },
   {
     id: 6,
     name: "Siyah Geometrik - Yatay",
     icon: require("../../images/nfclandpngs/yaprak.png").default,
     image: require("../../images/nfclandpngs/siyahgeometrikyatay.png").default,
-    price: "999.00",
+    price: "149,99₺",
     buy: require("../../images/nfclandpngs/shopping-bag.png").default,
     imagef: require("../../images/nfc-black-fy.png").default,
     imageb: require("../../images/nfc-black-by.png").default,
     vertical: false,
     ska: false,
+    iyzi: "https://iyzi.link/AHeuEQ",
   },
 ];
 
@@ -104,12 +110,13 @@ let premiumProducts = [
     skatitle: "17 Madde",
     icon: require("../../images/g10.png").default,
     image: require("../../images/Frame 2128.png").default,
-    price: "999.00",
+    price: "199,99₺",
     imageb: require("../../images/surdur-b.png").default,
     imagef: require("../../images/surdur-f.png").default,
     buy: require("../../images/nfclandpngs/shopping-bag.png").default,
     ska: true,
     vertical: true,
+    iyzi: "https://iyzi.link/AHehkA",
   },
   {
     id: 1,
@@ -117,12 +124,13 @@ let premiumProducts = [
     skatitle: "SKA Eklenebilir",
     icon: require("../../images/nfclandpngs/yaprak.png").default,
     image: require("../../images/nfclandpngs/dinamik.png").default,
-    price: "999.00",
+    price: "199,99₺",
     imageb: require("../../images/dinamik-b.png").default,
     imagef: require("../../images/dinamik-f.png").default,
     buy: require("../../images/nfclandpngs/shopping-bag.png").default,
     ska: true,
     vertical: true,
+    iyzi: "https://iyzi.link/AHehkA",
   },
   {
     id: 2,
@@ -130,12 +138,13 @@ let premiumProducts = [
     skatitle: "SKA Eklenebilir",
     icon: require("../../images/nfclandpngs/yaprak.png").default,
     image: require("../../images/nfclandpngs/siyahangular.png").default,
-    price: "999.00",
+    price: "199,99₺",
     imageb: require("../../images/siyahj-angular-b.png").default,
     imagef: require("../../images/siyah-angular-f.png").default,
     buy: require("../../images/nfclandpngs/shopping-bag.png").default,
     ska: true,
     vertical: true,
+    iyzi: "https://iyzi.link/AHehkA",
   },
   {
     id: 3,
@@ -143,12 +152,13 @@ let premiumProducts = [
     skatitle: "SKA Eklenebilir",
     icon: require("../../images/nfclandpngs/yaprak.png").default,
     image: require("../../images/nfclandpngs/kozmikrenkli.png").default,
-    price: "999.00",
+    price: "199,99₺",
     imageb: require("../../images/kozmik-renkli-b.png").default,
     imagef: require("../../images/kozmik-renkli-f.png").default,
     buy: require("../../images/nfclandpngs/shopping-bag.png").default,
     ska: true,
     vertical: true,
+    iyzi: "https://iyzi.link/AHehkA",
   },
   {
     id: 4,
@@ -156,12 +166,13 @@ let premiumProducts = [
     skatitle: "SKA Eklenebilir",
     icon: require("../../images/nfclandpngs/yaprak.png").default,
     image: require("../../images/nfclandpngs/morangular.png").default,
-    price: "999.00",
+    price: "199,99₺",
     imageb: require("../../images/mor-angular-b.png").default,
     imagef: require("../../images/mor-angular-f.png").default,
     buy: require("../../images/nfclandpngs/shopping-bag.png").default,
     ska: true,
     vertical: true,
+    iyzi: "https://iyzi.link/AHehkA",
   },
 
   {
@@ -170,12 +181,13 @@ let premiumProducts = [
     skatitle: "SKA Eklenebilir",
     icon: require("../../images/nfclandpngs/yaprak.png").default,
     image: require("../../images/nfclandpngs/dinamik.png").default,
-    price: "999.00",
+    price: "199,99₺",
     imageb: require("../../images/dinamik-b.png").default,
     imagef: require("../../images/dinamik-f.png").default,
     buy: require("../../images/nfclandpngs/shopping-bag.png").default,
     ska: true,
     vertical: true,
+    iyzi: "https://iyzi.link/AHehkA",
   },
   {
     id: 2,
@@ -183,12 +195,13 @@ let premiumProducts = [
     skatitle: "SKA Eklenebilir",
     icon: require("../../images/nfclandpngs/yaprak.png").default,
     image: require("../../images/nfclandpngs/siyahangular.png").default,
-    price: "999.00",
+    price: "199,99₺",
     imageb: require("../../images/siyahj-angular-b.png").default,
     imagef: require("../../images/siyah-angular-f.png").default,
     buy: require("../../images/nfclandpngs/shopping-bag.png").default,
     ska: true,
     vertical: true,
+    iyzi: "https://iyzi.link/AHehkA",
   },
   {
     id: 3,
@@ -196,12 +209,13 @@ let premiumProducts = [
     skatitle: "SKA Eklenebilir",
     icon: require("../../images/nfclandpngs/yaprak.png").default,
     image: require("../../images/nfclandpngs/kozmikrenkli.png").default,
-    price: "999.00",
+    price: "199,99₺",
     imageb: require("../../images/kozmik-renkli-b.png").default,
     imagef: require("../../images/kozmik-renkli-f.png").default,
     buy: require("../../images/nfclandpngs/shopping-bag.png").default,
     ska: true,
     vertical: true,
+    iyzi: "https://iyzi.link/AHehkA",
   },
   {
     id: 4,
@@ -209,12 +223,13 @@ let premiumProducts = [
     skatitle: "SKA Eklenebilir",
     icon: require("../../images/nfclandpngs/yaprak.png").default,
     image: require("../../images/nfclandpngs/morangular.png").default,
-    price: "999.00",
+    price: "199,99₺",
     imageb: require("../../images/mor-angular-b.png").default,
     imagef: require("../../images/mor-angular-f.png").default,
     buy: require("../../images/nfclandpngs/shopping-bag.png").default,
     ska: true,
     vertical: true,
+    iyzi: "https://iyzi.link/AHehkA",
   },
 ];
 
@@ -238,6 +253,7 @@ function NfcLand() {
   const [vertical, setIsVertical] = useState();
   const [price, setPrice] = useState("199.00");
   const [ska, setSka] = useState(false);
+  const [iyzi, setIyzi] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   // section 1
   return (
@@ -277,6 +293,7 @@ function NfcLand() {
                   price={price}
                   ska={ska}
                   id={id}
+                  iyzi={iyzi}
                 />
                 <button
                   onClick={() => {
@@ -451,6 +468,7 @@ function NfcLand() {
                         setPrice(element.price);
                         setSka(element.ska);
                         setId(element.id);
+                        setIyzi(element.iyzi);
                       }}
                     >
                       <div className="flex  justify-start">
@@ -522,6 +540,7 @@ function NfcLand() {
                         setPrice(element.price);
                         setSka(element.ska);
                         setId(element.id);
+                        setIyzi(element.iyzi);
                       }}
                     >
                       <div className="flex justify-start">
@@ -737,6 +756,7 @@ function NfcLand() {
                   price={price}
                   ska={ska}
                   id={id}
+                  iyzi={iyzi}
                 />
                 <button
                   onClick={() => {
@@ -877,6 +897,7 @@ function NfcLand() {
             >
               <img src={ileributton} />
             </button>
+            <a id="simdisatinal"></a>
             <button
               className="focus:outline-none absolute mr-200px mt-230px"
               onClick={() => scroll(-700)}
@@ -897,6 +918,7 @@ function NfcLand() {
                       setPrice(element.price);
                       setSka(element.ska);
                       setId(element.id);
+                      setIyzi(element.iyzi);
                     }}
                   >
                     <div className="flex  justify-start">
@@ -969,6 +991,7 @@ function NfcLand() {
                       setPrice(element.price);
                       setSka(element.ska);
                       setId(element.id);
+                      setIyzi(element.iyzi);
                     }}
                   >
                     <div className="flex justify-start">

@@ -97,7 +97,7 @@ let kalkinmaAmaclari = [
   },
 ];
 
-function NfcPopup({ name, imageb, imagef, vertical, price, ska, id }) {
+function NfcPopup({ name, imageb, imagef, vertical, price, ska, id, iyzi }) {
   const [selectedSKAS, setSelectedSKAS] = useState([]);
   const [index, setIndex] = useState(0);
   const [isBlue, setIsBlue] = useState(false);
@@ -449,7 +449,7 @@ function NfcPopup({ name, imageb, imagef, vertical, price, ska, id }) {
       </div>
     );
   } else if (index == 1) {
-    return <Order1 selectedSKAS={selectedSKAS} name={name} />;
+    return <Order1 selectedSKAS={selectedSKAS} name={name} iyzi={iyzi} />;
   } else if (index == 2) {
     return (
       <div className="rounded-3xl relative w-1000px min-h-250px   pb-40px bg-white">

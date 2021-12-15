@@ -4,6 +4,7 @@ import SelectMenu from "../components/SelectMenu";
 import { collection, addDoc } from "firebase/firestore";
 import { getFirestore } from "@firebase/firestore";
 import MediaQuery from "react-responsive";
+import BeatLoader from "react-spinners/BeatLoader";
 const socialIcons = {
   instagram: require("../../images/instagram-fill.png").default,
   twitter: require("../../images/twitter-fill.png").default,
@@ -25,6 +26,7 @@ function Order2({
   companyAdress,
   ppImage,
   orgImage,
+  iyzi,
   productName,
   setIndex,
   selectedSKAS,
@@ -32,7 +34,8 @@ function Order2({
   const [img, setUpImg] = useState();
   const [links, setLinks] = useState([]);
   const db = getFirestore();
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [clicked, setclicked] = useState(false);
   const [socialLinks, setSocialLinks] = useState([
     {
@@ -174,7 +177,10 @@ function Order2({
               <div className="flex flex-row space-x-4">
                 {ppImage != null ? (
                   <div className="relative">
-                    <img className="w-130px h-130px relative " src={ppImage} />{" "}
+                    <img
+                      className="w-130px h-130px relative rounded-xl"
+                      src={ppImage}
+                    />
                     {orgImage != null ? (
                       <img
                         className="absolute sm:w-50px sm:h-30px rounded-tl-2xl lg:w-70px lg:h-40px  bottom-0  right-0 "
@@ -184,6 +190,11 @@ function Order2({
                       ""
                     )}
                   </div>
+                ) : orgImage != null ? (
+                  <img
+                    className="w-130px h-130px rounded-xl"
+                    src={orgImage}
+                  ></img>
                 ) : (
                   ""
                 )}
@@ -264,8 +275,14 @@ function Order2({
           </div>
           <div>
             <button
-              className="w-236px h-40px bg-janus-site-blue focus:outline-none text-white text-bold rounded-xl mt-78px"
+              disabled={isSuccess}
+              className={`${
+                isSuccess
+                  ? "w-236px h-40px bg-green-300 focus:outline-none text-white text-bold rounded-xl mt-78px"
+                  : "w-236px h-40px bg-janus-site-blue focus:outline-none text-white text-bold rounded-xl mt-78px"
+              }`}
               onClick={async () => {
+                setIsLoading(true);
                 const docRef = await addDoc(collection(db, "nfcs"), {
                   productName: productName,
                   userInformation: userInformation,
@@ -275,16 +292,47 @@ function Order2({
                   selectedSKAS: selectedSKAS,
                 })
                   .then((e) => {
-                    console.log("Document written with ID: ", docRef.id);
+                    console.log("Document written with ID: ", e.id);
+                    setIsLoading(false);
+                    setIsSuccess(true);
+                    window.open(
+                      iyzi,
+                      "_blank" // <- This is what makes it open in a new window.
+                    );
                   })
                   .catch((e) => {
+                    setIsLoading(false);
+                    setIsSuccess(false);
+
                     console.log(e);
                   });
               }}
             >
-              Ödeme Adımına Geç
+              {isLoading ? (
+                <BeatLoader
+                  color={"#ffffff"}
+                  loading={true}
+                  size={10}
+                  speedMultiplier={1}
+                />
+              ) : isSuccess ? (
+                "Başarılı"
+              ) : (
+                "Ödeme Adımına Geç"
+              )}
             </button>
           </div>
+          {isSuccess ? (
+            <div className="flex flex-col">
+              {" "}
+              <p>Ödeme yapmak için bu linke tıklayınız !</p>{" "}
+              <a href={iyzi} className="text-red-300">
+                {iyzi}
+              </a>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </MediaQuery>
       <MediaQuery maxWidth={767}>
@@ -362,10 +410,20 @@ function Order2({
                         className="absolute sm:w-50px sm:h-30px rounded-tl-2xl lg:w-70px lg:h-40px  bottom-0  right-0 "
                         src={orgImage}
                       />
+                    ) : orgImage != null ? (
+                      <img
+                        className="w-130px h-130px rounded-xl"
+                        src={orgImage}
+                      ></img>
                     ) : (
                       ""
                     )}
                   </div>
+                ) : orgImage != null ? (
+                  <img
+                    className="w-130px h-130px rounded-xl"
+                    src={orgImage}
+                  ></img>
                 ) : (
                   ""
                 )}
@@ -445,8 +503,14 @@ function Order2({
             </div>
             <div>
               <button
-                className="w-236px h-40px bg-janus-site-blue focus:outline-none text-white text-bold rounded-xl mt-78px mb-12"
+                disabled={isSuccess}
+                className={`${
+                  isSuccess
+                    ? "w-236px h-40px bg-green-300 focus:outline-none text-white text-bold rounded-xl mt-78px mb-12"
+                    : "w-236px h-40px bg-janus-site-blue focus:outline-none text-white text-bold rounded-xl mt-78px mb-12"
+                }`}
                 onClick={async () => {
+                  setIsLoading(true);
                   const docRef = await addDoc(collection(db, "nfcs"), {
                     productName: productName,
                     userInformation: userInformation,
@@ -456,16 +520,46 @@ function Order2({
                     selectedSKAS: selectedSKAS,
                   })
                     .then((e) => {
-                      console.log("Document written with ID: ", docRef.id);
+                      console.log("Document written with ID: ", e.id);
+                      setIsLoading(false);
+                      setIsSuccess(true);
+                      window.open(
+                        iyzi,
+                        "_blank" // <- This is what makes it open in a new window.
+                      );
                     })
                     .catch((e) => {
-                      console.log(e);
+                      setIsLoading(false);
+                      setIsSuccess(false);
+                      console.log("error", e);
                     });
                 }}
               >
-                Ödeme Adımına Geç
+                {isLoading ? (
+                  <BeatLoader
+                    color={"#ffffff"}
+                    loading={true}
+                    size={10}
+                    speedMultiplier={1}
+                  />
+                ) : isSuccess ? (
+                  "Başarılı!"
+                ) : (
+                  "Ödeme Adımına Geç"
+                )}
               </button>
             </div>
+            {isSuccess ? (
+              <div className="flex flex-col">
+                {" "}
+                <p>Ödeme yapmak için bu linke tıklayınız !</p>{" "}
+                <a href={iyzi} className="text-red-300">
+                  {iyzi}
+                </a>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </MediaQuery>

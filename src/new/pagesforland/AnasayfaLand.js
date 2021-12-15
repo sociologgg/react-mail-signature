@@ -6,6 +6,9 @@ import { collection, addDoc, getFirestore } from "firebase/firestore";
 import MediaQuery from "react-responsive";
 import absoluteblue from "../../images/absoluteblue.png";
 import Carousel from "../components/Carousel";
+import BeatLoader from "react-spinners/BeatLoader";
+import Carousel2 from "../components/Carousel2";
+
 let cards = [
   {
     key: 1,
@@ -39,6 +42,8 @@ let cards = [
 
 function AnasayfaLand() {
   const db = getFirestore();
+  const [isSend, setIsSend] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [mail, setMail] = useState("");
   return (
     <div>
@@ -91,16 +96,35 @@ function AnasayfaLand() {
                   }}
                 ></input>
                 <button
+                  disabled={isSend}
                   onClick={async () => {
+                    setIsLoading(true);
                     // Add a new document with a generated id.
                     const docRef = await addDoc(collection(db, "maillist"), {
                       mail: mail,
                     });
                     console.log("Document written with ID: ", docRef.id);
+                    setIsSend(true);
+                    setIsLoading(false);
                   }}
-                  className="w-1/5 rounded-xl text-white font-roboto focus:outline-none py-1 bg-compOrange"
+                  className={`${
+                    isSend
+                      ? "w-1/5 rounded-xl text-white font-roboto focus:outline-none py-1 bg-green-300"
+                      : "w-1/5 rounded-xl text-white font-roboto focus:outline-none py-1 bg-compOrange"
+                  }`}
                 >
-                  Gönder
+                  {isLoading ? (
+                    <BeatLoader
+                      color={"#ffffff"}
+                      loading={true}
+                      size={10}
+                      speedMultiplier={1}
+                    />
+                  ) : isSend ? (
+                    "Gönderildi"
+                  ) : (
+                    "Gönder"
+                  )}
                 </button>
               </div>
             </div>
@@ -131,7 +155,12 @@ function AnasayfaLand() {
               );
             })}
           </div>
-
+          <div className="flex justify-center items-center mt-24">
+            <p className="font-roboto font-bold text-4xl text-left text-janus-dark-blue">
+              Ekran Görüntüleri
+            </p>
+          </div>
+          <Carousel2 />
           {/*<div className="mt-44 row ">
             <div className="col px-0">
               <div className="flickity-enabled is-draggable" tabIndex="0">
@@ -248,20 +277,21 @@ function AnasayfaLand() {
               Özellikler
             </p>
           </div>
-          <div className=" grid grid-cols-2 space-x-5 p-3 space-y-3  mt-16   justify-center">
+          <Carousel />
+          <div className=" grid grid-cols-2 space-x-5 p-3 space-y-3  mt-16   justify-center ">
             {cards.map((element) => {
               return (
                 <div className=" feature-card1 ">
                   <div className="content">
                     <div className="front">
                       <img src={element.icon} />
-                      <p className="mt-3 text-lg font-medium font-roboto  text-janus-dark-blue">
+                      <p className="mt-3 text-sm font-medium font-roboto  text-janus-dark-blue">
                         {element.name}
                       </p>
                     </div>
                     <div className="back">
-                      <img src={element.icon} />
-                      <p className="mt-3 text-xl font-medium font-roboto text-janus-dark-blue">
+                      <img className="" src={element.icon} />
+                      <p className="mt-3 text-sm font-medium font-roboto text-janus-dark-blue">
                         {element.name}
                       </p>
                       <p className="text-xs mt-3 font-roboto text-input-gray">

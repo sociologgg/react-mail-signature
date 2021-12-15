@@ -18,12 +18,18 @@ function Footer() {
               <p className="font-medium font-roboto text-white">
                 Site Haritası
               </p>
-              <a href="#" className="mt-4 font-light text-white ">
+              <a href="/nfc/home" className="mt-4 font-light text-white ">
                 Anasayfa
               </a>
-              <a className=" font-light text-white">Hakkımızda</a>
-              <a className=" font-light text-white">Ürün</a>
-              <a className=" font-light text-white">Doğaya Katkı</a>
+              <a className=" font-light text-white" href="/nfc/about/">
+                Hakkımızda
+              </a>
+              <a className=" font-light text-white" href="/nfc/ürün">
+                Ürün
+              </a>
+              <a className=" font-light text-white" href="/nfc/nature">
+                Doğaya Katkı
+              </a>
               <a className=" font-light text-white">Blog</a>
             </div>
             {/*<div className=" ml-10 flex flex-col justify-start items-start col-span-1">
@@ -38,7 +44,10 @@ function Footer() {
               <p className="font-medium font-roboto text-white">
                 Görüşlerinizi Bekliyoruz
               </p>
-              <a href="#" className="mt-4 font-light text-white underline ">
+              <a
+                href="mailto:info@usejanus.com"
+                className="mt-4 font-light text-white underline "
+              >
                 info@usejanus.com
               </a>
             </div>
@@ -50,10 +59,17 @@ function Footer() {
               </p>
             </div>
             <div className="flex   flex-row ">
-              <img className="w-28px h-28px" src={linkedin} />
-              <img className=" w-28px h-28px ml-3" src={instagram} />
+              <a href="https://www.linkedin.com/company/janusapp/">
+                <img className="w-28px h-28px" src={linkedin} />
+              </a>
+              <a href="https://www.instagram.com/usejanus/">
+                <img className=" w-28px h-28px ml-3" src={instagram} />
+              </a>
               <img className=" w-12px h-24px ml-3" src={facebook} />
-              <img className="ml-3" src={twitter} />
+
+              <a href="https://twitter.com/UseJanus">
+                <img className="ml-3" src={twitter} />
+              </a>
             </div>
           </div>
         </div>
@@ -65,7 +81,10 @@ function Footer() {
               <img className="" src={janus} />
             </div>
             <div className=" ml-10 flex flex-col justify-center items-center col-span-1">
-              <a href="#" className="mt-4 font-light text-white underline ">
+              <a
+                href="mailto:info@usejanus.com"
+                className="mt-4 font-light text-white underline "
+              >
                 info@usejanus.com
               </a>
             </div>
@@ -73,13 +92,21 @@ function Footer() {
               <p className="font-medium font-roboto text-white">
                 Site Haritası
               </p>
-              <a href="#" className="mt-4 font-light text-white ">
+              <a href="/nfc/home" className="mt-4 font-light text-white ">
                 Anasayfa
               </a>
-              <a className=" font-light text-white">Hakkımızda</a>
-              <a className=" font-light text-white">Ürün</a>
-              <a className=" font-light text-white">Doğaya Katkı</a>
-              <a className=" font-light text-white">Blog</a>
+              <a href="/nfc/about" className=" font-light text-white">
+                Hakkımızda
+              </a>
+              <a href="/nfc/ürün" className=" font-light text-white">
+                Ürün
+              </a>
+              <a href="/nfc/nature" className=" font-light text-white">
+                Doğaya Katkı
+              </a>
+              <a href="" className=" font-light text-white">
+                Blog
+              </a>
             </div>
 
             {/*<div className=" ml-10 flex flex-col justify-start items-start col-span-1">
@@ -98,10 +125,17 @@ function Footer() {
               </p>
             </div>
             <div className="flex   flex-row ">
-              <img className="w-28px h-28px" src={linkedin} />
-              <img className=" w-28px h-28px ml-3" src={instagram} />
+              <a href="https://www.linkedin.com/company/janusapp/">
+                <img className="w-28px h-28px" src={linkedin} />
+              </a>
+              <a href="https://www.instagram.com/usejanus/">
+                <img className=" w-28px h-28px ml-3" src={instagram} />
+              </a>
               <img className=" w-12px h-24px ml-3" src={facebook} />
-              <img className="ml-3" src={twitter} />
+
+              <a href="https://twitter.com/UseJanus">
+                <img className="ml-3" src={twitter} />
+              </a>
             </div>
           </div>
         </div>

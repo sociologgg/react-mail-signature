@@ -165,21 +165,26 @@ export default function SelectMenu({
         </Transition>
       </div>
       <div>
-        <TrashIcon
-          className="absolute h-5 w-5 text-gray-300 ml-40 mt-3"
-          onClick={() => {
-            console.log("clicked");
-            console.log(selected.key);
-            const filtered = socials.filter((social, index, arr) => {
-              return social.key != selected.key;
-            });
-          }}
-        />
+        {/*
+          <TrashIcon
+            className="absolute h-5 w-5 text-gray-300 ml-40 mt-3"
+            onClick={() => {
+              console.log("clicked");
+              console.log(selected.key);
+              const filtered = socials.filter((social, index, arr) => {
+                return social.key != selected.key;
+              });
+            }}
+          />*/}
 
         <input
           onChange={(e) => onInputChange(e.target.value)}
           className="h-10 mt-1 pl-10px shadow-input rounded-r focus:outline-none focus:ring-2 focus:janus--dark-blue "
-          placeholder={selected.key}
+          placeholder={
+            selected.key == "web"
+              ? "https://yourwebsite.com"
+              : `https://www.${selected.key}.com`
+          }
         ></input>
       </div>
     </Listbox>

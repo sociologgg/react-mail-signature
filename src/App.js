@@ -11,6 +11,7 @@ import { onAuthStateChanged } from "@firebase/auth";
 import NewLandingPage from "./new/layouts/NewLandingPage";
 import Nature from "./new/pagesforland/Nature";
 import ForgotPassword from "./new/pages/ForgotPassword";
+
 import {
   BrowserRouter as Router,
   Link,
@@ -98,7 +99,7 @@ function App() {
           </Route>
 
           <Route exact path="/">
-            <Redirect to="/auth" />
+            <Redirect to="/nfc/home" />
           </Route>
 
           <Route
