@@ -490,10 +490,11 @@ function NfcLand() {
                             {element.price}{" "}
                           </p>
                         </div>
-                        <img
-                          className=" justify-self-end self-end  h-5 w-5"
-                          src={element.buy}
-                        />
+                        <div className="flex flex-row justify-self-end self-end space-x-2 ">
+                          <p className="font-roboto ">Satın Al</p>
+
+                          <img className="   h-5 w-5" src={element.buy} />
+                        </div>
                       </div>
                     </button>
                   </div>
@@ -571,7 +572,10 @@ function NfcLand() {
                             {element.price}{" "}
                           </p>
                         </div>
-                        <img className=" h-5 w-5 self-end" src={element.buy} />
+                        <div className="flex flex-row justify-self-end self-end space-x-2 ">
+                          <p className="font-roboto ">Satın Al</p>
+                          <img className="   h-5 w-5" src={element.buy} />
+                        </div>
                       </div>
                     </button>
                   </div>
@@ -941,14 +945,14 @@ function NfcLand() {
                         <p className="font-roboto font-bold text-input-gray">
                           {element.name}
                         </p>{" "}
-                        <p className="font-roboto font-normal text-sm">
+                        <p className="font-roboto font-normal text-sm text-gray-900 bg-blue-300">
                           {element.price}{" "}
                         </p>
                       </div>
-                      <img
-                        className=" justify-self-end self-end  h-5 w-5"
-                        src={element.buy}
-                      />
+                      <div className="flex flex-row justify-self-end self-end space-x-2">
+                        <p className="font-roboto bg-blue-300">Satın Al</p>
+                        <img className="   h-5 w-5" src={element.buy} />
+                      </div>
                     </div>
                   </button>
                 </div>
@@ -1020,11 +1024,14 @@ function NfcLand() {
                         <p className="font-roboto font-bold text-input-gray">
                           {element.name}
                         </p>{" "}
-                        <p className="font-roboto font-normal text-sm">
+                        <p className="font-roboto font-normal text-sm text-gray-900 bg-blue-300 ">
                           {element.price}{" "}
                         </p>
                       </div>
-                      <img className=" h-5 w-5 self-end" src={element.buy} />
+                      <div className="flex flex-row justify-self-end self-end space-x-2">
+                        <p className="font-roboto bg-blue-300">Satın Al</p>
+                        <img className="   h-5 w-5" src={element.buy} />
+                      </div>
                     </div>
                   </button>
                 </div>
@@ -1109,8 +1116,7 @@ function NfcLand() {
                         bilgilerinizi karşı tarafa aktarabilirsiniz.
                       </span>
                     </details>
-                  </div>
-                  <div class="w-full lg:w-1/2 px-4 py-2">
+
                     <details class="mb-4">
                       <summary class="text-left font-roboto block bg-white rounded-lg py-2 px-4">
                         Bilgilerim değişirse ne olur?

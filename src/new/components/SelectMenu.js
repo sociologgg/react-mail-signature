@@ -191,7 +191,7 @@ export default function SelectMenu({
                 onInputChange(e.target.value),
                 setSelectedInputValue(e.target.value)
               )}
-              className="h-10 mt-1 pl-10px shadow-input rounded-r focus:outline-none focus:ring-2 focus:janus--dark-blue "
+              className="h-10 mt-1 pl-10px shadow-input rounded-r text-blue-800 focus:outline-none focus:ring-2 focus:janus-dark-blue "
               placeholder={
                 selected.key == "web"
                   ? "https://yourwebsite.com"

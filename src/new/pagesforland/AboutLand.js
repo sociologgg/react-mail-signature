@@ -199,8 +199,8 @@ function AboutLand() {
             <div className=" flex flex-col    justify-start items-start">
               {" "}
               <p className="font-roboto text-base mt-5 font-bold text-left text-input-gray leading-2 ">
-                Rockefeller, ilişkileri ilk sıraya koyduğu için <br /> muazzam
-                bir dostluk ağı kurdu.
+                Rockefeller, ilişkileri ilk sıraya koyduğu için muazzam bir
+                dostluk ağı kurdu.
               </p>
               <p className="font-roboto mt-5 text-input-gray leading-5   text-left ">
                 Kartvizitlere dikkatlice bakarsanız, Rockefeller'ın isimlerden,

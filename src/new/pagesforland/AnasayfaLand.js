@@ -8,6 +8,7 @@ import absoluteblue from "../../images/absoluteblue.png";
 import Carousel from "../components/Carousel";
 import BeatLoader from "react-spinners/BeatLoader";
 import Carousel2 from "../components/Carousel2";
+import CarouselMobile from "../components/CarouselMobile";
 
 let cards = [
   {
@@ -22,7 +23,7 @@ let cards = [
     icon: require("../../images/nfclandpngs/statistics.png").default,
     name: "Kartvizit İstatistikleri",
     title:
-      "Kaç kişi kartvizitinizi ziyaret etmiş? QR kodunuz kaç kere okutulmuş? Ne kadar kontak edindiniz? Bunları gösteren istatistikler ile network yönetiminizle ilgili daha fazla bilgi sahibi olun. Kartvizitinizin networking deneyiminizdeki etkisini ölçümleyin.",
+      "Kaç kişi kartvizitinizi ziyaret etmiş? QR kodunuz kaç kere okutulmuş? Ne kadar kontak edindiniz? Bunları gösteren istatistikler ile network yönetiminizle ilgili daha fazla bilgi sahibi olun. ",
   },
   {
     key: 3,
@@ -68,7 +69,7 @@ function AnasayfaLand() {
               </p>
               <div className=" flex flex-col mr-8 mt-5  ">
                 <p className="font-roboto text-base text-input-gray text-left ">
-                  Yeni kişilerle tanışmanız ve mevcut bağlantılarnızı koruyup
+                  Yeni kişilerle tanışmanız ve mevcut bağlantılarınızı koruyup
                   geliştirmeniz için networking araçlarını ve yöntemlerini
                   akıllandırıyoruz.
                 </p>
@@ -234,7 +235,7 @@ function AnasayfaLand() {
             </p>
             <div className=" flex flex-col mr-8 mt-5  ">
               <p className="font-roboto text-base text-input-gray text-left ">
-                Yeni kişilerle tanışmanız ve mevcut bağlantılarnızı koruyup
+                Yeni kişilerle tanışmanız ve mevcut bağlantılarınızı koruyup
                 geliştirmeniz için networking araçlarını ve yöntemlerini
                 akıllandırıyoruz.
               </p>
@@ -242,7 +243,7 @@ function AnasayfaLand() {
           </div>
           <div className="flex flex-row items-start justify-start relative ">
             <div className="relative">
-              <img className="w-250px -ml-8 " src={sirayagir1} />
+              <img className="w-250px -ml-12 " src={sirayagir1} />
             </div>
             <div className="flex flex-col justify-center mt-4 -ml-16  ">
               <p className="  font-roboto font-normal text-xl text-center text-janus-dark-blue">
@@ -258,38 +259,52 @@ function AnasayfaLand() {
                   }}
                 ></input>
                 <button
+                  disabled={isSend}
                   onClick={async () => {
+                    setIsLoading(true);
                     // Add a new document with a generated id.
                     const docRef = await addDoc(collection(db, "maillist"), {
                       mail: mail,
                     });
                     console.log("Document written with ID: ", docRef.id);
+                    setIsSend(true);
+                    setIsLoading(false);
                   }}
-                  className="w-1/5 rounded-xl text-white font-roboto focus:outline-none py-1 bg-compOrange"
+                  className={`${
+                    isSend
+                      ? "w-1/5 rounded-xl text-white font-roboto focus:outline-none py-1 text-sm bg-green-300"
+                      : "w-1/5 rounded-xl text-white font-roboto focus:outline-none py-1 bg-compOrange"
+                  }`}
                 >
-                  Gönder
+                  {isLoading ? (
+                    <BeatLoader
+                      color={"#ffffff"}
+                      loading={true}
+                      size={10}
+                      speedMultiplier={1}
+                    />
+                  ) : isSend ? (
+                    "Gönderildi"
+                  ) : (
+                    "Gönder"
+                  )}
                 </button>
               </div>
             </div>
           </div>
+
+          <Carousel />
           <div className="flex flex-row justify-center mt-16">
             <p class="font-roboto font-bold text-4xl text-left text-janus-dark-blue">
               Özellikler
             </p>
           </div>
-          <Carousel />
           <div className=" grid grid-cols-2 gap-3 p-3 m-1 mt-16   justify-center ">
             {cards.map((element) => {
               return (
                 <div className=" feature-card1 ">
                   <div className="content">
                     <div className="front">
-                      <img src={element.icon} />
-                      <p className="mt-3 text-sm font-medium font-roboto  text-janus-dark-blue">
-                        {element.name}
-                      </p>
-                    </div>
-                    <div className="back">
                       <img className="" src={element.icon} />
                       <p className="mt-3 text-sm font-medium font-roboto text-janus-dark-blue">
                         {element.name}
@@ -303,6 +318,7 @@ function AnasayfaLand() {
               );
             })}
           </div>
+          <CarouselMobile />
         </div>
       </MediaQuery>
     </div>

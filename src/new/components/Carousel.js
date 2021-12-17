@@ -81,20 +81,22 @@ class Carousel extends Component {
                 })}
               </Swipe>
 
-              <div className="absolute w-full flex justify-center bottom-0">
+              <div className="absolute w-full flex justify-center bottom-0  ">
                 {CarouselData.map((element, index) => {
                   return (
-                    <div
-                      className={
-                        index === this.state.currentSlide
-                          ? "h-1 w-10 bg-aboutOrange rounded-full mx-2   "
-                          : "h-1 w-10 bg-white rounded-full mx-2  "
-                      }
-                      key={index}
-                      onClick={() => {
-                        this.setCurrentSlide(index);
-                      }}
-                    ></div>
+                    <div>
+                      <div
+                        className={
+                          index === this.state.currentSlide
+                            ? "h-1 w-10 bg-aboutOrange rounded-full mx-2   "
+                            : "h-1 w-10 bg-white rounded-full mx-2   "
+                        }
+                        key={index}
+                        onClick={() => {
+                          this.setCurrentSlide(index);
+                        }}
+                      ></div>
+                    </div>
                   );
                 })}
               </div>

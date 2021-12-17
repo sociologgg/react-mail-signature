@@ -352,7 +352,8 @@ function Order2({
               Hadi, kişisel bilgilerini gir ve networkünü hareketlendir!
             </p>
             <p className="font-roboto mt-3 text-input-gray ">
-              Kartvizitinde görünmesini istediğin bilgileri girebilirsin.
+              Kartvizitinde görünmesini istediğin bilgileri girebilirsin. (Bu
+              alanlar zorunlu değildir, daha sonra güncelleyebilirsin!)
             </p>
           </div>
           <div className="  flex flex-col items-center ">
@@ -506,8 +507,8 @@ function Order2({
                 disabled={isSuccess}
                 className={`${
                   isSuccess
-                    ? "w-236px h-40px bg-green-300 focus:outline-none text-white text-bold rounded-xl mt-78px mb-12"
-                    : "w-236px h-40px bg-janus-site-blue focus:outline-none text-white text-bold rounded-xl mt-78px mb-12"
+                    ? "w-236px h-40px bg-green-300 focus:outline-none text-white text-bold rounded-xl  "
+                    : "w-236px h-40px bg-janus-site-blue focus:outline-none text-white text-bold rounded-xl mt-78px "
                 }`}
                 onClick={async () => {
                   setIsLoading(true);
@@ -543,18 +544,18 @@ function Order2({
                     speedMultiplier={1}
                   />
                 ) : isSuccess ? (
-                  "Başarılı!"
+                  "Kartınız Oluşturuldu!!"
                 ) : (
-                  "Ödeme Adımına Geç"
+                  "Kartvizitini Oluştur ve Öde!"
                 )}
               </button>
             </div>
             {isSuccess ? (
               <div className="flex flex-col">
-                {" "}
-                <p>Ödeme yapmak için bu linke tıklayınız !</p>{" "}
-                <a href={iyzi} className="text-red-300">
-                  {iyzi}
+                <a href={iyzi}>
+                  <button className="w-236px h-40px bg-blue-800 focus:outline-none text-white text-bold rounded-xl mt-2 ">
+                    Ödeme Sayfasına Git
+                  </button>
                 </a>
               </div>
             ) : (

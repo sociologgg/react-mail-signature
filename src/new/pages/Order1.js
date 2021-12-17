@@ -218,7 +218,7 @@ function Order1({ name, selectedSKAS, iyzi }) {
                           İsim Soyisim*
                         </p>
                         <Field
-                          placeholder="Rafet Tekin"
+                          placeholder="John Doe"
                           name="name"
                           class="outline-none border-input focus:border-janus-focus-blue   font-roboto text-input-gray h-10 w-300px mt-3 rounded border-0.5 p-3 shadow-input "
                         />
@@ -254,7 +254,7 @@ function Order1({ name, selectedSKAS, iyzi }) {
                           E-posta*
                         </p>
                         <Field
-                          placeholder="rafetekin@gmail.com"
+                          placeholder="johndoe@gmail.com"
                           name="eposta"
                           className="outline-none border-input focus:border-janus-focus-blue   font-roboto text-input-gray h-10 w-300px mt-3 rounded border-0.5 p-3 shadow-input"
                         />
@@ -433,7 +433,7 @@ function Order1({ name, selectedSKAS, iyzi }) {
                           İsim Soyisim*
                         </p>
                         <Field
-                          placeholder="Rafet Tekin"
+                          placeholder="John Doe"
                           name="name"
                           class="outline-none border-input focus:border-janus-focus-blue   font-roboto text-input-gray h-10 w-300px mt-3 rounded border-0.5 p-3 shadow-input "
                         />
@@ -469,7 +469,7 @@ function Order1({ name, selectedSKAS, iyzi }) {
                           E-posta*
                         </p>
                         <Field
-                          placeholder="rafetekin@gmail.com"
+                          placeholder="johndoe@gmail.com"
                           name="eposta"
                           className="outline-none border-input focus:border-janus-focus-blue   font-roboto text-input-gray h-10 w-300px mt-3 rounded border-0.5 p-3 shadow-input"
                         />
@@ -543,7 +543,7 @@ function Order1({ name, selectedSKAS, iyzi }) {
                     </div>
                     <div className=" mt-20 flex items-center justify-center">
                       <button
-                        className="w-236px h-40px bg-janus-site-blue focus:outline-none text-white text-bold rounded-xl mt-78px"
+                        className="w-236px h-40px bg-janus-site-blue focus:outline-none text-white text-bold rounded-xl "
                         type="submit"
                       >
                         Devam Et

@@ -8,10 +8,10 @@ const CarouselData = [
     image: require("../../images/statistics1.png").default,
   },
   {
-    image: require("../../images/statistics1.png").default,
+    image: require("../../images/kullanici1.jpg").default,
   },
   {
-    image: require("../../images/statistics1.png").default,
+    image: require("../../images/sifrenidegistir.png").default,
   },
 ];
 
@@ -50,7 +50,7 @@ class Carousel2 extends Component {
         <div className=" flex justify-center items-center overflow-hidden relative">
           <AiOutlineLeft
             onClick={this.prevSlide}
-            className="absolute left-0 text-3xl inset-y-1/2 text-white cursor-pointer"
+            className="absolute left-0 text-4xl inset-y-1/2 text-blue-800  cursor-pointer"
           />
 
           <Swipe onSwipeLeft={this.nextSlide} onSwipeRight={this.prevSlide}>
@@ -96,7 +96,7 @@ class Carousel2 extends Component {
 
           <AiOutlineRight
             onClick={this.nextSlide}
-            className="absolute right-0 text-3xl inset-y-1/2 text-white cursor-pointer"
+            className="absolute right-0 text-4xl inset-y-1/2 text-blue-900 cursor-pointer"
           />
         </div>
       </div>

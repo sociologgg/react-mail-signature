@@ -55,7 +55,7 @@ function Footer() {
           <div className="flex justify-between bg-landpagebg h-12 px-80 items-center">
             <div>
               <p className="font-roboto text-janus-dark-blue text-sm">
-                © 2021 JANUS Visual Network Limited{" "}
+                © Powered by Abdullah Alim Örnek
               </p>
             </div>
             <div className="flex   flex-row ">
@@ -98,7 +98,7 @@ function Footer() {
               <a href="/nfc/about" className=" font-light text-white">
                 Hakkımızda
               </a>
-              <a href="/nfc/ürün" className=" font-light text-white">
+              <a href="/nfc/nfccard" className=" font-light text-white">
                 Ürün
               </a>
               <a href="/nfc/nature" className=" font-light text-white">
@@ -121,7 +121,7 @@ function Footer() {
           <div className="flex flex-row bg-landpagebg space-x-3 h-12 justify-center items-center">
             <div>
               <p className="font-roboto text-janus-dark-blue text-sm">
-                © 2021 JANUS Visual Network Limited{" "}
+                ©Powered by Abdullah Alim Örnek
               </p>
             </div>
             <div className="flex   flex-row ">
