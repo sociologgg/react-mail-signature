@@ -620,7 +620,7 @@ function NfcLand() {
                     </p>
                   </div>
                   <div class="flex flex-wrap lg:w-4/5 sm:mx-auto sm:mb-2 -mx-2">
-                    <div class="w-full lg:w-1/2 px-4 py-2">
+                    <div class="w-full px-4 py-2">
                       <details class="mb-4 flex flex-row justify-start items-start ">
                         <summary class="  font-roboto block bg-white rounded-lg py-2 px-4">
                           Janus Kart nedir? Ne işe yarar?
@@ -658,8 +658,6 @@ function NfcLand() {
                           aktarabilirsiniz.
                         </span>
                       </details>
-                    </div>
-                    <div class="w-full lg:w-1/2 px-4 py-2">
                       <details class="mb-4">
                         <summary class=" font-roboto block bg-white rounded-lg py-2 px-4">
                           Bilgilerim değişirse ne olur?
@@ -678,7 +676,14 @@ function NfcLand() {
 
                         <span class="px-20 flex text-left whitespace-normal ">
                           NFC teknolojisine sahip bütün cihazlar ile uyumludur.
-                          Uyumlu cihazlar listesine buradan ulaşabilirsiniz.
+                          Uyumlu cihazlar listesine{" "}
+                          <a
+                            className="text-janus-dark-blue"
+                            href="https://www.webtekno.com/nfc-ozelligi-olan-telefonlar-h24309.html"
+                          >
+                            buradan{" "}
+                          </a>{" "}
+                          ulaşabilirsiniz.
                         </span>
                       </details>
                       <details class="mb-4">
@@ -1124,7 +1129,14 @@ function NfcLand() {
 
                       <span class=" flex text-left whitespace-normal ">
                         NFC teknolojisine sahip bütün cihazlar ile uyumludur.
-                        Uyumlu cihazlar listesine buradan ulaşabilirsiniz.
+                        Uyumlu cihazlar listesine{" "}
+                        <a
+                          className="text-janus-dark-blue"
+                          href="https://www.webtekno.com/nfc-ozelligi-olan-telefonlar-h24309.html"
+                        >
+                          buradan{" "}
+                        </a>{" "}
+                        ulaşabilirsiniz.
                       </span>
                     </details>
                     <details class="mb-4">

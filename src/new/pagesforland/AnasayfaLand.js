@@ -278,7 +278,7 @@ function AnasayfaLand() {
             </p>
           </div>
           <Carousel />
-          <div className=" grid grid-cols-2 space-x-5 p-3 space-y-3  mt-16   justify-center ">
+          <div className=" grid grid-cols-2 gap-3 p-3 m-1 mt-16   justify-center ">
             {cards.map((element) => {
               return (
                 <div className=" feature-card1 ">

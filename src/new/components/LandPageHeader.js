@@ -145,7 +145,7 @@ export default function LandPageHeader() {
                       >
                         <Popover.Panel className="absolute z-10 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
                           <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
-                            <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 ">
+                            <div className="relative grid gap-6 bg-white text-gray-900 px-5 py-6 sm:gap-8 ">
                               {solutions.map((item) => (
                                 <div>
                                   <div className="ml-4">
@@ -173,7 +173,7 @@ export default function LandPageHeader() {
                   Blog
                 </a>
               </Popover.Group>
-              <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+              <div className="hidden items-center justify-end md:flex-1 lg:w-0">
                 <a
                   href="#"
                   className="whitespace-nowrap text-base font-medium text-janus-dark-blue font-roboto hover:text-gray-900 "
