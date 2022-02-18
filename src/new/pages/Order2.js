@@ -5,6 +5,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { getFirestore } from "@firebase/firestore";
 import MediaQuery from "react-responsive";
 import BeatLoader from "react-spinners/BeatLoader";
+import ReactGA from "react-ga";
 const socialIcons = {
   instagram: require("../../images/instagram-fill.png").default,
   twitter: require("../../images/twitter-fill.png").default,
@@ -282,6 +283,7 @@ function Order2({
                   : "w-236px h-40px bg-janus-site-blue focus:outline-none text-white text-bold rounded-xl mt-78px"
               }`}
               onClick={async () => {
+                ReactGA.event({ category: "shop_process", action: "user_buy" });
                 setIsLoading(true);
                 const docRef = await addDoc(collection(db, "nfcs"), {
                   productName: productName,
@@ -511,6 +513,10 @@ function Order2({
                     : "w-236px h-40px bg-janus-site-blue focus:outline-none text-white text-bold rounded-xl mt-78px "
                 }`}
                 onClick={async () => {
+                  ReactGA.event({
+                    category: "shop_process",
+                    action: "user_buy",
+                  });
                   setIsLoading(true);
                   const docRef = await addDoc(collection(db, "nfcs"), {
                     productName: productName,

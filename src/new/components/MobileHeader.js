@@ -64,7 +64,7 @@ export default function MobileHeader() {
               href="/nfc/nfccard"
               class="block  px-4 py-2 text-lg font-bold text-lg text-left text-janus-dark-blue transition duration-300"
             >
-              NFC
+              Janus Kart
             </a>
           </li>
           <li>

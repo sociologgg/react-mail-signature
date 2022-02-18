@@ -24,7 +24,7 @@ import LastNfc from "./new/pages/LastNfc";
 
 import { useSelector, useDispatch } from "react-redux";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import HiCard from "./new/pages/HiCard";
 import { useLocation } from "react-router-dom";
 import { getAuth } from "@firebase/auth";
@@ -33,8 +33,10 @@ import NewHiCard from "./new/pages/NewHiCard";
 import { useAuth } from "./firebase/use-auth";
 import { initializeApp } from "@firebase/app";
 import Kartvizit from "./new/pages/Kartvizit";
+import ReactGA from "react-ga";
 
 function App() {
+  ReactGA.initialize("UA-218897420-1");
   const user = useSelector((state) => state.auth.user);
   const isLoggedIn = useSelector((state) => state.auth);
 

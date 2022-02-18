@@ -10,8 +10,17 @@ import orgInput from "../../images/orgInput.png";
 import Order2 from "./Order2";
 import phoneIcon from "../../images/ellipse.png";
 import MediaQuery from "react-responsive";
+import ReactGA from "react-ga";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
 
 function Order1({ name, selectedSKAS, iyzi }) {
+  const storage = getStorage();
+
   const fileInputRef = useRef();
   const fileInputRef2 = useRef();
   const [ppImage, setPPImage] = useState(null);
@@ -67,11 +76,68 @@ function Order1({ name, selectedSKAS, iyzi }) {
       ) {
         const reader = new FileReader();
 
-        reader.addEventListener("load", () => setPPImage(reader.result));
-        reader.readAsDataURL(e.target.files[0]);
-        setPPImage(e.target.files[0]);
-        console.log("işte file ", ppImage);
-        console.log("başarılı yükleme");
+        /* upload*/
+        const metadata = {
+          contentType: "image/jpeg",
+        };
+
+        // Upload file and metadata to the object 'images/mountains.jpg'
+        const storageRef = ref(storage, "images/" + e.target.files[0].name);
+        const uploadTask = uploadBytesResumable(
+          storageRef,
+          e.target.files[0],
+          metadata
+        );
+
+        // Listen for state changes, errors, and completion of the upload.
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log("Upload is " + progress + "% done");
+            switch (snapshot.state) {
+              case "paused":
+                console.log("Upload is paused");
+                break;
+              case "running":
+                console.log("Upload is running");
+                break;
+            }
+          },
+          (error) => {
+            // A full list of error codes is available at
+            // https://firebase.google.com/docs/storage/web/handle-errors
+            switch (error.code) {
+              case "storage/unauthorized":
+                // User doesn't have permission to access the object
+                break;
+              case "storage/canceled":
+                // User canceled the upload
+                break;
+
+              // ...
+
+              case "storage/unknown":
+                // Unknown error occurred, inspect error.serverResponse
+                break;
+            }
+          },
+          () => {
+            // Upload completed successfully, now we can get the download URL
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+              console.log("File available at", downloadURL);
+              setPPImage(downloadURL);
+            });
+          }
+        );
+
+        // reader.addEventListener("load", () => setPPImage(reader.result));
+        // reader.readAsDataURL(e.target.files[0]);
+        // setPPImage(e.target.files[0]);
+        // console.log("işte file ", ppImage);
+        // console.log("başarılı yükleme");
 
         console.log(e.target.files[0]);
         setFileError(false);
@@ -92,13 +158,69 @@ function Order1({ name, selectedSKAS, iyzi }) {
         e.target.files[0].type == "image/png" ||
         e.target.files[0].type == "image/jpg"
       ) {
+        const metadata = {
+          contentType: "image/jpeg",
+        };
+
+        // Upload file and metadata to the object 'images/mountains.jpg'
+        const storageRef = ref(storage, "images/" + e.target.files[0].name);
+        const uploadTask = uploadBytesResumable(
+          storageRef,
+          e.target.files[0],
+          metadata
+        );
+
+        // Listen for state changes, errors, and completion of the upload.
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log("Upload is " + progress + "% done");
+            switch (snapshot.state) {
+              case "paused":
+                console.log("Upload is paused");
+                break;
+              case "running":
+                console.log("Upload is running");
+                break;
+            }
+          },
+          (error) => {
+            // A full list of error codes is available at
+            // https://firebase.google.com/docs/storage/web/handle-errors
+            switch (error.code) {
+              case "storage/unauthorized":
+                // User doesn't have permission to access the object
+                break;
+              case "storage/canceled":
+                // User canceled the upload
+                break;
+
+              // ...
+
+              case "storage/unknown":
+                // Unknown error occurred, inspect error.serverResponse
+                break;
+            }
+          },
+          () => {
+            // Upload completed successfully, now we can get the download URL
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+              console.log("File available at", downloadURL);
+              setOrgImage(downloadURL);
+            });
+          }
+        );
+
         const reader = new FileReader();
-        reader.addEventListener("load", () => {
+        /*   reader.addEventListener("load", () => {
           setOrgImage(reader.result);
-        });
-        reader.readAsDataURL(e.target.files[0]);
-        console.log("başarılı yükleme");
-        setOrgImage(e.target.files[0]);
+        }); */
+        //  reader.readAsDataURL(e.target.files[0]);
+        //  console.log("başarılı yükleme");
+        // setOrgImage(e.target.files[0]);
         setFileError(false);
       } else {
         console.log("başarısız yükleme");
@@ -330,6 +452,12 @@ function Order1({ name, selectedSKAS, iyzi }) {
                       <button
                         className="w-236px h-40px bg-janus-site-blue focus:outline-none text-white text-bold rounded-xl mt-78px"
                         type="submit"
+                        onClick={() => {
+                          ReactGA.event({
+                            category: "shop_process",
+                            action: "step1_completed",
+                          });
+                        }}
                       >
                         Devam Et
                       </button>
@@ -545,6 +673,12 @@ function Order1({ name, selectedSKAS, iyzi }) {
                       <button
                         className="w-236px h-40px bg-janus-site-blue focus:outline-none text-white text-bold rounded-xl "
                         type="submit"
+                        onClick={() => {
+                          ReactGA.event({
+                            category: "shop_process",
+                            action: "step1_completed",
+                          });
+                        }}
                       >
                         Devam Et
                       </button>

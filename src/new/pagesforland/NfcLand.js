@@ -7,6 +7,7 @@ import money from "../../images/nfclandpngs/money.png";
 import qrcode from "../../images/nfclandpngs/qrcode.png";
 import group1 from "../../images/nfclandpngs/group1.png";
 import { useEffect, useRef, useState } from "react";
+import ReactGA from "react-ga";
 import {
   BrowserRouter as Router,
   Switch,
@@ -469,6 +470,10 @@ function NfcLand() {
                         setSka(element.ska);
                         setId(element.id);
                         setIyzi(element.iyzi);
+                        ReactGA.event({
+                          category: "shop_process",
+                          action: "standart_product_viewed",
+                        });
                       }}
                     >
                       <div className="flex  justify-start">
@@ -542,6 +547,10 @@ function NfcLand() {
                         setSka(element.ska);
                         setId(element.id);
                         setIyzi(element.iyzi);
+                        ReactGA.event({
+                          category: "shop_process",
+                          action: "premium_product_viewed",
+                        });
                       }}
                     >
                       <div className="flex justify-start">
@@ -928,6 +937,10 @@ function NfcLand() {
                       setSka(element.ska);
                       setId(element.id);
                       setIyzi(element.iyzi);
+                      ReactGA.event({
+                        category: "shop_process",
+                        action: "standard_product_viewed",
+                      });
                     }}
                   >
                     <div className="flex  justify-start">
@@ -1001,6 +1014,10 @@ function NfcLand() {
                       setSka(element.ska);
                       setId(element.id);
                       setIyzi(element.iyzi);
+                      ReactGA.event({
+                        category: "shop_process",
+                        action: "premium_product_viewed",
+                      });
                     }}
                   >
                     <div className="flex justify-start">

@@ -1,20 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
 import LandPageHeader from "../components/LandPageHeader";
 import landpagebg from "../../images/landpagebg.jpg";
-import MailLand from "../pagesforland/MailLand";
-import AboutLand from "../pagesforland/AboutLand";
+import UMailLand from "../pagesforland/MailLand";
+import UAboutLand from "../pagesforland/AboutLand";
 import { Route, Link, Router, Redirect, Switch } from "react-router-dom";
 import Footer from "../pagesforland/Footer";
-import Nature from "../pagesforland/Nature";
+import UNature from "../pagesforland/Nature";
 import bubble from "../../images/bubbles.png";
 import Example from "../components/PopUp";
 import NfcPopup from "../components/NfcPopup";
-import NfcLand from "../pagesforland/NfcLand";
+import UNfcLand from "../pagesforland/NfcLand";
 import LandingPage from "./LandingPage";
 import LastNfc from "../pages/LastNfc";
-import AnasayfaLand from "../pagesforland/AnasayfaLand";
+import UAnasayfaLand from "../pagesforland/AnasayfaLand";
 import MediaQuery from "react-responsive";
 import MobileHeader from "../components/MobileHeader";
+import ReactGA from "react-ga";
+
+function trackView(Component) {
+  return function (props) {
+    const pathname = props.match.path;
+    let pageview;
+    if (pathname == "*") {
+      pageview = "/not-found";
+    } else {
+      pageview = pathname;
+    }
+    useEffect(() => {
+      ReactGA.pageview(pageview);
+    }, [pageview]);
+    return <Component {...props} />;
+  };
+}
+
+const MailLand = trackView(UMailLand),
+  AnasayfaLand = trackView(UAnasayfaLand),
+  NfcLand = trackView(UNfcLand),
+  Nature = trackView(UNature),
+  AboutLand = trackView(UAboutLand);
+
 function NewLandingPage() {
   return (
     <div className="   h-screen ">
@@ -30,24 +54,11 @@ function NewLandingPage() {
           </div>
 
           <Switch>
-            <Route path="/nfc/home">
-              <AnasayfaLand />
-            </Route>
-            <Route path="/nfc/nfccard">
-              <NfcLand />
-            </Route>
-            <Route path="/nfc/ürün">
-              <MailLand />
-            </Route>
-            <Route path="/nfc/nature">
-              <Nature />
-            </Route>
-            <Route path="/nfc/about">
-              <AboutLand />
-            </Route>
-            <Route path="/nfc/nature">
-              <Nature />
-            </Route>
+            <Route component={AnasayfaLand} path="/nfc/home"></Route>
+            <Route component={NfcLand} path="/nfc/nfccard"></Route>
+            <Route component={MailLand} path="/nfc/ürün"></Route>
+            <Route component={Nature} path="/nfc/nature"></Route>
+            <Route component={AboutLand} path="/nfc/about"></Route>
           </Switch>
 
           <div className="bg-janus-site-blue">

@@ -46,8 +46,6 @@ function LastNfc() {
       const links = Object.entries(docSnap.data().socialLinks)
         .map(([key, value]) => {
           if (value.value != "") {
-            console.log(key, value.selectedSocial);
-
             return {
               icon: socialIcons[value.selectedSocial],
               href: value.value,
@@ -71,13 +69,16 @@ function LastNfc() {
           <div className="flex mt-8 flex-row items-center">
             <a
               className=" flex flex-shrink-0"
-              href={`http://${userInfo?.socialLinks[i]?.value}`}
+              href={userInfo?.socialLinks[i]?.value}
             >
               <img className="w-24px h-24px" src={globeLogo} />
             </a>
-            <p className=" ml-6 font-roboto text-16px text-left  text-mail-gray">
+            <a
+              href={userInfo?.socialLinks[i]?.value}
+              className=" ml-6 font-roboto text-16px text-left  text-mail-gray"
+            >
               {userInfo?.socialLinks[i]?.value}
-            </p>{" "}
+            </a>{" "}
           </div>
         );
       }
@@ -123,13 +124,13 @@ function LastNfc() {
 
   return (
     <div className=" sm:h-screen sm:w-screen overflow-y-auto bg-janus-site-blue lg:px-56   ">
-      <div className="flex flex-col items-center justify-center p-8 lg:p-4 ">
+      <div className="flex flex-col items-center justify-center p-8 lg:p-12 ">
         <div className="">
-          <img className="sm:w-200px   mt-12" src={janusLogo} />
+          <img className="sm:w-200px  sm:mt-0 lg:mt-0" src={janusLogo} />
         </div>{" "}
-        <div className="mt-10 flex flex-col rounded-xl bg-white sm:w-full  ">
+        <div className="sm:mt-10 md:mt-4 flex flex-col rounded-xl bg-white sm:w-full  ">
           <div className="sm:flex sm:flex-col md:flex md:flex-row">
-            <div className="flex flex-row sm:justify-center p-12 ">
+            <div className="flex flex-row sm:justify-center p-12  ">
               <div className="sm:relative ">
                 {userInfo?.ppImage != null ? (
                   <img
@@ -164,33 +165,36 @@ function LastNfc() {
               <div
                 className={`${
                   userInfo?.ppImage == null && userInfo?.orgImage == null
-                    ? "sm:flex sm:flex-col md:ml-8 md:mt-12  "
+                    ? "sm:flex sm:flex-col md:ml-8 md:mt-12   "
                     : "sm:flex sm:flex-col md:ml-8"
                 }`}
               >
-                <p className="font-roboto font-bold text-input-gray text-2xl">
+                <p className="font-roboto font-bold text-input-gray  sm:text-2xl md:text-3xl md:self-start">
                   {userInfo?.userInformation?.name}
                 </p>
-                <p className="sm:mt-2 font-roboto font-medium text-input-gray text-xl">
+                <p className="sm:mt-2 font-roboto font-medium text-input-gray  sm:text-xl md:text-2xl md:self-start">
                   {userInfo?.userInformation?.unvan}
                 </p>
-                <p className=" font-roboto font-normal text-input-gray text-lg">
+                <p className=" font-roboto font-normal sm:text-lg md:text-2xl text-input-gray text-lg md:self-start">
                   {userInfo?.userInformation?.sirketAdi}
                 </p>
               </div>
             </div>
           </div>
-          <div className="sm:flex sm:flex-col md:justify-center md:ml-44 p-12 mt-4 px-20 lg:ml-72 ">
-            <div className="flex flex-row items-center">
+          <div className="sm:flex sm:flex-col md:justify-center md:ml-44 sm:mt-4 md:-mt-24 px-20 lg:ml-72 ">
+            <div className="flex flex-row  items-center">
               <a
                 className=" sm:flex sm:flex-shrink-0"
                 href={`mailto:` + userInfo?.userInformation?.eposta}
               >
                 <img className="w-24px h-24px" src={maillogo} />
               </a>
-              <p className=" ml-6 font-roboto text-16px text-left  text-mail-gray">
+              <a
+                href={`mailto:` + userInfo?.userInformation?.eposta}
+                className="sm:flex sm:flex-shrink-1 ml-6 font-roboto text-16px text-left  text-mail-gray"
+              >
                 {userInfo?.userInformation?.eposta}
-              </p>{" "}
+              </a>{" "}
             </div>
             <div className="flex mt-8 flex-row items-center">
               <a
@@ -199,9 +203,12 @@ function LastNfc() {
               >
                 <img className="w-24px h-24px" src={phonelogo} />
               </a>
-              <p className=" ml-6 font-roboto text-16px text-left  text-mail-gray">
+              <a
+                href={`tel:` + userInfo?.userInformation?.telefon}
+                className=" ml-6 font-roboto text-16px text-left  text-mail-gray"
+              >
                 {userInfo?.userInformation?.telefon}
-              </p>{" "}
+              </a>{" "}
             </div>
             {handleShowWeb()}
             {userInfo?.userInformation?.sirketAdresi != "" ? (
@@ -230,8 +237,8 @@ function LastNfc() {
               onClick={handleVCardDownload}
               className={`${
                 success
-                  ? "h-10 rounded-xl bg-green-300 px-24 text-white font-roboto font-medium"
-                  : "h-10 rounded-xl bg-janus-site-blue px-24 text-white font-roboto font-medium"
+                  ? "h-10 rounded-xl bg-green-300 sm:px-12 md:px-24 text-white font-roboto font-medium"
+                  : "h-10 rounded-xl bg-janus-site-blue sm:px-12 md:px-24 text-white font-roboto font-medium"
               }`}
             >
               {loading ? (

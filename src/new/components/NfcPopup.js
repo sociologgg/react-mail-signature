@@ -7,6 +7,7 @@ import phone from "../../images/ellipse.png";
 import Order1 from "../pages/Order1";
 import Order2 from "../pages/Order2";
 import MediaQuery from "react-responsive";
+import ReactGA from "react-ga";
 
 let kalkinmaAmaclari = [
   {
@@ -220,6 +221,10 @@ function NfcPopup({ name, imageb, imagef, vertical, price, ska, id, iyzi }) {
             )}
             <button
               onClick={() => {
+                ReactGA.event({
+                  category: "shop_process",
+                  action: "started_to_shop",
+                });
                 setIndex(1);
               }}
               className="w-236px h-40px bg-janus-site-blue focus:outline-none text-white text-bold rounded-xl mt-78px"
@@ -438,6 +443,10 @@ function NfcPopup({ name, imageb, imagef, vertical, price, ska, id, iyzi }) {
             )}
             <button
               onClick={() => {
+                ReactGA.event({
+                  category: "shop_process",
+                  action: "started_to_shop",
+                });
                 setIndex(1);
               }}
               className="w-236px h-40px bg-janus-site-blue self-center focus:outline-none text-white text-bold rounded-xl mb-10"
