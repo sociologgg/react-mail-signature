@@ -49,6 +49,7 @@ function LastNfc() {
             return {
               icon: socialIcons[value.selectedSocial],
               href: value.value,
+              name: docSnap.data().socialLinks[key].selectedSocial,
             };
           }
         })
@@ -93,9 +94,11 @@ function LastNfc() {
     vCard.cellPhone = userInfo?.userInformation?.telefon;
     vCard.email = userInfo?.userInformation?.eposta;
     vCard.workUrl = userInfo?.socialLinks[5];
-    vCard.photo.embedFromString(userInfo?.ppImage, "image/png");
+    vCard.homeAddress.city = userInfo?.sirketAdresi;
+    vCard.photo.attachFromUrl(userInfo?.ppImage, "image/png");
 
-    const card = vCard.getFormattedString();
+    var card = vCard.getFormattedString();
+
     const storageRef = ref(
       storage,
       "vcards/" + userInfo?.userInformation?.name + ".vcf"
@@ -181,17 +184,17 @@ function LastNfc() {
               </div>
             </div>
           </div>
-          <div className="sm:flex sm:flex-col md:justify-center md:ml-44 sm:mt-4 md:-mt-24 px-20 lg:ml-72 ">
+          <div className="sm:flex sm:flex-col  md:justify-center md:ml-44 sm:mt-4 md:-mt-24 px-20 lg:ml-72  ">
             <div className="flex flex-row  items-center">
               <a
                 className=" sm:flex sm:flex-shrink-0"
                 href={`mailto:` + userInfo?.userInformation?.eposta}
               >
-                <img className="w-24px h-24px" src={maillogo} />
+                <img className="w-24px h-24px " src={maillogo} />
               </a>
               <a
                 href={`mailto:` + userInfo?.userInformation?.eposta}
-                className="sm:flex sm:flex-shrink-1 ml-6 font-roboto text-16px text-left  text-mail-gray"
+                className="sm:flex sm:flex-wrap  ml-6 font-roboto text-16px text-left  text-mail-gray"
               >
                 {userInfo?.userInformation?.eposta}
               </a>{" "}
@@ -224,11 +227,13 @@ function LastNfc() {
           </div>
           <div className="sm:flex sm:flex-row  sm:grid sm:grid-cols-4 sm:gap-1 items-start md:grid-cols-10 md:ml-48 md:-mt-4 sm:p-12 lg:ml-80">
             {links.map((e) => {
-              return (
-                <a className="flex-shrink-0 ml-3" href={e.href}>
-                  <img className="w-7 h-7" src={e.icon} />
-                </a>
-              );
+              if (e.name != "web") {
+                return (
+                  <a className="flex-shrink-0 ml-3" href={e.href}>
+                    <img className="w-7 h-7" src={e.icon} />
+                  </a>
+                );
+              }
             })}
           </div>
           <div className="p-4">

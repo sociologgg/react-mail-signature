@@ -11,6 +11,7 @@ import Order2 from "./Order2";
 import phoneIcon from "../../images/ellipse.png";
 import MediaQuery from "react-responsive";
 import ReactGA from "react-ga";
+import BeatLoader from "react-spinners/BeatLoader";
 import {
   getStorage,
   ref,
@@ -42,6 +43,8 @@ function Order1({ name, selectedSKAS, iyzi }) {
   const [completedCrop, setCompletedCrop] = useState(null);
   const [isCropShown, setIsCropShown] = useState(false);
   const [upImg, setUpImg] = useState();
+  const [isLoadingImage1, setIsLoadingImage1] = useState(false);
+  const [isLoadingImage2, setIsLoadingImage2] = useState(false);
 
   const [userInformation, setUserInformation] = useState([]);
   const [fname, setName] = useState("");
@@ -75,6 +78,13 @@ function Order1({ name, selectedSKAS, iyzi }) {
         e.target.files[0].type == "image/jpg"
       ) {
         const reader = new FileReader();
+
+        reader.readAsDataURL(e.target.files[0]);
+
+        reader.addEventListener("load", (e) => {
+          const data = e.target.result;
+          setPPImage(data);
+        });
 
         /* upload*/
         const metadata = {
@@ -128,6 +138,7 @@ function Order1({ name, selectedSKAS, iyzi }) {
             // Upload completed successfully, now we can get the download URL
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
               console.log("File available at", downloadURL);
+
               setPPImage(downloadURL);
             });
           }
@@ -161,6 +172,15 @@ function Order1({ name, selectedSKAS, iyzi }) {
         const metadata = {
           contentType: "image/jpeg",
         };
+
+        const reader1 = new FileReader();
+
+        reader1.readAsDataURL(e.target.files[0]);
+
+        reader1.addEventListener("load", (e) => {
+          const data = e.target.result;
+          setOrgImage(data);
+        });
 
         // Upload file and metadata to the object 'images/mountains.jpg'
         const storageRef = ref(storage, "images/" + e.target.files[0].name);
@@ -266,8 +286,8 @@ function Order1({ name, selectedSKAS, iyzi }) {
               <p className="font-roboto mt-3 text-input-gray ">
                 Kartvizitinde görünmesini istediğin bilgileri girebilirsin.
               </p>
-              <div className="flex justify-center space-x-10 flex-row p-16">
-                <div>
+              <div className="flex justify-center  space-x-10 flex-row p-16">
+                <div className="">
                   {ppImage != null ? (
                     <img className="rounded-xl w-130px h-130px" src={ppImage} />
                   ) : (

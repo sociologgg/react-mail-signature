@@ -55,6 +55,7 @@
     "redux-saga": "^1.1.3",
     "slick-carousel": "^1.8.1",
     "vcards-js": "^2.10.0",
+    "vcf": "^2.1.1",
     "web-vitals": "^1.0.1",
     "yup": "^0.32.11"
   },
